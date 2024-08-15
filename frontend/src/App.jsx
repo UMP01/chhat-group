@@ -8,6 +8,7 @@ import "./App.css";
 import Home from "./Pages/Website/Home";
 import Contact from "./Pages/Website/Contact";
 import Navbar from "./Components/NavigationBar/NavigationBar";
+import Footer from "./Components/Footer/Footer";
 import About from "./Pages/Website/AboutUs";
 import Career from "./Pages/Website/Career";
 import Blog from "./Pages/Website/Blog";
@@ -39,6 +40,7 @@ const AppRoutes = () => {
         <Route path="/login" element={<Admin />} />
         <Route path="/chhat-diamond" element={<ChhatDiamond />} />
       </Routes>
+      {hideNavbar && <Footer />}
     </div>
   );
 };
