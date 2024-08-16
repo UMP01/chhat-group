@@ -1,68 +1,68 @@
-.bg-primary{
-  background-color: #f4f6f7;
+.bg-primary {
+    background-color: #f4f6f7;
 }
 .slideshow-title {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  line-clamp: 2;
-  -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
 }
 .slideshow-description {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  line-clamp: 3;
-  -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
 }
 .bg-feature {
-  background-color: #f6f7f8;
+    background-color: #f6f7f8;
 }
 /*Header Component*/
 .header {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 350px;
-  text-align: center;
-  flex-direction: column;
-  border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 350px;
+    text-align: center;
+    flex-direction: column;
+    border-radius: 5px;
 }
 
 .header h1 {
-  font-size: 2.5rem;
-  color: #5c715e;
+    font-size: 2.5rem;
+    color: #5c715e;
 }
 
 .header p {
-  font-size: 1.25rem;
-  color: #5c715e;
+    font-size: 1.25rem;
+    color: #5c715e;
 }
 @media only screen and (max-width: 650px) {
-  .slideshow {
-    min-height: 400px;
-  }
+    .slideshow {
+        min-height: 400px;
+    }
 }
 @media (min-width: 992px) {
-  .feature-text {
-    padding-left: calc(((100% - 960px) / 2) + 0.75rem);
-  }
+    .feature-text {
+        padding-left: calc(((100% - 960px) / 2) + 0.75rem);
+    }
 }
 
 @media (min-width: 1200px) {
-  .feature-text {
-    padding-left: calc(((100% - 1140px) / 2) + 0.75rem);
-  }
+    .feature-text {
+        padding-left: calc(((100% - 1140px) / 2) + 0.75rem);
+    }
 }
 
 @media (min-width: 1400px) {
-  .feature-text {
-    padding-left: calc(((100% - 1320px) / 2) + 0.75rem);
-  }
+    .feature-text {
+        padding-left: calc(((100% - 1320px) / 2) + 0.75rem);
+    }
 }
 
 .bg-card {
-  background-color: #f2f3f4;
+    background-color: #f2f3f4;
 }
