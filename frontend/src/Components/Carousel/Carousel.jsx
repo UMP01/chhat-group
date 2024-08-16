@@ -49,7 +49,7 @@ const Carousel = () => {
     };
 
     return (
-        <div className="relative overflow-hidden w-full lg:w-4/5 mx-auto rounded-md">
+        <div className="relative overflow-hidden w-full lg:w-[calc(100%-150px)] max-w-[calc(100%-20px)] mx-auto h-64 md:h-80 lg:h-[550px] xl:h-[550px] rounded-md">
             <div
                 className="relative flex transition-transform duration-500 ease-in-out"
                 style={{ transform: `translateX(-${currentIndex * 100}%)` }}
@@ -59,14 +59,14 @@ const Carousel = () => {
                         <img
                             src={item.src}
                             alt={`Slide ${index}`}
-                            className="w-full h-60 md:h-80 lg:h-[590px] object-cover"
+                            className="w-full h-full object-cover"
                         />
-                        <div className="absolute inset-0 flex flex-col items-center justify-center p-4 bg-gradient-to-t from-black via-transparent to-transparent">
-                            <div className="text-center text-cyan-700">
-                                <h1 className="text-lg sm:text-2xl md:text-3xl lg:text-4xl mb-4">
+                        <div className="absolute inset-0 flex items-center justify-center p-4 md:p-6 lg:p-8 bg-gradient-to-t from-black via-transparent to-transparent">
+                            <div className="text-center text-cyan-700 z-10">
+                                <h1 className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl mb-4">
                                     {item.caption}
                                 </h1>
-                                <p className="text-xs sm:text-sm md:text-base lg:text-lg">
+                                <p className="text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl">
                                     {item.description}
                                 </p>
                             </div>
@@ -75,22 +75,22 @@ const Carousel = () => {
                 ))}
             </div>
             <button
-                className="absolute top-1/2 left-4 transform -translate-y-1/2 text-white"
+                className="absolute top-1/2 left-4 transform -translate-y-1/2 text-white z-30"
                 onClick={prevSlide}
             >
                 <IoIosArrowBack className="w-6 h-6 sm:w-8 sm:h-8" />
             </button>
             <button
-                className="absolute top-1/2 right-4 transform -translate-y-1/2 text-white"
+                className="absolute top-1/2 right-4 transform -translate-y-1/2 text-white z-30"
                 onClick={nextSlide}
             >
                 <IoIosArrowForward className="w-6 h-6 sm:w-8 sm:h-8" />
             </button>
-            <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+            <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-20">
                 {carouselItems.map((_, index) => (
                     <button
                         key={index}
-                        className={`w-3 h-3 rounded-full ${
+                        className={`w-2 h-2 rounded-full ${
                             index === currentIndex ? "bg-white" : "bg-gray-400"
                         }`}
                         onClick={() => goToSlide(index)}

@@ -59,8 +59,8 @@ const Card = ({ imageSrc, altText, title, description, link }) => (
 );
 
 const CardGrid = () => (
-    <div className="container max-w-7xl mx-auto rubik mb-10">
-        <div className="text-center pt-20 pb-10">
+    <div className="lg:mx-auto lg:w-4/5 rubik mb-5">
+        <div className="text-center pt-20 pb-5">
             <h5 className="text-xl sm:text-2xl md:text-3xl lg:text-3xl text-gray-600 mb-3">
                 Our Services
             </h5>
