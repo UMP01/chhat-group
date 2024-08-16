@@ -49,7 +49,7 @@ const Carousel = () => {
     };
 
     return (
-        <div className="relative overflow-hidden w-full lg:w-[calc(100%-150px)] max-w-[calc(100%-20px)] mx-auto h-64 md:h-80 lg:h-[550px] xl:h-[550px] rounded-md">
+        <div className="relative overflow-hidden w-full lg:w-[calc(100%-10px)] max-w-[calc(100%-20px)] mx-auto h-64 md:h-80 lg:h-[600px] rounded-md">
             <div
                 className="relative flex transition-transform duration-500 ease-in-out"
                 style={{ transform: `translateX(-${currentIndex * 100}%)` }}
@@ -63,10 +63,10 @@ const Carousel = () => {
                         />
                         <div className="absolute inset-0 flex items-center justify-center p-4 md:p-6 lg:p-8 bg-gradient-to-t from-black via-transparent to-transparent">
                             <div className="text-center text-cyan-700 z-10">
-                                <h1 className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl mb-4">
+                                <h1 className="sm:text-2xl md:text-3xl lg:text-4xlmb-4">
                                     {item.caption}
                                 </h1>
-                                <p className="text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl">
+                                <p className="text-sm sm:text-base md:text-base lg:text-base">
                                     {item.description}
                                 </p>
                             </div>
