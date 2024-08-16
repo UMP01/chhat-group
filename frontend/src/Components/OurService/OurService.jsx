@@ -41,8 +41,12 @@ const Card = ({ imageSrc, altText, title, description, link }) => (
                 className="img-fluid w-56 mx-auto h-auto object-fit pt-3"
             />
             <div className="px-8 py-1">
-                <h5 className="text-xl text-gray-600 pb-2 pt-5">{title}</h5>
-                <p className="text-gray-500 line-clamp-4">{description}</p>
+                <h5 className=" text-xl sm:text-lg md:text-xl lg:text-xl text-gray-600 pb-2 pt-5">
+                    {title}
+                </h5>
+                <p className="text-gray-500 line-clamp-4 text-sm sm:text-base md:text-base lg:text-base">
+                    {description}
+                </p>
                 <Link
                     className="primary-color inline-flex items-center pt-3 border-b-2 border-cyan-500 hover:translate-x-3 duration-200 cursor-pointer"
                     to={link}
@@ -55,12 +59,14 @@ const Card = ({ imageSrc, altText, title, description, link }) => (
 );
 
 const CardGrid = () => (
-    <div className="container max-w-6xl mx-auto rubik mb-10">
+    <div className="container max-w-7xl mx-auto rubik mb-10">
         <div className="text-center pt-20 pb-10">
-            <h5 className="text-3xl text-gray-600 mb-3">Our Services</h5>
-            <p className="text-gray-500">
-                We provide comprehensive services in trading, market research, and
-                product sales, specializing in high-quality jewelery.
+            <h5 className="text-xl sm:text-2xl md:text-3xl lg:text-3xl text-gray-600 mb-3">
+                Our Services
+            </h5>
+            <p className="text-gray-500 text-sm sm:text-base md:text-base lg:text-base">
+                We provide comprehensive services in trading, market research,
+                and product sales, specializing in high-quality jewelery.
             </p>
         </div>
         <div className="flex flex-wrap justify-center items-center">

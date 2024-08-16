@@ -33,17 +33,15 @@ const Carousel = () => {
     const [currentIndex, setCurrentIndex] = useState(0);
 
     const prevSlide = () => {
-        const isFirstSlide = currentIndex === 0;
-        const newIndex = isFirstSlide
-            ? carouselItems.length - 1
-            : currentIndex - 1;
-        setCurrentIndex(newIndex);
+        setCurrentIndex((prevIndex) =>
+            prevIndex === 0 ? carouselItems.length - 1 : prevIndex - 1
+        );
     };
 
     const nextSlide = () => {
-        const isLastSlide = currentIndex === carouselItems.length - 1;
-        const newIndex = isLastSlide ? 0 : currentIndex + 1;
-        setCurrentIndex(newIndex);
+        setCurrentIndex((prevIndex) =>
+            prevIndex === carouselItems.length - 1 ? 0 : prevIndex + 1
+        );
     };
 
     const goToSlide = (index) => {
@@ -51,43 +49,42 @@ const Carousel = () => {
     };
 
     return (
-        <div className="relative h-screen slideshow overflow-hidden">
+        <div className="relative overflow-hidden w-full lg:w-4/5 mx-auto rounded-md">
             <div
-                className="absolute top-0 left-0 w-full h-full flex transition-transform duration-500"
+                className="relative flex transition-transform duration-500 ease-in-out"
                 style={{ transform: `translateX(-${currentIndex * 100}%)` }}
             >
                 {carouselItems.map((item, index) => (
-                    <div
-                        key={index}
-                        className="w-full h-full flex-shrink-0 flex items-center justify-center bg-gray-200 relative"
-                    >
+                    <div key={index} className="w-full flex-shrink-0 relative">
                         <img
                             src={item.src}
                             alt={`Slide ${index}`}
-                            className="w-full h-full object-cover"
+                            className="w-full h-60 md:h-80 lg:h-[590px] object-cover"
                         />
-                        <div className="absolute left-8 sm:left-1/2 sm:transform sm:-translate-x-1/2 top-1/3 transform text-cyan-800 p-2 rounded text-left sm:text-center">
-                            <h1 className="text-2xl md:text-4xl sm:text-3xl mb-5 slideshow-caption rubik">
-                                {item.caption}
-                            </h1>
-                            <p className="text-sm md:text-xl sm:text-lg slideshow-description rubik">
-                                {item.description}
-                            </p>
+                        <div className="absolute inset-0 flex flex-col items-center justify-center p-4 bg-gradient-to-t from-black via-transparent to-transparent">
+                            <div className="text-center text-cyan-700">
+                                <h1 className="text-lg sm:text-2xl md:text-3xl lg:text-4xl mb-4">
+                                    {item.caption}
+                                </h1>
+                                <p className="text-xs sm:text-sm md:text-base lg:text-lg">
+                                    {item.description}
+                                </p>
+                            </div>
                         </div>
                     </div>
                 ))}
             </div>
             <button
-                className="absolute top-1/2 left-4 transform -translate-y-1/2 text-white p-2 rounded-full"
+                className="absolute top-1/2 left-4 transform -translate-y-1/2 text-white"
                 onClick={prevSlide}
             >
-                <IoIosArrowBack className="w-8 h-8" />
+                <IoIosArrowBack className="w-6 h-6 sm:w-8 sm:h-8" />
             </button>
             <button
-                className="absolute top-1/2 right-4 transform -translate-y-1/2 text-white p-2 rounded-full"
+                className="absolute top-1/2 right-4 transform -translate-y-1/2 text-white"
                 onClick={nextSlide}
             >
-                <IoIosArrowForward className="w-8 h-8" />
+                <IoIosArrowForward className="w-6 h-6 sm:w-8 sm:h-8" />
             </button>
             <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
                 {carouselItems.map((_, index) => (
