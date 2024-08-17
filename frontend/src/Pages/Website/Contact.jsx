@@ -5,29 +5,30 @@ import { FaPhoneAlt } from "react-icons/fa";
 import { IoMailSharp, IoLocationSharp } from "react-icons/io5";
 import { FaYoutube, FaFacebookF } from "react-icons/fa";
 
-
 const Contact = () => {
     return (
         <div>
             <Breadcrumb curPage="Contact" />
-            <div className="container mb-10">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 rubik">
+            <div className="container max-w-7xl mx-auto mb-10">
+                <div className=" px-4 sm:px-6 lg:px-8 rubik">
                     <div className="flex flex-wrap items-center">
-                        <div className="w-full lg:w-1/2 px-4 lg:px-10 mt-5">
+                        <div className="w-full lg:w-2/5 px-4 lg:px-10 mt-5">
                             <img
                                 src={Logo}
                                 className="img-fluid w-96 h-auto mx-auto"
                                 alt="Chhat Group Logo"
                             />
                         </div>
-                        <div className="w-full lg:w-1/2 mt-5 px-4 lg:px-10">
-                            <h5 className="uppercase text-xl primary-color my-5">
+                        <div className="w-full lg:w-3/5 mt-5 px-4 lg:px-10">
+                            <h5 className="uppercase text-xl sm:text-xl md:text-2xl lg:text-3xl primary-color my-5">
                                 Contact to Chhat Group
                             </h5>
                             <div className="contact-info ml-5">
                                 <div className="flex items-center my-2">
                                     <FaPhoneAlt className="mr-3" />
-                                    <p className="text-gray-600">+855 12 890 801 / 10 969 005</p>
+                                    <p className="text-gray-600">
+                                        +855 12 890 801 / 10 969 005
+                                    </p>
                                 </div>
                                 <div className="flex items-center my-2">
                                     <IoMailSharp className="mr-3" />
@@ -39,24 +40,28 @@ const Contact = () => {
                                     </a>
                                 </div>
                                 <div className="flex items-start justify-start my-2">
-                                    <IoLocationSharp className="mr-3" />
+                                    <IoLocationSharp className="mr-3 text-4xl" />
                                     <p className="text-gray-600">
-                                        Borey Piphup Thmey La Sen Sok 2 #47-49, Street BT-08M, Phum
-                                        Krang Angkrong, Sangkat Krang Thnong, Khan Sen Sok, Phnom
-                                        Penh, Cambodia, Phnom Penh, Cambodia, 120804
+                                        Borey Piphup Thmey La Sen Sok 2 #47-49,
+                                        Street BT-08M, Phum Krang Angkrong,
+                                        Sangkat Krang Thnong, Khan Sen Sok,
+                                        Phnom Penh, Cambodia, Phnom Penh,
+                                        Cambodia, 120804
                                     </p>
                                 </div>
                             </div>
-                            <h5 className="text-xl primary-color my-3 ml-5">Follow us</h5>
+                            <h5 className="text-lg primary-color my-3 ml-5">
+                                Follow us
+                            </h5>
                             <div className="container-social-media ml-5 flex">
-                                <div className="btn-lg-square primary-bg-color rounded-full flex items-center justify-center w-10 h-10 mr-1">
+                                <div className="btn-lg-square primary-bg-color rounded-full flex items-center justify-center w-10 h-10 mr-1 hover:bg-white duration-500 ease-in-out">
                                     <a href="https://facebook.com">
-                                        <FaFacebookF className="w-5 h-5 text-white" />
+                                        <FaFacebookF className="w-5 h-5 text-white hover:text-cyan-600 duration-500 ease-in-out" />
                                     </a>
                                 </div>
-                                <div className="btn-lg-square primary-bg-color rounded-full flex items-center justify-center w-10 h-10 ml-1">
+                                <div className="btn-lg-square primary-bg-color rounded-full flex items-center justify-center w-10 h-10 ml-1 hover:bg-white duration-500 ease-in-out">
                                     <a href="https://youtube.com">
-                                        <FaYoutube className="w-5 h-5 text-white" />
+                                        <FaYoutube className="w-5 h-5 text-white hover:text-cyan-600 duration-500 ease-in-out" />
                                     </a>
                                 </div>
                             </div>
