@@ -94,7 +94,7 @@ const About = () => {
           <h1 className=" max-w-7xl mx-auto mt-9 text-xl text-black font-medium uppercase">chhat group team member</h1>
             <div className="max-w-7xl mx-auto w-full grid grid-cols-9">
                 {/* Stack 1 */}
-                <div className="col-span-4 w-[550px] h-[220px] mt-5 rounded-md">
+                <div className="col-span-4 w-[570px] h-[220px] mt-5 rounded-md">
 
                     <div className="w-full h-full bg-[#EDEAEA] rounded-md flex">
                         <div className="w-[180px] h-[150px]  rounded-[100%] mt-9 ml-5 ">
@@ -171,7 +171,7 @@ const About = () => {
 
 
                 {/* Stack 3 */}
-                <div className="col-span-4 w-[550px] h-[220px] mt-5 rounded-md">
+                <div className="col-span-4 w-[570px] h-[220px] mt-5 rounded-md">
 
                     <div className="w-full h-full bg-[#EDEAEA] rounded-md flex">
                         <div className="w-[180px] h-[150px]  rounded-[100%] mt-9 ml-5 ">
@@ -207,7 +207,7 @@ const About = () => {
                 </div>
                 <div className="col-span-4 w-full h-full"></div> 
 
-                 {/* Stack 2 */}
+                 {/* Stack 4 */}
                  <div className="col-span-4 w-full h-full"></div> 
                 <div className="relative col-span-1 w-full h-full flex justify-center items-center">
                     <div className="h-full w-[2px] bg-[#72BCF1] mt-14"></div>
@@ -246,8 +246,8 @@ const About = () => {
 
                 </div>
 
-                {/* Stack 1 */}
-                <div className="col-span-4 w-[550px] h-[220px] mt-5 rounded-md">
+                {/* Stack 5 */}
+                <div className="col-span-4 w-[570px] h-[220px] mt-5 rounded-md">
 
                     <div className="w-full h-full bg-[#EDEAEA] rounded-md flex">
                         <div className="w-[180px] h-[150px]  rounded-[100%] mt-9 ml-5 ">
