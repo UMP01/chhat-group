@@ -17,7 +17,7 @@ const FindOut = () => {
                     />
                 </div>
             </div>
-            <div className="lg:w-1/2 lg:order-2 lg:pl-14 py-5">
+            <div className="lg:w-1/2 lg:order-2 lg:pl-5 py-5">
                 <div className="p-5">
                     <h6 className="mb-4 pb-2 text-xs sm:text-sm md:text-base lg:text-base primary-color">
                         About Us
