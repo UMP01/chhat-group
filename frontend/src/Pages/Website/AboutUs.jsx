@@ -1,5 +1,10 @@
 import Breadcrumb from "../../Components/Breadcrumb/Breadcrumb";
 import Banner from "../../assets/Images/Homepage/1823.jpg";
+import { FaPhoneAlt } from "react-icons/fa";
+import { IoMdMail } from "react-icons/io";
+import { FaFacebook } from "react-icons/fa";
+import { FaTelegramPlane } from "react-icons/fa";
+import Picture from "../../assets/Images/AboutUs/1.png";
 
 const About = () => {
   
@@ -84,6 +89,202 @@ const About = () => {
                   </ul>  
               </div>
           </div>
+      </div>
+      <div className="container max-w-7xl h-full mx-auto  rubik  rounded-md mb-8">
+          <h1 className=" max-w-7xl mx-auto mt-9 text-xl text-black font-medium uppercase">chhat group team member</h1>
+            <div className="max-w-7xl mx-auto w-full grid grid-cols-9">
+                {/* Stack 1 */}
+                <div className="col-span-4 w-[550px] h-[220px] mt-5 rounded-md">
+
+                    <div className="w-full h-full bg-[#EDEAEA] rounded-md flex">
+                        <div className="w-[180px] h-[150px]  rounded-[100%] mt-9 ml-5 ">
+                            <img src={Picture} alt="" className="w-full h-full rounded-full bject-cover" />
+                        </div>
+                        <div className="w-[420px] h-[250px] m-5">
+                                <h2 className="text-xl font-medium">CO-Founder & BOD Member</h2>
+                                <div className="w-full h-[150px]  mt-3">
+                                <div className="flex justify-start align-middle p-3 text-[#0191DA] ">
+                                <FaPhoneAlt className="p-0 text-sm " />
+                                <span className="pl-3 text-sm space-x-7 font-normal">+855 12630103</span>
+                                </div>
+                                <div className="flex justify-start align-middle pl-3 text-[#0191DA] ">
+                                <IoMdMail  className="p-0 text-xl " />
+                                <span className="pl-3 text-sm space-x-7 font-normal">lengchansocheat.chhat@chhatgroup.com</span>
+                                </div>
+                                <div className="flex justify-start align-middle p-3 text-[#0191DA] ">
+                                <FaFacebook   className="p-0 text-xl " />
+                                <span className="pl-3 text-sm space-x-7 font-normal">socheat.leng.1</span>
+                                </div>
+                                <div className="flex justify-start align-middle pl-3 text-[#0191DA] ">
+                                <FaTelegramPlane    className="p-0 text-xl " />
+                                <span className="pl-3 text-sm space-x-7 font-normal">+855 12630103</span>
+                                </div>
+                                </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div className="relative col-span-1 w-full h-full flex justify-center items-center">
+                    <div className="h-full w-[2px] bg-[#72BCF1] mt-14"></div>
+                    <div className="absolute w-4 h-4 rounded-full bg-[#72BCF1] top-4"></div>
+                </div>
+                <div className="col-span-4 w-full h-full"></div> 
+
+                {/* Stack 2 */}
+                <div className="col-span-4 w-full h-full"></div> 
+                <div className="relative col-span-1 w-full h-full flex justify-center items-center">
+                    <div className="h-full w-[2px] bg-[#72BCF1] mt-14"></div>
+                    <div className="absolute w-4 h-4 rounded-full bg-[#72BCF1] top-4"></div>
+                </div>
+               
+                <div className="col-span-4 w-[550px] h-[220px] mt-5 rounded-md">
+
+                    <div className="w-full h-full bg-[#EDEAEA] rounded-md  flex">
+                    <div className="w-[420px] h-[250px] m-5">
+                                <h2 className="text-xl font-medium">CO-Founder & BOD Member</h2>
+                                <div className="w-full h-[150px]  mt-3">
+                                <div className="flex justify-start align-middle p-3 text-[#0191DA] ">
+                                <FaPhoneAlt className="p-0 text-sm " />
+                                <span className="pl-3 text-sm space-x-7 font-normal">+855 12630103</span>
+                                </div>
+                                <div className="flex justify-start align-middle pl-3 text-[#0191DA] ">
+                                <IoMdMail  className="p-0 text-xl " />
+                                <span className="pl-3 text-sm space-x-7 font-normal">lengchansocheat.chhat@chhatgroup.com</span>
+                                </div>
+                                <div className="flex justify-start align-middle p-3 text-[#0191DA] ">
+                                <FaFacebook   className="p-0 text-xl " />
+                                <span className="pl-3 text-sm space-x-7 font-normal">socheat.leng.1</span>
+                                </div>
+                                <div className="flex justify-start align-middle pl-3 text-[#0191DA] ">
+                                <FaTelegramPlane    className="p-0 text-xl " />
+                                <span className="pl-3 text-sm space-x-7 font-normal">+855 12630103</span>
+                                </div>
+                                </div>
+                        </div>
+                        <div className="w-[180px] h-[150px]  rounded-[100%] mt-9 mr-5 ">
+                            <img src={Picture} alt="" className="w-full h-full rounded-full bject-cover" />
+                        </div>
+                        
+                    </div>
+
+                </div>
+
+
+                {/* Stack 3 */}
+                <div className="col-span-4 w-[550px] h-[220px] mt-5 rounded-md">
+
+                    <div className="w-full h-full bg-[#EDEAEA] rounded-md flex">
+                        <div className="w-[180px] h-[150px]  rounded-[100%] mt-9 ml-5 ">
+                            <img src={Picture} alt="" className="w-full h-full rounded-full bject-cover" />
+                        </div>
+                        <div className="w-[420px] h-[250px] m-5">
+                                <h2 className="text-xl font-medium">CO-Founder & BOD Member</h2>
+                                <div className="w-full h-[150px]  mt-3">
+                                <div className="flex justify-start align-middle p-3 text-[#0191DA] ">
+                                <FaPhoneAlt className="p-0 text-sm " />
+                                <span className="pl-3 text-sm space-x-7 font-normal">+855 12630103</span>
+                                </div>
+                                <div className="flex justify-start align-middle pl-3 text-[#0191DA] ">
+                                <IoMdMail  className="p-0 text-xl " />
+                                <span className="pl-3 text-sm space-x-7 font-normal">lengchansocheat.chhat@chhatgroup.com</span>
+                                </div>
+                                <div className="flex justify-start align-middle p-3 text-[#0191DA] ">
+                                <FaFacebook   className="p-0 text-xl " />
+                                <span className="pl-3 text-sm space-x-7 font-normal">socheat.leng.1</span>
+                                </div>
+                                <div className="flex justify-start align-middle pl-3 text-[#0191DA] ">
+                                <FaTelegramPlane    className="p-0 text-xl " />
+                                <span className="pl-3 text-sm space-x-7 font-normal">+855 12630103</span>
+                                </div>
+                                </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div className="relative col-span-1 w-full h-full flex justify-center items-center">
+                    <div className="h-full w-[2px] bg-[#72BCF1] mt-14"></div>
+                    <div className="absolute w-4 h-4 rounded-full bg-[#72BCF1] top-4"></div>
+                </div>
+                <div className="col-span-4 w-full h-full"></div> 
+
+                 {/* Stack 2 */}
+                 <div className="col-span-4 w-full h-full"></div> 
+                <div className="relative col-span-1 w-full h-full flex justify-center items-center">
+                    <div className="h-full w-[2px] bg-[#72BCF1] mt-14"></div>
+                    <div className="absolute w-4 h-4 rounded-full bg-[#72BCF1] top-4"></div>
+                </div>
+               
+                <div className="col-span-4 w-[550px] h-[220px] mt-5 rounded-md">
+
+                    <div className="w-full h-full bg-[#EDEAEA] rounded-md  flex">
+                    <div className="w-[420px] h-[250px] m-5">
+                                <h2 className="text-xl font-medium">CO-Founder & BOD Member</h2>
+                                <div className="w-full h-[150px]  mt-3">
+                                <div className="flex justify-start align-middle p-3 text-[#0191DA] ">
+                                <FaPhoneAlt className="p-0 text-sm " />
+                                <span className="pl-3 text-sm space-x-7 font-normal">+855 12630103</span>
+                                </div>
+                                <div className="flex justify-start align-middle pl-3 text-[#0191DA] ">
+                                <IoMdMail  className="p-0 text-xl " />
+                                <span className="pl-3 text-sm space-x-7 font-normal">lengchansocheat.chhat@chhatgroup.com</span>
+                                </div>
+                                <div className="flex justify-start align-middle p-3 text-[#0191DA] ">
+                                <FaFacebook   className="p-0 text-xl " />
+                                <span className="pl-3 text-sm space-x-7 font-normal">socheat.leng.1</span>
+                                </div>
+                                <div className="flex justify-start align-middle pl-3 text-[#0191DA] ">
+                                <FaTelegramPlane    className="p-0 text-xl " />
+                                <span className="pl-3 text-sm space-x-7 font-normal">+855 12630103</span>
+                                </div>
+                                </div>
+                        </div>
+                        <div className="w-[180px] h-[150px]  rounded-[100%] mt-9 mr-5 ">
+                            <img src={Picture} alt="" className="w-full h-full rounded-full bject-cover" />
+                        </div>
+                        
+                    </div>
+
+                </div>
+
+                {/* Stack 1 */}
+                <div className="col-span-4 w-[550px] h-[220px] mt-5 rounded-md">
+
+                    <div className="w-full h-full bg-[#EDEAEA] rounded-md flex">
+                        <div className="w-[180px] h-[150px]  rounded-[100%] mt-9 ml-5 ">
+                            <img src={Picture} alt="" className="w-full h-full rounded-full bject-cover" />
+                        </div>
+                        <div className="w-[420px] h-[250px] m-5">
+                                <h2 className="text-xl font-medium">CO-Founder & BOD Member</h2>
+                                <div className="w-full h-[150px]  mt-3">
+                                <div className="flex justify-start align-middle p-3 text-[#0191DA] ">
+                                <FaPhoneAlt className="p-0 text-sm " />
+                                <span className="pl-3 text-sm space-x-7 font-normal">+855 12630103</span>
+                                </div>
+                                <div className="flex justify-start align-middle pl-3 text-[#0191DA] ">
+                                <IoMdMail  className="p-0 text-xl " />
+                                <span className="pl-3 text-sm space-x-7 font-normal">lengchansocheat.chhat@chhatgroup.com</span>
+                                </div>
+                                <div className="flex justify-start align-middle p-3 text-[#0191DA] ">
+                                <FaFacebook   className="p-0 text-xl " />
+                                <span className="pl-3 text-sm space-x-7 font-normal">socheat.leng.1</span>
+                                </div>
+                                <div className="flex justify-start align-middle pl-3 text-[#0191DA] ">
+                                <FaTelegramPlane    className="p-0 text-xl " />
+                                <span className="pl-3 text-sm space-x-7 font-normal">+855 12630103</span>
+                                </div>
+                                </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div className="relative col-span-1 w-full h-[210px] flex justify-center items-center">
+                    <div className="h-full w-[2px] bg-[#72BCF1] mt-14"></div>
+                    <div className="absolute w-4 h-4 rounded-full bg-[#72BCF1] top-4"></div>
+                </div>
+                <div className="col-span-4 w-full h-full"></div> 
+                
+            </div>
+         
       </div>
     </>
   );
