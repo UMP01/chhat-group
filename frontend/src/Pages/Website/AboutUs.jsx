@@ -24,7 +24,7 @@ const About = () => {
     ];
     return (
         <>
-            <div className="bg-[#f8f8f8] pt-5">
+            <div className="bg-gray-100 pt-5">
                 <Breadcrumb curPage="About US" />
                 <div className="container max-w-7xl mx-auto px-5 pb-5 pt-5 rubik rounded flex flex-col lg:flex-row gap-5">
                     <div className="lg:w-1/2 flex flex-col gap-4">
@@ -36,13 +36,16 @@ const About = () => {
                             />
                         </div>
                         <div className="w-full">
-                            <h1 className="text-sm text-[#0191DA] uppercase font-bold">
+                            <h1 className="text-lg text-cyan-700 pl-3 uppercase font-medium">
                                 Core Values
                             </h1>
                             <div className="w-full h-[1px] bg-[#D9D9D9] mt-1"></div>
-                            <ul className="text-sm pt-2 pl-5">
+                            <ul className="text-md pt-2 pl-5">
                                 {Values.map((title, index) => (
-                                    <li className="list-disc" key={index}>
+                                    <li
+                                        className="list-disc text-gray-800"
+                                        key={index}
+                                    >
                                         {title}
                                     </li>
                                 ))}
@@ -51,11 +54,11 @@ const About = () => {
                     </div>
                     <div className="lg:w-1/2 flex flex-col gap-4">
                         <div className="w-full">
-                            <h1 className="text-sm text-[#0191DA] pl-3 uppercase font-bold">
+                            <h1 className="text-lg text-cyan-700 pl-3 uppercase font-medium">
                                 Vision
                             </h1>
                             <div className="w-full h-[1px] bg-[#D9D9D9] mx-3 mt-1"></div>
-                            <p className="text-sm pt-2 pl-5">
+                            <p className="text-md pt-2 pl-5 text-gray-800">
                                 To be the most trusted Trading, Import and
                                 Export Company, widely recognized by our
                                 customers and trade partners in Cambodia and
@@ -67,24 +70,28 @@ const About = () => {
                             </p>
                         </div>
                         <div className="w-full">
-                            <h1 className="text-sm text-[#0191DA] pl-3 uppercase font-bold">
+                            <h1 className="text-lg text-cyan-700 pl-3 uppercase font-medium">
                                 Mission
                             </h1>
                             <div className="w-full h-[1px] bg-[#D9D9D9] mx-3 mt-1"></div>
-                            <ul className="text-sm pt-2 pl-8 list-decimal">
+                            <ul className="text-md pt-2 pl-8 list-decimal">
                                 {Mission.map((title, index) => (
-                                    <li key={index}>{title}</li>
+                                    <li key={index} className="text-gray-800">
+                                        {title}
+                                    </li>
                                 ))}
                             </ul>
                         </div>
                         <div className="w-full">
-                            <h1 className="text-sm text-[#0191DA] pl-3 uppercase font-bold">
+                            <h1 className="text-lg text-cyan-700 pl-3 uppercase font-medium">
                                 Goal
                             </h1>
                             <div className="w-full h-[1px] bg-[#D9D9D9] mx-3 mt-1"></div>
-                            <ul className="text-sm pt-2 pl-8 list-disc">
+                            <ul className="text-md pt-2 pl-8 list-disc">
                                 {Goal.map((title, index) => (
-                                    <li key={index}>{title}</li>
+                                    <li key={index} className="text-gray-800">
+                                        {title}
+                                    </li>
                                 ))}
                             </ul>
                         </div>
