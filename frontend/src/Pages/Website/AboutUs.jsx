@@ -1,10 +1,5 @@
 import Breadcrumb from "../../Components/Breadcrumb/Breadcrumb";
 import Banner from "../../assets/Images/Homepage/1823.jpg";
-import { FaPhoneAlt } from "react-icons/fa";
-import { IoMdMail } from "react-icons/io";
-import { FaFacebook } from "react-icons/fa";
-import { FaTelegramPlane } from "react-icons/fa";
-import Picture from "../../assets/Images/AboutUs/1.png";
 
 const About = () => {
     const Mission = [
