@@ -24,9 +24,9 @@ const About = () => {
     ];
     return (
         <>
-            <div className="bg-[#f8f8f8]">
+            <div className="bg-[#f8f8f8] pt-5">
                 <Breadcrumb curPage="About US" />
-                <div className="container max-w-7xl mx-auto px-5 pb-5 pt-8 rubik rounded flex flex-col lg:flex-row gap-5">
+                <div className="container max-w-7xl mx-auto px-5 pb-5 pt-5 rubik rounded flex flex-col lg:flex-row gap-5">
                     <div className="lg:w-1/2 flex flex-col gap-4">
                         <div className="w-full rounded">
                             <img
