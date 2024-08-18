@@ -4,20 +4,18 @@ import { Link } from 'react-router-dom';
 
 const Login = () => {
     return (
-        <div 
-            className="flex min-h-screen flex-col justify-center px-6 py-12 lg:px-8" 
+        <div className="flex min-h-screen flex-col justify-center px-6 py-12 lg:px-8" 
             style={{ backgroundImage: `url(${LogoBackground})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
         >
-            {/* <div className="flex min-h-screen flex-col justify-center px-6 py-12 lg:px-8 bg-[url('/path-to-your-bg-image.jpg')] bg-cover"> */}
 
             <div className="sm:mx-auto sm:w-full sm:max-w-sm">
                 <img className="mx-auto h-10 w-auto" src={Logo} alt="Your Company" />
-                <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-                    Sign in
-                </h2>
             </div>
 
-            <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+            <div className="mt-5 sm:mx-auto sm:w-full sm:max-w-sm">
+                <h2 className="mb-5 text-left text-2xl font-bold leading-9 tracking-tight text-gray-900">
+                    Sign in
+                </h2>
                 <form className="space-y-6" action="#" method="POST">
                     <div>
                         <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
