@@ -31,10 +31,10 @@ const About = () => {
 
   return (
     <>
-      <Breadcrumb curPage="About US" />
-      <div className="container max-w-7xl h-[550px] mx-auto px-5 pb-5 pt-8 rubik bg-[#f8f8f8] rounded flex">
-          <div className="w-[500px] h-[500px]  rounded">
-              <div className="w-full h-[300px]">
+      <Breadcrumb curPage="About US"  />
+      <div className="container max-w-7xl h-[550px] mx-auto px-5 pb-5 pt-8 rubik bg-[#f8f8f8] rounded flex ">
+          <div className="w-[500px] h-[500px]  rounded ">
+              <div className="w-full h-[300px] ">
                 <img src={Banner} alt="" className="w-full h-full rounded" />
               </div>
               <div className="w-full h-[100px] pt-4">
@@ -91,7 +91,7 @@ const About = () => {
           </div>
       </div>
       <div className="container max-w-7xl h-full mx-auto  rubik  rounded-md mb-8">
-          <h1 className=" max-w-7xl mx-auto mt-9 text-xl text-black font-medium uppercase">chhat group team member</h1>
+          <h1 className=" max-w-7xl mx-auto mt-9 text-xl text-black font-medium uppercase ">chhat group team member</h1>
             <div className="max-w-7xl mx-auto w-full grid grid-cols-9">
                 {/* Stack 1 */}
                 <div className="col-span-4 w-[570px] h-[220px] mt-5 rounded-md">
@@ -124,7 +124,7 @@ const About = () => {
                     </div>
 
                 </div>
-                <div className="relative col-span-1 w-full h-full flex justify-center items-center">
+                <div className="relative col-span-1 w-full h-full flex justify-center items-center ">
                     <div className="h-full w-[2px] bg-[#72BCF1] mt-14"></div>
                     <div className="absolute w-4 h-4 rounded-full bg-[#72BCF1] top-4"></div>
                 </div>
