@@ -4,9 +4,9 @@ const Sidebar = ({ activeTab, onTabChange, categories }) => {
     return (
         <div className="w-72">
             <div className="p-4 ps-6">
-                <h1 className="text-xl text-gray-700">Categories</h1>
+                <h1 className="text-xl text-gray-700">Chhat Research</h1>
             </div>
-            <nav className="ps-8">
+            <nav className="ms-8">
                 <ul>
                     {categories.map((category) => (
                         <li key={category.id}>

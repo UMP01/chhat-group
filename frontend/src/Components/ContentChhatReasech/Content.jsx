@@ -1,18 +1,23 @@
 import React from "react";
+import WhoWeAre from "./WhoWeAre";
+import Expertise from "./Expertise";
+import History from "./History";
+import Blog from "./Blog";
+import TeamMember from "./TeamMember";
 
 const Content = ({ activeTab }) => {
     const getContent = () => {
         switch (activeTab) {
             case "category1":
-                return <p>Content for Category 1.</p>;
+                return <WhoWeAre />;
             case "category2":
-                return <p>Content for Category 2.</p>;
+                return <Expertise />;
             case "category3":
-                return <p>Content for Category 3.</p>;
+                return <History />;
             case "category4":
-                return <p>Content for Category 3.</p>;
+                return <Blog />;
             case "category5":
-                return <p>Content for Category 3.</p>;
+                return <TeamMember />;
 
             default:
                 return <p>Select a category to see the content.</p>;
