@@ -2,7 +2,7 @@ import React from "react";
 
 const Sidebar = ({ activeTab, onTabChange, categories }) => {
     return (
-        <div className="w-72">
+        <div className="lg:w-1/4">
             <div className="p-4 ps-6">
                 <h1 className="text-xl text-gray-700">Chhat Research</h1>
             </div>

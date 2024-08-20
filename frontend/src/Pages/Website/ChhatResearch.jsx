@@ -17,7 +17,7 @@ const ChhatResearch = () => {
     return (
         <div className="max-w-7xl mx-auto">
             <Breadcrumb curPage="Chhat Research" />
-            <div className="flex flex-wrap h-screen">
+            <div className="flex flex-wrap">
                 <Sidebar
                     categories={categories}
                     activeTab={activeTab}

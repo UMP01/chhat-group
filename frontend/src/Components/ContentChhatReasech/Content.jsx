@@ -25,7 +25,7 @@ const Content = ({ activeTab }) => {
     };
 
     return (
-        <div className="flex-1 px-6">
+        <div className="lg:w-3/4 px-6">
             <div className="mt-4">{getContent()}</div>
         </div>
     );
