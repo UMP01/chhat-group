@@ -1,7 +1,7 @@
 const History = () => {
     return (
         <div>
-            <p>History</p>
+            <h1 className="text-2xl text-cyan-700">Chhat research history</h1>
         </div>
     );
 };

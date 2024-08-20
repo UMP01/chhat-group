@@ -1,15 +1,19 @@
 import img01 from "../../assets/Images/Homepage/img-01.jpg";
+import Strategy from "../Strategy/Strategy";
 
 const ChhatResearchHome = () => {
     return (
         <div>
-            <h1 className="text-xl text-cyan-700">Who we are ?</h1>
-            <hr class="w-full mt-3 mb-5 border" />
+            <div>
+                <h1 className="text-2xl text-cyan-700">Who we are ?</h1>
+                <hr class="w-full mt-3 mb-5 border" />
 
-            <img
-                src={img01}
-                className="img-fluid h-52 w-screen object-cover rounded-md"
-            />
+                <img
+                    src={img01}
+                    className="img-fluid h-52 w-screen object-cover rounded-md"
+                />
+            </div>
+            <Strategy />
         </div>
     );
 };
