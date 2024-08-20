@@ -1,5 +1,11 @@
 import Breadcrumb from "../../Components/Breadcrumb/Breadcrumb";
 import Banner from "../../assets/Images/Homepage/1823.jpg";
+import Profile from "../../assets/Images/AboutUs/1.png";
+import { MdOutlineCall,
+         MdOutlineEmail,
+         MdOutlineFacebook,
+          } from "react-icons/md";
+import { PiTelegramLogoDuotone } from "react-icons/pi";
 
 const About = () => {
     const Mission = [
@@ -95,6 +101,178 @@ const About = () => {
                                 ))}
                             </ul>
                         </div>
+                    </div>
+                </div>
+                <div className="container max-w-7xl mx-auto px-5 pb-5 pt-5 rubik rounded  mb-5">
+                    <h1 className="text-2xl  uppercase">
+                        Chhat group team member
+                    </h1>
+                    <div className="relative max-w-[1200px] my-[20px] mx-auto after:contents after:absolute after:w-[6px] after:h-[100%] after:bg-white after:top-0 after:left-[50%] after:ml-[-3px] after:z-[1]">
+                        
+                        {/* left */}
+                        <div className="py-[10px] px-[20px] relative w-[50%] rounded left-0">
+                            <div className="absolute w-[20px] h-[20px] rounded-full bg-[#0191DA] right-[-10px] top-[32px] z-10"></div>
+                            <div className="flex flex-row gap-4 relative bg-gray-50">
+                                <div className="w-[120px] h-[120px] rounded-full m-3">
+                                    <img src={Profile} alt="" className="w-full h-full rounded-full object-cover" />
+                                </div>
+                                <div className="w-[400px] m-3 ">
+                                    <h2 className="text-xl font-semibold">
+                                        Co-Founder & BOD Member
+                                    </h2>
+                                    <div className="w-full h-[110px] mt-2 text-[#0191DA]">
+                                        <div className="flex flex-row ">
+                                            <MdOutlineCall className="mt-1" />
+                                            <span className="text-sm py-1 px-2 text-black">+855 12630103</span>
+                                        </div>
+                                        <div className="flex flex-row ">
+                                            <MdOutlineEmail className="mt-1" />
+                                            <span className="text-sm py-1 px-2 text-black">lengchansocheat.chhat@chhatgroup.com</span>
+                                        </div>
+                                        <div className="flex flex-row ">
+                                            <MdOutlineFacebook className="mt-1" />
+                                            <span className="text-sm py-1 px-2 text-black">socheat.leng.1</span>
+                                        </div>
+                                        <div className="flex flex-row ">
+                                            <PiTelegramLogoDuotone className="mt-1" />
+                                            <span className="text-sm py-1 px-2 text-black">+855 12630103</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* right */}
+                        <div className="py-[10px] px-[20px] relative w-[50%]  rounded left-[50%]">
+                        <div className="absolute w-[20px] h-[20px] rounded-full bg-[#0191DA] left-[-10px] top-[32px] z-10"></div>
+                            <div className="flex flex-row gap-4 relative bg-gray-50">
+                                <div className="w-[150px] h-[150px] rounded-full  ">
+                                    <img src={Profile} alt="" className="w-full h-full rounded-full object-cover" />
+                                </div>
+                                <div className="w-[400px] ">
+                                    <h2 className="text-xl font-semibold">
+                                        Co-Founder & BOD Member
+                                    </h2>
+                                    <div className="w-full h-[110px] mt-2 text-[#0191DA]">
+                                        <div className="flex flex-row ">
+                                            <MdOutlineCall className="mt-1" />
+                                            <span className="text-sm py-1 px-2 text-black">+855 12630103</span>
+                                        </div>
+                                        <div className="flex flex-row ">
+                                            <MdOutlineEmail className="mt-1" />
+                                            <span className="text-sm py-1 px-2 text-black">lengchansocheat.chhat@chhatgroup.com</span>
+                                        </div>
+                                        <div className="flex flex-row ">
+                                            <MdOutlineFacebook className="mt-1" />
+                                            <span className="text-sm py-1 px-2 text-black">socheat.leng.1</span>
+                                        </div>
+                                        <div className="flex flex-row ">
+                                            <PiTelegramLogoDuotone className="mt-1" />
+                                            <span className="text-sm py-1 px-2 text-black">+855 12630103</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {/* left */}
+                        <div className="py-[10px] px-[20px] relative w-[50%]  rounded left-0">
+                        <div className="absolute w-[20px] h-[20px] rounded-full bg-[#0191DA] right-[-10px] top-[32px] z-10"></div>
+                            <div className="flex flex-row gap-4 relative bg-gray-50">
+                                <div className="w-[150px] h-[150px] rounded-full bg-white ">
+                                    <img src={Profile} alt="" className="w-full h-full rounded-full object-cover" />
+                                </div>
+                                <div className="w-[400px] ">
+                                    <h2 className="text-xl font-semibold">
+                                        Co-Founder & BOD Member
+                                    </h2>
+                                    <div className="w-full h-[110px] mt-2 text-[#0191DA]">
+                                        <div className="flex flex-row ">
+                                            <MdOutlineCall className="mt-1" />
+                                            <span className="text-sm py-1 px-2 text-black">+855 12630103</span>
+                                        </div>
+                                        <div className="flex flex-row ">
+                                            <MdOutlineEmail className="mt-1" />
+                                            <span className="text-sm py-1 px-2 text-black">lengchansocheat.chhat@chhatgroup.com</span>
+                                        </div>
+                                        <div className="flex flex-row ">
+                                            <MdOutlineFacebook className="mt-1" />
+                                            <span className="text-sm py-1 px-2 text-black">socheat.leng.1</span>
+                                        </div>
+                                        <div className="flex flex-row ">
+                                            <PiTelegramLogoDuotone className="mt-1" />
+                                            <span className="text-sm py-1 px-2 text-black">+855 12630103</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* right */}
+                        <div className="py-[10px] px-[20px] relative w-[50%]  rounded left-[50%]">
+                        <div className="absolute w-[20px]  rounded-full bg-[#0191DA] left-[-10px] top-[32px] z-10"></div>
+                            <div className="flex flex-row gap-4 relative bg-gray-50">
+                                <div className="w-[150px] h-[150px] rounded-full  ">
+                                    <img src={Profile} alt="" className="w-full h-full rounded-full object-cover" />
+                                </div>
+                                <div className="w-[400px] ">
+                                    <h2 className="text-xl font-semibold">
+                                        Co-Founder & BOD Member
+                                    </h2>
+                                    <div className="w-full h-[110px] mt-2 text-[#0191DA]">
+                                        <div className="flex flex-row ">
+                                            <MdOutlineCall className="mt-1" />
+                                            <span className="text-sm py-1 px-2 text-black">+855 12630103</span>
+                                        </div>
+                                        <div className="flex flex-row ">
+                                            <MdOutlineEmail className="mt-1" />
+                                            <span className="text-sm py-1 px-2 text-black">lengchansocheat.chhat@chhatgroup.com</span>
+                                        </div>
+                                        <div className="flex flex-row ">
+                                            <MdOutlineFacebook className="mt-1" />
+                                            <span className="text-sm py-1 px-2 text-black">socheat.leng.1</span>
+                                        </div>
+                                        <div className="flex flex-row ">
+                                            <PiTelegramLogoDuotone className="mt-1" />
+                                            <span className="text-sm py-1 px-2 text-black">+855 12630103</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* left */}
+                        <div className="py-[10px] px-[20px] relative w-[50%]  rounded left-0">
+                        <div className="absolute w-[20px] h-[20px] rounded-full bg-[#0191DA] right-[-10px] top-[32px] z-10"></div>
+                            <div className="flex flex-row gap-4 relative bg-gray-50">
+                                <div className="w-[150px] h-[150px] rounded-full  ">
+                                    <img src={Profile} alt="" className="w-full h-full rounded-full object-cover" />
+                                </div>
+                                <div className="w-[400px] ">
+                                    <h2 className="text-xl font-semibold">
+                                        Co-Founder & BOD Member
+                                    </h2>
+                                    <div className="w-full h-[110px] mt-2 text-[#0191DA]">
+                                        <div className="flex flex-row ">
+                                            <MdOutlineCall className="mt-1" />
+                                            <span className="text-sm py-1 px-2 text-black">+855 12630103</span>
+                                        </div>
+                                        <div className="flex flex-row ">
+                                            <MdOutlineEmail className="mt-1" />
+                                            <span className="text-sm py-1 px-2 text-black">lengchansocheat.chhat@chhatgroup.com</span>
+                                        </div>
+                                        <div className="flex flex-row ">
+                                            <MdOutlineFacebook className="mt-1" />
+                                            <span className="text-sm py-1 px-2 text-black">socheat.leng.1</span>
+                                        </div>
+                                        <div className="flex flex-row ">
+                                            <PiTelegramLogoDuotone className="mt-1" />
+                                            <span className="text-sm py-1 px-2 text-black">+855 12630103</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
