@@ -27,7 +27,7 @@ const Navbar = () => {
         { name: "Blog", link: "/blog" },
         { name: "Career", link: "/career" },
         { name: "Contact", link: "/contact" },
-        { name: "Admin", link: "/login" },
+        { name: "Admin", link: "/admin/login" },
     ];
 
     const toggleMobileMenu = () => {

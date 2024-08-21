@@ -22,6 +22,17 @@ import ChhatConstruction from "./Pages/Website/ChhatConstruction";
 import ChhatAgriculture from "./Pages/Website/ChhatAgriculture";
 import ChhatCosmetic from "./Pages/Website/ChhatCosmetic";
 
+const AdminRedirect = () => {
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        window.open("/login", "_blank");
+        navigate(-1); // Navigate back to the previous page after opening the new tab
+    }, [navigate]);
+
+    return null; // Don't render anything
+};
+
 const App = () => {
     return (
         <Router>
@@ -33,7 +44,7 @@ const App = () => {
 const AppRoutes = () => {
     const location = useLocation();
     //hide navbar in login page
-    const hideNavbar = location.pathname !== "/login";
+    const hideNavbar = location.pathname !== "/admin/login";
 
     return (
         <div className="App">
@@ -44,7 +55,6 @@ const AppRoutes = () => {
                 <Route path="/about" element={<About />} />
                 <Route path="/career" element={<Career />} />
                 <Route path="/blog" element={<Blog />} />
-                <Route path="/login" element={<Admin />} />
                 
                 <Route path="/chhat-research" element={<ChhatResearch />} />
                 <Route path="/chhat-diamond" element={<ChhatDiamond />} />
@@ -54,6 +64,8 @@ const AppRoutes = () => {
                 <Route path="/chhat-construction" element={<ChhatConstruction />} />
                 <Route path="/chhat-agriculture" element={<ChhatAgriculture />} />
                 <Route path="/chhat-cosmetic" element={<ChhatCosmetic />} />
+                
+                <Route path="/admin/login" element={<Admin />} />
             </Routes>
             {hideNavbar && <Footer />}
         </div>
