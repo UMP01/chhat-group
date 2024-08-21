@@ -1,5 +1,6 @@
 import img01 from "../../assets/Images/Homepage/img-01.jpg";
 import Strategy from "../Strategy/Strategy";
+import CommercialTeam from "../CommercialTeam/CommercialTeam";
 
 const ChhatResearchHome = () => {
     return (
@@ -14,6 +15,7 @@ const ChhatResearchHome = () => {
                 />
             </div>
             <Strategy />
+            <CommercialTeam />
         </div>
     );
 };

@@ -41,7 +41,7 @@ const Strategies = [
 const Strategy = ({ strategies = Strategies }) => {
     return (
         <div>
-            <div className="text-gray-700 text-center pt-7 pb-10">
+            <div className="text-gray-700 text-center lg:pt-7 pb-10">
                 <h1 className="text-xl text-cyan-700 py-2">
                     Strategy For Business Growth And Market Leadership
                 </h1>
@@ -53,7 +53,7 @@ const Strategy = ({ strategies = Strategies }) => {
                     play.
                 </p>
             </div>
-            <div className="flex flex-wrap -mx-2">
+            <div className="flex flex-wrap mx-2">
                 {strategies.map((strategy, index) => (
                     <div
                         key={index}
