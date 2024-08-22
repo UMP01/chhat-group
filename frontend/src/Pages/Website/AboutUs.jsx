@@ -107,16 +107,21 @@ const About = () => {
                     <h1 className="text-2xl  uppercase">
                         Chhat group team member
                     </h1>
-                    <div className="relative max-w-[1200px] my-[20px] mx-auto after:contents after:absolute after:w-[6px] after:h-[100%] after:bg-white after:top-0 after:left-[50%] after:ml-[-3px] after:z-[1]">
-                        
+                    <div 
+                        className="relative max-w-[1200px] 
+                                    my-[20px] mx-auto after:contents after:absolute 
+                                    after:w-[6px] after:h-[100%] after:bg-white 
+                                    after:top-0 after:left-[50%] after:ml-[-3px] after:z-[1] 
+                                    after:animate-moveline"
+                        >
                         {/* left */}
-                        <div className="py-[10px] px-[20px] relative w-[50%] rounded left-0">
+                        <div className="py-[20px] px-[27px] relative w-[50%]  left-0 custom_class ">
                             <div className="absolute w-[20px] h-[20px] rounded-full bg-[#0191DA] right-[-10px] top-[32px] z-10"></div>
-                            <div className="flex flex-row gap-4 relative bg-gray-50">
-                                <div className="w-[120px] h-[120px] rounded-full m-3">
+                            <div className="flex flex-row gap-4 relative py-[12px]  rounded-md bg-gray-50">
+                                <div className="w-[120px] h-[120px] rounded-full m-5">
                                     <img src={Profile} alt="" className="w-full h-full rounded-full object-cover" />
                                 </div>
-                                <div className="w-[400px] m-3 ">
+                                <div className="w-[380px] my-3 ml-3">
                                     <h2 className="text-xl font-semibold">
                                         Co-Founder & BOD Member
                                     </h2>
@@ -139,17 +144,18 @@ const About = () => {
                                         </div>
                                     </div>
                                 </div>
+                                <div className="left-container-arrow"></div>
                             </div>
                         </div>
 
                         {/* right */}
-                        <div className="py-[10px] px-[20px] relative w-[50%]  rounded left-[50%]">
-                        <div className="absolute w-[20px] h-[20px] rounded-full bg-[#0191DA] left-[-10px] top-[32px] z-10"></div>
-                            <div className="flex flex-row gap-4 relative bg-gray-50">
-                                <div className="w-[150px] h-[150px] rounded-full  ">
+                        <div className="py-[10px] px-[27px] relative w-[50%]  rounded left-[50%] custom_class ">
+                            <div className="absolute w-[20px] h-[20px] rounded-full bg-[#0191DA] left-[-10px] top-[32px] z-10"></div>
+                            <div className="flex flex-row gap-4 relative py-[12px] rounded-md bg-gray-50">
+                                <div className="w-[120px] h-[120px] rounded-full m-5">
                                     <img src={Profile} alt="" className="w-full h-full rounded-full object-cover" />
                                 </div>
-                                <div className="w-[400px] ">
+                                <div className="w-[380px] my-3 ml-3 ">
                                     <h2 className="text-xl font-semibold">
                                         Co-Founder & BOD Member
                                     </h2>
@@ -171,17 +177,18 @@ const About = () => {
                                             <span className="text-sm py-1 px-2 text-black">+855 12630103</span>
                                         </div>
                                     </div>
+                                    <div className="right-container-arrow"></div>
                                 </div>
                             </div>
                         </div>
                         {/* left */}
-                        <div className="py-[10px] px-[20px] relative w-[50%]  rounded left-0">
-                        <div className="absolute w-[20px] h-[20px] rounded-full bg-[#0191DA] right-[-10px] top-[32px] z-10"></div>
-                            <div className="flex flex-row gap-4 relative bg-gray-50">
-                                <div className="w-[150px] h-[150px] rounded-full bg-white ">
+                        <div className="py-[20px] px-[27px] relative w-[50%]  left-0 custom_class ">
+                            <div className="absolute w-[20px] h-[20px] rounded-full bg-[#0191DA] right-[-10px] top-[32px] z-10"></div>
+                            <div className="flex flex-row gap-4 relative py-[12px] rounded-md bg-gray-50">
+                                <div className="w-[120px] h-[120px] rounded-full m-5">
                                     <img src={Profile} alt="" className="w-full h-full rounded-full object-cover" />
                                 </div>
-                                <div className="w-[400px] ">
+                                <div className="w-[380px] my-3 ml-3">
                                     <h2 className="text-xl font-semibold">
                                         Co-Founder & BOD Member
                                     </h2>
@@ -204,17 +211,18 @@ const About = () => {
                                         </div>
                                     </div>
                                 </div>
+                                <div className="left-container-arrow"></div>
                             </div>
                         </div>
 
-                        {/* right */}
-                        <div className="py-[10px] px-[20px] relative w-[50%]  rounded left-[50%]">
-                        <div className="absolute w-[20px]  rounded-full bg-[#0191DA] left-[-10px] top-[32px] z-10"></div>
-                            <div className="flex flex-row gap-4 relative bg-gray-50">
-                                <div className="w-[150px] h-[150px] rounded-full  ">
+                       {/* right */}
+                       <div className="py-[10px] px-[27px] relative w-[50%]  rounded left-[50%] custom_class ">
+                            <div className="absolute w-[20px] h-[20px] rounded-full bg-[#0191DA] left-[-10px] top-[32px] z-10"></div>
+                            <div className="flex flex-row gap-4 relative py-[12px] rounded-md bg-gray-50">
+                                <div className="w-[120px] h-[120px] rounded-full m-5">
                                     <img src={Profile} alt="" className="w-full h-full rounded-full object-cover" />
                                 </div>
-                                <div className="w-[400px] ">
+                                <div className="w-[380px] my-3 ml-3 ">
                                     <h2 className="text-xl font-semibold">
                                         Co-Founder & BOD Member
                                     </h2>
@@ -237,17 +245,18 @@ const About = () => {
                                         </div>
                                     </div>
                                 </div>
+                                <div className="right-container-arrow"></div>
                             </div>
                         </div>
 
-                        {/* left */}
-                        <div className="py-[10px] px-[20px] relative w-[50%]  rounded left-0">
-                        <div className="absolute w-[20px] h-[20px] rounded-full bg-[#0191DA] right-[-10px] top-[32px] z-10"></div>
-                            <div className="flex flex-row gap-4 relative bg-gray-50">
-                                <div className="w-[150px] h-[150px] rounded-full  ">
+                       {/* left */}
+                       <div className="py-[20px] px-[27px] relative w-[50%]  left-0 custom_class ">
+                            <div className="absolute w-[20px] h-[20px] rounded-full bg-[#0191DA] right-[-10px] top-[32px] z-10"></div>
+                            <div className="flex flex-row gap-4 relative py-[12px] rounded-md bg-gray-50">
+                                <div className="w-[120px] h-[120px] rounded-full m-5">
                                     <img src={Profile} alt="" className="w-full h-full rounded-full object-cover" />
                                 </div>
-                                <div className="w-[400px] ">
+                                <div className="w-[380px] my-3 ml-3">
                                     <h2 className="text-xl font-semibold">
                                         Co-Founder & BOD Member
                                     </h2>
@@ -270,6 +279,7 @@ const About = () => {
                                         </div>
                                     </div>
                                 </div>
+                                <div className="left-container-arrow"></div>
                             </div>
                         </div>
 
