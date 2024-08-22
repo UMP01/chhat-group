@@ -117,6 +117,7 @@ const Navbar = () => {
                                         <a
                                             href={item.link}
                                             className="text-gray-900 px-3 py-2 rounded-md text-md rubik"
+                                            target="_blank"
                                         >
                                             {item.name}
                                         </a>
