@@ -23,7 +23,7 @@ const Navbar = () => {
 
     return (
         <footer
-            className="bg-white dark:bg-gray-900"
+            className="bg-white dark:bg-gray-900 pt-5"
             style={{ background: "var(--secondary-color)" }}
         >
             <div className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
@@ -43,68 +43,55 @@ const Navbar = () => {
 
                     <div className="col-span-12 md:col-span-8 grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
                         <div>
-                            <h2 className="mb-6 text-lg font-semibold text-neutral-300 uppercase dark:text-white">
+                            <h2 className="mb-6 text-lg font-medium text-neutral-300 uppercase dark:text-white">
                                 Contact
                             </h2>
-                            <ul className="text-gray-500 dark:text-gray-400 font-medium">
-                                <li className="mb-4">
+                            <ul className="text-gray-500 dark:text-gray-400 font-normal">
+                                <li className="mb-2">
                                     <a
-                                        className="hover:underline text-neutral-400"
-                                        onClick={() =>
-                                            copyToClipboard(
-                                                "info@chhatgroup.com"
-                                            )
-                                        }
+                                        href="mailto:info@chhatgroup.com"
+                                        className="text-gray-300 hover:text-gray-500 duration-500 ease-in-out"
                                     >
                                         Email: info@chhatgroup.com
                                     </a>
                                 </li>
-                                <li className="mb-4">
+                                <li>
                                     <a
-                                        className="hover:underline text-neutral-400"
+                                        className="hover:underline text-gray-300 duration-500 ease-in-out"
                                         onClick={() =>
                                             copyToClipboard("+855-12-890-801")
                                         }
                                     >
-                                        Phone Number: +855-12-890-801
-                                    </a>
-                                </li>
-                                <li className="mb-4">
-                                    <a
-                                        className="hover:underline text-neutral-400"
-                                        onClick={() =>
-                                            copyToClipboard("+855-10-969-005")
-                                        }
-                                    >
-                                        +855-10-969-005
+                                        Phone Number: +855 12 890 801 / +855 10
+                                        969 005
                                     </a>
                                 </li>
                             </ul>
                         </div>
 
                         <div>
-                            <h2 className="mb-6 text-lg font-semibold text-neutral-300 uppercase dark:text-white">
+                            <h2 className="mb-6 text-lg font-medium text-neutral-300 uppercase dark:text-white">
                                 Quick Links
                             </h2>
-                            <ul className="text-gray-500 dark:text-gray-400 font-medium">
-                                <li className="mb-4">
+                            <ul className="text-gray-500 dark:text-gray-400 font-normal">
+                                <li className="mb-2">
                                     <a
                                         href="/about"
-                                        className="hover:underline text-neutral-400"
+                                        className="text-gray-300 hover:text-gray-500 duration-500 ease-in-out"
                                     >
                                         About Us
                                     </a>
                                 </li>
-                                <li className="mb-4">
+                                <li className="mb-2">
                                     <a
                                         href="/contact"
-                                        className="hover:underline text-neutral-400"
+                                        className="text-gray-300 hover:text-gray-500 duration-500 ease-in-out"
                                     >
                                         Contact Us
                                     </a>
                                 </li>
-                                <li className="mb-4">
-                                    <a className="hover:underline text-neutral-400">
+                                <li className="mb-2">
+                                    <a className="text-gray-300 hover:text-gray-500 duration-500 ease-in-out">
                                         Privacy & Policy
                                     </a>
                                 </li>
@@ -112,13 +99,13 @@ const Navbar = () => {
                         </div>
 
                         <div>
-                            <h2 className="mb-6 text-xl font-semibold text-neutral-300 uppercase dark:text-white">
+                            <h2 className="mb-6 text-lg  font-medium text-neutral-300 uppercase dark:text-white">
                                 Address
                             </h2>
-                            <ul className="text-gray-600 dark:text-gray-400 font-medium">
+                            <ul className="text-gray-600 dark:text-gray-400">
                                 <li className="mb-4">
                                     <a
-                                        className="hover:underline text-neutral-400"
+                                        className="text-gray-300 hover:text-gray-500 duration-500 ease-in-out"
                                         onClick={() =>
                                             copyToClipboard(
                                                 "Borey Piphup Thmey La Sen Sok 2 #47-49, Street BT-08M, Phum Krang Angkrong, Sangkat Krang Thnong, Khan Sen Sok, Phnom Penh, Cambodia"
@@ -136,7 +123,7 @@ const Navbar = () => {
                     </div>
                 </div>
 
-                <hr className="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
+                <hr className="my-6 border-gray-500 sm:mx-auto lg:my-8" />
                 <div className="sm:flex sm:items-center sm:justify-between">
                     <span className="text-sm text-neutral-400 sm:text-center dark:text-gray-400">
                         © 2024{" "}
