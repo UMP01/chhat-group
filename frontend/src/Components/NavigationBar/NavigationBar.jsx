@@ -27,7 +27,7 @@ const Navbar = () => {
         { name: "Blog", link: "/blog" },
         { name: "Career", link: "/career" },
         { name: "Contact", link: "/contact" },
-        { name: "Admin", link: "/admin/login" },
+        { name: "Admin", link: "/admin/login", target: "_blank" },
     ];
 
     const toggleMobileMenu = () => {
@@ -117,7 +117,7 @@ const Navbar = () => {
                                         <a
                                             href={item.link}
                                             className="text-gray-900 px-3 py-2 rounded-md text-md rubik"
-                                            target="_blank"
+                                            target={item.target}
                                         >
                                             {item.name}
                                         </a>
