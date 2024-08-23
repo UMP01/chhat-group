@@ -6,29 +6,7 @@ import slide03 from "../../assets/Images/Slideshow/slideshow-03.jpg";
 import slide04 from "../../assets/Images/Slideshow/slideshow-07.jpg";
 
 const Carousel = () => {
-    const carouselItems = [
-        {
-            src: slide01,
-            caption: "Quality Products, Exceptional Service.",
-            description:
-                "At Chhat Group, we provide top-quality products and exceptional service to meet all your business needs.",
-        },
-        {
-            src: slide02,
-            caption: "Caption for Slide 2",
-            description: "Description for slide 2",
-        },
-        {
-            src: slide03,
-            caption: "Caption for Slide 3",
-            description: "Description for slide 3",
-        },
-        {
-            src: slide04,
-            caption: "Caption for Slide 4",
-            description: "Description for slide 4",
-        },
-    ];
+    const carouselItems = [slide01, slide02, slide03, slide04];
 
     const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -54,23 +32,13 @@ const Carousel = () => {
                 className="relative flex transition-transform duration-500 ease-in-out"
                 style={{ transform: `translateX(-${currentIndex * 100}%)` }}
             >
-                {carouselItems.map((item, index) => (
-                    <div key={index} className="w-full flex-shrink-0 relative">
+                {carouselItems.map((src, index) => (
+                    <div key={index} className="w-full flex-shrink-0">
                         <img
-                            src={item.src}
+                            src={src}
                             alt={`Slide ${index}`}
                             className="w-full h-full object-cover"
                         />
-                        <div className="absolute inset-0 flex items-center justify-center p-4 md:p-6 lg:p-8 bg-gradient-to-t from-black via-transparent to-transparent">
-                            <div className="text-center text-cyan-700 z-10">
-                                <h1 className="sm:text-2xl md:text-3xl lg:text-4xlmb-4">
-                                    {item.caption}
-                                </h1>
-                                <p className="text-sm sm:text-base md:text-base lg:text-base">
-                                    {item.description}
-                                </p>
-                            </div>
-                        </div>
                     </div>
                 ))}
             </div>

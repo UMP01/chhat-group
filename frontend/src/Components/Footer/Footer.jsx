@@ -27,20 +27,7 @@ const Navbar = () => {
             style={{ background: "var(--secondary-color)" }}
         >
             <div className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
-                <div className="grid grid-cols-12 gap-8">
-                    <div className="col-span-12 md:col-span-4 mb-6 md:mb-0 flex justify-center md:justify-start">
-                        <a
-                            href="/"
-                            className="flex items-center bg-neutral-100 p-2 rounded shadow-sm"
-                        >
-                            <img
-                                src={Logo}
-                                className="h-20"
-                                alt="Chhat Group Logo"
-                            />
-                        </a>
-                    </div>
-
+                <div className="grid grid-cols-3 gap-8">
                     <div className="col-span-12 md:col-span-8 grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
                         <div>
                             <h2 className="mb-6 text-lg font-medium text-neutral-300 uppercase dark:text-white">

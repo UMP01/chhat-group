@@ -20,7 +20,7 @@ const cardsData = [
         title: "Chhat Trading",
         description:
             "Empowering Your Trades, Maximizing Your Success. Your trusted partner in navigating the global markets. Together, we achieve financial growth and security.",
-        link: "/",
+        link: "chhat-trading",
     },
     {
         imageSrc: Diamond,
@@ -28,7 +28,7 @@ const cardsData = [
         title: "Chhat Diamond",
         description:
             "Elegance Redefined: Discover Timeless Beauty at Our Jewellery Shop. Handcrafted Perfection for Every Occasion. Celebrate Life's Moments with Sparkling Treasures.",
-        link: "/",
+        link: "chhat-diamond",
     },
 ];
 
@@ -38,7 +38,7 @@ const Card = ({ imageSrc, altText, title, description, link }) => (
             <img
                 src={imageSrc}
                 alt={altText}
-                className="img-fluid w-56 mx-auto h-auto object-fit pt-3"
+                className="img-fluid w-48 mx-auto h-auto object-fit pt-3"
             />
             <div className="px-8 py-1">
                 <h5 className=" text-xl sm:text-lg md:text-xl lg:text-xl text-gray-600 pb-2 pt-5">
@@ -59,7 +59,7 @@ const Card = ({ imageSrc, altText, title, description, link }) => (
 );
 
 const CardGrid = () => (
-    <div className="lg:mx-auto lg:w-4/5 rubik mb-5">
+    <div className="mx-auto max-w-7xl rubik mb-5">
         <div className="text-center pt-20 pb-5">
             <h5 className="text-xl sm:text-2xl md:text-3xl lg:text-3xl text-gray-600 mb-3">
                 Our Services
