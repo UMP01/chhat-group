@@ -1,4 +1,9 @@
 import React from "react";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
+// Import images
 import Sting from "../../assets/Images/Commercial-logo/sting.png";
 import Lucky from "../../assets/Images/Commercial-logo/lucky.png";
 import Aba from "../../assets/Images/Commercial-logo/aba.png";
@@ -43,24 +48,66 @@ const Logoes = [
     { image: Ph, alt: "Peng Hout Logo" },
 ];
 
+const settings = {
+    dots: false,
+    infinite: true,
+    slidesToShow: 10,
+    slidesToScroll: 1,
+    autoplay: true,
+    speed: 1500,
+    autoplaySpeed: 1500,
+    cssEase: "linear",
+    responsive: [
+        {
+            breakpoint: 1024,
+            settings: {
+                slidesToShow: 6,
+                slidesToScroll: 1,
+            },
+        },
+        {
+            breakpoint: 768,
+            settings: {
+                slidesToShow: 4,
+                slidesToScroll: 1,
+            },
+        },
+        {
+            breakpoint: 480,
+            settings: {
+                slidesToShow: 1,
+                slidesToScroll: 1,
+            },
+        },
+    ],
+};
+
 const CommercialTeam = ({ logoes = Logoes }) => {
     return (
-        <div className="p-4">
-            <h1 className="text-cyan-700 text-center text-xl py-4">
+        <div className="max-w-7xl mx-auto">
+            <h1 className="text-center pb-4 text-xl sm:text-2xl md:text-3xl lg:text-3xl text-gray-600">
                 Commercial Team
             </h1>
-            <div className="scrolling-wrapper">
-                <div className="scrolling-content">
+            <p className="text-center p-2 text-gray-500 text-sm sm:text-base md:text-base lg:text-base">
+                The commercial team works with global and local giant companies
+                in many different industries including the automotive and tire
+                clients
+            </p>
+            <div className="pt-10">
+                <Slider {...settings}>
                     {logoes.map((logo, index) => (
-                        <div key={index} className="inline-block">
+                        <div
+                            key={index}
+                            className="flex items-center justify-center"
+                        >
                             <img
                                 src={logo.image}
                                 alt={logo.alt}
-                                className="w-32 h-auto m-1"
+                                className="w-20 h-20 object-contain"
                             />
                         </div>
                     ))}
-                </div>
+                </Slider>
             </div>
         </div>
     );

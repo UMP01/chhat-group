@@ -13,7 +13,9 @@ const teamMembers = [
         role: "Co-Founder & Chairman",
         phone: "(+855) 126-302-03",
         email: "lengchansocheat.chhat@chhatgroup.com",
+        mailLink: "mailto:lengchansocheat.chhat@chhatgroup.com",
         facebook: "Lengchansocheat",
+        facebookLink: "https://www.facebook.com/",
         image: profile,
     },
     {
@@ -64,11 +66,17 @@ const TeamMember = () => {
                                     <FiPhone className="me-1 text-blue-600" />
                                     {member.phone}
                                 </p>
-                                <a className="flex items-center text-gray-700 text-sm my-1">
+                                <a
+                                    className="flex items-center text-gray-700 text-sm my-1"
+                                    href={member.mailLink}
+                                >
                                     <IoMailOutline className="me-1 text-blue-600" />
                                     {member.email}
                                 </a>
-                                <a className="flex items-center text-gray-700 text-sm">
+                                <a
+                                    className="flex items-center text-gray-700 text-sm"
+                                    href={member.facebookLink}
+                                >
                                     <IoLogoFacebook className="me-1 text-blue-600" />
                                     {member.facebook}
                                 </a>

@@ -15,7 +15,6 @@ const ChhatResearchHome = () => {
                 />
             </div>
             <Strategy />
-            <CommercialTeam />
         </div>
     );
 };
