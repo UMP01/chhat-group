@@ -6,7 +6,7 @@ export default {
       keyframes: {
         moveline: {
           '0%': { height: 0 },
-          '100%': { height: '100%' }, // Example movement
+          '100%': { height: '100%' },
         },
       },
       animation: {
