@@ -103,26 +103,26 @@ const About = () => {
                         </div>
                     </div>
                 </div>
-                <div className="container max-w-7xl mx-auto px-5 pb-5 pt-5 rubik rounded  mb-5">
+                <div className="container max-w-7xl mx-auto px-5 pb-5 pt-5 rubik rounded  mb-5 lg:flex-row">
                     <h1 className="text-2xl  uppercase">
                         Chhat group team member
                     </h1>
                     <div 
                         className="relative max-w-[1200px] 
                                     my-[20px] mx-auto after:contents after:absolute 
-                                    after:w-[6px] after:h-[100%] after:bg-white 
-                                    after:top-0 after:left-[50%] after:ml-[-3px] after:z-[1] 
-                                    after:animate-moveline"
+                                    after:w-[4px] after:h-[100%] after:bg-white 
+                                    after:top-0 lg:after:left-[50%] after:ml-[-2px] after:z-[1] md:after:left-[31px]
+                                    "
                         >
                         {/* left */}
-                        <div className="py-[20px] px-[27px] relative w-[50%]  left-0 custom_class ">
-                            <div className="absolute w-[20px] h-[20px] rounded-full bg-[#0191DA] right-[-10px] top-[32px] z-10"></div>
+                        <div className="py-[20px] px-[27px] relative lg:w-[50%]  left-0 custom_class md:w-[950px] ">
+                            <div className="absolute w-[20px] h-[20px] rounded-full bg-[#0191DA] right-[-10px] top-[32px] z-10 point "></div>
                             <div className="flex flex-row gap-4 relative py-[12px]  rounded-md bg-gray-50">
                                 <div className="w-[120px] h-[120px] rounded-full m-5">
                                     <img src={Profile} alt="" className="w-full h-full rounded-full object-cover" />
                                 </div>
-                                <div className="w-[380px] my-3 ml-3">
-                                    <h2 className="text-xl font-semibold">
+                                <div className="lg:w-[380px] my-3 lg:ml-3 md:w-[300px]">
+                                    <h2 className="lg:text-xl font-semibold md:text-[14px]">
                                         Co-Founder & BOD Member
                                     </h2>
                                     <div className="w-full h-[110px] mt-2 text-[#0191DA]">
@@ -149,14 +149,14 @@ const About = () => {
                         </div>
 
                         {/* right */}
-                        <div className="py-[10px] px-[27px] relative w-[50%]  rounded left-[50%] custom_class ">
+                        <div className="py-[10px] px-[27px] relative lg:w-[50%]  rounded lg:left-[50%] custom_class ">
                             <div className="absolute w-[20px] h-[20px] rounded-full bg-[#0191DA] left-[-10px] top-[32px] z-10"></div>
                             <div className="flex flex-row gap-4 relative py-[12px] rounded-md bg-gray-50">
                                 <div className="w-[120px] h-[120px] rounded-full m-5">
                                     <img src={Profile} alt="" className="w-full h-full rounded-full object-cover" />
                                 </div>
-                                <div className="w-[380px] my-3 ml-3 ">
-                                    <h2 className="text-xl font-semibold">
+                                <div className="lg:w-[380px] my-3 lg:ml-3 md:w-[300px]">
+                                    <h2 className="lg:text-xl font-semibold">
                                         Co-Founder & BOD Member
                                     </h2>
                                     <div className="w-full h-[110px] mt-2 text-[#0191DA]">
@@ -182,14 +182,14 @@ const About = () => {
                             </div>
                         </div>
                         {/* left */}
-                        <div className="py-[20px] px-[27px] relative w-[50%]  left-0 custom_class ">
-                            <div className="absolute w-[20px] h-[20px] rounded-full bg-[#0191DA] right-[-10px] top-[32px] z-10"></div>
+                        <div className="py-[20px] px-[27px] relative lg:w-[50%]  left-0 custom_class md:w-[950px] ">
+                            <div className="absolute w-[20px] h-[20px] rounded-full bg-[#0191DA] right-[-10px] top-[32px] z-10 point"></div>
                             <div className="flex flex-row gap-4 relative py-[12px] rounded-md bg-gray-50">
                                 <div className="w-[120px] h-[120px] rounded-full m-5">
                                     <img src={Profile} alt="" className="w-full h-full rounded-full object-cover" />
                                 </div>
-                                <div className="w-[380px] my-3 ml-3">
-                                    <h2 className="text-xl font-semibold">
+                                <div className="lg:w-[380px] my-3 lg:ml-3 md:w-[300px]">
+                                    <h2 className="lg:text-xl font-semibold">
                                         Co-Founder & BOD Member
                                     </h2>
                                     <div className="w-full h-[110px] mt-2 text-[#0191DA]">
@@ -216,14 +216,14 @@ const About = () => {
                         </div>
 
                        {/* right */}
-                       <div className="py-[10px] px-[27px] relative w-[50%]  rounded left-[50%] custom_class ">
+                       <div className="py-[10px] px-[27px] relative rounded custom_class lg:w-[50%]  lg:left-[50%]">
                             <div className="absolute w-[20px] h-[20px] rounded-full bg-[#0191DA] left-[-10px] top-[32px] z-10"></div>
                             <div className="flex flex-row gap-4 relative py-[12px] rounded-md bg-gray-50">
                                 <div className="w-[120px] h-[120px] rounded-full m-5">
                                     <img src={Profile} alt="" className="w-full h-full rounded-full object-cover" />
                                 </div>
-                                <div className="w-[380px] my-3 ml-3 ">
-                                    <h2 className="text-xl font-semibold">
+                                <div className="lg:w-[380px] my-3 lg:ml-3 md:w-[300px] ">
+                                    <h2 className="lg:text-xl font-semibold">
                                         Co-Founder & BOD Member
                                     </h2>
                                     <div className="w-full h-[110px] mt-2 text-[#0191DA]">
@@ -250,20 +250,20 @@ const About = () => {
                         </div>
 
                        {/* left */}
-                       <div className="py-[20px] px-[27px] relative w-[50%]  left-0 custom_class ">
-                            <div className="absolute w-[20px] h-[20px] rounded-full bg-[#0191DA] right-[-10px] top-[32px] z-10"></div>
+                       <div className="py-[20px] px-[27px] relative lg:w-[50%]  left-0 custom_class ">
+                            <div className="absolute w-[20px] h-[20px] rounded-full bg-[#0191DA] right-[-10px] top-[32px] z-10 point"></div>
                             <div className="flex flex-row gap-4 relative py-[12px] rounded-md bg-gray-50">
-                                <div className="w-[120px] h-[120px] rounded-full m-5">
+                                <div className="lg:w-[120px] lg:h-[120px] rounded-full m-5">
                                     <img src={Profile} alt="" className="w-full h-full rounded-full object-cover" />
                                 </div>
-                                <div className="w-[380px] my-3 ml-3">
-                                    <h2 className="text-xl font-semibold">
+                                <div className="lg:w-[380px] my-3 lg:ml-3 md:w-[300px]">
+                                    <h2 className="lg:text-xl font-semibold">
                                         Co-Founder & BOD Member
                                     </h2>
-                                    <div className="w-full h-[110px] mt-2 text-[#0191DA]">
+                                    <div className="w-full h-[110px] mt-2 text-[#0191DA] ">
                                         <div className="flex flex-row ">
                                             <MdOutlineCall className="mt-1" />
-                                            <span className="text-sm py-1 px-2 text-black">+855 12630103</span>
+                                            <span className="text-sm py-1 px-2 text-black ">+855 12630103</span>
                                         </div>
                                         <div className="flex flex-row ">
                                             <MdOutlineEmail className="mt-1" />
