@@ -1,32 +1,41 @@
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import Logo from "../../assets/Images/logo.png";
 import LogoBackground from "../../assets/Images/login-bg.jpg";
 import { Link } from 'react-router-dom';
 
 const Login = () => {
+    const navigate = useNavigate();
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        // Perform login logic here
+        // After successful login, navigate to the dashboard
+        navigate('/admin/dashboard');
+    };
+
     return (
         <div
-        className="flex flex-col min-h-screen px-6 py-12 lg:px-8"
-        style={{ backgroundImage: `url(${LogoBackground})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
+            className="flex flex-col min-h-screen px-6 py-12 lg:px-8"
+            style={{ backgroundImage: `url(${LogoBackground})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
         >
-        <div className="flex flex-col justify-between">
-            <div className="flex flex-col justify-start mb-8 mt-16">
-                <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-                    <img className="mx-auto h-16 w-auto" src={Logo} alt="Chhat Group" />
+            <div className="flex flex-col justify-between">
+                <div className="flex flex-col justify-start mb-8 mt-16">
+                    <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+                        <img className="mx-auto h-16 w-auto" src={Logo} alt="Chhat Group" />
+                    </div>
                 </div>
-            </div>
     
-            <div className="flex flex-col justify-center">
+                <div className="flex flex-col justify-center">
                     <div className="mt-5 sm:mx-auto sm:w-full sm:max-w-sm">
-                        {/* <h2 className="mb-5 text-left text-2xl font-bold leading-9 tracking-tight text-gray-900">
-                            Sign in
-                        </h2> */}
-                        <form className="space-y-6" action="#" method="POST">
+                        <form className="space-y-6" onSubmit={handleSubmit}>
                             <div>
                                 <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
                                     Email address
                                 </label>
                                 <div className="mt-2">
                                     <input
+                                        value={"phoudy@gmail.com"}
                                         id="email"
                                         name="email"
                                         type="email"
@@ -54,6 +63,7 @@ const Login = () => {
                                 </div>
                                 <div className="mt-2">
                                     <input
+                                        value={"12345678"}
                                         id="password"
                                         name="password"
                                         type="password"

@@ -1,3 +1,4 @@
+import React from 'react';
 import {
     BrowserRouter as Router,
     Route,
@@ -12,7 +13,6 @@ import Footer from "./Components/Footer/Footer";
 import About from "./Pages/Website/AboutUs";
 import Career from "./Pages/Website/Career";
 import Blog from "./Pages/Website/Blog";
-import Admin from "./Pages/Website/Login";
 import ChhatResearch from "./Pages/Website/ChhatResearch";
 import ChhatDiamond from "./Pages/Website/ChhatDiamond";
 import ChhatCapital from "./Pages/Website/ChhatCapital";
@@ -21,17 +21,9 @@ import ChhatRealEstate from "./Pages/Website/ChhatRealEstate";
 import ChhatConstruction from "./Pages/Website/ChhatConstruction";
 import ChhatAgriculture from "./Pages/Website/ChhatAgriculture";
 import ChhatCosmetic from "./Pages/Website/ChhatCosmetic";
-
-const AdminRedirect = () => {
-    const navigate = useNavigate();
-
-    useEffect(() => {
-        window.open("/login", "_blank");
-        navigate(-1); // Navigate back to the previous page after opening the new tab
-    }, [navigate]);
-
-    return null; // Don't render anything
-};
+import Admin from "./Pages/Website/Login";
+import AdminDashboard from "./Pages/Admin/Dashboard";
+import AdminLayout from "./Pages/Admin/Layout/AdminLayout";
 
 const App = () => {
     return (
@@ -43,19 +35,17 @@ const App = () => {
 
 const AppRoutes = () => {
     const location = useLocation();
-    //hide navbar in login page
-    const hideNavbar = location.pathname !== "/admin/login";
+    const hideNavbarAndFooter = location.pathname.startsWith("/admin");
 
     return (
         <div className="App">
-            {hideNavbar && <Navbar />}
+            {!hideNavbarAndFooter && <Navbar />}
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/career" element={<Career />} />
                 <Route path="/blog" element={<Blog />} />
-                
                 <Route path="/chhat-research" element={<ChhatResearch />} />
                 <Route path="/chhat-diamond" element={<ChhatDiamond />} />
                 <Route path="/chhat-capital" element={<ChhatCapital />} />
@@ -64,10 +54,10 @@ const AppRoutes = () => {
                 <Route path="/chhat-construction" element={<ChhatConstruction />} />
                 <Route path="/chhat-agriculture" element={<ChhatAgriculture />} />
                 <Route path="/chhat-cosmetic" element={<ChhatCosmetic />} />
-                
                 <Route path="/admin/login" element={<Admin />} />
+                <Route path="/admin/*" element={<AdminLayout />} />
             </Routes>
-            {hideNavbar && <Footer />}
+            {!hideNavbarAndFooter && <Footer />}
         </div>
     );
 };
