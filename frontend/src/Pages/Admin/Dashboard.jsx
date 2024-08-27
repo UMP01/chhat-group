@@ -1,5 +1,5 @@
 import React from 'react';
-import { EyeIcon, CubeIcon, UserIcon, ShoppingBagIcon } from '@heroicons/react/24/solid';
+//import { EyeIcon, CubeIcon, UserIcon, ShoppingBagIcon } from '@heroicons/react/24/solid';
 import CardDataStats from '../../Components/CardDataStats/CardDataStats';
 
 const Dashboard = () => {

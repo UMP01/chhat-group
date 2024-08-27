@@ -1,5 +1,5 @@
 import React from 'react';
-import { HomeIcon, UserGroupIcon, NewspaperIcon, BriefcaseIcon } from '@heroicons/react/24/solid';
+//import { HomeIcon, UserGroupIcon, NewspaperIcon, BriefcaseIcon } from '@heroicons/react/24/solid';
 
 const AdminSideBar = () => {
     return (
