@@ -1,8 +1,8 @@
 import React from 'react';
+import { Outlet } from 'react-router-dom';
 import AdminNavBar from '../../../Components/NavigationBar/AdminNavBar';
 import AdminSideBar from '../../../Components/NavigationBar/AdminSideBar';
 import AdminFooter from '../../../Components/Footer/AdminFooter';
-import Dashboard from '../Dashboard';
 
 const AdminLayout = () => {
     return (
@@ -14,7 +14,7 @@ const AdminLayout = () => {
                 <div className="relative">
                     <AdminNavBar />
                     <main className="p-6 bg-gray-100 dark:bg-gray-900">
-                        <Dashboard />
+                        <Outlet />
                     </main>
                     <AdminFooter/>
                 </div>

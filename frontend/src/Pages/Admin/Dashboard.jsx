@@ -1,12 +1,12 @@
 import React from 'react';
-//import { EyeIcon, CubeIcon, UserIcon, ShoppingBagIcon } from '@heroicons/react/24/solid';
+import { EyeIcon, CubeIcon, UserIcon, ShoppingBagIcon } from '@heroicons/react/solid'; // Updated import
 import CardDataStats from '../../Components/CardDataStats/CardDataStats';
 
 const Dashboard = () => {
     const iconClass = "w-10 h-10 text-gray-400";
 
     return (
-        <div className="flex flex-col  space-y-6">
+        <div className="flex flex-col space-y-6">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 <CardDataStats title="Products" statics="22,222">
                     <CubeIcon className={iconClass} />

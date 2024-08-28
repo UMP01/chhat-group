@@ -22,8 +22,12 @@ import ChhatConstruction from "./Pages/Website/ChhatConstruction";
 import ChhatAgriculture from "./Pages/Website/ChhatAgriculture";
 import ChhatCosmetic from "./Pages/Website/ChhatCosmetic";
 import Admin from "./Pages/Website/Login";
-import AdminDashboard from "./Pages/Admin/Dashboard";
 import AdminLayout from "./Pages/Admin/Layout/AdminLayout";
+import AdminDashboard from "./Pages/Admin/Dashboard";
+import AdminUser from "./Pages/Admin/User";
+import AdminCareer from "./Pages/Admin/Career";
+import AdminChhatGroupBlog from "./Pages/Admin/ChhatGroupBlog";
+import AdminChhatResearchBlog from "./Pages/Admin/ChhatReseachBlog";
 
 const App = () => {
     return (
@@ -55,7 +59,15 @@ const AppRoutes = () => {
                 <Route path="/chhat-agriculture" element={<ChhatAgriculture />} />
                 <Route path="/chhat-cosmetic" element={<ChhatCosmetic />} />
                 <Route path="/admin/login" element={<Admin />} />
-                <Route path="/admin/*" element={<AdminLayout />} />
+                {/* <Route path="/admin/*" element={<AdminLayout />} /> */}
+
+                <Route path="/admin/*" element={<AdminLayout />}>
+                    <Route path="dashboard" element={<AdminDashboard />} />
+                    <Route path="chhat-group-blog" element={<AdminChhatGroupBlog />} />
+                    <Route path="chhat-research-blog" element={<AdminChhatResearchBlog />} />
+                    <Route path="career" element={<AdminCareer />} />
+                    <Route path="user" element={<AdminUser />} />
+                </Route>
             </Routes>
             {!hideNavbarAndFooter && <Footer />}
         </div>
