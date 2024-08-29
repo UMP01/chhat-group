@@ -1,6 +1,11 @@
-import React from 'react';
-import { EyeIcon, CubeIcon, UserIcon, ShoppingBagIcon } from '@heroicons/react/solid'; // Updated import
-import CardDataStats from '../../Components/CardDataStats/CardDataStats';
+import React from "react";
+import {
+    EyeIcon,
+    CubeIcon,
+    UserIcon,
+    ShoppingBagIcon,
+} from "@heroicons/react/24/solid"; // Updated import
+import CardDataStats from "../../Components/CardDataStats/CardDataStats";
 
 const Dashboard = () => {
     const iconClass = "w-10 h-10 text-gray-400";
