@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 const User = () => {
     const [users, setUsers] = useState([]);
@@ -13,27 +14,47 @@ const User = () => {
     });
     const [searchTerm, setSearchTerm] = useState('');
 
+    useEffect(() => {
+        fetchUsers();
+    }, []);
+
+    const fetchUsers = async () => {
+        try {
+            const response = await axios.get('http://localhost:8000/api/users');
+            setUsers(response.data);
+        } catch (error) {
+            console.error('Error fetching users:', error);
+        }
+    };
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        if (editUser) {
-            setUsers(users.map(user => (user.id === editUser ? { ...user, ...formData } : user)));
+        try {
+            if (editUser) {
+                // Update user
+                await axios.put(`http://localhost:8000/api/users/${editUser}`, formData);
+            } else {
+                // Create new user
+                await axios.post('http://localhost:8000/api/users', formData);
+            }
+            fetchUsers(); // Refresh the user list
+            setFormData({
+                name: '',
+                email: '',
+                phone: '',
+                dob: '',
+                branch: '',
+                permission: ''
+            });
             setEditUser(null);
-        } else {
-            setUsers([...users, { id: Date.now(), ...formData }]);
+        } catch (error) {
+            console.error('Error submitting form:', error);
         }
-        setFormData({
-            name: '',
-            email: '',
-            phone: '',
-            dob: '',
-            branch: '',
-            permission: ''
-        });
     };
 
     const handleEdit = (user) => {
@@ -41,8 +62,13 @@ const User = () => {
         setFormData({ ...user });
     };
 
-    const handleDelete = (id) => {
-        setUsers(users.filter(user => user.id !== id));
+    const handleDelete = async (id) => {
+        try {
+            await axios.delete(`http://localhost:8000/api/users/${id}`);
+            fetchUsers(); // Refresh the user list
+        } catch (error) {
+            console.error('Error deleting user:', error);
+        }
     };
 
     const filteredUsers = users.filter(user =>
@@ -121,7 +147,6 @@ const User = () => {
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="border p-2 rounded mb-4"
             />
-
 
             <div className="overflow-x-auto">
                 <table className="min-w-full border">

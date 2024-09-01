@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { BellIcon, UserIcon } from "@heroicons/react/24/solid"; // Updated import
+import { ArrowLeftEndOnRectangleIcon, BellIcon, UserIcon } from "@heroicons/react/24/solid"; // Updated import
 import UserAvatar from "../../assets/Images/logo.png"; // Update path if needed
 import { useLocation } from "react-router-dom";
 
@@ -41,52 +41,52 @@ const AdminNavBar = () => {
                         </span>
                     </div>
                     <div className="relative">
-                        <button
-                            className="flex items-center space-x-2"
-                            onClick={() => setIsOpen(!isOpen)}
-                        >
-                            <img
-                                className="w-8 h-8 rounded-full"
-                                src={UserAvatar}
-                                alt="User Avatar"
-                            />
-                            <span className="font-medium text-gray-800 dark:text-white">
-                                Super User
-                            </span>
-                        </button>
-                        {isOpen && (
-                            <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-boxdark divide-y divide-gray-100 rounded-md shadow-lg focus:outline-none">
-                                <div className="p-1">
-                                    <button className="group flex rounded-md items-center w-full px-2 py-2 text-sm text-gray-900 dark:text-gray-100 hover:bg-indigo-600 hover:text-white">
-                                        <UserIcon
-                                            className="w-5 h-5 mr-2"
-                                            aria-hidden="true"
-                                        />
-                                        User Profile
-                                    </button>
+
+                        <div className="relative">
+                            {/* Dropdown Toggle Button */}
+                            <button
+                                className="flex items-center space-x-2 focus:outline-none"
+                                onClick={() => setIsOpen(!isOpen)}
+                            >
+                                <div className="relative">
+                                    {/* Avatar with Circle Border */}
+                                    <img
+                                        className="w-8 h-8 rounded-full border-2 border-gray-300 dark:border-white"
+                                        src={UserAvatar}
+                                        alt="User Avatar"
+                                    />
                                 </div>
-                                <div className="p-1">
-                                    <button className="group flex rounded-md items-center w-full px-2 py-2 text-sm text-gray-900 dark:text-gray-100 hover:bg-indigo-600 hover:text-white">
-                                        <svg
-                                            className="w-5 h-5 mr-2 stroke-current"
-                                            aria-hidden="true"
-                                            fill="none"
-                                            strokeWidth="1.5"
-                                            stroke="currentColor"
-                                            viewBox="0 0 24 24"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                        >
-                                            <path
-                                                d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15M12 9l-3 3m0 0 3 3m-3-3h12.75"
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                            ></path>
-                                        </svg>
-                                        Logout
-                                    </button>
+                                <span className="font-medium text-gray-800 dark:text-white">
+                                    Super User
+                                </span>
+                            </button>
+
+                            {/* Dropdown Menu */}
+                            {isOpen && (
+                                <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-md shadow-lg z-10">
+                                    <ul className="py-2">
+                                        <li>
+                                            <a
+                                                href="/admin/profile"
+                                                className="block px-4 py-2 text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+                                            >
+                                                {/* <UserIcon className="w-5 h-5 mr-2" aria-hidden="true" /> */}
+                                                Profile
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a
+                                                href="/admin/login"
+                                                className="block px-4 py-2 text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+                                            >
+                                                {/* <ArrowLeftEndOnRectangleIcon className="w-5 h-5 mr-2" aria-hidden="true" /> */}
+                                                Logout
+                                            </a>
+                                        </li>
+                                    </ul>
                                 </div>
-                            </div>
-                        )}
+                            )}
+                        </div>
                     </div>
                 </div>
             </div>

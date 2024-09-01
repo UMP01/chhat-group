@@ -28,6 +28,7 @@ import AdminUser from "./Pages/Admin/User";
 import AdminCareer from "./Pages/Admin/Career";
 import AdminChhatGroupBlog from "./Pages/Admin/ChhatGroupBlog";
 import AdminChhatResearchBlog from "./Pages/Admin/ChhatReseachBlog";
+import AdminProfile from './Pages/Admin/AdminProfile';
 
 const App = () => {
     return (
@@ -67,6 +68,7 @@ const AppRoutes = () => {
                     <Route path="chhat-research-blog" element={<AdminChhatResearchBlog />} />
                     <Route path="career" element={<AdminCareer />} />
                     <Route path="user" element={<AdminUser />} />
+                    <Route path="profile" element={<AdminProfile />} />
                 </Route>
             </Routes>
             {!hideNavbarAndFooter && <Footer />}

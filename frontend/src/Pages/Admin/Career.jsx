@@ -65,7 +65,7 @@ const Career = () => {
 
     return (
         <div className="flex flex-col space-y-6">
-            <button onClick={openModal} className="bg-blue-500 text-white p-2 rounded mb-4">
+            <button onClick={openModal} className="bg-sky-500 text-white p-2 rounded mb-4">
                 Add Career Opportunity
             </button>
 
