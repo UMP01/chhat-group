@@ -1,8 +1,8 @@
-import React from 'react';
-import { Outlet } from 'react-router-dom';
-import AdminNavBar from '../../../Components/NavigationBar/AdminNavBar';
-import AdminSideBar from '../../../Components/NavigationBar/AdminSideBar';
-import AdminFooter from '../../../Components/Footer/AdminFooter';
+import React from "react";
+import { Outlet } from "react-router-dom";
+import AdminNavBar from "../../../Components/NavigationBar/AdminNavBar";
+import AdminSideBar from "../../../Components/NavigationBar/AdminSideBar";
+import AdminFooter from "../../../Components/Footer/AdminFooter";
 
 const AdminLayout = () => {
     return (
@@ -13,13 +13,13 @@ const AdminLayout = () => {
             <div className="col-span-5 md:col-span-9 lg:col-span-8">
                 <div className="relative">
                     <AdminNavBar />
-                    <main className="p-6 bg-gray-100 dark:bg-gray-900">
+                    <main className="m-3">
                         <Outlet />
                     </main>
-                    <AdminFooter/>
+                    <AdminFooter />
                 </div>
             </div>
-      </div>
+        </div>
     );
 };
 
