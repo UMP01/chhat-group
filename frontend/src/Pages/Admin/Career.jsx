@@ -145,7 +145,7 @@ const Career = () => {
             {modalOpen && (
                 <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
                     <div className="bg-white p-6 rounded shadow-md w-1/3">
-                        <h2 className="text-lg font-bold mb-4">
+                        <h2 className="text-lg font-normal text-cyan-700 mb-4">
                             {isEditing
                                 ? "Edit Career Opportunity"
                                 : "Add Career Opportunity"}
@@ -215,13 +215,13 @@ const Career = () => {
                                 <button
                                     type="button"
                                     onClick={resetForm}
-                                    className="bg-gray-300 text-black p-2 rounded mr-2"
+                                    className="bg-gray-300 text-black px-5 py-2 rounded mr-2"
                                 >
                                     Cancel
                                 </button>
                                 <button
                                     type="submit"
-                                    className="bg-blue-500 text-white p-2 rounded"
+                                    className="bg-blue-500 text-white px-5 py-2 rounded"
                                 >
                                     {isEditing ? "Update" : "Add"}
                                 </button>

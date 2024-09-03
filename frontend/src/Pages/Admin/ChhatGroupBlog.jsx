@@ -161,7 +161,7 @@ const ChhatGroupBlog = () => {
             {modalOpen && (
                 <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
                     <div className="bg-white p-6 rounded shadow-md w-1/3">
-                        <h2 className="text-lg font-bold mb-4">
+                        <h2 className="text-lg font-normal text-cyan-700 mb-4">
                             {isEditing ? "Edit Blog Post" : "Add Blog Post"}
                         </h2>
                         <form onSubmit={handleSubmit}>
@@ -212,7 +212,7 @@ const ChhatGroupBlog = () => {
                                 type="file"
                                 name="media"
                                 onChange={handleFileChange}
-                                className="border p-2 rounded mb-2 w-full"
+                                className="border mb-3 text-sm block w-full text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-normal file:bg-gray-200 file:text-gray-700 hover:file:bg-gray-300"
                                 accept="image/*,video/*"
                                 required
                             />
@@ -220,13 +220,13 @@ const ChhatGroupBlog = () => {
                                 <button
                                     type="button"
                                     onClick={resetForm}
-                                    className="bg-gray-300 text-black p-2 rounded mr-2"
+                                    className="bg-gray-300 text-black px-5 py-2 rounded mr-2"
                                 >
                                     Cancel
                                 </button>
                                 <button
                                     type="submit"
-                                    className="bg-blue-500 text-white p-2 rounded"
+                                    className="bg-blue-500 text-white px-5 py-2 rounded"
                                 >
                                     {isEditing ? "Update" : "Add"}
                                 </button>
