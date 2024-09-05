@@ -26,7 +26,7 @@ const WhyChooseUs = () => {
                         {[
                             {
                                 icon: <FaCheck />,
-                                title: "Quality Services",
+                                title: "Quality is our priority",
                                 description: "Quality",
                             },
                             {

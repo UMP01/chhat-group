@@ -4,7 +4,7 @@ const Expertise = () => {
     return (
         <>
             <div className="px-3">
-                <h1 className="text-2xl text-cyan-700">
+                <h1 className="text-lg text-cyan-700">
                     Our Research Expertise
                 </h1>
                 <hr className="w-full my-3 border" />
@@ -16,7 +16,7 @@ const Expertise = () => {
             <div className="flex flex-wrap justify-center items-center pt-3 pb-10">
                 <div className="lg:w-1/3 w-full p-3">
                     <div className="primary-bg-color p-5 rounded-tr-lg rounded-tl-lg">
-                        <p className="uppercase text-white text-center">
+                        <p className="uppercase text-sm text-white text-center">
                             Brand Understanding
                         </p>
                     </div>
@@ -37,7 +37,7 @@ const Expertise = () => {
                 </div>
                 <div className="lg:w-1/3 w-full p-3">
                     <div className="primary-bg-color p-5 rounded-tr-lg rounded-tl-lg">
-                        <p className="uppercase text-white text-center">
+                        <p className="uppercase text-sm text-white text-center">
                             Inovation
                         </p>
                     </div>
@@ -59,7 +59,7 @@ const Expertise = () => {
                 </div>
                 <div className="lg:w-1/3 w-full p-3">
                     <div className="primary-bg-color p-5 rounded-tr-lg rounded-tl-lg">
-                        <p className="uppercase text-white text-center">
+                        <p className="uppercase text-sm text-white text-center">
                             Creative Evaluation
                         </p>
                     </div>
@@ -80,7 +80,7 @@ const Expertise = () => {
                 </div>
                 <div className="lg:w-1/3 w-full p-3">
                     <div className="primary-bg-color p-5 rounded-tr-lg rounded-tl-lg">
-                        <p className="uppercase text-white text-center">
+                        <p className="uppercase text-sm text-white text-center">
                             Shopper
                         </p>
                     </div>
@@ -100,7 +100,7 @@ const Expertise = () => {
                 </div>
                 <div className="lg:w-1/3 w-full p-3">
                     <div className="primary-bg-color p-5 rounded-tr-lg rounded-tl-lg">
-                        <p className="uppercase text-white text-center">
+                        <p className="uppercase text-sm text-white text-center">
                             Exploration
                         </p>
                     </div>
@@ -120,7 +120,7 @@ const Expertise = () => {
                 </div>
                 <div className="lg:w-1/3 w-full p-3">
                     <div className="primary-bg-color p-5 rounded-tr-lg rounded-tl-lg">
-                        <p className="uppercase text-white text-center">
+                        <p className="uppercase text-sm text-white text-center">
                             Public Affairs
                         </p>
                     </div>

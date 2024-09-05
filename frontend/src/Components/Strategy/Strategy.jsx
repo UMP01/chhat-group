@@ -41,11 +41,11 @@ const Strategies = [
 const Strategy = ({ strategies = Strategies }) => {
     return (
         <div>
-            <div className="text-gray-700 text-center lg:pt-7 pb-10">
-                <h1 className="text-xl text-cyan-700 py-2">
+            <div className="text-gray-700 text-start lg:pt-7 bg-gray-100 rounded-2xl p-10 mb-5 shadow-sm">
+                <h1 className="text-cyan-700 py-2">
                     Strategy For Business Growth And Market Leadership
                 </h1>
-                <p>
+                <p className="text-gray-600">
                     Creating customer-centric companies is our priority. We
                     focus on strengthening and building your brand, making
                     impactful investments, increasing customer penetration and

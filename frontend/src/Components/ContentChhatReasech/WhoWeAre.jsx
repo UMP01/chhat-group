@@ -11,8 +11,22 @@ const ChhatResearchHome = () => {
 
                 <img
                     src={img01}
-                    className="img-fluid h-52 w-screen object-cover rounded-md"
+                    className="img-fluid h-52 w-screen object-cover rounded-md shadow-md"
                 />
+                <div className="py-5 flex flex-col sm:flex-row justify-center items-center gap-5">
+                    <div className="p-7 bg-gray-100 text-gray-600 rounded-lg shadow-sm max-w-xs sm:max-w-md">
+                        <p>
+                            Chhat Research is a professionally leading data,
+                            insights, and consulting company.
+                        </p>
+                    </div>
+                    <div className="p-7 bg-gray-100 text-gray-600 rounded-lg shadow-sm max-w-xs sm:max-w-md">
+                        <p>
+                            We are a regional company with an international
+                            standard quality of service.
+                        </p>
+                    </div>
+                </div>
             </div>
             <Strategy />
         </div>

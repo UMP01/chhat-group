@@ -1,6 +1,7 @@
 import React from "react";
 import Image1 from "../../assets/Images/Homepage/2634.jpg";
 import { IoMdCheckmark } from "react-icons/io";
+import { Link } from "react-router-dom";
 
 const FindOut = () => {
     return (
@@ -55,9 +56,20 @@ const FindOut = () => {
                             Goal
                         </p>
                     </div>
-                    <button className="text-white primary-bg-color px-6 py-3 rounded-full mt-5 text-sm sm:text-base md:text-base lg:px-10 lg:py-2 lg:text-base">
+                    <div className="flex flex-wrap my-1 mb-4">
+                        <div className="btn-lg-square primary-bg-color rounded-full flex items-center justify-center w-6 h-6 text-white">
+                            <IoMdCheckmark className="w-3 h-3" />
+                        </div>
+                        <p className=" ms-2 pb-2 text-gray-500 text-sm sm:text-base md:text-base lg:text-base">
+                            Core Values
+                        </p>
+                    </div>
+                    <Link
+                        to="/about"
+                        className="text-white primary-bg-color px-6 py-2 rounded-3xl text-sm sm:text-base md:text-base lg:px-10 lg:py-3 lg:text-base hover:bg-cyan-700 duration-300 ease-in-out"
+                    >
                         Explore More
-                    </button>
+                    </Link>
                 </div>
             </div>
         </div>
