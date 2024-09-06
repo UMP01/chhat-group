@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import { axiosClient } from "../../api/axios";
+import Swal from "sweetalert2"; // Import SweetAlert2
 
 const User = () => {
     const [users, setUsers] = useState([]);
@@ -18,13 +19,13 @@ const User = () => {
     const fetchUsers = async () => {
         try {
             const response = await axiosClient.get('/users');
-            console.log(response)
-            setUsers(Array.isArray(response.data) ? response.data : []); // Ensure data is an array
+            console.log(response); // Log the response for debugging
+            // Filter only users with status 0 (active)
+            const activeUsers = Array.isArray(response.data) ? response.data.filter(user => user.status === "0") : [];
+            setUsers(activeUsers); 
         } catch (error) {
             console.error('Error fetching users:', error);
         }
-        console.log(import.meta.env.VITE_BACKEND_URL); // Should print "http://localhost:8000"
-
     };
 
     useEffect(() => {
@@ -41,8 +42,10 @@ const User = () => {
         try {
             if (editUser) {
                 await axiosClient.put(`/users/${editUser}`, formData);
+                Swal.fire("Success", "User updated successfully", "success"); // Success alert for update
             } else {
                 await axiosClient.post('/users', formData);
+                Swal.fire("Success", "User created successfully", "success"); // Success alert for create
             }
             fetchUsers(); // Refresh the user list after submission
             setFormData({
@@ -56,6 +59,7 @@ const User = () => {
             setEditUser(null);
         } catch (error) {
             console.error("Error submitting form:", error);
+            Swal.fire("Error", "There was an error submitting the form", "error"); // Error alert
         }
     };
 
@@ -66,10 +70,25 @@ const User = () => {
 
     const handleDelete = async (id) => {
         try {
-            await axiosClient.delete(`/users/${id}`);
-            fetchUsers(); // Refresh the user list after deletion
+            const result = await Swal.fire({
+                title: "Are you sure?",
+                text: "Do you really want to delete this user?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!",
+            });
+
+            if (result.isConfirmed) {
+                // Update user's status to "1" (deleted)
+                await axiosClient.put(`/users/${id}`, { status: "1" });
+                Swal.fire("Deleted!", "User has been deleted.", "success"); // Success alert for delete
+                fetchUsers(); // Refresh the user list after deletion
+            }
         } catch (error) {
             console.error('Error deleting user:', error);
+            Swal.fire("Error", "There was an error deleting the user", "error"); // Error alert
         }
     };
 
@@ -152,25 +171,13 @@ const User = () => {
                 <table className="min-w-full table-auto">
                     <thead>
                         <tr className="bg-cyan-700">
-                            <th className="py-4 text-white font-medium">
-                                Name
-                            </th>
-                            <th className="py-4 text-white font-medium">
-                                Email
-                            </th>
-                            <th className="py-4 text-white font-medium">
-                                Phone
-                            </th>
+                            <th className="py-4 text-white font-medium">Name</th>
+                            <th className="py-4 text-white font-medium">Email</th>
+                            <th className="py-4 text-white font-medium">Phone</th>
                             <th className="py-4 text-white font-medium">DOB</th>
-                            <th className="py-4 text-white font-medium">
-                                Branch
-                            </th>
-                            <th className="py-4 text-white font-medium">
-                                Permission
-                            </th>
-                            <th className="py-4 text-white font-medium">
-                                Actions
-                            </th>
+                            <th className="py-4 text-white font-medium">Branch</th>
+                            <th className="py-4 text-white font-medium">Permission</th>
+                            <th className="py-4 text-white font-medium">Actions</th>
                         </tr>
                     </thead>
                     <tbody>

@@ -9,7 +9,8 @@ class UserController extends Controller
 {
     public function index()
     {
-        return User::all();
+        // Only get active users
+        return User::active()->get();
     }
 
     public function store(Request $request)
@@ -32,7 +33,9 @@ class UserController extends Controller
 
     public function destroy($id)
     {
-        User::destroy($id);
+        $user = User::findOrFail($id);
+        $user->status = '1'; // Set status to 1 for deletion
+        $user->save();
         return response()->json(null, 204);
     }
 }
