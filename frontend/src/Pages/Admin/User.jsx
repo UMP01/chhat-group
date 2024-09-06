@@ -14,18 +14,22 @@ const User = () => {
     });
     const [searchTerm, setSearchTerm] = useState("");
 
-    useEffect(() => {
-        fetchUsers();
-    }, []);
-
+    // Fetch users and update state
     const fetchUsers = async () => {
         try {
-            const response = await axios.get("http://localhost:8000/api/users");
-            setUsers(response.data);
+            const response = await axiosClient.get('/users');
+            console.log(response)
+            setUsers(Array.isArray(response.data) ? response.data : []); // Ensure data is an array
         } catch (error) {
-            console.error("Error fetching users:", error);
+            console.error('Error fetching users:', error);
         }
+        console.log(import.meta.env.VITE_BACKEND_URL); // Should print "http://localhost:8000"
+
     };
+
+    useEffect(() => {
+        fetchUsers(); // Fetch users when component mounts
+    }, []);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -36,16 +40,11 @@ const User = () => {
         e.preventDefault();
         try {
             if (editUser) {
-                // Update user
-                await axios.put(
-                    `http://localhost:8000/api/users/${editUser}`,
-                    formData
-                );
+                await axiosClient.put(`/users/${editUser}`, formData);
             } else {
-                // Create new user
-                await axios.post("http://localhost:8000/api/users", formData);
+                await axiosClient.post('/users', formData);
             }
-            fetchUsers(); // Refresh the user list
+            fetchUsers(); // Refresh the user list after submission
             setFormData({
                 name: "",
                 email: "",
@@ -67,18 +66,12 @@ const User = () => {
 
     const handleDelete = async (id) => {
         try {
-            await axios.delete(`http://localhost:8000/api/users/${id}`);
-            fetchUsers(); // Refresh the user list
+            await axiosClient.delete(`/users/${id}`);
+            fetchUsers(); // Refresh the user list after deletion
         } catch (error) {
-            console.error("Error deleting user:", error);
+            console.error('Error deleting user:', error);
         }
     };
-
-    const filteredUsers = users.filter(
-        (user) =>
-            user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            user.email.toLowerCase().includes(searchTerm.toLowerCase())
-    );
 
     return (
         <div className="flex flex-col space-y-6 p-2 shadow-lg rounded-lg">
@@ -181,32 +174,38 @@ const User = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {filteredUsers.map((user) => (
-                            <tr key={user.id} className="border-b">
-                                <td className="border p-2">{user.name}</td>
-                                <td className="border p-2">{user.email}</td>
-                                <td className="border p-2">{user.phone}</td>
-                                <td className="border p-2">{user.dob}</td>
-                                <td className="border p-2">{user.branch}</td>
-                                <td className="border p-2">
-                                    {user.permission}
-                                </td>
-                                <td className="border p-2">
-                                    <button
-                                        onClick={() => handleEdit(user)}
-                                        className="text-blue-500 hover:underline mr-2"
-                                    >
-                                        Edit
-                                    </button>
-                                    <button
-                                        onClick={() => handleDelete(user.id)}
-                                        className="text-red-500 hover:underline"
-                                    >
-                                        Remove
-                                    </button>
+                        {users.length > 0 ? (
+                            users.map((user) => (
+                                <tr key={user.id} className="border-b">
+                                    <td className="border p-2">{user.name}</td>
+                                    <td className="border p-2">{user.email}</td>
+                                    <td className="border p-2">{user.phone}</td>
+                                    <td className="border p-2">{user.dob}</td>
+                                    <td className="border p-2">{user.branch}</td>
+                                    <td className="border p-2">{user.permission}</td>
+                                    <td className="border p-2">
+                                        <button
+                                            onClick={() => handleEdit(user)}
+                                            className="text-blue-500 hover:underline mr-2"
+                                        >
+                                            Edit
+                                        </button>
+                                        <button
+                                            onClick={() => handleDelete(user.id)}
+                                            className="text-red-500 hover:underline"
+                                        >
+                                            Remove
+                                        </button>
+                                    </td>
+                                </tr>
+                            ))
+                        ) : (
+                            <tr>
+                                <td colSpan="7" className="text-center p-4">
+                                    No users found.
                                 </td>
                             </tr>
-                        ))}
+                        )}
                     </tbody>
                 </table>
             </div>
