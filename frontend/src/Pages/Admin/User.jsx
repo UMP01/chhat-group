@@ -177,8 +177,8 @@ const User = () => {
             <div className="overflow-x-auto">
                 <table className="min-w-full table-auto">
                     <thead>
-                        <tr className="bg-cyan-700">
-                            <th className="py-4 text-white font-medium">
+                        <tr className="bg-cyan-700 rounded-lg">
+                            <th className="py-4 text-white font-medium rounded-tl-md">
                                 Name
                             </th>
                             <th className="py-4 text-white font-medium">
@@ -194,7 +194,7 @@ const User = () => {
                             <th className="py-4 text-white font-medium">
                                 Permission
                             </th>
-                            <th className="py-4 text-white font-medium">
+                            <th className="py-4 text-white font-medium rounded-tr-md">
                                 Actions
                             </th>
                         </tr>
@@ -216,14 +216,14 @@ const User = () => {
                                     <td className="border p-3">
                                         <div className="flex justify-center">
                                             <button
-                                                className="rounded-md rounded-r-none border-cyan-700 bg-cyan-700 text-white px-4 py-2 flex items-center"
+                                                className="rounded-md rounded-r-none border-cyan-700 bg-cyan-700 text-white px-4 py-2 flex items-center hover:bg-cyan-800 duration-300 ease-in-out"
                                                 onClick={() => handleEdit(user)}
                                             >
                                                 <FaRegEdit className="mr-2" />
                                                 Edit
                                             </button>
                                             <button
-                                                className="rounded-md rounded-l-none border-red-500 px-4 py-2 bg-red-600 text-white flex items-center"
+                                                className="rounded-md rounded-l-none border-red-600 px-4 py-2 bg-red-600 text-white flex items-center hover:bg-red-700 duration-300 ease-in-out"
                                                 onClick={() =>
                                                     handleDelete(user.id)
                                                 }

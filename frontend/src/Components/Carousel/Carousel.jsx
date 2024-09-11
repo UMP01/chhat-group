@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
-import slide01 from "../../assets/Images/Slideshow/104046.jpg";
-import slide02 from "../../assets/Images/Slideshow/slideshow-08.jpg";
-import slide03 from "../../assets/Images/Slideshow/slideshow-03.jpg";
-import slide04 from "../../assets/Images/Slideshow/slideshow-07.jpg";
+import slide01 from "../../assets/Images/Slideshow/banner-research.jpg";
+import slide02 from "../../assets/Images/Slideshow/banner-diamond.jpg";
+import slide03 from "../../assets/Images/Slideshow/banner-career.jpg";
+import slide04 from "../../assets/Images/Slideshow/banner11.jpg";
 
 const Carousel = () => {
     const carouselItems = [slide01, slide02, slide03, slide04];
@@ -27,7 +27,7 @@ const Carousel = () => {
     };
 
     return (
-        <div className="relative overflow-hidden w-full lg:w-[calc(100%-10px)] max-w-[calc(100%-20px)] mx-auto h-64 md:h-80 lg:h-[600px] rounded-md">
+        <div className="relative overflow-hidden w-full lg:w-[calc(100%-10px)] max-w-[calc(100%-20px)] mx-auto h-40 sm:h-52 md:h-64 lg:h-80 xl:h-[650px] rounded-md">
             <div
                 className="relative flex transition-transform duration-500 ease-in-out"
                 style={{ transform: `translateX(-${currentIndex * 100}%)` }}
@@ -37,7 +37,7 @@ const Carousel = () => {
                         <img
                             src={src}
                             alt={`Slide ${index}`}
-                            className="w-full h-full object-cover"
+                            className="w-full h-40 sm:h-52 md:h-64 lg:h-80 xl:h-[650px] object-cover"
                         />
                     </div>
                 ))}
