@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { axiosClient } from "../../api/axios";
 import Swal from "sweetalert2"; // Import SweetAlert2
-import { FaRegEdit, FaTrash } from "react-icons/fa";
+import { FaRegEdit, FaTrash, FaSync } from "react-icons/fa"; // Import the refresh icon
 
 const User = () => {
     const [users, setUsers] = useState([]);
@@ -20,8 +20,7 @@ const User = () => {
     const fetchUsers = async () => {
         try {
             const response = await axiosClient.get("/users");
-            console.log(response); // Log the response for debugging
-            // No status filtering if column does not exist
+            console.log("Fetched users:", response.data); // Log the response for debugging
             const activeUsers = Array.isArray(response.data)
                 ? response.data
                 : [];
@@ -32,8 +31,32 @@ const User = () => {
     };
 
     useEffect(() => {
-        fetchUsers(); // Fetch users when component mounts
+        fetchUsers();
     }, []);
+
+    // Filter users based on searchTerm
+    const filteredUsers = users.filter(
+        (user) =>
+            user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            user.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            user.phone.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            user.dob.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            user.branch.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            user.permission.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
+    // Reset form data to initial state
+    const resetFormData = () => {
+        setFormData({
+            name: "",
+            email: "",
+            phone: "",
+            dob: "",
+            branch: "",
+            permission: "",
+        });
+        setEditUser(null);
+    };
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -51,15 +74,7 @@ const User = () => {
                 Swal.fire("Success", "User created successfully", "success");
             }
             fetchUsers(); // Refresh the user list after submission
-            setFormData({
-                name: "",
-                email: "",
-                phone: "",
-                dob: "",
-                branch: "",
-                permission: "",
-            });
-            setEditUser(null);
+            resetFormData(); // Reset the form fields
         } catch (error) {
             console.error("Error submitting form:", error);
             Swal.fire(
@@ -88,7 +103,6 @@ const User = () => {
             });
 
             if (result.isConfirmed) {
-                // If status is not required, simply delete the user or use a different approach
                 await axiosClient.delete(`/users/${id}`);
                 Swal.fire("Deleted!", "User has been deleted.", "success");
                 fetchUsers(); // Refresh the user list after deletion
@@ -97,6 +111,16 @@ const User = () => {
             console.error("Error deleting user:", error);
             Swal.fire("Error", "There was an error deleting the user", "error");
         }
+    };
+
+    // Refresh button handler
+    const handleRefresh = () => {
+        fetchUsers(); // Refresh the user list
+        resetFormData(); // Reset the form fields
+    };
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        return date.toLocaleDateString(); // Customize format if needed
     };
 
     return (
@@ -108,7 +132,7 @@ const User = () => {
                     value={formData.name}
                     onChange={handleChange}
                     placeholder="Name"
-                    className="border p-2 rounded m-2"
+                    className="border p-2 rounded m-1"
                     required
                 />
                 <input
@@ -117,7 +141,7 @@ const User = () => {
                     value={formData.email}
                     onChange={handleChange}
                     placeholder="Email"
-                    className="border p-2 rounded m-2"
+                    className="border p-2 rounded m-1"
                     required
                 />
                 <input
@@ -126,7 +150,7 @@ const User = () => {
                     value={formData.phone}
                     onChange={handleChange}
                     placeholder="Phone Number"
-                    className="border p-2 rounded m-2"
+                    className="border p-2 rounded m-1"
                     required
                 />
                 <input
@@ -134,7 +158,7 @@ const User = () => {
                     name="dob"
                     value={formData.dob}
                     onChange={handleChange}
-                    className="border p-2 rounded m-2"
+                    className="border p-2 rounded m-1"
                     required
                 />
                 <input
@@ -143,14 +167,14 @@ const User = () => {
                     value={formData.branch}
                     onChange={handleChange}
                     placeholder="Branch"
-                    className="border p-2 rounded m-2"
+                    className="border p-2 rounded m-1"
                     required
                 />
                 <select
                     name="permission"
                     value={formData.permission}
                     onChange={handleChange}
-                    className="border p-2 rounded m-2"
+                    className="border p-2 rounded m-1"
                     required
                 >
                     <option value="">Select Permission</option>
@@ -160,21 +184,32 @@ const User = () => {
                 </select>
                 <button
                     type="submit"
-                    className="bg-cyan-700 text-white py-2 px-5 rounded hover:bg-cyan-800"
+                    className="bg-cyan-700 text-white py-2 px-5 m-1 rounded hover:bg-cyan-800"
                 >
                     {editUser ? "Update User" : "Add User"}
                 </button>
             </form>
 
-            <input
-                type="text"
-                placeholder="Search by name or email"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="border p-2 rounded mb-4"
-            />
+            <div className="flex justify-between px-2">
+                <input
+                    type="text"
+                    placeholder="Search by name or email"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="border px-3 py-2 rounded"
+                />
 
-            <div className="overflow-x-auto">
+                {/* Refresh Button */}
+                <button
+                    onClick={handleRefresh}
+                    className="bg-green-600 text-white py-2 px-5 rounded hover:bg-green-700 duration-300 ease-in-out flex items-center justify-center"
+                >
+                    <FaSync className="mr-2" />
+                    Refresh
+                </button>
+            </div>
+
+            <div className="overflow-x-auto px-2">
                 <table className="min-w-full table-auto">
                     <thead>
                         <tr className="bg-cyan-700 rounded-lg">
@@ -194,14 +229,17 @@ const User = () => {
                             <th className="py-4 text-white font-medium">
                                 Permission
                             </th>
+                            <th className="py-4 text-white font-medium">
+                                Created Date
+                            </th>
                             <th className="py-4 text-white font-medium rounded-tr-md">
                                 Actions
                             </th>
                         </tr>
                     </thead>
                     <tbody>
-                        {users.length > 0 ? (
-                            users.map((user) => (
+                        {filteredUsers.length > 0 ? (
+                            filteredUsers.map((user) => (
                                 <tr key={user.id} className="border-b">
                                     <td className="border p-3">{user.name}</td>
                                     <td className="border p-3">{user.email}</td>
@@ -212,6 +250,9 @@ const User = () => {
                                     </td>
                                     <td className="border p-3 capitalize">
                                         {user.permission}
+                                    </td>
+                                    <td className="border p-3">
+                                        {formatDate(user.created_at)}
                                     </td>
                                     <td className="border p-3">
                                         <div className="flex justify-center">
