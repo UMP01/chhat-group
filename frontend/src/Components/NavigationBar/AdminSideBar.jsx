@@ -42,7 +42,7 @@ const AdminSideBar = () => {
 
             {/* Sidebar */}
             <aside
-                className={`fixed inset-y-0 left-0 z-40 w-64 bg-cyan-800 p-6 border-r border-gray-300 shadow-lg transition-transform duration-300 ease-in-out ${
+                className={`fixed inset-y-0 left-0 z-40 w-64 bg-cyan-900 p-6 border-r border-gray-300 shadow-lg transition-transform duration-300 ease-in-out ${
                     isOpen ? "translate-x-0" : "-translate-x-full"
                 }`}
             >
@@ -50,8 +50,8 @@ const AdminSideBar = () => {
                     <li
                         className={`flex items-center p-2 cursor-pointer transition duration-200 ease-in-out transform ${
                             active === 0
-                                ? "bg-cyan-700 text-white rounded-md"
-                                : "text-gray-300 hover:text-primary hover:bg-cyan-700 rounded-md"
+                                ? "bg-cyan-800 text-white rounded-md"
+                                : "text-gray-300 hover:text-primary hover:bg-cyan-800 rounded-md"
                         }`}
                         onClick={() => handleClick(0)}
                     >
@@ -66,8 +66,8 @@ const AdminSideBar = () => {
                     <li
                         className={`flex items-center p-2 cursor-pointer transition duration-200 ease-in-out transform ${
                             active === 1
-                                ? "bg-cyan-700 text-white rounded-md"
-                                : "text-gray-300 hover:text-primary hover:bg-cyan-700 rounded-md"
+                                ? "bg-cyan-800 text-white rounded-md"
+                                : "text-gray-300 hover:text-primary hover:bg-cyan-800 rounded-md"
                         }`}
                         onClick={() => handleClick(1)}
                     >
@@ -82,8 +82,8 @@ const AdminSideBar = () => {
                     <li
                         className={`flex items-center p-2 cursor-pointer transition duration-200 ease-in-out transform ${
                             active === 2
-                                ? "bg-cyan-700 text-white rounded-md"
-                                : "text-gray-300 hover:text-primary hover:bg-cyan-700 rounded-md"
+                                ? "bg-cyan-800 text-white rounded-md"
+                                : "text-gray-300 hover:text-primary hover:bg-cyan-800 rounded-md"
                         }`}
                         onClick={() => handleClick(2)}
                     >
@@ -98,8 +98,8 @@ const AdminSideBar = () => {
                     <li
                         className={`flex items-center p-2 cursor-pointer transition duration-200 ease-in-out transform ${
                             active === 3
-                                ? "bg-cyan-700 text-white rounded-md"
-                                : "text-gray-300 hover:text-primary hover:bg-cyan-700 rounded-md"
+                                ? "bg-cyan-800 text-white rounded-md"
+                                : "text-gray-300 hover:text-primary hover:bg-cyan-800 rounded-md"
                         }`}
                         onClick={() => handleClick(3)}
                     >
@@ -114,8 +114,8 @@ const AdminSideBar = () => {
                     <li
                         className={`flex items-center p-2 cursor-pointer transition duration-200 ease-in-out transform ${
                             active === 4
-                                ? "bg-cyan-700 text-white rounded-md"
-                                : "text-gray-300 hover:text-primary hover:bg-cyan-700 rounded-md"
+                                ? "bg-cyan-800 text-white rounded-md"
+                                : "text-gray-300 hover:text-primary hover:bg-cyan-800 rounded-md"
                         }`}
                         onClick={() => handleClick(4)}
                     >
@@ -130,8 +130,8 @@ const AdminSideBar = () => {
                     <li
                         className={`flex items-center p-2 cursor-pointer transition duration-200 ease-in-out transform ${
                             active === 5
-                                ? "bg-cyan-700 text-white rounded-md"
-                                : "text-gray-300 hover:text-primary hover:bg-cyan-700 rounded-md"
+                                ? "bg-cyan-800 text-white rounded-md"
+                                : "text-gray-300 hover:text-primary hover:bg-cyan-800 rounded-md"
                         }`}
                         onClick={() => handleClick(5)}
                     >
@@ -146,8 +146,8 @@ const AdminSideBar = () => {
                     <li
                         className={`flex items-center p-2 cursor-pointer transition duration-200 ease-in-out transform ${
                             active === 6
-                                ? "bg-cyan-700 text-white rounded-md"
-                                : "text-gray-300 hover:text-primary hover:bg-cyan-700 rounded-md"
+                                ? "bg-cyan-800 text-white rounded-md"
+                                : "text-gray-300 hover:text-primary hover:bg-cyan-800 rounded-md"
                         }`}
                         onClick={() => handleClick(6)}
                     >
