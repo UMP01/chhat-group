@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { axiosClient } from "../../api/axios";
 import Swal from "sweetalert2"; // Import SweetAlert2
 import { FaRegEdit, FaTrash, FaSync } from "react-icons/fa"; // Import the refresh icon
+import { IoPersonAdd } from "react-icons/io5";
+import { TiTick } from "react-icons/ti";
 
 const User = () => {
     const [users, setUsers] = useState([]);
@@ -124,15 +126,15 @@ const User = () => {
     };
 
     return (
-        <div className="flex flex-col space-y-6 p-2 shadow-lg rounded-lg">
-            <form onSubmit={handleSubmit} className="mb-4">
+        <div className="flex flex-col p-2 space-y-6 shadow-lg rounded-lg">
+            <form onSubmit={handleSubmit} className="flex justify-between">
                 <input
                     type="text"
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
                     placeholder="Name"
-                    className="border p-2 rounded m-1"
+                    className="border p-2 rounded m-1 w-1/6"
                     required
                 />
                 <input
@@ -141,7 +143,7 @@ const User = () => {
                     value={formData.email}
                     onChange={handleChange}
                     placeholder="Email"
-                    className="border p-2 rounded m-1"
+                    className="border p-2 rounded m-1 w-1/6"
                     required
                 />
                 <input
@@ -150,7 +152,7 @@ const User = () => {
                     value={formData.phone}
                     onChange={handleChange}
                     placeholder="Phone Number"
-                    className="border p-2 rounded m-1"
+                    className="border p-2 rounded m-1 w-1/6"
                     required
                 />
                 <input
@@ -186,7 +188,17 @@ const User = () => {
                     type="submit"
                     className="bg-cyan-700 text-white py-2 px-5 m-1 rounded hover:bg-cyan-800"
                 >
-                    {editUser ? "Update User" : "Add User"}
+                    {editUser ? (
+                        <div className="flex items-center">
+                            <TiTick className="mr-2 w-5 h-5" />
+                            Update User
+                        </div>
+                    ) : (
+                        <div className="flex items-center">
+                            <IoPersonAdd className="mr-2" />
+                            Add User
+                        </div>
+                    )}
                 </button>
             </form>
 
@@ -196,7 +208,7 @@ const User = () => {
                     placeholder="Search by name or email"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="border px-3 py-2 rounded"
+                    className="border px-3 py-2 rounded w-1/6"
                 />
 
                 {/* Refresh Button */}
