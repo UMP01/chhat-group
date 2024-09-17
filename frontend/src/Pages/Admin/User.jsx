@@ -205,7 +205,7 @@ const User = () => {
             <div className="flex justify-between px-2">
                 <input
                     type="text"
-                    placeholder="Search by name or email"
+                    placeholder="Search Users"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                     className="border px-3 py-2 rounded w-1/6"

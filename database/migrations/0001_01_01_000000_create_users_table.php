@@ -11,9 +11,20 @@ return new class extends Migration
      */
     public function up()
     {
+        Schema::create('users', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->string('email')->unique();
+            $table->string('phone');
+            $table->date('dob');
+            $table->string('branch');
+            $table->enum('permission', ['admin', 'editor', 'viewer']);
+            $table->timestamps();
+        });
         Schema::table('users', function (Blueprint $table) {
             $table->enum('status', ['0', '1'])->default('0'); // 0 for active, 1 for deleted
         });
+
     }
 
     /**
