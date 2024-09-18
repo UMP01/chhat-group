@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { axiosClient } from "../../api/axios";
-import Swal from "sweetalert2"; // Import SweetAlert2
-import { FaRegEdit, FaTrash, FaSync } from "react-icons/fa"; // Import the refresh icon
+import Swal from "sweetalert2";
+import { FaRegEdit, FaTrash, FaSync } from "react-icons/fa";
 import { IoPersonAdd } from "react-icons/io5";
 import { TiTick } from "react-icons/ti";
 
@@ -210,8 +210,6 @@ const User = () => {
                     onChange={(e) => setSearchTerm(e.target.value)}
                     className="border px-3 py-2 rounded w-1/6"
                 />
-
-                {/* Refresh Button */}
                 <button
                     onClick={handleRefresh}
                     className="bg-green-600 text-white py-2 px-5 rounded hover:bg-green-700 duration-300 ease-in-out flex items-center justify-center"
@@ -252,7 +250,10 @@ const User = () => {
                     <tbody>
                         {filteredUsers.length > 0 ? (
                             filteredUsers.map((user) => (
-                                <tr key={user.id} className="border-b">
+                                <tr
+                                    key={user.id}
+                                    className="border-b text-gray-700"
+                                >
                                     <td className="border p-3">{user.name}</td>
                                     <td className="border p-3">{user.email}</td>
                                     <td className="border p-3">{user.phone}</td>

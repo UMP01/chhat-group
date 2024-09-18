@@ -24,6 +24,10 @@ const AdminNavBar = () => {
                 return "Career";
             case "/admin/user":
                 return "User";
+            case "/admin/contact":
+                return "Contact";
+            case "/admin/profile":
+                return "Profile";
             default:
                 return "Admin Panel"; // Default title
         }

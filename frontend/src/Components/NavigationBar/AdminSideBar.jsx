@@ -9,6 +9,7 @@ import {
     ArrowLeftEndOnRectangleIcon,
     XCircleIcon,
     Bars3Icon,
+    EnvelopeIcon,
 } from "@heroicons/react/24/solid";
 
 const AdminSideBar = () => {
@@ -120,11 +121,11 @@ const AdminSideBar = () => {
                         onClick={() => handleClick(4)}
                     >
                         <Link
-                            to="/admin/user"
+                            to="/admin/contact"
                             className="flex items-center w-full"
                         >
-                            <UserGroupIcon className="w-6 h-6 mr-2" />
-                            <span>User</span>
+                            <EnvelopeIcon className="w-6 h-6 mr-2" />
+                            <span>Contact</span>
                         </Link>
                     </li>
                     <li
@@ -136,11 +137,11 @@ const AdminSideBar = () => {
                         onClick={() => handleClick(5)}
                     >
                         <Link
-                            to="/admin/profile"
+                            to="/admin/user"
                             className="flex items-center w-full"
                         >
-                            <UserIcon className="w-6 h-6 mr-2" />
-                            <span>Profile</span>
+                            <UserGroupIcon className="w-6 h-6 mr-2" />
+                            <span>User</span>
                         </Link>
                     </li>
                     <li
@@ -150,6 +151,22 @@ const AdminSideBar = () => {
                                 : "text-gray-300 hover:text-primary hover:bg-cyan-800 rounded-md"
                         }`}
                         onClick={() => handleClick(6)}
+                    >
+                        <Link
+                            to="/admin/profile"
+                            className="flex items-center w-full"
+                        >
+                            <UserIcon className="w-6 h-6 mr-2" />
+                            <span>Profile</span>
+                        </Link>
+                    </li>
+                    <li
+                        className={`flex items-center p-2 cursor-pointer transition duration-200 ease-in-out transform ${
+                            active === 7
+                                ? "bg-cyan-800 text-white rounded-md"
+                                : "text-gray-300 hover:text-primary hover:bg-cyan-800 rounded-md"
+                        }`}
+                        onClick={() => handleClick(7)}
                     >
                         <Link
                             to="/admin/login"

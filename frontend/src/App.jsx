@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
     BrowserRouter as Router,
     Route,
@@ -28,7 +28,8 @@ import AdminUser from "./Pages/Admin/User";
 import AdminCareer from "./Pages/Admin/Career";
 import AdminChhatGroupBlog from "./Pages/Admin/ChhatGroupBlog";
 import AdminChhatResearchBlog from "./Pages/Admin/ChhatReseachBlog";
-import AdminProfile from './Pages/Admin/AdminProfile';
+import AdminProfile from "./Pages/Admin/AdminProfile";
+import AdminContact from "./Pages/Admin/Contact";
 
 const App = () => {
     return (
@@ -55,20 +56,36 @@ const AppRoutes = () => {
                 <Route path="/chhat-diamond" element={<ChhatDiamond />} />
                 <Route path="/chhat-capital" element={<ChhatCapital />} />
                 <Route path="/chhat-trading" element={<ChhatTrading />} />
-                <Route path="/chhat-real-estate" element={<ChhatRealEstate />} />
-                <Route path="/chhat-construction" element={<ChhatConstruction />} />
-                <Route path="/chhat-agriculture" element={<ChhatAgriculture />} />
+                <Route
+                    path="/chhat-real-estate"
+                    element={<ChhatRealEstate />}
+                />
+                <Route
+                    path="/chhat-construction"
+                    element={<ChhatConstruction />}
+                />
+                <Route
+                    path="/chhat-agriculture"
+                    element={<ChhatAgriculture />}
+                />
                 <Route path="/chhat-cosmetic" element={<ChhatCosmetic />} />
                 <Route path="/admin/login" element={<Admin />} />
                 {/* <Route path="/admin/*" element={<AdminLayout />} /> */}
 
                 <Route path="/admin/*" element={<AdminLayout />}>
                     <Route path="dashboard" element={<AdminDashboard />} />
-                    <Route path="chhat-group-blog" element={<AdminChhatGroupBlog />} />
-                    <Route path="chhat-research-blog" element={<AdminChhatResearchBlog />} />
+                    <Route
+                        path="chhat-group-blog"
+                        element={<AdminChhatGroupBlog />}
+                    />
+                    <Route
+                        path="chhat-research-blog"
+                        element={<AdminChhatResearchBlog />}
+                    />
                     <Route path="career" element={<AdminCareer />} />
                     <Route path="user" element={<AdminUser />} />
                     <Route path="profile" element={<AdminProfile />} />
+                    <Route path="contact" element={<AdminContact />} />
                 </Route>
             </Routes>
             {!hideNavbarAndFooter && <Footer />}

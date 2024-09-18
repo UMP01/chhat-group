@@ -1,27 +1,38 @@
 import PropTypes from "prop-types";
 
-function QuickStackCard(props) {
-  return (
-    <div className="rounded-md shadow bg-white flex flex-col">
-      <div className="flex space-x-4 items-center px-4 py-3">
-        {props.children}
-        <div className="flex flex-col space-y-1">
-          <h3 className="font-lg text-gray-500">{props.title}</h3>
-          <span className="font-semibold text-2xl text-gray-600">
-            {props.statics}
-          </span>
+function CardData(props) {
+    const backgroundClass = props.background || "bg-gray-100"; // Default bg
+
+    return (
+        <div
+            className={`rounded-md px-3 py-2 shadow ${backgroundClass} flex flex-col`}
+        >
+            <div className="flex space-x-4 items-center justify-between px-4 py-3">
+                {props.children}
+                <a
+                    href={props.link}
+                    className=" text-gray-700 hover:text-gray-600"
+                >
+                    View all
+                </a>
+            </div>
+            <div className="px-4 py-3 rounded-b-md">
+                <div className="">
+                    <span className="font-normal text-2xl text-gray-600">
+                        {props.statics}
+                    </span>
+                    <h3 className="font-lg text-gray-700">{props.title}</h3>
+                </div>
+            </div>
         </div>
-      </div>
-      <div className="bg-gray-50 px-4 py-3 rounded-b-md">
-        <a href="!#" className="text-sm text-indigo-500 hover:text-indigo-700">View all</a>
-      </div>
-    </div>
-  );
+    );
 }
 
-QuickStackCard.propTypes = {
-  title: PropTypes.string.isRequired,
-  statics: PropTypes.string.isRequired,
+CardData.propTypes = {
+    title: PropTypes.string.isRequired,
+    statics: PropTypes.string.isRequired,
+    background: PropTypes.string,
+    link: PropTypes.string,
 };
 
-export default QuickStackCard;
+export default CardData;
