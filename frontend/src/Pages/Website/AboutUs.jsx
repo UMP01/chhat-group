@@ -1,6 +1,10 @@
 import Breadcrumb from "../../Components/Breadcrumb/Breadcrumb";
 import Banner from "../../assets/Images/Homepage/1823.jpg";
-import Profile from "../../assets/Images/AboutUs/1.png";
+import Pic1 from "../../assets/Images/AboutUs/Picture1.png";
+import Pic2 from "../../assets/Images/AboutUs/Picture2.jpg";
+import Pic3 from "../../assets/Images/AboutUs/Picture3.jpg";
+import Pic4 from "../../assets/Images/AboutUs/Picture4.jpg";
+import Pic5 from "../../assets/Images/AboutUs/Picture5.jpg";
 import { MdOutlineCall,
          MdOutlineEmail,
          MdOutlineFacebook,
@@ -110,7 +114,7 @@ const About = () => {
                     <div 
                         className="relative max-w-[1200px] 
                                     my-[20px] mx-auto after:contents after:absolute 
-                                    after:w-[4px] after:h-[100%] after:bg-white 
+                                    after:w-[3px] after:h-[100%] after:bg-[#0191DA]
                                     after:top-0 lg:after:left-[50%] after:ml-[-2px] after:z-[1] md:after:left-[31px]
                                     "
                         >
@@ -119,11 +123,11 @@ const About = () => {
                             <div className="absolute w-[20px] h-[20px] rounded-full bg-[#0191DA] right-[-10px] top-[32px] z-10 point "></div>
                             <div className="flex flex-row gap-4 relative py-[12px]  rounded-md bg-gray-50">
                                 <div className="w-[120px] h-[120px] rounded-full m-5">
-                                    <img src={Profile} alt="" className="w-full h-full rounded-full object-cover" />
+                                    <img src={Pic1} alt="" className="w-full h-full rounded-full object-cover" />
                                 </div>
                                 <div className="lg:w-[380px] my-3 lg:ml-3 md:w-[300px]">
                                     <h2 className="lg:text-xl font-semibold md:text-[14px]">
-                                        Co-Founder & BOD Member
+                                        Founder, Chairman & CEO
                                     </h2>
                                     <div className="w-full h-[110px] mt-2 text-[#0191DA]">
                                         <div className="flex flex-row ">
@@ -153,11 +157,11 @@ const About = () => {
                             <div className="absolute w-[20px] h-[20px] rounded-full bg-[#0191DA] left-[-10px] top-[32px] z-10"></div>
                             <div className="flex flex-row gap-4 relative py-[12px] rounded-md bg-gray-50">
                                 <div className="w-[120px] h-[120px] rounded-full m-5">
-                                    <img src={Profile} alt="" className="w-full h-full rounded-full object-cover" />
+                                    <img src={Pic2} alt="" className="w-full h-full rounded-full object-cover" />
                                 </div>
                                 <div className="lg:w-[380px] my-3 lg:ml-3 md:w-[300px]">
                                     <h2 className="lg:text-xl font-semibold">
-                                        Co-Founder & BOD Member
+                                        Research Director & CCO
                                     </h2>
                                     <div className="w-full h-[110px] mt-2 text-[#0191DA]">
                                         <div className="flex flex-row ">
@@ -186,11 +190,11 @@ const About = () => {
                             <div className="absolute w-[20px] h-[20px] rounded-full bg-[#0191DA] right-[-10px] top-[32px] z-10 point"></div>
                             <div className="flex flex-row gap-4 relative py-[12px] rounded-md bg-gray-50">
                                 <div className="w-[120px] h-[120px] rounded-full m-5">
-                                    <img src={Profile} alt="" className="w-full h-full rounded-full object-cover" />
+                                    <img src={Pic3} alt="" className="w-full h-full rounded-full object-cover" />
                                 </div>
                                 <div className="lg:w-[380px] my-3 lg:ml-3 md:w-[300px]">
                                     <h2 className="lg:text-xl font-semibold">
-                                        Co-Founder & BOD Member
+                                        Operations Director & COO
                                     </h2>
                                     <div className="w-full h-[110px] mt-2 text-[#0191DA]">
                                         <div className="flex flex-row ">
@@ -220,11 +224,11 @@ const About = () => {
                             <div className="absolute w-[20px] h-[20px] rounded-full bg-[#0191DA] left-[-10px] top-[32px] z-10"></div>
                             <div className="flex flex-row gap-4 relative py-[12px] rounded-md bg-gray-50">
                                 <div className="w-[120px] h-[120px] rounded-full m-5">
-                                    <img src={Profile} alt="" className="w-full h-full rounded-full object-cover" />
+                                    <img src={Pic4} alt="" className="w-full h-full rounded-full object-cover" />
                                 </div>
                                 <div className="lg:w-[380px] my-3 lg:ml-3 md:w-[300px] ">
                                     <h2 className="lg:text-xl font-semibold">
-                                        Co-Founder & BOD Member
+                                        Research Director
                                     </h2>
                                     <div className="w-full h-[110px] mt-2 text-[#0191DA]">
                                         <div className="flex flex-row ">
@@ -254,11 +258,11 @@ const About = () => {
                             <div className="absolute w-[20px] h-[20px] rounded-full bg-[#0191DA] right-[-10px] top-[32px] z-10 point"></div>
                             <div className="flex flex-row gap-4 relative py-[12px] rounded-md bg-gray-50">
                                 <div className="lg:w-[120px] lg:h-[120px] rounded-full m-5">
-                                    <img src={Profile} alt="" className="w-full h-full rounded-full object-cover" />
+                                    <img src={Pic5} alt="" className="w-full h-full rounded-full object-cover" />
                                 </div>
                                 <div className="lg:w-[380px] my-3 lg:ml-3 md:w-[300px]">
                                     <h2 className="lg:text-xl font-semibold">
-                                        Co-Founder & BOD Member
+                                        Associate Research Manager
                                     </h2>
                                     <div className="w-full h-[110px] mt-2 text-[#0191DA] ">
                                         <div className="flex flex-row ">
