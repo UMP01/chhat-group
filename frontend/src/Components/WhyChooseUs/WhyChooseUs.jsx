@@ -9,9 +9,9 @@ import Image1 from "../../assets/Images/Homepage/1823.jpg";
 
 const WhyChooseUs = () => {
     return (
-        <div className="flex flex-wrap justify-center items-center">
+        <div className="flex flex-wrap justify-end items-center bg-gray-100">
             <div className="lg:w-1/2 py-5 wow fadeIn" data-wow-delay="0.1s">
-                <div className="lg:pl-20 p-5">
+                <div className="lg:pl-36 p-5 max-w-4xl">
                     <h6 className="mb-4 pb-2 text-xs sm:text-sm md:text-base lg:text-base primary-color">
                         Why Choose Us!
                     </h6>
@@ -49,7 +49,7 @@ const WhyChooseUs = () => {
                                 key={index}
                                 className="w-full sm:w-1/2 lg:w-1/2 p-2"
                             >
-                                <div className="flex items-center">
+                                <div className="flex items-center justify-start">
                                     <div className="btn-lg-square primary-bg-color text-white rounded-full flex items-center justify-center w-12 h-12">
                                         {item.icon}
                                     </div>
