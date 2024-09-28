@@ -2,11 +2,10 @@ import React, { useState } from "react";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import slide01 from "../../assets/Images/Slideshow/banner-research.jpg";
 import slide02 from "../../assets/Images/Slideshow/banner-diamond.jpg";
-import slide03 from "../../assets/Images/Slideshow/banner-career.jpg";
-import slide04 from "../../assets/Images/Slideshow/banner11.jpg";
+import slide03 from "../../assets/Images/Slideshow/CHHAT-DIAMOND.jpg";
 
 const Carousel = () => {
-    const carouselItems = [slide01, slide02, slide03, slide04];
+    const carouselItems = [slide01, slide02, slide03];
 
     const [currentIndex, setCurrentIndex] = useState(0);
 

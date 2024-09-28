@@ -33,22 +33,22 @@ const cardsData = [
 ];
 
 const Card = ({ imageSrc, altText, title, description, link }) => (
-    <div className="lg:w-1/3 p-5">
+    <div className="lg:w-1/3 px-5 py-3 tracking-tight">
         <div className="shadow-lg rounded-lg border bg-gray-50 border-gray-100 overflow-hidden py-5 hover:scale-105 duration-300 hover:shadow-2xl">
             <img
                 src={imageSrc}
                 alt={altText}
-                className="img-fluid w-48 mx-auto h-auto object-fit pt-3"
+                className="img-fluid w-40 mx-auto h-auto object-fit pt-3"
             />
-            <div className="px-8 py-1">
-                <h5 className=" text-xl sm:text-lg md:text-xl lg:text-xl text-gray-600 pb-2 pt-5">
+            <div className="px-5 py-1">
+                <h5 className=" text-lg sm:text-lg md:text-lg lg:text-xl font-semibold font-sans text-gray-600 pb-2 pt-5">
                     {title}
                 </h5>
-                <p className="text-gray-500 line-clamp-4 text-sm sm:text-base md:text-base lg:text-base">
+                <p className="text-gray-500 line-clamp-4 text-base sm:text-base md:text-base lg:text-base">
                     {description}
                 </p>
                 <Link
-                    className="primary-color inline-flex items-center pt-3 border-b-2 border-cyan-500 hover:translate-x-3 duration-200 cursor-pointer"
+                    className="primary-color text-base sm:text-base md:text-base lg:text-base inline-flex items-center pt-3 border-b-2 border-cyan-500 hover:translate-x-3 duration-200 cursor-pointer"
                     to={link}
                 >
                     Read More <HiOutlineArrowNarrowRight className="ml-1" />

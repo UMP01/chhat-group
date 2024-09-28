@@ -222,27 +222,29 @@ const User = () => {
             <div className="overflow-x-auto px-2">
                 <table className="min-w-full table-auto">
                     <thead>
-                        <tr className="bg-cyan-700 rounded-lg">
-                            <th className="py-4 text-white font-medium rounded-tl-md">
+                        <tr className="bg-cyan-700 rounded-lg text-left">
+                            <th className="py-4 px-3 text-white font-medium rounded-tl-md">
                                 Name
                             </th>
-                            <th className="py-4 text-white font-medium">
+                            <th className="py-4 px-3 text-white font-medium">
                                 Email
                             </th>
-                            <th className="py-4 text-white font-medium">
+                            <th className="py-4 px-3 text-white font-medium">
                                 Phone
                             </th>
-                            <th className="py-4 text-white font-medium">DOB</th>
-                            <th className="py-4 text-white font-medium">
+                            <th className="py-4 px-3 text-white font-medium">
+                                DOB
+                            </th>
+                            <th className="py-4 px-3 text-white font-medium">
                                 Branch
                             </th>
-                            <th className="py-4 text-white font-medium">
+                            <th className="py-4 px-3 text-white font-medium">
                                 Permission
                             </th>
-                            <th className="py-4 text-white font-medium">
+                            <th className="py-4 px-3 text-white font-medium">
                                 Created Date
                             </th>
-                            <th className="py-4 text-white font-medium rounded-tr-md">
+                            <th className="py-4 px-3 text-white font-medium rounded-tr-md">
                                 Actions
                             </th>
                         </tr>
@@ -252,7 +254,7 @@ const User = () => {
                             filteredUsers.map((user) => (
                                 <tr
                                     key={user.id}
-                                    className="border-b text-gray-700"
+                                    className="border-b text-gray-700 transition duration-300 ease-in-out hover:bg-gray-100"
                                 >
                                     <td className="border p-3">{user.name}</td>
                                     <td className="border p-3">{user.email}</td>
@@ -268,7 +270,7 @@ const User = () => {
                                         {formatDate(user.created_at)}
                                     </td>
                                     <td className="border p-3">
-                                        <div className="flex justify-center">
+                                        <div className="flex">
                                             <button
                                                 className="rounded-md rounded-r-none border-cyan-700 bg-cyan-700 text-white px-4 py-2 flex items-center hover:bg-cyan-800 duration-300 ease-in-out"
                                                 onClick={() => handleEdit(user)}

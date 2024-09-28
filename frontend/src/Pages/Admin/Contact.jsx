@@ -72,6 +72,12 @@ const Contact = () => {
             contact.subject.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
+    // New function to refresh contacts and clear search
+    const handleRefresh = () => {
+        fetchContacts();
+        setSearchTerm(""); // Clear the search term
+    };
+
     return (
         <div className="flex flex-col space-y-6 p-5 shadow-lg rounded-lg">
             <div className="flex justify-between px-2">
@@ -84,7 +90,7 @@ const Contact = () => {
                 />
                 <button
                     className="bg-green-600 text-white py-2 px-5 rounded hover:bg-green-700 duration-300 ease-in-out flex items-center justify-center"
-                    onClick={fetchContacts}
+                    onClick={handleRefresh}
                 >
                     <FaSync className="mr-2" />
                     Refresh
@@ -119,7 +125,7 @@ const Contact = () => {
                             filteredContacts.map((contact, index) => (
                                 <tr
                                     key={contact.id}
-                                    className="border-b text-gray-800"
+                                    className="border-b text-gray-800 transition duration-300 ease-in-out hover:bg-gray-100"
                                 >
                                     <td className="border p-3 text-left">
                                         {index + 1}
@@ -185,19 +191,36 @@ const Contact = () => {
                         {selectedContact && (
                             <div className="text-gray-700 p-5">
                                 <p className="pb-2">
-                                    From: {selectedContact.fullname}
+                                    <span className="text-cyan-800 font-medium">
+                                        From:{" "}
+                                    </span>
+                                    {selectedContact.fullname}
+                                </p>
+                                <a
+                                    className="py-10"
+                                    href={`mailto:${selectedContact.email}`}
+                                >
+                                    <span className="text-cyan-800 font-medium">
+                                        Email:{" "}
+                                    </span>
+                                    {selectedContact.email}
+                                </a>
+                                <p className="py-2">
+                                    <span className="text-cyan-800 font-medium">
+                                        Subject:{" "}
+                                    </span>
+                                    {selectedContact.subject}
                                 </p>
                                 <p className="py-2">
-                                    Email: {selectedContact.email}
+                                    <span className="text-cyan-800 font-medium">
+                                        Message:{" "}
+                                    </span>
+                                    {selectedContact.message}
                                 </p>
                                 <p className="py-2">
-                                    Subject: {selectedContact.subject}
-                                </p>
-                                <p className="py-2">
-                                    Message: {selectedContact.message}
-                                </p>
-                                <p className="py-2">
-                                    Sent At:{" "}
+                                    <span className="text-cyan-800 font-medium">
+                                        Sent At:{" "}
+                                    </span>
                                     {formatDate(selectedContact.created_at)}
                                 </p>
                             </div>

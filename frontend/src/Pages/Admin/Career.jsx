@@ -111,7 +111,10 @@ const Career = () => {
                     </thead>
                     <tbody>
                         {careers.map((career) => (
-                            <tr key={career.id} className="border-b">
+                            <tr
+                                key={career.id}
+                                className="border-b transition duration-300 ease-in-out hover:bg-gray-100"
+                            >
                                 <td className="border p-2">{career.title}</td>
                                 <td className="border p-2">
                                     {career.location}

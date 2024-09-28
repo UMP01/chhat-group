@@ -1,9 +1,4 @@
 import React from "react";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-
-// Import images
 import Sting from "../../assets/Images/Commercial-logo/sting.png";
 import Lucky from "../../assets/Images/Commercial-logo/lucky.png";
 import Aba from "../../assets/Images/Commercial-logo/aba.png";
@@ -48,66 +43,30 @@ const Logoes = [
     { image: Ph, alt: "Peng Hout Logo" },
 ];
 
-const settings = {
-    dots: false,
-    infinite: true,
-    slidesToShow: 10,
-    slidesToScroll: 1,
-    autoplay: true,
-    speed: 1500,
-    autoplaySpeed: 1500,
-    cssEase: "linear",
-    responsive: [
-        {
-            breakpoint: 1024,
-            settings: {
-                slidesToShow: 6,
-                slidesToScroll: 1,
-            },
-        },
-        {
-            breakpoint: 768,
-            settings: {
-                slidesToShow: 4,
-                slidesToScroll: 1,
-            },
-        },
-        {
-            breakpoint: 480,
-            settings: {
-                slidesToShow: 1,
-                slidesToScroll: 1,
-            },
-        },
-    ],
-};
-
 const CommercialTeam = ({ logoes = Logoes }) => {
     return (
-        <div className="max-w-7xl mx-auto">
-            <h1 className="text-center pb-4 text-xl sm:text-2xl md:text-3xl lg:text-3xl text-gray-600">
+        <div className="max-w-7xl mx-auto my-10 sm:my-20 px-3 sm:px-1">
+            <h1 className="text-center pb-3 text-xl sm:text-2xl md:text-3xl lg:text-3xl text-gray-600">
                 Commercial Team
             </h1>
-            <p className="text-center p-2 text-gray-500 text-sm sm:text-base md:text-base lg:text-base">
-                The commercial team works with global and local giant companies
-                in many different industries including the automotive and tire
-                clients
+            <p className="text-center text-gray-500 text-sm sm:text-base md:text-base lg:text-base">
+                The public / social research team works with global,
+                international and local NGOs in different sectors
             </p>
-            <div className="pt-10">
-                <Slider {...settings}>
-                    {logoes.map((logo, index) => (
-                        <div
-                            key={index}
-                            className="flex items-center justify-center"
-                        >
-                            <img
-                                src={logo.image}
-                                alt={logo.alt}
-                                className="w-20 h-20 object-contain"
-                            />
-                        </div>
-                    ))}
-                </Slider>
+            <hr className="h-px my-8 border-gray-600 border-t-2 w-44 mx-auto" />
+            <div className="grid grid-cols-3 sm:grid-cols-10 pt-5">
+                {logoes.map((logo, index) => (
+                    <div
+                        key={index}
+                        className="flex items-center justify-center bg-white border border-gray-200 p-2 transform transition duration-200 hover:scale-90 hover:border-none"
+                    >
+                        <img
+                            src={logo.image}
+                            alt={logo.alt}
+                            className="w-20 h-20 object-contain"
+                        />
+                    </div>
+                ))}
             </div>
         </div>
     );

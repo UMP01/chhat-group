@@ -1,18 +1,18 @@
 import React from "react";
-import Image1 from "../../assets/Images/Homepage/2634.jpg";
-import { IoMdCheckmark } from "react-icons/io";
+import Image1 from "../../assets/Images/Slideshow/banner11.jpg";
+//import { IoMdCheckmark } from "react-icons/io";
 import { Link } from "react-router-dom";
 
 const FindOut = () => {
     return (
-        <div className="flex flex-wrap justify-center items-center mx-4 lg:mx-auto lg:w-4/5 rounded-lg my-10 lg:my-20">
+        <div className="flex flex-wrap justify-center items-center my-10 lg:my-20 bg-cyan-700">
             <div
                 className="lg:w-1/2 lg:order-1 wow fadeIn"
                 data-wow-delay="0.5s"
             >
-                <div className="relative w-full h-full">
+                <div className="relative w-full">
                     <img
-                        className="w-full h-auto object-cover rounded-lg"
+                        className="w-full h-auto object-cover"
                         src={Image1}
                         alt="Feature"
                     />
@@ -20,18 +20,19 @@ const FindOut = () => {
             </div>
             <div className="lg:w-1/2 lg:order-2 lg:pl-5 py-5">
                 <div className="p-5">
-                    <h6 className="mb-4 pb-2 text-xs sm:text-sm md:text-base lg:text-base primary-color">
+                    <h6 className="mb-4 pb-2 text-xs sm:text-sm md:text-base lg:text-base text-gray-100">
                         About Us
                     </h6>
-                    <h1 className="mb-4 pb-2 text-gray-600 text-xl sm:text-2xl md:text-3xl lg:text-4xl">
+                    <h1 className="mb-4 pb-2 text-gray-200 text-xl sm:text-2xl md:text-3xl lg:text-4xl">
                         Find Out Who We Are!
                     </h1>
-                    <p className="mb-4 pb-2 text-gray-500 text-sm sm:text-base md:text-base lg:text-base">
+                    <p className="mb-4 pb-2 text-gray-200 text-sm sm:text-base md:text-base lg:text-base">
                         We provide world-class quality products and services to
                         our customers and trade partners with the highest level
                         of transparency and accountability, through our
                         professional, committed and highly skilled staff.
                     </p>
+                    {/*
                     <div className="flex flex-wrap my-1">
                         <div className="btn-lg-square primary-bg-color rounded-full flex items-center justify-center w-6 h-6 text-white">
                             <IoMdCheckmark className="w-3 h-3" />
@@ -64,9 +65,10 @@ const FindOut = () => {
                             Core Values
                         </p>
                     </div>
+                    */}
                     <Link
                         to="/about"
-                        className="text-white primary-bg-color px-6 py-2 rounded-3xl text-sm sm:text-base md:text-base lg:px-10 lg:py-3 lg:text-base hover:bg-cyan-700 duration-300 ease-in-out"
+                        className="text-white border-b-2 py-1 text-sm sm:text-base md:text-base lg:text-base hover:text-gray-400 hover:border-gray-400 duration-300 ease-in-out"
                     >
                         Explore More
                     </Link>

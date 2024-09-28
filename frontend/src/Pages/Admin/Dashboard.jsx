@@ -9,7 +9,7 @@ import CardDataStats from "../../Components/CardDataStats/CardDataStats";
 import { axiosClient } from "../../api/axios";
 
 const Dashboard = () => {
-    const iconClass = "w-9 h-9 text-gray-700";
+    const iconClass = "w-8 h-8 text-gray-700";
     const [contactCount, setContactCount] = useState(0);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);

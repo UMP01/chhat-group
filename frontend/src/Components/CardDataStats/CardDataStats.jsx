@@ -11,7 +11,7 @@ function CardData(props) {
                 {props.children}
                 <a
                     href={props.link}
-                    className=" text-gray-700 hover:text-gray-600"
+                    className=" text-gray-700 text-sm hover:text-blue-600 duration-200 ease-in-out"
                 >
                     View all
                 </a>
