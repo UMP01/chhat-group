@@ -4,38 +4,85 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+    // Fetch active users
     public function index()
     {
-        // Only get active users
         return User::active()->get();
     }
 
+    // Store a new user
     public function store(Request $request)
     {
-        $user = User::create($request->all());
-        return response()->json($user, 201);
+        // Validate the request data
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'phone' => 'required|string|max:15',
+            'dob' => 'required|date',
+            'branch' => 'required|string|max:255',
+            'permission' => 'required|in:admin,editor,viewer',
+            'password' => 'required|string|min:8', // Ensure password is provided on create
+        ]);
+
+        // Hash the password before saving
+        $validatedData['password'] = Hash::make($validatedData['password']);
+
+        // Create the user and return response
+        $user = User::create($validatedData);
+        return response()->json(['message' => 'User created successfully', 'user' => $user], 201);
     }
 
+    // Show details of a single active user
     public function show($id)
     {
-        return User::findOrFail($id);
-    }
-
-    public function update(Request $request, $id)
-    {
-        $user = User::findOrFail($id);
-        $user->update($request->all());
+        $user = User::active()->findOrFail($id); // Fetch only active users
         return response()->json($user, 200);
     }
 
+    // Update user details
+    public function update(Request $request, $id)
+    {
+        // Fetch the active user to update
+        $user = User::active()->findOrFail($id);
+
+        // Validate the request data
+        $validatedData = $request->validate([
+            'name' => 'sometimes|required|string|max:255',
+            'email' => 'sometimes|required|string|email|max:255|unique:users,email,' . $user->id,
+            'phone' => 'sometimes|required|string|max:15',
+            'dob' => 'sometimes|required|date',
+            'branch' => 'sometimes|required|string|max:255',
+            'permission' => 'sometimes|required|in:admin,editor,viewer',
+            'password' => 'sometimes|nullable|string|min:8', // Password should be optional
+        ]);
+
+        // Hash the password if it's being updated
+        if (!empty($validatedData['password'])) {
+            $validatedData['password'] = Hash::make($validatedData['password']);
+        }
+
+        // Update the user data
+        $user->update($validatedData);
+
+        // Return the updated user details
+        return response()->json(['message' => 'User updated successfully', 'user' => $user], 200);
+    }
+
+    // Soft delete a user (set status to inactive)
     public function destroy($id)
     {
-        $user = User::findOrFail($id);
-        $user->status = '1'; // Set status to 1 for deletion
+        // Find the active user to soft delete
+        $user = User::active()->findOrFail($id);
+
+        // Set status to '1' (inactive/deleted)
+        $user->status = '1';
         $user->save();
-        return response()->json(null, 204);
+
+        // Return confirmation response
+        return response()->json(['message' => 'User deleted successfully'], 200);
     }
 }

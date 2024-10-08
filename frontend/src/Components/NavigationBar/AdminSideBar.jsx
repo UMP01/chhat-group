@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 import {
     HomeIcon,
     UserGroupIcon,
@@ -18,6 +19,26 @@ const AdminSideBar = () => {
 
     const handleClick = (index) => {
         setActive(index);
+    };
+
+    const handleLogout = async () => {
+        try {
+            const result = await Swal.fire({
+                title: "Are you sure?",
+                text: "Do you really want to log out?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, log out!",
+            });
+    
+            if (result.isConfirmed) {
+                window.location.href = "/admin/login";
+            }
+        } catch (error) {
+            Swal.fire("Error", "There was an error logging out", "error");
+        }
     };
 
     const toggleSidebar = () => {
@@ -166,15 +187,10 @@ const AdminSideBar = () => {
                                 ? "bg-cyan-800 text-white rounded-md"
                                 : "text-gray-300 hover:text-primary hover:bg-cyan-800 rounded-md"
                         }`}
-                        onClick={() => handleClick(7)}
+                        onClick={handleLogout}
                     >
-                        <Link
-                            to="/admin/login"
-                            className="flex items-center w-full"
-                        >
-                            <ArrowLeftEndOnRectangleIcon className="w-6 h-6 mr-2" />
-                            <span>Logout</span>
-                        </Link>
+                        <ArrowLeftEndOnRectangleIcon className="w-6 h-6 mr-2" />
+                        <span>Logout</span>
                     </li>
                 </ul>
             </aside>

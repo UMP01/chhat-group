@@ -15,6 +15,7 @@ const User = () => {
         dob: "",
         branch: "",
         permission: "",
+        password: "", // Add password field
     });
     const [searchTerm, setSearchTerm] = useState("");
 
@@ -22,10 +23,8 @@ const User = () => {
     const fetchUsers = async () => {
         try {
             const response = await axiosClient.get("/users");
-            console.log("Fetched users:", response.data); // Log the response for debugging
-            const activeUsers = Array.isArray(response.data)
-                ? response.data
-                : [];
+            console.log("Fetched users:", response.data);
+            const activeUsers = Array.isArray(response.data) ? response.data : [];
             setUsers(activeUsers);
         } catch (error) {
             console.error("Error fetching users:", error);
@@ -56,6 +55,7 @@ const User = () => {
             dob: "",
             branch: "",
             permission: "",
+            password: "", // Reset password
         });
         setEditUser(null);
     };
@@ -67,29 +67,28 @@ const User = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        console.log("Form data before submission:", formData); // Add this line to log form data
         try {
             if (editUser) {
                 await axiosClient.put(`/users/${editUser}`, formData);
                 Swal.fire("Success", "User updated successfully", "success");
             } else {
-                await axiosClient.post("/users", formData);
+                await axiosClient.post("/users", formData); // Make sure this endpoint is correct
                 Swal.fire("Success", "User created successfully", "success");
             }
             fetchUsers(); // Refresh the user list after submission
             resetFormData(); // Reset the form fields
         } catch (error) {
-            console.error("Error submitting form:", error);
-            Swal.fire(
-                "Error",
-                "There was an error submitting the form",
-                "error"
-            );
+            console.error("Error submitting form:", error.response ? error.response.data : error.message); // Log detailed error
+            Swal.fire("Error", "There was an error submitting the form", "error");
         }
     };
+    
+    
 
     const handleEdit = (user) => {
         setEditUser(user.id);
-        setFormData({ ...user });
+        setFormData({ ...user, password: "" }); // Don't prefill password on edit
     };
 
     const handleDelete = async (id) => {
@@ -115,11 +114,11 @@ const User = () => {
         }
     };
 
-    // Refresh button handler
     const handleRefresh = () => {
         fetchUsers(); // Refresh the user list
         resetFormData(); // Reset the form fields
     };
+
     const formatDate = (dateString) => {
         const date = new Date(dateString);
         return date.toLocaleDateString(); // Customize format if needed
@@ -184,6 +183,15 @@ const User = () => {
                     <option value="editor">Editor</option>
                     <option value="viewer">Viewer</option>
                 </select>
+                <input
+                    type="password"
+                    name="password"
+                    value={formData.password}
+                    onChange={handleChange}
+                    placeholder="Password"
+                    className="border p-2 rounded m-1 w-1/6"
+                    required={!editUser} // Required only when adding a new user
+                />
                 <button
                     type="submit"
                     className="bg-cyan-700 text-white py-2 px-5 m-1 rounded hover:bg-cyan-800"
@@ -271,22 +279,21 @@ const User = () => {
                                     </td>
                                     <td className="border p-3">
                                         <div className="flex">
-                                            <button
+                                        <button
                                                 className="rounded-md rounded-r-none border-cyan-700 bg-cyan-700 text-white px-4 py-2 flex items-center hover:bg-cyan-800 duration-300 ease-in-out"
-                                                onClick={() => handleEdit(user)}
-                                            >
+                                            onClick={() => handleEdit(user)}
+                                        >
                                                 <FaRegEdit className="mr-2" />
                                                 Edit
-                                            </button>
-                                            <button
+                                        </button>
+                                        <button
                                                 className="rounded-md rounded-l-none border-red-600 px-4 py-2 bg-red-600 text-white flex items-center hover:bg-red-700 duration-300 ease-in-out"
-                                                onClick={() =>
-                                                    handleDelete(user.id)
-                                                }
-                                            >
-                                                <FaTrash className="mr-2" />
-                                                Delete
-                                            </button>
+                                            onClick={() =>
+                                                handleDelete(user.id)
+                                            }
+                                        >
+                                            <FaTrash />
+                                        </button>
                                         </div>
                                     </td>
                                 </tr>

@@ -19,12 +19,10 @@ return new class extends Migration
             $table->date('dob');
             $table->string('branch');
             $table->enum('permission', ['admin', 'editor', 'viewer']);
+            $table->enum('status', ['0', '1'])->default('0'); // 0 for active, 1 for deleted
+            $table->string('password');
             $table->timestamps();
         });
-        Schema::table('users', function (Blueprint $table) {
-            $table->enum('status', ['0', '1'])->default('0'); // 0 for active, 1 for deleted
-        });
-
     }
 
     /**
@@ -33,8 +31,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('users');
-        Schema::dropIfExists('password_reset_tokens');
-        Schema::dropIfExists('sessions');
     }
 
 };

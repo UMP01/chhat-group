@@ -1,18 +1,51 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Logo from "../../assets/Images/logo.png";
 import LogoBackground from "../../assets/Images/login-bg.jpg";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2"; // For handling alerts
+import axios from "axios"; // For API calls
 
 const Login = () => {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Perform login logic here
-        // After successful login, navigate to the dashboard
-        navigate("/admin/dashboard");
+        setIsLoading(true);
+    
+        try {
+            const response = await axios.post("http://localhost:8000/api/login", {
+                email: email, // Ensure this is a valid email
+                password: password, // Ensure this is not empty
+            });
+    
+            // Handle success response
+            if (response.data.status === "success") {
+                Swal.fire("Success!", "You are logged in!", "success");
+                localStorage.setItem("token", response.data.token);
+                navigate("/admin/dashboard");
+            } else {
+                Swal.fire("Error", response.data.message, "error");
+            }
+        } catch (error) {
+            // Handle errors
+            if (error.response && error.response.status === 422) {
+                const errors = error.response.data.errors;
+                const errorMessage = Object.values(errors)
+                    .flat()
+                    .join(', ');
+                Swal.fire("Error", errorMessage || "Invalid login credentials. Please try again.", "error");
+            } else {
+                Swal.fire("Error", "An unexpected error occurred.", "error");
+            }
+        } finally {
+            setIsLoading(false);
+        }
     };
+    
 
     return (
         <div
@@ -46,7 +79,8 @@ const Login = () => {
                                 </label>
                                 <div className="mt-2">
                                     <input
-                                        value={"phoudy@gmail.com"}
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
                                         id="email"
                                         name="email"
                                         type="email"
@@ -79,7 +113,8 @@ const Login = () => {
                                 </div>
                                 <div className="mt-2">
                                     <input
-                                        value={"12345678"}
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
                                         id="password"
                                         name="password"
                                         type="password"
@@ -93,12 +128,13 @@ const Login = () => {
                             <div>
                                 <button
                                     type="submit"
+                                    disabled={isLoading}
                                     className="flex w-full justify-center rounded-md px-3 py-1.5 text-sm font-normal leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                                     style={{
                                         backgroundColor: "var(--primary-color)",
                                     }}
                                 >
-                                    Login
+                                    {isLoading ? "Logging in..." : "Login"}
                                 </button>
                             </div>
                         </form>
