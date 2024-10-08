@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import Logo from "../../assets/Images/logo.png";
 import LogoBackground from "../../assets/Images/login-bg.jpg";
-import { Link } from "react-router-dom";
 import Swal from "sweetalert2"; // For handling alerts
 import axios from "axios"; // For API calls
 
@@ -15,13 +14,16 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsLoading(true);
-    
+
         try {
-            const response = await axios.post("http://localhost:8000/api/login", {
-                email: email, // Ensure this is a valid email
-                password: password, // Ensure this is not empty
-            });
-    
+            const response = await axios.post(
+                "http://localhost:8000/api/login",
+                {
+                    email,
+                    password,
+                }
+            );
+
             // Handle success response
             if (response.data.status === "success") {
                 Swal.fire("Success!", "You are logged in!", "success");
@@ -31,13 +33,16 @@ const Login = () => {
                 Swal.fire("Error", response.data.message, "error");
             }
         } catch (error) {
-            // Handle errors
+            console.error("Login error:", error); // Log full error for debugging
             if (error.response && error.response.status === 422) {
                 const errors = error.response.data.errors;
-                const errorMessage = Object.values(errors)
-                    .flat()
-                    .join(', ');
-                Swal.fire("Error", errorMessage || "Invalid login credentials. Please try again.", "error");
+                const errorMessage = Object.values(errors).flat().join(", ");
+                Swal.fire(
+                    "Error",
+                    errorMessage ||
+                        "Invalid login credentials. Please try again.",
+                    "error"
+                );
             } else {
                 Swal.fire("Error", "An unexpected error occurred.", "error");
             }
@@ -45,7 +50,6 @@ const Login = () => {
             setIsLoading(false);
         }
     };
-    
 
     return (
         <div
@@ -80,7 +84,9 @@ const Login = () => {
                                 <div className="mt-2">
                                     <input
                                         value={email}
-                                        onChange={(e) => setEmail(e.target.value)}
+                                        onChange={(e) =>
+                                            setEmail(e.target.value)
+                                        }
                                         id="email"
                                         name="email"
                                         type="email"
@@ -114,7 +120,9 @@ const Login = () => {
                                 <div className="mt-2">
                                     <input
                                         value={password}
-                                        onChange={(e) => setPassword(e.target.value)}
+                                        onChange={(e) =>
+                                            setPassword(e.target.value)
+                                        }
                                         id="password"
                                         name="password"
                                         type="password"

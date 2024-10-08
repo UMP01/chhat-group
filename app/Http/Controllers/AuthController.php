@@ -37,14 +37,13 @@ class AuthController extends Controller
             }
 
         } catch (\Throwable $e) {
-            // Log the error for further inspection
             \Log::error('Login error: ' . $e->getMessage());
-
             return response()->json([
                 'status' => 'error',
-                'message' => 'Server error, please try again later'
+                'message' => $e->getMessage()
             ], 500);
         }
+        
     }
 
 }
