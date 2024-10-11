@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import LogoSidebar from "../../assets/Images/logo.png";
 import Swal from "sweetalert2";
 import {
     HomeIcon,
@@ -8,14 +9,11 @@ import {
     BriefcaseIcon,
     UserIcon,
     ArrowLeftEndOnRectangleIcon,
-    XCircleIcon,
-    Bars3Icon,
     EnvelopeIcon,
 } from "@heroicons/react/24/solid";
 
 const AdminSideBar = () => {
     const [active, setActive] = useState(null);
-    const [isOpen, setIsOpen] = useState(true);
 
     const handleClick = (index) => {
         setActive(index);
@@ -32,8 +30,9 @@ const AdminSideBar = () => {
                 cancelButtonColor: "#d33",
                 confirmButtonText: "Yes, log out!",
             });
-    
+
             if (result.isConfirmed) {
+                // Perform the logout logic here, if applicable
                 window.location.href = "/admin/login";
             }
         } catch (error) {
@@ -41,40 +40,22 @@ const AdminSideBar = () => {
         }
     };
 
-    const toggleSidebar = () => {
-        setIsOpen(!isOpen);
-    };
-
     return (
         <>
-            {/* Sidebar Toggle Button */}
-            <button
-                className="fixed top-3 left-4 z-50 text-gray-300 focus:outline-none"
-                onClick={toggleSidebar}
-            >
-                <span className="sr-only">
-                    {isOpen ? "Close Sidebar" : "Open Sidebar"}
-                </span>
-                {isOpen ? (
-                    <XCircleIcon className="w-10 h-10" />
-                ) : (
-                    <Bars3Icon className="w-10 h-10 text-cyan-700" />
-                )}
-            </button>
-
-            {/* Sidebar */}
             <aside
-                className={`fixed inset-y-0 left-0 z-40 w-64 bg-cyan-900 p-6 border-r border-gray-300 shadow-lg transition-transform duration-300 ease-in-out ${
-                    isOpen ? "translate-x-0" : "-translate-x-full"
-                }`}
+                className={`fixed inset-y-0 left-0 z-40 w-64 bg-cyan-900 p-6 border-r border-gray-300 shadow-lg transition-transform duration-300 ease-in-out `}
             >
+                <img
+                            className="w-8/12 mx-auto"
+                            src={LogoSidebar}
+                            alt="Logo Sidebar"
+                        />
                 <ul className="space-y-4 mt-10">
                     <li
-                        className={`flex items-center p-2 cursor-pointer transition duration-200 ease-in-out transform ${
-                            active === 0
+                        className={`flex items-center p-2 cursor-pointer transition duration-200 ease-in-out transform ${active === 0
                                 ? "bg-cyan-800 text-white rounded-md"
                                 : "text-gray-300 hover:text-primary hover:bg-cyan-800 rounded-md"
-                        }`}
+                            }`}
                         onClick={() => handleClick(0)}
                     >
                         <Link
@@ -86,11 +67,10 @@ const AdminSideBar = () => {
                         </Link>
                     </li>
                     <li
-                        className={`flex items-center p-2 cursor-pointer transition duration-200 ease-in-out transform ${
-                            active === 1
+                        className={`flex items-center p-2 cursor-pointer transition duration-200 ease-in-out transform ${active === 1
                                 ? "bg-cyan-800 text-white rounded-md"
                                 : "text-gray-300 hover:text-primary hover:bg-cyan-800 rounded-md"
-                        }`}
+                            }`}
                         onClick={() => handleClick(1)}
                     >
                         <Link
@@ -102,11 +82,10 @@ const AdminSideBar = () => {
                         </Link>
                     </li>
                     <li
-                        className={`flex items-center p-2 cursor-pointer transition duration-200 ease-in-out transform ${
-                            active === 2
+                        className={`flex items-center p-2 cursor-pointer transition duration-200 ease-in-out transform ${active === 2
                                 ? "bg-cyan-800 text-white rounded-md"
                                 : "text-gray-300 hover:text-primary hover:bg-cyan-800 rounded-md"
-                        }`}
+                            }`}
                         onClick={() => handleClick(2)}
                     >
                         <Link
@@ -118,11 +97,10 @@ const AdminSideBar = () => {
                         </Link>
                     </li>
                     <li
-                        className={`flex items-center p-2 cursor-pointer transition duration-200 ease-in-out transform ${
-                            active === 3
+                        className={`flex items-center p-2 cursor-pointer transition duration-200 ease-in-out transform ${active === 3
                                 ? "bg-cyan-800 text-white rounded-md"
                                 : "text-gray-300 hover:text-primary hover:bg-cyan-800 rounded-md"
-                        }`}
+                            }`}
                         onClick={() => handleClick(3)}
                     >
                         <Link
@@ -134,11 +112,10 @@ const AdminSideBar = () => {
                         </Link>
                     </li>
                     <li
-                        className={`flex items-center p-2 cursor-pointer transition duration-200 ease-in-out transform ${
-                            active === 4
+                        className={`flex items-center p-2 cursor-pointer transition duration-200 ease-in-out transform ${active === 4
                                 ? "bg-cyan-800 text-white rounded-md"
                                 : "text-gray-300 hover:text-primary hover:bg-cyan-800 rounded-md"
-                        }`}
+                            }`}
                         onClick={() => handleClick(4)}
                     >
                         <Link
@@ -150,11 +127,10 @@ const AdminSideBar = () => {
                         </Link>
                     </li>
                     <li
-                        className={`flex items-center p-2 cursor-pointer transition duration-200 ease-in-out transform ${
-                            active === 5
+                        className={`flex items-center p-2 cursor-pointer transition duration-200 ease-in-out transform ${active === 5
                                 ? "bg-cyan-800 text-white rounded-md"
                                 : "text-gray-300 hover:text-primary hover:bg-cyan-800 rounded-md"
-                        }`}
+                            }`}
                         onClick={() => handleClick(5)}
                     >
                         <Link
@@ -166,11 +142,10 @@ const AdminSideBar = () => {
                         </Link>
                     </li>
                     <li
-                        className={`flex items-center p-2 cursor-pointer transition duration-200 ease-in-out transform ${
-                            active === 6
+                        className={`flex items-center p-2 cursor-pointer transition duration-200 ease-in-out transform ${active === 6
                                 ? "bg-cyan-800 text-white rounded-md"
                                 : "text-gray-300 hover:text-primary hover:bg-cyan-800 rounded-md"
-                        }`}
+                            }`}
                         onClick={() => handleClick(6)}
                     >
                         <Link
@@ -182,11 +157,10 @@ const AdminSideBar = () => {
                         </Link>
                     </li>
                     <li
-                        className={`flex items-center p-2 cursor-pointer transition duration-200 ease-in-out transform ${
-                            active === 7
+                        className={`flex items-center p-2 cursor-pointer transition duration-200 ease-in-out transform ${active === 7
                                 ? "bg-cyan-800 text-white rounded-md"
                                 : "text-gray-300 hover:text-primary hover:bg-cyan-800 rounded-md"
-                        }`}
+                            }`}
                         onClick={handleLogout}
                     >
                         <ArrowLeftEndOnRectangleIcon className="w-6 h-6 mr-2" />
