@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import Logo from "../../assets/Images/logo.png";
 import LogoBackground from "../../assets/Images/login-bg.jpg";
-import Swal from "sweetalert2"; // For handling alerts
+import Swal from "sweetalert2"; // For alerts
 import axios from "axios"; // For API calls
 
 const Login = () => {
@@ -26,8 +26,9 @@ const Login = () => {
 
             // Handle success response
             if (response.data.status === "success") {
-                Swal.fire("Success!", "You are logged in!", "success");
                 localStorage.setItem("token", response.data.token);
+                localStorage.setItem("userId", response.data.user.id); // Save user ID
+                localStorage.setItem("userName", response.data.user.name); // Save user name
                 navigate("/admin/dashboard");
             } else {
                 Swal.fire("Error", response.data.message, "error");
@@ -66,7 +67,7 @@ const Login = () => {
                         <img
                             className="mx-auto h-16 w-auto"
                             src={Logo}
-                            alt="Chhat Group"
+                            alt="Logo"
                         />
                     </div>
                 </div>

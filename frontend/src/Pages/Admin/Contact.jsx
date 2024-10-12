@@ -80,16 +80,16 @@ const Contact = () => {
 
     return (
         <div className="flex flex-col space-y-6 p-5 shadow-lg rounded-lg">
-            <div className="flex justify-between px-2">
+            <div className="flex justify-between px-2 text-sm">
                 <input
                     type="text"
                     placeholder="Search Contact"
-                    className="border px-3 py-2 rounded w-1/3"
+                    className="border px-4 py-2 rounded w-1/3"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                 />
                 <button
-                    className="bg-green-600 text-white py-2 px-5 rounded hover:bg-green-700 duration-300 ease-in-out flex items-center justify-center"
+                    className="bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700 duration-300 ease-in-out flex items-center justify-center"
                     onClick={handleRefresh}
                 >
                     <FaSync className="mr-2" />
@@ -97,25 +97,25 @@ const Contact = () => {
                 </button>
             </div>
             <div className="overflow-x-auto px-2">
-                <table className="min-w-full table-auto">
+                <table className="min-w-full table-auto text-sm">
                     <thead>
-                        <tr className="bg-cyan-700 rounded-lg">
-                            <th className="py-4 px-3 text-white font-medium rounded-tl-md text-left">
+                        <tr className="bg-cyan-700 rounded-lg text-left">
+                            <th className="py-2 px-4 border-2 border-cyan-700 text-white">
                                 No.
                             </th>
-                            <th className="py-4 px-3 text-white font-medium text-left">
+                            <th className="py-2 px-4 border-2 border-cyan-700 text-white">
                                 Name
                             </th>
-                            <th className="py-4 px-3 text-white font-medium text-left">
+                            <th className="py-2 px-4 border-2 border-cyan-700 text-white">
                                 Email
                             </th>
-                            <th className="py-4 px-3 text-white font-medium text-left">
+                            <th className="py-2 px-4 border-2 border-cyan-700 text-white">
                                 Subject
                             </th>
-                            <th className="py-4 px-3 text-white font-medium text-left">
+                            <th className="py-2 px-4 border-2 border-cyan-700 text-white">
                                 Sent Date
                             </th>
-                            <th className="py-4 px-3 text-white font-medium rounded-tr-md text-left">
+                            <th className="py-2 px-4 border-2 border-cyan-700 text-white">
                                 Actions
                             </th>
                         </tr>
@@ -127,22 +127,22 @@ const Contact = () => {
                                     key={contact.id}
                                     className="border-b text-gray-800 transition duration-300 ease-in-out hover:bg-gray-100"
                                 >
-                                    <td className="border p-3 text-left">
+                                    <td className="border py-2 px-4">
                                         {index + 1}
                                     </td>
-                                    <td className="border p-3 text-left">
+                                    <td className="border py-2 px-4">
                                         {contact.fullname}
                                     </td>
-                                    <td className="border p-3 text-left">
+                                    <td className="border py-2 px-4">
                                         {contact.email}
                                     </td>
-                                    <td className="border p-3 text-left">
+                                    <td className="border py-2 px-4">
                                         {contact.subject}
                                     </td>
-                                    <td className="border p-3 text-left">
+                                    <td className="border py-2 px-4">
                                         {formatDate(contact.created_at)}
                                     </td>
-                                    <td className="border p-3 text-left">
+                                    <td className="border py-2 px-4">
                                         <div className="flex space-x-2">
                                             <button
                                                 className="rounded-md bg-cyan-700 text-white px-4 py-2 flex items-center hover:bg-cyan-800 duration-300 ease-in-out"
@@ -234,12 +234,8 @@ const Contact = () => {
 
 // Helper function to format date
 const formatDate = (dateString) => {
-    const options = {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-    };
-    return new Date(dateString).toLocaleDateString(undefined, options);
+    const date = new Date(dateString);
+    return date.toLocaleDateString(); // Customize format if needed
 };
 
 export default Contact;

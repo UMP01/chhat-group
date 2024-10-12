@@ -1,4 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import Swal from "sweetalert2";
+import { FaRegEdit, FaTrash, FaSync } from "react-icons/fa";
+import { axiosClient } from "../../api/axios";
 import { IoAdd } from "react-icons/io5";
 
 const ChhatResearchBlog = () => {
@@ -12,8 +15,27 @@ const ChhatResearchBlog = () => {
         author: "",
         datePosted: "",
         tags: "",
-        media: null, // Store the uploaded file
+        media: null,
     });
+    const [searchTerm, setSearchTerm] = useState("");
+
+    // Fetch posts from the API when the component mounts
+    const fetchPosts = async () => {
+        try {
+            const response = await axiosClient.get("/blogs");
+            console.log("Fetched blogs:", response.data);
+            const activePosts = Array.isArray(response.data)
+                ? response.data
+                : [];
+            setPosts(activePosts);
+        } catch (error) {
+            console.error("Error fetching blogs:", error);
+        }
+    };
+
+    useEffect(() => {
+        fetchPosts();
+    }, []);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -24,23 +46,82 @@ const ChhatResearchBlog = () => {
         setFormData({ ...formData, media: e.target.files[0] });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        const mediaUrl = URL.createObjectURL(formData.media); // Create a URL for the uploaded file
-        const postData = { ...formData, media: mediaUrl };
-
-        if (isEditing) {
-            setPosts(
-                posts.map((post) =>
-                    post.id === currentPost.id
-                        ? { ...currentPost, ...postData }
-                        : post
-                )
-            );
-        } else {
-            setPosts([...posts, { id: Date.now(), ...postData }]);
+        if (
+            !formData.title ||
+            !formData.content ||
+            !formData.media ||
+            !formData.category
+        ) {
+            alert("Please fill out all required fields.");
+            return;
         }
-        resetForm();
+
+        try {
+            const postData = new FormData();
+            postData.append("image", formData.media); // Use the correct key
+            postData.append("title", formData.title);
+            postData.append("content", formData.content);
+            postData.append("category", formData.category); // Make sure this is included
+
+            if (isEditing) {
+                await updatePost(currentPost.id, postData);
+                // Update the post in the state accordingly
+            } else {
+                const newPost = await createPost(postData);
+                setPosts([...posts, newPost]);
+            }
+            resetForm();
+        } catch (error) {
+            console.error("Error during submit:", error);
+            Swal.fire(
+                "Error",
+                "An error occurred while processing your request.",
+                "error"
+            );
+        }
+    };
+
+    const uploadMedia = async (file) => {
+        const formData = new FormData();
+        formData.append("image", file); // Use "image" here to match the backend expectation
+
+        try {
+            const response = await axiosClient.post("/blogs", formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+            });
+
+            if (response.status !== 201) {
+                throw new Error("Media upload failed");
+            }
+
+            return response.data.image; // Return the uploaded image path
+        } catch (error) {
+            console.error("Error uploading media:", error);
+            throw error; // Re-throw the error for handling in handleSubmit
+        }
+    };
+
+    const createPost = async (postData) => {
+        const response = await axiosClient.post("/blogs", postData);
+
+        if (response.status !== 201) {
+            // Change to 201 for creation
+            throw new Error("Failed to create post");
+        }
+
+        return response.data;
+    };
+
+    const updatePost = async (id, postData) => {
+        const response = await axiosClient.put(`/blogs/${id}`, postData);
+
+        if (response.status !== 200) {
+            throw new Error("Failed to update post");
+        }
     };
 
     const handleEdit = (post) => {
@@ -49,16 +130,34 @@ const ChhatResearchBlog = () => {
         setFormData({
             title: post.title,
             content: post.content,
-            author: post.author,
             datePosted: post.datePosted,
-            tags: post.tags,
+            category: post.category,
             media: null,
         });
         setModalOpen(true);
     };
 
-    const handleDelete = (id) => {
-        setPosts(posts.filter((post) => post.id !== id));
+    const handleDelete = async (id) => {
+        try {
+            const result = await Swal.fire({
+                title: "Are you sure?",
+                text: "Do you really want to delete this Blog?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!",
+            });
+
+            if (result.isConfirmed) {
+                await axiosClient.delete(`/blogs/${id}`);
+                Swal.fire("Deleted!", "Blog has been deleted.", "success");
+                fetchPosts(); // Refresh the user list after deletion
+            }
+        } catch (error) {
+            console.error("Error deleting blog:", error);
+            Swal.fire("Error", "There was an error deleting the blog", "error");
+        }
     };
 
     const openModal = () => {
@@ -71,24 +170,39 @@ const ChhatResearchBlog = () => {
         setFormData({
             title: "",
             content: "",
-            author: "",
             datePosted: "",
-            tags: "",
+            category: null,
             media: null,
         });
         setCurrentPost(null);
         setModalOpen(false);
     };
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        return date.toLocaleDateString(); // Customize format if needed
+    };
+
+    const filteredBlogs = posts.filter(
+        (post) =>
+            post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            post.content.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            post.created_at.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            post.category.toLowerCase().includes(searchTerm.toLowerCase())
+    );
 
     return (
         <div className="flex flex-col space-y-6 p-5 shadow-lg rounded-lg">
-            <div className="flex flex-wrap justify-between items-center">
-                <div className="text-cyan-700">
-                    <h3 className="text-2xl">Chhat Research Blog</h3>
-                </div>
+            <div className="flex flex-wrap justify-between text-sm">
+                <input
+                    type="text"
+                    placeholder="Search Blogs"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="border px-4 py-2 rounded w-1/6"
+                />
                 <button
                     onClick={openModal}
-                    className="bg-cyan-700 px-5 py-3 text-sm rounded-lg text-white flex items-center justify-center hover:bg-cyan-800 transition-colors"
+                    className="bg-cyan-700 px-4 py-2 rounded-lg text-white flex items-center justify-center hover:bg-cyan-800 transition-colors"
                 >
                     <IoAdd className="text-lg text-white font-medium mr-2" />{" "}
                     Add Blog
@@ -96,137 +210,154 @@ const ChhatResearchBlog = () => {
             </div>
 
             <div className="overflow-x-auto">
-                <table className="min-w-full table-auto">
+                <table className="min-w-full table-auto text-sm">
                     <thead>
-                        <tr className="bg-cyan-700">
-                            <th className="py-4 text-white font-medium">
+                        <tr className="bg-cyan-700 text-left">
+                            <th className="py-2 px-4 border-2 border-cyan-700 text-white">
+                                ID
+                            </th>
+
+                            <th className="py-2 px-4 border-2 border-cyan-700 text-white">
                                 Title
                             </th>
-                            <th className="py-4 text-white font-medium">
-                                Author
+                            <th className="py-2 px-4 border-2 border-cyan-700 text-white">
+                                Category
                             </th>
-                            <th className="py-4 text-white font-medium">
+                            <th className="py-2 px-4 border-2 border-cyan-700 text-white">
                                 Date Posted
                             </th>
-                            <th className="py-4 text-white font-medium">
-                                Tags
-                            </th>
-                            <th className="py-4 text-white font-medium">
-                                Media
-                            </th>
-                            <th className="py-4 text-white font-medium">
+                            <th className="py-2 px-4 border-2 border-cyan-700 text-white">
                                 Actions
                             </th>
                         </tr>
                     </thead>
                     <tbody>
-                        {posts.map((post) => (
-                            <tr key={post.id} className="border-b">
-                                <td className="border p-2">{post.title}</td>
-                                <td className="border p-2">{post.author}</td>
-                                <td className="border p-2">
-                                    {post.datePosted}
-                                </td>
-                                <td className="border p-2">{post.tags}</td>
-                                <td className="border p-2">
-                                    {post.media && (
-                                        <img
-                                            src={post.media}
-                                            alt="Media Thumbnail"
-                                            className="w-20 h-20 object-cover"
-                                        />
-                                    )}
-                                </td>
-                                <td className="border p-2">
-                                    <button
-                                        onClick={() => handleEdit(post)}
-                                        className="text-blue-500 hover:underline mr-2"
-                                    >
-                                        Edit
-                                    </button>
-                                    <button
-                                        onClick={() => handleDelete(post.id)}
-                                        className="text-red-500 hover:underline"
-                                    >
-                                        Remove
-                                    </button>
+                        {filteredBlogs.length > 0 ? (
+                            filteredBlogs.map((post, index) => (
+                                <tr
+                                    key={post.id}
+                                    className="border-b text-gray-700 transition duration-300 ease-in-out hover:bg-gray-100"
+                                >
+                                    <td className="border py-2 px-4 ">
+                                        {index + 1}
+                                    </td>
+                                    <td className="border py-2 px-4 ">
+                                        {post.title}
+                                    </td>
+                                    <td className="border py-2 px-4 ">
+                                        {post.category}
+                                    </td>
+                                    <td className="border py-2 px-4 ">
+                                        {formatDate(post.created_at)}
+                                    </td>
+
+                                    <td className="border py-2 px-4 ">
+                                        <div className="flex">
+                                            <button
+                                                className="rounded-md rounded-r-none border-cyan-700 bg-cyan-700 text-white px-4 py-2 flex items-center hover:bg-cyan-800 duration-300 ease-in-out"
+                                                onClick={() => handleEdit(post)}
+                                            >
+                                                <FaRegEdit className="mr-2" />
+                                                Edit
+                                            </button>
+                                            <button
+                                                className="rounded-md rounded-l-none border-red-600 px-4 py-2 bg-red-600 text-white flex items-center hover:bg-red-700 duration-300 ease-in-out"
+                                                onClick={() =>
+                                                    handleDelete(post.id)
+                                                }
+                                            >
+                                                <FaTrash />
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            ))
+                        ) : (
+                            <tr>
+                                <td colSpan="10" className="text-center p-4">
+                                    No blogs found.
                                 </td>
                             </tr>
-                        ))}
+                        )}
                     </tbody>
                 </table>
             </div>
 
             {/* Modal */}
             {modalOpen && (
-                <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
-                    <div className="bg-white p-6 rounded shadow-md w-1/3">
-                        <h2 className="text-lg font-normal text-cyan-700 mb-4">
+                <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 text-sm">
+                    <div className="bg-white p-6 rounded shadow-md w-1/3 max-h-[90vh] overflow-y-auto">
+                        <h2 className="text-lg font-medium text-cyan-700 mb-4">
                             {isEditing ? "Edit Blog Post" : "Add Blog Post"}
                         </h2>
                         <form onSubmit={handleSubmit}>
+                            <label className="text-cyan-700 font-medium">
+                                Title
+                            </label>
                             <input
                                 type="text"
                                 name="title"
                                 value={formData.title}
                                 onChange={handleChange}
                                 placeholder="Title"
-                                className="border p-2 rounded mb-2 w-full"
+                                className="border p-2 rounded mb-2 w-full my-3 text-gray-800"
                                 required
                             />
+                            <label className="text-cyan-700 font-medium">
+                                Content
+                            </label>
                             <textarea
                                 name="content"
                                 value={formData.content}
                                 onChange={handleChange}
                                 placeholder="Content"
-                                className="border p-2 rounded mb-2 w-full"
+                                className="border p-2 rounded mb-2 w-full my-3 text-gray-800"
                                 rows="5"
                                 required
                             />
+                            <label className="text-cyan-700 font-medium">
+                                Category
+                            </label>
                             <input
                                 type="text"
-                                name="author"
-                                value={formData.author}
+                                name="category"
+                                value={formData.category}
                                 onChange={handleChange}
-                                placeholder="Author"
-                                className="border p-2 rounded mb-2 w-full"
+                                placeholder="Category"
+                                className="border p-2 rounded mb-2 w-full my-3 text-gray-800"
                                 required
                             />
-                            <input
-                                type="date"
-                                name="datePosted"
-                                value={formData.datePosted}
-                                onChange={handleChange}
-                                className="border p-2 rounded mb-2 w-full"
-                                required
-                            />
-                            <input
-                                type="text"
-                                name="tags"
-                                value={formData.tags}
-                                onChange={handleChange}
-                                placeholder="Tags (comma-separated)"
-                                className="border p-2 rounded mb-2 w-full"
-                            />
+                            <label className="text-cyan-700 font-medium">
+                                Current Image
+                            </label>
+                            {/* Conditionally render the image if editing */}
+                            {isEditing && currentPost && currentPost.image && (
+                                <div className="mb-3">
+                                    <img
+                                        src={`http://127.0.0.1:8000/storage/${currentPost.image}`}
+                                        alt={currentPost.title || "Blog image"}
+                                        className="w-full object-cover rounded mb-2 my-3"
+                                    />
+                                </div>
+                            )}
                             <input
                                 type="file"
                                 name="media"
                                 onChange={handleFileChange}
-                                className="border mb-3 text-sm block w-full text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-normal file:bg-gray-200 file:text-gray-700 hover:file:bg-gray-300"
+                                className="border mb-3 text-sm block w-full text-slate-500  rounded leading-6 file:bg-cyan-600 file:bg-opacity-30 file:text-cyan-700 file:font-medium file:border-none file:px-4 file:py-1 file:mr-6 file:rounded-l cursor-grab file:cursor-grab border-gray-300"
                                 accept="image/*,video/*"
-                                required
                             />
                             <div className="flex justify-end">
                                 <button
                                     type="button"
                                     onClick={resetForm}
-                                    className="bg-gray-300 text-black px-5 py-2 rounded mr-2"
+                                    className="bg-gray-300 text-black px-5 py-2 rounded mr-2 hover:bg-gray-400 duration-500 ease-in-out"
                                 >
                                     Cancel
                                 </button>
                                 <button
                                     type="submit"
-                                    className="bg-blue-500 text-white px-5 py-2 rounded"
+                                    className="bg-cyan-700 text-white px-5 py-2 rounded hover:bg-cyan-800 duration-300 ease-in-out"
                                 >
                                     {isEditing ? "Update" : "Add"}
                                 </button>

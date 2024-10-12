@@ -37,11 +37,16 @@ class UserController extends Controller
     }
 
     // Show details of a single active user
-    public function show($id)
-    {
-        $user = User::active()->findOrFail($id); // Fetch only active users
-        return response()->json($user, 200);
+    public function show($id) {
+        $user = User::find($id);
+        if (!$user) {
+            return response()->json(['message' => 'User not found'], 404);
+        }
+        return response()->json($user);
     }
+    
+    
+    
 
     // Update user details
     public function update(Request $request, $id)

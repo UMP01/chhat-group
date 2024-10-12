@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-    font-family: "Rubik", sans-serif;
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
     --primary-color: #2494bc;
     --secondary-color: #384d5e;
 }

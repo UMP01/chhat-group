@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { HiHome } from "react-icons/hi2";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 
-const Breadcrumb = ({ curPage, lastPage, lastPageLink }) => {
+const Breadcrumb = ({ curPage, lastPage = null, lastPageLink = null }) => {
     return (
         <nav
             className="container max-w-7xl mx-auto py-3 px-5"
@@ -45,15 +45,11 @@ const Breadcrumb = ({ curPage, lastPage, lastPageLink }) => {
         </nav>
     );
 };
+
 Breadcrumb.propTypes = {
     curPage: PropTypes.string.isRequired,
     lastPage: PropTypes.string,
     lastPageLink: PropTypes.string,
-};
-
-Breadcrumb.defaultProps = {
-    lastPage: null,
-    lastPageLink: null,
 };
 
 export default Breadcrumb;
