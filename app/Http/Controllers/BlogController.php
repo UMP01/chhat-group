@@ -45,50 +45,46 @@ class BlogController extends Controller
     }
 
     public function update(Request $request, $id)
-    {
-        $blog = Blog::find($id);
-        if (!$blog) {
-            return response()->json(['message' => 'Blog not found'], 404);
-        }
-
-        // Debugging: Log incoming request data
-        \Log::info('Received request for update:', $request->all());
-
-        $request->validate([
-            'image' => 'sometimes|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'title' => 'sometimes|string',
-            'content' => 'sometimes|string',
-            'category' => 'sometimes|string',
-        ]);
-
-        $data = []; // Initialize the data array
-
-        // Update fields if provided
-        if ($request->hasFile('image')) {
-            // Optionally delete the old image
-            Storage::disk('public')->delete($blog->image);
-            $data['image'] = $request->file('image')->store('images', 'public');
-        }
-
-        if ($request->has('title')) {
-            $data['title'] = $request->title;
-        }
-
-        if ($request->has('content')) {
-            $data['content'] = $request->content;
-        }
-
-        if ($request->has('category')) {
-            $data['category'] = $request->category;
-        }
-
-        // Only update fields that are not empty
-        if (!empty($data)) {
-            $blog->update($data);
-        }
-
-        return response()->json($blog);
+{
+    $blog = Blog::find($id);
+    if (!$blog) {
+        return response()->json(['message' => 'Blog not found'], 404);
     }
+
+    // Debugging: Log incoming request data
+    \Log::info('Received request for update:', $request->all());
+
+    // Validate incoming data
+    $request->validate([
+        'image' => 'sometimes|image|mimes:jpeg,png,jpg,gif|max:2048',
+        'title' => 'required|string',
+        'content' => 'required|string',
+        'category' => 'required|string',
+    ]);
+
+    $data = []; // Initialize the data array
+
+    // Update fields if provided
+    if ($request->hasFile('image')) {
+        // Optionally delete the old image
+        Storage::disk('public')->delete($blog->image);
+        $data['image'] = $request->file('image')->store('images', 'public');
+    } else {
+        // If no new image is provided, keep the existing one
+        $data['image'] = $blog->image;
+    }
+
+    // Always include title, content, and category if they are required
+    $data['title'] = $request->input('title', $blog->title);
+    $data['content'] = $request->input('content', $blog->content);
+    $data['category'] = $request->input('category', $blog->category);
+
+    // Update the blog with the new data
+    $blog->update($data);
+
+    return response()->json($blog);
+}
+
 
     public function destroy($id)
     {

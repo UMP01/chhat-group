@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Swal from "sweetalert2";
-import { FaRegEdit, FaTrash, FaSync } from "react-icons/fa";
-import { axiosClient } from "../../api/axios";
+import { FaRegEdit, FaTrash } from "react-icons/fa";
+import { axiosClient } from "../../api/axios"; // Make sure axiosClient is set up properly
 import { IoAdd } from "react-icons/io5";
 
 const ChhatResearchBlog = () => {
@@ -12,22 +12,17 @@ const ChhatResearchBlog = () => {
     const [formData, setFormData] = useState({
         title: "",
         content: "",
-        author: "",
-        datePosted: "",
-        tags: "",
+        category: "",
         media: null,
     });
     const [searchTerm, setSearchTerm] = useState("");
 
-    // Fetch posts from the API when the component mounts
+    // Fetch blog posts from the API
     const fetchPosts = async () => {
         try {
             const response = await axiosClient.get("/blogs");
             console.log("Fetched blogs:", response.data);
-            const activePosts = Array.isArray(response.data)
-                ? response.data
-                : [];
-            setPosts(activePosts);
+            setPosts(Array.isArray(response.data) ? response.data : []);
         } catch (error) {
             console.error("Error fetching blogs:", error);
         }
@@ -46,81 +41,66 @@ const ChhatResearchBlog = () => {
         setFormData({ ...formData, media: e.target.files[0] });
     };
 
+    const createPost = async (postData) => {
+        const response = await axiosClient.post("/blogs", postData);
+        if (response.status !== 201) {
+            throw new Error("Failed to create post");
+        }
+        return response.data;
+    };
+
+    const updatePost = async (id, postData) => {
+        try {
+            await axiosClient.put(`/blogs/${id}`, postData);
+        } catch (error) {
+            console.error(
+                "Update failed:",
+                error.response ? error.response.data : error
+            );
+            throw new Error("Failed to update post");
+        }
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (
-            !formData.title ||
-            !formData.content ||
-            !formData.media ||
-            !formData.category
-        ) {
+
+        // Ensure all required fields are filled
+        if (!formData.title || !formData.content || !formData.category) {
             alert("Please fill out all required fields.");
             return;
         }
 
         try {
+            // FormData construction
             const postData = new FormData();
-            postData.append("image", formData.media); // Use the correct key
             postData.append("title", formData.title);
             postData.append("content", formData.content);
-            postData.append("category", formData.category); // Make sure this is included
+            postData.append("category", formData.category);
 
-            if (isEditing) {
+            if (formData.media) {
+                postData.append("image", formData.media);
+            }
+
+            if (isEditing && currentPost) {
                 await updatePost(currentPost.id, postData);
-                // Update the post in the state accordingly
+                // Update local state accordingly
+                const updatedPosts = posts.map((post) =>
+                    post.id === currentPost.id ? { ...post, ...formData } : post
+                );
+                setPosts(updatedPosts);
             } else {
                 const newPost = await createPost(postData);
                 setPosts([...posts, newPost]);
             }
             resetForm();
         } catch (error) {
-            console.error("Error during submit:", error);
+            console.error("Error during submit:", error.message);
             Swal.fire(
                 "Error",
-                "An error occurred while processing your request.",
+                "An error occurred while processing your request: " +
+                    error.message,
                 "error"
             );
-        }
-    };
-
-    const uploadMedia = async (file) => {
-        const formData = new FormData();
-        formData.append("image", file); // Use "image" here to match the backend expectation
-
-        try {
-            const response = await axiosClient.post("/blogs", formData, {
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                },
-            });
-
-            if (response.status !== 201) {
-                throw new Error("Media upload failed");
-            }
-
-            return response.data.image; // Return the uploaded image path
-        } catch (error) {
-            console.error("Error uploading media:", error);
-            throw error; // Re-throw the error for handling in handleSubmit
-        }
-    };
-
-    const createPost = async (postData) => {
-        const response = await axiosClient.post("/blogs", postData);
-
-        if (response.status !== 201) {
-            // Change to 201 for creation
-            throw new Error("Failed to create post");
-        }
-
-        return response.data;
-    };
-
-    const updatePost = async (id, postData) => {
-        const response = await axiosClient.put(`/blogs/${id}`, postData);
-
-        if (response.status !== 200) {
-            throw new Error("Failed to update post");
         }
     };
 
@@ -130,7 +110,6 @@ const ChhatResearchBlog = () => {
         setFormData({
             title: post.title,
             content: post.content,
-            datePosted: post.datePosted,
             category: post.category,
             media: null,
         });
@@ -152,7 +131,7 @@ const ChhatResearchBlog = () => {
             if (result.isConfirmed) {
                 await axiosClient.delete(`/blogs/${id}`);
                 Swal.fire("Deleted!", "Blog has been deleted.", "success");
-                fetchPosts(); // Refresh the user list after deletion
+                fetchPosts();
             }
         } catch (error) {
             console.error("Error deleting blog:", error);
@@ -170,16 +149,16 @@ const ChhatResearchBlog = () => {
         setFormData({
             title: "",
             content: "",
-            datePosted: "",
-            category: null,
+            category: "",
             media: null,
         });
         setCurrentPost(null);
         setModalOpen(false);
     };
+
     const formatDate = (dateString) => {
         const date = new Date(dateString);
-        return date.toLocaleDateString(); // Customize format if needed
+        return date.toLocaleDateString();
     };
 
     const filteredBlogs = posts.filter(
@@ -216,7 +195,6 @@ const ChhatResearchBlog = () => {
                             <th className="py-2 px-4 border-2 border-cyan-700 text-white">
                                 ID
                             </th>
-
                             <th className="py-2 px-4 border-2 border-cyan-700 text-white">
                                 Title
                             </th>
@@ -238,20 +216,19 @@ const ChhatResearchBlog = () => {
                                     key={post.id}
                                     className="border-b text-gray-700 transition duration-300 ease-in-out hover:bg-gray-100"
                                 >
-                                    <td className="border py-2 px-4 ">
+                                    <td className="border py-2 px-4">
                                         {index + 1}
                                     </td>
-                                    <td className="border py-2 px-4 ">
+                                    <td className="border py-2 px-4">
                                         {post.title}
                                     </td>
-                                    <td className="border py-2 px-4 ">
+                                    <td className="border py-2 px-4">
                                         {post.category}
                                     </td>
-                                    <td className="border py-2 px-4 ">
+                                    <td className="border py-2 px-4">
                                         {formatDate(post.created_at)}
                                     </td>
-
-                                    <td className="border py-2 px-4 ">
+                                    <td className="border py-2 px-4">
                                         <div className="flex">
                                             <button
                                                 className="rounded-md rounded-r-none border-cyan-700 bg-cyan-700 text-white px-4 py-2 flex items-center hover:bg-cyan-800 duration-300 ease-in-out"
@@ -274,7 +251,7 @@ const ChhatResearchBlog = () => {
                             ))
                         ) : (
                             <tr>
-                                <td colSpan="10" className="text-center p-4">
+                                <td colSpan="5" className="text-center p-4">
                                     No blogs found.
                                 </td>
                             </tr>
@@ -283,7 +260,6 @@ const ChhatResearchBlog = () => {
                 </table>
             </div>
 
-            {/* Modal */}
             {modalOpen && (
                 <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 text-sm">
                     <div className="bg-white p-6 rounded shadow-md w-1/3 max-h-[90vh] overflow-y-auto">
@@ -299,10 +275,10 @@ const ChhatResearchBlog = () => {
                                 name="title"
                                 value={formData.title}
                                 onChange={handleChange}
-                                placeholder="Title"
-                                className="border p-2 rounded mb-2 w-full my-3 text-gray-800"
+                                className="border rounded w-full px-3 py-2 mb-4"
                                 required
                             />
+
                             <label className="text-cyan-700 font-medium">
                                 Content
                             </label>
@@ -310,11 +286,11 @@ const ChhatResearchBlog = () => {
                                 name="content"
                                 value={formData.content}
                                 onChange={handleChange}
-                                placeholder="Content"
-                                className="border p-2 rounded mb-2 w-full my-3 text-gray-800"
+                                className="border rounded w-full px-3 py-2 mb-4"
                                 rows="5"
                                 required
-                            />
+                            ></textarea>
+
                             <label className="text-cyan-700 font-medium">
                                 Category
                             </label>
@@ -323,43 +299,45 @@ const ChhatResearchBlog = () => {
                                 name="category"
                                 value={formData.category}
                                 onChange={handleChange}
-                                placeholder="Category"
-                                className="border p-2 rounded mb-2 w-full my-3 text-gray-800"
+                                className="border rounded w-full px-3 py-2 mb-4"
                                 required
                             />
-                            <label className="text-cyan-700 font-medium">
-                                Current Image
-                            </label>
-                            {/* Conditionally render the image if editing */}
+
                             {isEditing && currentPost && currentPost.image && (
                                 <div className="mb-3">
+                                    <label className="text-cyan-700 font-medium">
+                                        Current Image
+                                    </label>
                                     <img
                                         src={`http://127.0.0.1:8000/storage/${currentPost.image}`}
                                         alt={currentPost.title || "Blog image"}
-                                        className="w-full object-cover rounded mb-2 my-3"
+                                        className="w-full object-cover rounded mb-2"
                                     />
                                 </div>
                             )}
+
+                            <label className="text-cyan-700 font-medium">
+                                Media
+                            </label>
                             <input
                                 type="file"
-                                name="media"
                                 onChange={handleFileChange}
-                                className="border mb-3 text-sm block w-full text-slate-500  rounded leading-6 file:bg-cyan-600 file:bg-opacity-30 file:text-cyan-700 file:font-medium file:border-none file:px-4 file:py-1 file:mr-6 file:rounded-l cursor-grab file:cursor-grab border-gray-300"
-                                accept="image/*,video/*"
+                                className="border mb-3 text-sm block w-full text-slate-500 rounded leading-6"
                             />
+
                             <div className="flex justify-end">
                                 <button
                                     type="button"
                                     onClick={resetForm}
-                                    className="bg-gray-300 text-black px-5 py-2 rounded mr-2 hover:bg-gray-400 duration-500 ease-in-out"
+                                    className="bg-gray-300 px-4 py-2 rounded-lg mr-2 hover:bg-gray-400 transition-colors"
                                 >
                                     Cancel
                                 </button>
                                 <button
                                     type="submit"
-                                    className="bg-cyan-700 text-white px-5 py-2 rounded hover:bg-cyan-800 duration-300 ease-in-out"
+                                    className="bg-cyan-700 px-4 py-2 rounded-lg text-white hover:bg-cyan-800 transition-colors"
                                 >
-                                    {isEditing ? "Update" : "Add"}
+                                    {isEditing ? "Update Blog" : "Add Blog"}
                                 </button>
                             </div>
                         </form>
