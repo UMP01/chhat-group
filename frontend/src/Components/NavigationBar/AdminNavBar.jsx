@@ -50,7 +50,7 @@ const AdminNavBar = ({ toggleSidebar, isOpen }) => {
     };
 
     return (
-        <nav className="bg-white dark:bg-boxdark shadow py-4 px-6 flex justify-between items-center">
+        <nav className="bg-white py-4 px-6 flex justify-between items-center">
             <button
                 className="text-gray-300 focus:outline-none"
                 onClick={handleSidebarToggle} // Use the new function here
