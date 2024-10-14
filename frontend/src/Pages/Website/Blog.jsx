@@ -80,16 +80,16 @@ const News = () => {
                                     className="w-full h-48 object-cover mb-4 rounded"
                                 />
                             )}
-                            <h2 className="text-xl text-gray-600 my-3 line-clamp-1">
+                            <h2 className="text-md font-semibold text-gray-600 my-3 line-clamp-1">
                                 {article.title}
                             </h2>
-                            <p className="text-gray-500 line-clamp-3">
+                            <p className="text-gray-600 line-clamp-3">
                                 {article.content}
                             </p>
                             <div className="flex items-center justify-between">
                                 <div className="flex items-center">
-                                    <BsCalendarDate className="mt-3 mr-2 text-gray-500" />
-                                    <p className="text-sm text-gray-500 mt-3">
+                                    <BsCalendarDate className="mt-3 mr-2 font-medium text-gray-600" />
+                                    <p className="text-sm font-medium text-gray-600 mt-3">
                                         {new Date(
                                             article.created_at
                                         ).toLocaleDateString()}

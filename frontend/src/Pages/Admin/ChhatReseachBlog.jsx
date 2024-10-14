@@ -243,7 +243,8 @@ const ChhatResearchBlog = () => {
                                                     handleDelete(post.id)
                                                 }
                                             >
-                                                <FaTrash />
+                                                <FaTrash className="mr-2" />
+                                                Delete
                                             </button>
                                         </div>
                                     </td>
