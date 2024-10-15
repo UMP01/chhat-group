@@ -8,11 +8,12 @@ import {
 } from "@heroicons/react/24/solid";
 import UserAvatar from "../../assets/Images/logo.png"; // Update path if needed
 import { useLocation, Link } from "react-router-dom"; // Import Link for routing
+import Swal from "sweetalert2"; // Import SweetAlert2
 
 const AdminNavBar = ({ toggleSidebar, isOpen }) => {
-    const [isDropdownOpen, setIsDropdownOpen] = useState(false); // State to manage dropdown visibility
-    const location = useLocation(); // Get the current location
-    const userName = localStorage.getItem("userName") || "User"; // Default to "User"
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const location = useLocation();
+    const userName = localStorage.getItem("userName") || "User";
 
     const getTitle = () => {
         switch (location.pathname) {
@@ -31,15 +32,14 @@ const AdminNavBar = ({ toggleSidebar, isOpen }) => {
             case "/admin/profile":
                 return "Profile";
             default:
-                return "Admin Panel"; // Default title
+                return "Admin Panel";
         }
     };
 
-    const title = getTitle(); // Get the title based on URL
+    const title = getTitle();
 
     const handleSidebarToggle = () => {
         toggleSidebar();
-        // Close the dropdown when toggling the sidebar
         if (isDropdownOpen) {
             setIsDropdownOpen(false);
         }
@@ -49,11 +49,29 @@ const AdminNavBar = ({ toggleSidebar, isOpen }) => {
         setIsDropdownOpen(!isDropdownOpen);
     };
 
+    const handleLogout = async () => {
+        const result = await Swal.fire({
+            title: "Are you sure?",
+            text: "You will be logged out of your account.",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, logout!",
+        });
+
+        if (result.isConfirmed) {
+            localStorage.removeItem("userName"); // Example of clearing user data
+            window.location.href = "/admin/login"; // Redirect to login page
+            Swal.fire("Logged out!", "You have been logged out.", "success");
+        }
+    };
+
     return (
         <nav className="bg-white py-4 px-6 flex justify-between items-center">
             <button
                 className="text-gray-300 focus:outline-none"
-                onClick={handleSidebarToggle} // Use the new function here
+                onClick={handleSidebarToggle}
             >
                 <span className="sr-only">
                     {isOpen ? "Close Sidebar" : "Open Sidebar"}
@@ -75,7 +93,7 @@ const AdminNavBar = ({ toggleSidebar, isOpen }) => {
                 <div className="relative">
                     <button
                         className="flex items-center space-x-2 focus:outline-none"
-                        onClick={handleDropdownToggle} // Toggle dropdown
+                        onClick={handleDropdownToggle}
                     >
                         <img
                             className="w-8 h-8 rounded-full border-2 border-gray-300"
@@ -83,7 +101,7 @@ const AdminNavBar = ({ toggleSidebar, isOpen }) => {
                             alt="User Avatar"
                         />
                         <span className="font-normal text-gray-800">
-                            {userName} {/* Display the user name */}
+                            {userName}
                         </span>
                     </button>
 
@@ -93,7 +111,7 @@ const AdminNavBar = ({ toggleSidebar, isOpen }) => {
                                 <li>
                                     <Link
                                         to="/admin/profile"
-                                        className="block px-4 py-2 text-gray-700 hover:bg-gray-100 flex items-center"
+                                        className=" px-4 py-2 text-gray-700 hover:bg-gray-100 flex items-center"
                                     >
                                         <UserIcon className="w-5 h-5 mr-2" />
                                         Profile
@@ -101,11 +119,11 @@ const AdminNavBar = ({ toggleSidebar, isOpen }) => {
                                 </li>
                                 <li>
                                     <Link
-                                        to="/admin/login"
-                                        className="block px-4 py-2 text-gray-700 hover:bg-gray-100 flex items-center"
-                                        onClick={() => {
-                                            setIsDropdownOpen(false);
-                                            // You can add logout logic here if needed
+                                        to="#"
+                                        className="px-4 py-2 text-gray-700 hover:bg-gray-100 flex items-center"
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            handleLogout();
                                         }}
                                     >
                                         <ArrowLeftEndOnRectangleIcon className="w-5 h-5 mr-2" />
