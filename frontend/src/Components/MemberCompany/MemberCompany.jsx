@@ -14,7 +14,7 @@ const MemberCompany = ({
     secondDescription,
 }) => {
     return (
-        <div className="bg-style">
+        <>
             <div className="bg-gray-100 shadow-md mb-3">
                 <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-center py-10">
                     <div className="w-full md:w-1/3 flex justify-center mb-6 md:mb-0 px-5">
@@ -56,7 +56,7 @@ const MemberCompany = ({
                     </div>
                 </div>
             </div>
-        </div>
+        </>
     );
 };
 
