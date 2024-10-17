@@ -27,12 +27,18 @@ const Contact = () => {
                                     </h5>
                                     <div className="container-social-media flex justify-center mb-5">
                                         <div className="btn-lg-square bg-white rounded-full flex items-center justify-center w-10 h-10 mr-2 hover:scale-110 duration-300 transition-transform ease-in-out">
-                                            <a href="https://facebook.com">
+                                            <a
+                                                href="https://facebook.com/chhatgroup"
+                                                target="_blank"
+                                            >
                                                 <FaFacebookF className="w-5 h-5 text-cyan-700 hover:text-cyan-600 duration-500 ease-in-out" />
                                             </a>
                                         </div>
                                         <div className="btn-lg-square bg-white rounded-full flex items-center justify-center w-10 h-10 mr-2 hover:scale-110 duration-300 transition-transform ease-in-out">
-                                            <a href="https://youtube.com">
+                                            <a
+                                                href="https://www.youtube.com/@chhatgroup7225"
+                                                target="_blank"
+                                            >
                                                 <FaYoutube className="w-5 h-5 text-cyan-700 hover:text-cyan-600 duration-500 ease-in-out" />
                                             </a>
                                         </div>
