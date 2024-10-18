@@ -1,52 +1,110 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { IoAdd } from "react-icons/io5";
+import { axiosClient } from "../../api/axios";
+import { FaRegEdit, FaTrash } from "react-icons/fa";
+import Swal from "sweetalert2";
 
 const Career = () => {
     const [careers, setCareers] = useState([]);
     const [modalOpen, setModalOpen] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
-    const [currentCareer, setCurrentCareer] = useState(null);
+    // const [currentCareer, setCurrentCareer] = useState(null);
     const [formData, setFormData] = useState({
         title: "",
-        description: "",
         location: "",
-        datePosted: "",
-        jobType: "",
+        dateposted: "",
+        jobtype: "",
         salary: "",
-        requirements: "",
-        benefits: "",
+        requirement: "",
+        benefit: "",
     });
+
+    const fetchCareers = async () => {
+        try {
+            const response = await axiosClient.get("/careers");
+            const activeUsers = Array.isArray(response.data)
+                ? response.data
+                : [];
+                setCareers(activeUsers);
+        } catch (error) {
+            console.error("Error fetching users:", error);
+        }
+    };
+
+    useEffect(() => {
+        fetchCareers();
+    }, []);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
     };
 
-    const handleSubmit = (e) => {
+
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        return date.toLocaleDateString();
+    };
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        if (isEditing) {
-            setCareers(
-                careers.map((career) =>
-                    career.id === currentCareer.id
-                        ? { ...currentCareer, ...formData }
-                        : career
-                )
+
+        try {
+            if (isEditing) {
+                await axiosClient.put(`/careers/${isEditing}`, formData);
+                Swal.fire("Success", "Career updated successfully", "success");
+            } else {
+                await axiosClient.post("/careers", formData);
+                Swal.fire("Success", "Career created successfully", "success");
+            }
+            resetForm();
+            fetchCareers();
+        } catch (error) {
+            console.error("Error submitting form:", error);
+            Swal.fire(
+                "Error",
+                "There was an error submitting the form",
+                "error"
             );
-        } else {
-            setCareers([...careers, { id: Date.now(), ...formData }]);
         }
-        resetForm();
+        
     };
 
     const handleEdit = (career) => {
-        setIsEditing(true);
-        setCurrentCareer(career);
-        setFormData({ ...career });
+        setIsEditing(career.id);
+        // setCurrentCareer(career);
+        setFormData({
+            title: career.title,
+            location: career.location,
+            dateposted: career.dateposted,
+            jobtype: career.jobtype,
+            salary: career.salary,
+            requirement: career.requirement,
+            benefit: career.benefit,
+         });
         setModalOpen(true);
     };
 
-    const handleDelete = (id) => {
-        setCareers(careers.filter((career) => career.id !== id));
+    const handleDelete =async (id) => {
+        try {
+            const result = await Swal.fire({
+                title: "Are you sure?",
+                text: "Do you really want to delete this item?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!",
+            });
+
+            if (result.isConfirmed) {
+                await axiosClient.delete(`/careers/${id}`);
+                Swal.fire("Deleted!", "Career has been deleted.", "success");
+                fetchCareers();
+            }
+        } catch (error) {
+            console.error("Error deleting career:", error);
+            Swal.fire("Error", "There was an error deleting the career", "error");
+        }
     };
 
     const openModal = () => {
@@ -58,15 +116,14 @@ const Career = () => {
     const resetForm = () => {
         setFormData({
             title: "",
-            description: "",
             location: "",
-            datePosted: "",
-            jobType: "",
+            dateposted: "",
+            jobtype: "",
             salary: "",
-            requirements: "",
-            benefits: "",
+            requirement: "",
+            benefit: "",
         });
-        setCurrentCareer(null);
+        // setCurrentCareer(null);
         setModalOpen(false);
     };
 
@@ -85,59 +142,77 @@ const Career = () => {
                 </button>
             </div>
 
-            <div className="overflow-x-auto">
-                <table className="min-w-full table-auto">
+            <div className="overflow-x-auto px-2">
+                <table className="min-w-full table-auto text-sm">
                     <thead>
-                        <tr className="bg-cyan-700">
-                            <th className="py-4 text-white font-medium">
+                        <tr className="bg-cyan-700 rounded-lg text-left">
+                            <th className="py-2 px-4 border-2 border-tl-0 border-cyan-700 text-white">
+                                No.
+                            </th>
+                            <th className="py-2 px-4 border-2 border-cyan-700 text-white">
                                 Title
                             </th>
-                            <th className="py-4 text-white font-medium">
+                            <th className="py-2 px-4 border-2 border-cyan-700 text-white">
                                 Location
                             </th>
-                            <th className="py-4 text-white font-medium">
-                                Date Posted
+                            <th className="py-2 px-4 border-2 border-cyan-700 text-white">
+                                DatePosted
                             </th>
-                            <th className="py-4 text-white font-medium">
-                                Job Type
+                            <th className="py-2 px-4 border-2 border-cyan-700 text-white">
+                                JobType
                             </th>
-                            <th className="py-4 text-white font-medium">
+                            <th className="py-2 px-4 border-2 border-cyan-700 text-white">
                                 Salary
                             </th>
-                            <th className="py-4 text-white font-medium">
+                            <th className="py-2 px-4 border-2 border-cyan-700 text-white">
                                 Actions
                             </th>
                         </tr>
                     </thead>
                     <tbody>
-                        {careers.map((career) => (
+                        {careers.map((career,index) => (
                             <tr
                                 key={career.id}
                                 className="border-b transition duration-300 ease-in-out hover:bg-gray-100"
                             >
-                                <td className="border p-2">{career.title}</td>
+                                <td className="border p-2">
+                                    {index+1}
+                                </td>
+                                <td className="border p-2">
+                                    {career.title}
+                                </td>
                                 <td className="border p-2">
                                     {career.location}
                                 </td>
                                 <td className="border p-2">
-                                    {career.datePosted}
+                                    {formatDate(career.dateposted)}
                                 </td>
-                                <td className="border p-2">{career.jobType}</td>
-                                <td className="border p-2">{career.salary}</td>
                                 <td className="border p-2">
-                                    <button
-                                        onClick={() => handleEdit(career)}
-                                        className="text-blue-500 hover:underline mr-2"
-                                    >
-                                        Edit
-                                    </button>
-                                    <button
-                                        onClick={() => handleDelete(career.id)}
-                                        className="text-red-500 hover:underline"
-                                    >
-                                        Remove
-                                    </button>
+                                    {career.jobtype}
                                 </td>
+                                <td className="border p-2">
+                                    {career.salary}
+                                </td>
+                                <td className="border p-3">
+                                    <div className="flex">
+                                        <button
+                                            className="rounded-md rounded-r-none border-cyan-700 bg-cyan-700 text-white px-4 py-2 flex items-center hover:bg-cyan-800 duration-300 ease-in-out"
+                                            onClick={() => handleEdit(career)}
+                                        >
+                                            <FaRegEdit className="mr-2" />
+                                            Edit
+                                        </button>
+                                        <button
+                                            className="rounded-md rounded-l-none border-red-600 px-4 py-2 bg-red-600 text-white flex items-center hover:bg-red-700 duration-300 ease-in-out"
+                                            onClick={() =>
+                                                handleDelete(career.id)
+                                            }
+                                        >
+                                            <FaTrash className="mr-2" />{" "}
+                                            Delete
+                                        </button>
+                                    </div>
+                                    </td>
                             </tr>
                         ))}
                     </tbody>
@@ -174,16 +249,16 @@ const Career = () => {
                             />
                             <input
                                 type="date"
-                                name="datePosted"
-                                value={formData.datePosted}
+                                name="dateposted"
+                                value={formData.dateposted}
                                 onChange={handleChange}
                                 className="border p-2 rounded mb-2 w-full"
                                 required
                             />
                             <input
                                 type="text"
-                                name="jobType"
-                                value={formData.jobType}
+                                name="jobtype"
+                                value={formData.jobtype}
                                 onChange={handleChange}
                                 placeholder="Job Type (e.g., Full-time, Part-time)"
                                 className="border p-2 rounded mb-2 w-full"
@@ -199,16 +274,16 @@ const Career = () => {
                                 required
                             />
                             <textarea
-                                name="requirements"
-                                value={formData.requirements}
+                                name="requirement"
+                                value={formData.requirement}
                                 onChange={handleChange}
                                 placeholder="Requirements"
                                 className="border p-2 rounded mb-2 w-full"
                                 rows="3"
                             />
                             <textarea
-                                name="benefits"
-                                value={formData.benefits}
+                                name="benefit"
+                                value={formData.benefit}
                                 onChange={handleChange}
                                 placeholder="Benefits"
                                 className="border p-2 rounded mb-2 w-full"
