@@ -18,7 +18,9 @@ const News = () => {
             const response = await axiosClient.get("/blogs");
             console.log("Fetched Blogs:", response.data);
             const activeArticles = Array.isArray(response.data)
-                ? response.data
+                ? response.data.filter(
+                      (article) => article.category === "Chhat Group"
+                  ) // Filter by category
                 : [];
             setArticles(activeArticles);
         } catch (error) {
@@ -67,7 +69,7 @@ const News = () => {
             <Breadcrumb curPage="Blog" />
             <div className="container max-w-7xl mx-auto px-5 pb-5 pt-0 rubik">
                 <h1 className="text-2xl mb-4 text-gray-700">Latest News</h1>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                     {currentArticles.map((article) => (
                         <div
                             key={article.id}
@@ -83,7 +85,7 @@ const News = () => {
                             <h2 className="text-md font-semibold text-gray-600 my-3 line-clamp-1">
                                 {article.title}
                             </h2>
-                            <p className="text-gray-600 line-clamp-3">
+                            <p className="text-gray-600 line-clamp-4 text-sm">
                                 {article.content}
                             </p>
                             <div className="flex items-center justify-between">
@@ -96,7 +98,7 @@ const News = () => {
                                     </p>
                                 </div>
                                 <a
-                                    href={`article/${article.id}`} // Adjust according to your routing
+                                    href={`/blog/${article.id}`} // Update to use Link from React Router
                                     className="primary-color text-sm inline-flex items-center pt-3 hover:translate-x-3 duration-200 cursor-pointer"
                                 >
                                     Read More{" "}

@@ -61,7 +61,7 @@ const Navbar = () => {
                     <div className="hidden sm:block">
                         <div className="flex space-x-4 items-center">
                             {navItems.map((item, index) => (
-                                <div key={index} className="text-slate-800">
+                                <div key={index} className="font-medium">
                                     {item.dropdown ? (
                                         <div className="relative">
                                             <button
@@ -71,7 +71,7 @@ const Navbar = () => {
                                                 className={`px-3 rounded-md text-md rubik ${
                                                     activeDropdown === index
                                                         ? "text-sky-600"
-                                                        : "text-slate-800"
+                                                        : "text-gray-700"
                                                 }`}
                                             >
                                                 {item.name}
@@ -101,7 +101,7 @@ const Navbar = () => {
                                                                     href={
                                                                         subItem.link
                                                                     }
-                                                                    className="block px-5 py-3 text-md text-dark hover:bg-gray-100 rubik hover:rounded-md"
+                                                                    className="block px-5 py-3 text-md text-dark text-gray-600 hover:bg-gray-100 rubik hover:rounded-md"
                                                                 >
                                                                     {
                                                                         subItem.name
@@ -116,7 +116,7 @@ const Navbar = () => {
                                     ) : (
                                         <a
                                             href={item.link}
-                                            className="text-gray-900 px-3 py-2 rounded-md text-md rubik"
+                                            className="text-gray-700 px-3 py-2 rounded-md text-md rubik"
                                             target={item.target}
                                         >
                                             {item.name}
@@ -146,10 +146,13 @@ const Navbar = () => {
             </div>
             {/* Phone Screen */}
             {isMobileMenuOpen && (
-                <div className="sm:hidden md:hidd" id="mobile-menu">
+                <div
+                    className="sm:hidden md:hidden font-medium bg-white"
+                    id="mobile-menu"
+                >
                     <div className="px-2 pt-2 pb-3 space-y-1">
                         {navItems.map((item, index) => (
-                            <div key={index} className="text-slate-800">
+                            <div key={index} className="text-gray-700">
                                 {item.dropdown ? (
                                     <>
                                         <button
@@ -159,7 +162,7 @@ const Navbar = () => {
                                             className={`block px-3 py-2 rounded-md text-md font-normal rubik w-full text-left hover:bg-gray-100 ${
                                                 activeDropdown === index
                                                     ? "text-sky-600"
-                                                    : "text-gray-800"
+                                                    : "text-gray-700"
                                             }`}
                                         >
                                             {item.name}
@@ -184,7 +187,7 @@ const Navbar = () => {
                                                                 href={
                                                                     subItem.link
                                                                 }
-                                                                className="block pl-10 py-2 text-md text-dark font-normal hover:bg-gray-100 rubik"
+                                                                className="block pl-10 py-2 text-md text-dark text-gray-600 font-normal hover:bg-gray-100 rubik"
                                                             >
                                                                 {subItem.name}
                                                             </a>

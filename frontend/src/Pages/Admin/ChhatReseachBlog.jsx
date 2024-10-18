@@ -57,7 +57,10 @@ const ChhatResearchBlog = () => {
                 "Update failed:",
                 error.response ? error.response.data : error
             );
-            throw new Error("Failed to update post");
+            throw new Error(
+                "Failed to update post: " +
+                    (error.response?.data?.message || "Unknown error")
+            );
         }
     };
 
@@ -78,12 +81,11 @@ const ChhatResearchBlog = () => {
             postData.append("category", formData.category);
 
             if (formData.media) {
-                postData.append("image", formData.media);
+                postData.append("media", formData.media); // Make sure the key matches your API requirement
             }
 
             if (isEditing && currentPost) {
                 await updatePost(currentPost.id, postData);
-                // Update local state accordingly
                 const updatedPosts = posts.map((post) =>
                     post.id === currentPost.id ? { ...post, ...formData } : post
                 );

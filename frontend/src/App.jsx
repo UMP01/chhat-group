@@ -13,6 +13,7 @@ import Footer from "./Components/Footer/Footer";
 import About from "./Pages/Website/AboutUs";
 import Career from "./Pages/Website/Career";
 import Blog from "./Pages/Website/Blog";
+import BlogDetail from "./Components/ContentChhatReasech/BlogDetail";
 import ChhatResearch from "./Pages/Website/ChhatResearch";
 import ChhatDiamond from "./Pages/Website/ChhatDiamond";
 import ChhatCapital from "./Pages/Website/ChhatCapital";
@@ -52,6 +53,7 @@ const AppRoutes = () => {
                 <Route path="/about" element={<About />} />
                 <Route path="/career" element={<Career />} />
                 <Route path="/blog" element={<Blog />} />
+                <Route path="/blog/:id" element={<BlogDetail />} />
                 <Route path="/chhat-research" element={<ChhatResearch />} />
                 <Route path="/chhat-diamond" element={<ChhatDiamond />} />
                 <Route path="/chhat-capital" element={<ChhatCapital />} />

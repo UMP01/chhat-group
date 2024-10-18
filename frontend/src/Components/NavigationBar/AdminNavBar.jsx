@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
     ArrowLeftEndOnRectangleIcon,
     BellIcon,
@@ -6,13 +6,52 @@ import {
     XCircleIcon,
     Bars3Icon,
 } from "@heroicons/react/24/solid";
-import UserAvatar from "../../assets/Images/logo.png"; // Update path if needed
-import { useLocation, Link } from "react-router-dom"; // Import Link for routing
+import { useLocation, Link } from "react-router-dom";
+import Swal from "sweetalert2";
+import DefaultAvatar from "../../assets/Images/default-profile.jpg";
 
 const AdminNavBar = ({ toggleSidebar, isOpen }) => {
-    const [isDropdownOpen, setIsDropdownOpen] = useState(false); // State to manage dropdown visibility
-    const location = useLocation(); // Get the current location
-    const userName = localStorage.getItem("userName") || "User"; // Default to "User"
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const location = useLocation();
+    const userName = localStorage.getItem("userName") || "User"; // Get the user name from localStorage or use "User"
+    const [userData, setUserData] = useState({
+        name: userName,
+        avatar: DefaultAvatar,
+    });
+
+    useEffect(() => {
+        // Check if an avatar URL is stored in localStorage, if any
+        const storedAvatar = localStorage.getItem("userAvatar");
+        if (storedAvatar) {
+            setUserData((prevData) => ({
+                ...prevData,
+                avatar: storedAvatar,
+            }));
+        }
+    }, []);
+
+    const handleLogout = async () => {
+        try {
+            const result = await Swal.fire({
+                title: "Are you sure?",
+                text: "Do you really want to log out?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, log out!",
+            });
+
+            if (result.isConfirmed) {
+                localStorage.removeItem("authToken"); // Clear the authentication token
+                localStorage.removeItem("userName"); // Clear the user name
+                localStorage.removeItem("userAvatar"); // Clear the avatar if stored
+                window.location.href = "/admin/login";
+            }
+        } catch (error) {
+            Swal.fire("Error", "There was an error logging out", "error");
+        }
+    };
 
     const getTitle = () => {
         switch (location.pathname) {
@@ -31,15 +70,14 @@ const AdminNavBar = ({ toggleSidebar, isOpen }) => {
             case "/admin/profile":
                 return "Profile";
             default:
-                return "Admin Panel"; // Default title
+                return "Admin Panel";
         }
     };
 
-    const title = getTitle(); // Get the title based on URL
+    const title = getTitle();
 
     const handleSidebarToggle = () => {
         toggleSidebar();
-        // Close the dropdown when toggling the sidebar
         if (isDropdownOpen) {
             setIsDropdownOpen(false);
         }
@@ -53,7 +91,7 @@ const AdminNavBar = ({ toggleSidebar, isOpen }) => {
         <nav className="bg-white py-4 px-6 flex justify-between items-center">
             <button
                 className="text-gray-300 focus:outline-none"
-                onClick={handleSidebarToggle} // Use the new function here
+                onClick={handleSidebarToggle}
             >
                 <span className="sr-only">
                     {isOpen ? "Close Sidebar" : "Open Sidebar"}
@@ -75,15 +113,15 @@ const AdminNavBar = ({ toggleSidebar, isOpen }) => {
                 <div className="relative">
                     <button
                         className="flex items-center space-x-2 focus:outline-none"
-                        onClick={handleDropdownToggle} // Toggle dropdown
+                        onClick={handleDropdownToggle}
                     >
                         <img
                             className="w-8 h-8 rounded-full border-2 border-gray-300"
-                            src={UserAvatar}
+                            src={userData.avatar || DefaultAvatar}
                             alt="User Avatar"
                         />
-                        <span className="font-normal text-gray-800">
-                            {userName} {/* Display the user name */}
+                        <span className="font-bold text-gray-800">
+                            {userData.name}
                         </span>
                     </button>
 
@@ -100,17 +138,13 @@ const AdminNavBar = ({ toggleSidebar, isOpen }) => {
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link
-                                        to="/admin/login"
-                                        className="block px-4 py-2 text-gray-700 hover:bg-gray-100 flex items-center"
-                                        onClick={() => {
-                                            setIsDropdownOpen(false);
-                                            // You can add logout logic here if needed
-                                        }}
+                                    <button
+                                        className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 flex items-center"
+                                        onClick={handleLogout}
                                     >
                                         <ArrowLeftEndOnRectangleIcon className="w-5 h-5 mr-2" />
                                         Logout
-                                    </Link>
+                                    </button>
                                 </li>
                             </ul>
                         </div>
