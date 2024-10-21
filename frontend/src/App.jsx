@@ -1,3 +1,4 @@
+// App.js
 import React from "react";
 import {
     BrowserRouter as Router,
@@ -31,6 +32,7 @@ import AdminChhatGroupBlog from "./Pages/Admin/ChhatGroupBlog";
 import AdminChhatResearchBlog from "./Pages/Admin/ChhatReseachBlog";
 import AdminProfile from "./Pages/Admin/AdminProfile";
 import AdminContact from "./Pages/Admin/Contact";
+import ProtectedRoute from "./api/ProtectedRoute.js";
 
 const App = () => {
     return (
@@ -72,9 +74,16 @@ const AppRoutes = () => {
                 />
                 <Route path="/chhat-cosmetic" element={<ChhatCosmetic />} />
                 <Route path="/admin/login" element={<Admin />} />
-                {/* <Route path="/admin/*" element={<AdminLayout />} /> */}
 
-                <Route path="/admin/*" element={<AdminLayout />}>
+                {/* Admin protected routes */}
+                <Route
+                    path="/admin/*"
+                    element={
+                        <ProtectedRoute>
+                            <AdminLayout />
+                        </ProtectedRoute>
+                    }
+                >
                     <Route path="dashboard" element={<AdminDashboard />} />
                     <Route
                         path="chhat-group-blog"
