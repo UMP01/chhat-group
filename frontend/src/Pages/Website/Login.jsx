@@ -26,22 +26,22 @@ const Login = () => {
 
             // Handle success response
             if (response.data.status === "success") {
-                localStorage.setItem("token", response.data.token);
-                localStorage.setItem("userId", response.data.user.id); // Save user ID
-                localStorage.setItem("userName", response.data.user.name); // Save user name
+                localStorage.setItem("authToken", response.data.token);
+                localStorage.setItem("userId", response.data.user.id); 
+                localStorage.setItem("userName", response.data.user.name);
+                localStorage.setItem("permission", response.data.user.permission);
                 navigate("/admin/dashboard");
             } else {
                 Swal.fire("Error", response.data.message, "error");
             }
         } catch (error) {
-            console.error("Login error:", error); // Log full error for debugging
+            console.error("Login error:", error);
             if (error.response && error.response.status === 422) {
                 const errors = error.response.data.errors;
                 const errorMessage = Object.values(errors).flat().join(", ");
                 Swal.fire(
                     "Error",
-                    errorMessage ||
-                        "Invalid login credentials. Please try again.",
+                    errorMessage || "Invalid login credentials. Please try again.",
                     "error"
                 );
             } else {
@@ -85,9 +85,7 @@ const Login = () => {
                                 <div className="mt-2">
                                     <input
                                         value={email}
-                                        onChange={(e) =>
-                                            setEmail(e.target.value)
-                                        }
+                                        onChange={(e) => setEmail(e.target.value)}
                                         id="email"
                                         name="email"
                                         type="email"
@@ -121,9 +119,7 @@ const Login = () => {
                                 <div className="mt-2">
                                     <input
                                         value={password}
-                                        onChange={(e) =>
-                                            setPassword(e.target.value)
-                                        }
+                                        onChange={(e) => setPassword(e.target.value)}
                                         id="password"
                                         name="password"
                                         type="password"

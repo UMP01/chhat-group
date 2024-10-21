@@ -40,6 +40,8 @@ const AdminSideBar = () => {
         }
     };
 
+    const permission = localStorage.getItem("permission");
+
     return (
         <>
             <aside
@@ -133,7 +135,7 @@ const AdminSideBar = () => {
                             <span>Contact</span>
                         </Link>
                     </li>
-                    <li
+                    {permission === "admin" && <li
                         className={`flex items-center p-2 cursor-pointer transition duration-200 ease-in-out transform ${
                             active === 5
                                 ? "bg-cyan-800 text-white rounded-md"
@@ -148,7 +150,7 @@ const AdminSideBar = () => {
                             <UserGroupIcon className="w-6 h-6 mr-2" />
                             <span>User</span>
                         </Link>
-                    </li>
+                    </li>}
                     <li
                         className={`flex items-center p-2 cursor-pointer transition duration-200 ease-in-out transform ${
                             active === 6
