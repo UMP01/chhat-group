@@ -25,7 +25,7 @@ const News = () => {
             setArticles(activeArticles);
         } catch (error) {
             console.error("Error fetching blogs:", error);
-            setError("Failed to load articles");
+            setError("No blog available at this time");
         } finally {
             setLoading(false);
         }
@@ -61,7 +61,19 @@ const News = () => {
     }
 
     if (error) {
-        return <p className="text-red-500 text-center mt-4">{error}</p>;
+        return (
+           <div className="max-w-7xl mx-auto text-cyan-700">
+                <div className="flex flex-col text-center items-center py-32">
+                    <div className="w-full">
+                        <h1 className="font-semibold text-5xl sm:text-5xl md:text-6xl lg:text-7xl">Sorry!</h1>
+                    </div>
+                    <div className="w-full py-5">
+                        <p className="font-medium text-lg sm:text-lg md:text-lg lg:text-xl">{error}</p>
+                    </div>
+                    <a href="/" className="py-2 border-b-2 font-medium border-cyan-700 hover:scale-110 duration-200 text-sm sm:text-base md:text-base lg:text-base">Back to homepage</a>
+                </div>
+           </div>
+        );
     }
 
     return (
