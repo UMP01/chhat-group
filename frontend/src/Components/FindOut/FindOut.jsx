@@ -20,13 +20,13 @@ const FindOut = () => {
             </div>
             <div className="lg:w-1/2 lg:order-2 lg:pl-5 py-5">
                 <div className="p-5">
-                    <h6 className="mb-4 pb-2 text-xs sm:text-sm md:text-base lg:text-base text-gray-100 font-medium">
+                    <h6 className="mb-4 pb-2 text-xs sm:text-sm md:text-base lg:text-base text-gray-100">
                         About Us
                     </h6>
                     <h1 className="mb-4 pb-2 text-gray-200 text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold">
                         Find Out Who We Are!
                     </h1>
-                    <p className="mb-4 pb-2 text-gray-200 text-sm sm:text-base md:text-base lg:text-base font-medium">
+                    <p className="mb-4 pb-2 text-gray-200 text-sm sm:text-base md:text-base lg:text-base">
                         We provide world-class quality products and services to
                         our customers and trade partners with the highest level
                         of transparency and accountability, through our

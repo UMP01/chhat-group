@@ -10,10 +10,10 @@ const Contact = () => {
                 <div className="px-4 sm:px-6 lg:px-8 lg:py-10 sm:py-5">
                     <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-center text-white">
                         <div className="w-full my-10 text-center">
-                            <h5 className="uppercase text-xl sm:text-xl md:text-2xl lg:text-3xl font-semibold mb-5">
+                            <h5 className="text-xl sm:text-xl md:text-2xl lg:text-3xl font-normal mb-5">
                                 Get In Touch
                             </h5>
-                            <div className="flex flex-wrap justify-center space-x-4 space-y-4 lg:space-y-0 lg:space-x-0 font-medium">
+                            <div className="flex flex-wrap justify-center space-x-4 space-y-4 lg:space-y-0 lg:space-x-0">
                                 {/* Phone Number Box */}
                                 <div className="flex flex-col items-center shadow-md p-4 w-full sm:w-1/3">
                                     <div className=" bg-white rounded-full p-3">
@@ -22,7 +22,7 @@ const Contact = () => {
                                     <p className="my-2">Contact Us</p>
 
                                     <p>+855 12 890 801 / 10 969 005</p>
-                                    <h5 className="text-lg font-medium my-3">
+                                    <h5 className="text-lg my-3">
                                         Follow us
                                     </h5>
                                     <div className="container-social-media flex justify-center mb-5">
@@ -45,25 +45,19 @@ const Contact = () => {
                                     </div>
                                 </div>
                                 {/* Address Box */}
-                                <div className="flex flex-col items-center shadow-md p-4 w-full sm:w-1/3 font-medium">
+                                <div className="flex flex-col items-center shadow-md p-4 w-full sm:w-1/3">
                                     <div className=" bg-white rounded-full p-3">
                                         <IoLocationSharp className="text-2xl text-cyan-700" />
                                     </div>
                                     <p className="my-2">Address</p>
 
                                     <p className="text-center mb-5">
-                                        Borey Piphup Thmey La Sen Sok 2 #47-49,
-                                        <br />
-                                        Street BT-08M, Phum Krang Angkrong,
-                                        <br />
-                                        Sangkat Krang Thnong, Khan Sen Sok,
-                                        <br />
-                                        Phnom Penh, Cambodia, 120804
+                                        Borey Piphup Thmey La Sen Sok 2 #47-49, Street BT-08M, Phum Krang Angkrong, Sangkat Krang Thnong, Khan Sen Sok, Phnom Penh, Cambodia, 120804
                                     </p>
                                 </div>
 
                                 {/* Email Box */}
-                                <div className="flex flex-col items-center shadow-md p-4 w-full sm:w-1/3 font-medium">
+                                <div className="flex flex-col items-center shadow-md p-4 w-full sm:w-1/3 ">
                                     <div className=" bg-white rounded-full p-3">
                                         <IoMailSharp className="text-2xl text-cyan-700" />
                                     </div>

@@ -44,7 +44,7 @@ const Card = ({ imageSrc, altText, title, description, link }) => (
                 <h5 className=" text-lg sm:text-lg md:text-lg lg:text-xl font-semibold text-gray-600 pb-2 pt-5">
                     {title}
                 </h5>
-                <p className="text-gray-500 line-clamp-4 text-base sm:text-base md:text-base lg:text-base font-medium">
+                <p className="text-gray-500 line-clamp-4 text-base sm:text-base md:text-base lg:text-base">
                     {description}
                 </p>
                 <Link
@@ -64,7 +64,7 @@ const CardGrid = () => (
             <h5 className="text-xl sm:text-2xl md:text-3xl lg:text-3xl text-gray-600 mb-3 font-semibold">
                 Our Services
             </h5>
-            <p className="text-gray-500 text-sm sm:text-base md:text-base lg:text-base font-medium">
+            <p className="text-gray-500 text-sm sm:text-base md:text-base lg:text-base">
                 We provide comprehensive services in trading, market research,
                 and product sales, specializing in high-quality jewelery.
             </p>
