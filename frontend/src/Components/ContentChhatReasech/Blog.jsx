@@ -25,7 +25,7 @@ const News = () => {
             setArticles(activeArticles);
         } catch (error) {
             console.error("Error fetching blogs:", error);
-            setError("Failed to load articles");
+            setError("No blogs available at this time.");
         } finally {
             setLoading(false);
         }
@@ -61,7 +61,14 @@ const News = () => {
     }
 
     if (error) {
-        return <p className="text-red-500 text-center mt-4">{error}</p>;
+        return(
+            <div className="max-w-7xl mx-auto">
+                <div className="py-5 px-5 bg-cyan-100 rounded-md">
+                    <p className="text-cyan-700 text-center text-base font-medium">{error}</p>
+                </div>
+            </div>
+            
+        );
     }
 
     return (

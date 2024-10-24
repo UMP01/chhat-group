@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import profile from "../../assets/Images/AboutUs/1.png";
 import { FiPhone } from "react-icons/fi";
 import {
@@ -29,7 +30,7 @@ const teamMembers = [
     },
 ];
 
-const TeamMember = () => {
+const TeamMember = ({name, location, role, phone, email, mailLink, facebook, image}) => {
     return (
         <div>
             <div>
@@ -87,6 +88,26 @@ const TeamMember = () => {
             </div>
         </div>
     );
+};
+TeamMember.prototype = {
+    name: PropTypes.string.isRequired,
+    location: PropTypes.string.isRequired,
+    role: PropTypes.string.isRequired,
+    phone: PropTypes.number.isRequired,
+    email: PropTypes.string.isRequired,
+    facebook: PropTypes.string.isRequired,
+    image: PropTypes.string.isRequired,
+    mailLink: PropTypes.string,
+};
+TeamMember.defaultProps = {
+    name: "John",
+    location: "PhnomPenh",
+    role: "CEO",
+    phone: "+855 123456789",
+    email: "john@example.com",
+    facebook: "https://facebook.com/",
+    image: profile,
+    mailLink: "mailto:info@chhatgroup.com"
 };
 
 export default TeamMember;
