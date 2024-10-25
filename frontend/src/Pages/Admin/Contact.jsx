@@ -11,6 +11,7 @@ const Contact = () => {
     const [selectedContact, setSelectedContact] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     const fetchContacts = async () => {
         setLoading(true);
@@ -23,7 +24,8 @@ const Contact = () => {
             setContacts(activeContacts);
         } catch (error) {
             console.error("Error fetching contacts:", error);
-        }finally{
+            setError("An error occurred while fetching data");
+        } finally {
             setLoading(false);
         }
     };
@@ -85,6 +87,13 @@ const Contact = () => {
         return (
             <div className="py-72 flex items-center justify-center">
                 <div className="flex justify-center items-center border-gray-300 h-7 w-7 animate-spin rounded-full border-2 border-t-sky-700"></div>
+            </div>
+        );
+    }
+    if (error) {
+        return (
+            <div className="bg-red-100 text-red-700 py-5 px-5 rounded-md text-center">
+                <p>Error: {error}</p>
             </div>
         );
     }
@@ -179,7 +188,10 @@ const Contact = () => {
                             ))
                         ) : (
                             <tr>
-                                <td colSpan="7" className="text-center p-4">
+                                <td
+                                    colSpan="7"
+                                    className="text-center p-4 font-medium"
+                                >
                                     No contacts found.
                                 </td>
                             </tr>

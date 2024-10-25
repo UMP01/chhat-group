@@ -13,6 +13,7 @@ const User = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const defaultLogoUrl = "../assets/Images/default-profile.jpg";
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         fetchUsers();
@@ -38,6 +39,7 @@ const User = () => {
             setUsers(Array.isArray(response.data) ? response.data : []);
         } catch (error) {
             console.error("Error fetching users:", error);
+            setError("An error occured while fetching data");
         } finally {
             setLoading(false);
         }
@@ -131,6 +133,13 @@ const User = () => {
             </div>
         );
     }
+    if (error) {
+        return (
+            <div className="bg-red-100 text-red-700 py-5 px-5 rounded-md text-center">
+                <p>Error: {error}</p>
+            </div>
+        );
+    }
 
     const formatDate = (dateString) =>
         new Date(dateString).toLocaleDateString();
@@ -169,13 +178,16 @@ const User = () => {
                                 "No.",
                                 "Name",
                                 "Email",
-                                
+
                                 "Branch",
                                 "Permission",
                                 "Created Date",
                                 "Actions",
                             ].map((header, i) => (
-                                <th key={i} className="py-2 px-4 font-medium text-start">
+                                <th
+                                    key={i}
+                                    className="py-2 px-4 font-medium text-start"
+                                >
                                     {header}
                                 </th>
                             ))}
@@ -197,7 +209,7 @@ const User = () => {
                                     <td className="border py-2 px-4 font-medium text-gray-700">
                                         {user.email}
                                     </td>
-                                    
+
                                     <td className="border py-2 px-4 font-medium text-gray-700">
                                         {user.branch}
                                     </td>

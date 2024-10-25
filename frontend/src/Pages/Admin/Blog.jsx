@@ -17,16 +17,17 @@ const ChhatBlog = () => {
     });
     const [searchTerm, setSearchTerm] = useState("");
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     // Fetch blog posts from the API
     const fetchPosts = async () => {
         setLoading(true);
         try {
             const response = await axiosClient.get("/blogs");
-            console.log("Fetched blogs:", response.data);
             setPosts(Array.isArray(response.data) ? response.data : []);
         } catch (error) {
             console.error("Error fetching blogs:", error);
+            setError("An error occured while fetching data");
         } finally {
             setLoading(false);
         }
@@ -70,20 +71,20 @@ const ChhatBlog = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-    
+
         // Ensure all required fields are filled
         if (!formData.title || !formData.content || !formData.category) {
             alert("Please fill out all required fields.");
             return;
         }
-    
+
         try {
             // FormData construction
             const postData = new FormData();
             postData.append("title", formData.title);
             postData.append("content", formData.content);
             postData.append("category", formData.category);
-    
+
             if (formData.media) {
                 postData.append("image", formData.media);
             } else {
@@ -91,12 +92,12 @@ const ChhatBlog = () => {
                 alert("Please select an image file.");
                 return;
             }
-    
+
             // Log FormData contents for debugging
             for (let pair of postData.entries()) {
                 console.log(`${pair[0]}:`, pair[1]);
             }
-    
+
             if (isEditing && currentPost) {
                 await updatePost(currentPost.id, postData);
                 const updatedPosts = posts.map((post) =>
@@ -109,10 +110,13 @@ const ChhatBlog = () => {
                 setPosts([...posts, newPost]);
                 Swal.fire("Success", "Blog created successfully!", "success");
             }
-    
+
             resetForm();
         } catch (error) {
-            console.error("Error during submit:", error.response?.data || error.message);
+            console.error(
+                "Error during submit:",
+                error.response?.data || error.message
+            );
             Swal.fire(
                 "Error",
                 "An error occurred while processing your request: " +
@@ -121,7 +125,6 @@ const ChhatBlog = () => {
             );
         }
     };
-    
 
     const handleEdit = (post) => {
         setIsEditing(true);
@@ -191,6 +194,13 @@ const ChhatBlog = () => {
         return (
             <div className="py-72 flex items-center justify-center">
                 <div className="flex justify-center items-center border-gray-300 h-7 w-7 animate-spin rounded-full border-2 border-t-sky-700"></div>
+            </div>
+        );
+    }
+    if (error) {
+        return (
+            <div className="bg-red-100 text-red-700 py-5 px-5 rounded-md text-center">
+                <p>Error: {error}</p>
             </div>
         );
     }

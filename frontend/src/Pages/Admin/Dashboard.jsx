@@ -11,25 +11,41 @@ import { axiosClient } from "../../api/axios";
 const Dashboard = () => {
     const iconClass = "w-8 h-8 text-gray-700";
     const [contactCount, setContactCount] = useState(0);
+    const [groupBlogCount, setGroupBlogCount] = useState(0);
+    const [researchBlogCount, setResearchBlogCount] = useState(0);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    useEffect(() => {
-        const fetchCounts = async () => {
-            setLoading(true);
-            try {
-                const [productsResponse] = await Promise.all([
-                    axiosClient.get("/contacts"),
-                ]);
+    const fetchCounts = async () => {
+        setLoading(true);
+        try {
+            const [contactsResponse, blogsResponse] = await Promise.all([
+                axiosClient.get("/contacts"),
+                axiosClient.get("/blogs"),
+            ]);
 
-                setContactCount(productsResponse.data.length);
-            } catch (err) {
-                setError(err.message);
-            } finally {
-                setLoading(false);
+            setContactCount(contactsResponse.data.length);
+
+            if (Array.isArray(blogsResponse.data)) {
+                const groupArticles = blogsResponse.data.filter(
+                    (article) => article.category === "Chhat Group"
+                );
+                const researchArticles = blogsResponse.data.filter(
+                    (article) => article.category === "Chhat Research"
+                );
+
+                setGroupBlogCount(groupArticles.length);
+                setResearchBlogCount(researchArticles.length);
             }
-        };
+        } catch (error) {
+            console.error("Error fetching data:", error);
+            setError("An error occurred while fetching data");
+        } finally {
+            setLoading(false);
+        }
+    };
 
+    useEffect(() => {
         fetchCounts();
     }, []);
 
@@ -40,7 +56,13 @@ const Dashboard = () => {
             </div>
         );
     }
-    if (error) return <p>Error: {error}</p>;
+    if (error) {
+        return (
+            <div className="bg-red-100 text-red-700 py-5 px-5 rounded-md text-center">
+                <p>Error: {error}</p>
+            </div>
+        );
+    }
 
     const cardData = [
         {
@@ -58,18 +80,18 @@ const Dashboard = () => {
             link: "/admin/career",
         },
         {
-            title: "Articles",
-            statics: "3",
+            title: "Chhat Group Articles",
+            statics: groupBlogCount.toString(), // Use the group blog count
             background: "bg-yellow-100",
             icon: <NewspaperIcon className={iconClass} />,
-            link: "/admin/chhat-group-blog",
+            link: "/admin/blog",
         },
         {
-            title: "Articles",
-            statics: "3",
+            title: "Chhat Research Articles",
+            statics: researchBlogCount.toString(), // Use the research blog count
             background: "bg-red-100",
             icon: <NewspaperIcon className={iconClass} />,
-            link: "/admin/chhat-research-blog",
+            link: "/admin/blog",
         },
     ];
 
