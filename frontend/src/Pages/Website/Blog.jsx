@@ -62,17 +62,26 @@ const News = () => {
 
     if (error) {
         return (
-           <div className="max-w-7xl mx-auto text-cyan-700">
+            <div className="max-w-7xl mx-auto text-cyan-700">
                 <div className="flex flex-col text-center items-center py-32">
                     <div className="w-full">
-                        <h1 className="font-semibold text-5xl sm:text-5xl md:text-6xl lg:text-7xl">Sorry!</h1>
+                        <h1 className="font-semibold text-5xl sm:text-5xl md:text-6xl lg:text-7xl">
+                            Sorry!
+                        </h1>
                     </div>
                     <div className="w-full py-5">
-                        <p className="font-medium text-lg sm:text-lg md:text-lg lg:text-xl">{error}</p>
+                        <p className="font-medium text-lg sm:text-lg md:text-lg lg:text-xl">
+                            {error}
+                        </p>
                     </div>
-                    <a href="/" className="py-2 border-b-2 font-medium border-cyan-700 hover:scale-110 duration-200 text-sm sm:text-base md:text-base lg:text-base">Back to homepage</a>
+                    <a
+                        href="/"
+                        className="py-2 border-b-2 font-medium border-cyan-700 hover:scale-110 duration-200 text-sm sm:text-base md:text-base lg:text-base"
+                    >
+                        Back to homepage
+                    </a>
                 </div>
-           </div>
+            </div>
         );
     }
 
@@ -97,7 +106,7 @@ const News = () => {
                             <h2 className="text-md font-semibold text-gray-600 my-3 line-clamp-1">
                                 {article.title}
                             </h2>
-                            <p className="text-gray-600 line-clamp-4 text-sm">
+                            <p className="text-gray-600 line-clamp-4 font-normal">
                                 {article.content}
                             </p>
                             <div className="flex items-center justify-between">
@@ -111,7 +120,7 @@ const News = () => {
                                 </div>
                                 <a
                                     href={`/blog/${article.id}`} // Update to use Link from React Router
-                                    className="primary-color text-sm inline-flex items-center pt-3 hover:translate-x-3 duration-200 cursor-pointer"
+                                    className="primary-color font-normal inline-flex items-center pt-3 hover:translate-x-3 duration-200 cursor-pointer"
                                 >
                                     Read More{" "}
                                     <HiOutlineArrowNarrowRight className="ml-1" />
