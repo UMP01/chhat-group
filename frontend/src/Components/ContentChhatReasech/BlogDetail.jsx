@@ -48,6 +48,7 @@ const BlogDetail = () => {
                         <h1 className="text-md sm:text-lg md:text-xl lg:text-2xl font-semibold mb-4 text-gray-700">
                             {article.title}
                         </h1>
+                        <p className="text-gray-700 my-2">Category: {article.category}</p>
                         <div className="flex items-center text-gray-700">
                             <BsCalendarDate className="mr-2" />
                             <p className="text-sm font-medium">
@@ -73,13 +74,13 @@ const BlogDetail = () => {
                                 {article.content}
                             </p>
                             <div className="text-gray-700 mt-4">
-                                <p>ព័ត៌មានបន្ថែម៖</p>
+                                <p className="font-khmer">ព័ត៌មានបន្ថែម៖</p>
                                 <ul>
                                     <li>012 890 801</li>
                                     <li>010 969 005</li>
                                 </ul>
                             </div>
-                            <div className="text-gray-700 mt-4">
+                            <div className="text-gray-700 mt-4 font-khmer">
                                 <p>អាស័យដ្ឋាន៖</p>
                                 <p>
                                     បុរីពិភពថ្មី ឡាសែនសុខពីរ ផ្ទះលេខ 43-45 ផ្លូវ

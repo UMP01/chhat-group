@@ -26,7 +26,7 @@ const About = () => {
     ];
     return (
         <>
-            <div className="flex flex-col justify-center items-center bg-style-02 text-cyan-700 h-72 py-20 px-10 text-center">
+            <div className="flex flex-col justify-center items-center bg-gray-100 text-cyan-700 h-72 py-20 px-10 text-center">
                 <img src={logo} className="h-20 w-auto" alt={logo} />
                 <p className="text-base sm:text-base md:text-lg lg:text-lg font-medium pt-5">
                     Guiding our Clients to Make Right Decisions for a

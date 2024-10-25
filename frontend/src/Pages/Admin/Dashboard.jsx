@@ -33,7 +33,13 @@ const Dashboard = () => {
         fetchCounts();
     }, []);
 
-    if (loading) return <p>Loading...</p>;
+    if (loading) {
+        return (
+            <div className="py-72 flex items-center justify-center">
+                <div className="flex justify-center items-center border-gray-300 h-7 w-7 animate-spin rounded-full border-2 border-t-sky-700"></div>
+            </div>
+        );
+    }
     if (error) return <p>Error: {error}</p>;
 
     const cardData = [

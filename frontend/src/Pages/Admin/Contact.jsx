@@ -10,8 +10,10 @@ const Contact = () => {
     const [searchTerm, setSearchTerm] = useState("");
     const [selectedContact, setSelectedContact] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     const fetchContacts = async () => {
+        setLoading(true);
         try {
             const response = await axiosClient.get("/contacts");
             console.log("Fetched contacts:", response.data);
@@ -21,6 +23,8 @@ const Contact = () => {
             setContacts(activeContacts);
         } catch (error) {
             console.error("Error fetching contacts:", error);
+        }finally{
+            setLoading(false);
         }
     };
 
@@ -77,6 +81,13 @@ const Contact = () => {
         fetchContacts();
         setSearchTerm(""); // Clear the search term
     };
+    if (loading) {
+        return (
+            <div className="py-72 flex items-center justify-center">
+                <div className="flex justify-center items-center border-gray-300 h-7 w-7 animate-spin rounded-full border-2 border-t-sky-700"></div>
+            </div>
+        );
+    }
 
     return (
         <div className="flex flex-col space-y-6 p-5 shadow-lg rounded-lg">
@@ -84,12 +95,12 @@ const Contact = () => {
                 <input
                     type="text"
                     placeholder="Search Contact"
-                    className="border px-4 py-2 rounded w-1/3"
+                    className="border px-4 py-2 rounded w-1/3 font-medium text-gray-700"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                 />
                 <button
-                    className="bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700 duration-300 ease-in-out flex items-center justify-center"
+                    className="bg-green-600 font-medium text-white py-2 px-4 rounded hover:bg-green-700 duration-300 ease-in-out flex items-center justify-center"
                     onClick={handleRefresh}
                 >
                     <FaSync className="mr-2" />
@@ -100,22 +111,22 @@ const Contact = () => {
                 <table className="min-w-full table-auto text-sm">
                     <thead>
                         <tr className="bg-cyan-700 rounded-lg text-left">
-                            <th className="py-2 px-4 border-2 border-cyan-700 text-white">
+                            <th className="py-2 px-4 border-2 border-cyan-700 text-white font-medium">
                                 No.
                             </th>
-                            <th className="py-2 px-4 border-2 border-cyan-700 text-white">
+                            <th className="py-2 px-4 border-2 border-cyan-700 text-white font-medium">
                                 Name
                             </th>
-                            <th className="py-2 px-4 border-2 border-cyan-700 text-white">
+                            <th className="py-2 px-4 border-2 border-cyan-700 text-white font-medium">
                                 Email
                             </th>
-                            <th className="py-2 px-4 border-2 border-cyan-700 text-white">
+                            <th className="py-2 px-4 border-2 border-cyan-700 text-white font-medium">
                                 Subject
                             </th>
-                            <th className="py-2 px-4 border-2 border-cyan-700 text-white">
+                            <th className="py-2 px-4 border-2 border-cyan-700 text-white font-medium">
                                 Sent Date
                             </th>
-                            <th className="py-2 px-4 border-2 border-cyan-700 text-white">
+                            <th className="py-2 px-4 border-2 border-cyan-700 text-white font-medium">
                                 Actions
                             </th>
                         </tr>
@@ -127,25 +138,25 @@ const Contact = () => {
                                     key={contact.id}
                                     className="border-b text-gray-800 transition duration-300 ease-in-out hover:bg-gray-100"
                                 >
-                                    <td className="border py-2 px-4">
+                                    <td className="border py-2 px-4 font-medium text-gray-700">
                                         {index + 1}
                                     </td>
-                                    <td className="border py-2 px-4">
+                                    <td className="border py-2 px-4 font-medium text-gray-700">
                                         {contact.fullname}
                                     </td>
-                                    <td className="border py-2 px-4">
+                                    <td className="border py-2 px-4 font-medium text-gray-700">
                                         {contact.email}
                                     </td>
-                                    <td className="border py-2 px-4">
+                                    <td className="border py-2 px-4 font-medium text-gray-700">
                                         {contact.subject}
                                     </td>
-                                    <td className="border py-2 px-4">
+                                    <td className="border py-2 px-4 font-medium text-gray-700">
                                         {formatDate(contact.created_at)}
                                     </td>
                                     <td className="border py-2 px-4">
                                         <div className="flex space-x-2">
                                             <button
-                                                className="rounded-md bg-cyan-700 text-white px-4 py-2 flex items-center hover:bg-cyan-800 duration-300 ease-in-out"
+                                                className="rounded-md bg-cyan-700 font-medium text-white px-4 py-2 flex items-center hover:bg-cyan-800 duration-300 ease-in-out"
                                                 onClick={() =>
                                                     handleViewDetails(contact)
                                                 }
@@ -154,7 +165,7 @@ const Contact = () => {
                                                 View
                                             </button>
                                             <button
-                                                className="rounded-md bg-red-600 text-white px-4 py-2 flex items-center hover:bg-red-700 duration-300 ease-in-out"
+                                                className="rounded-md bg-red-600 font-medium text-white px-4 py-2 flex items-center hover:bg-red-700 duration-300 ease-in-out"
                                                 onClick={() =>
                                                     handleDelete(contact.id)
                                                 }

@@ -4,7 +4,7 @@ import { FaRegEdit, FaTrash } from "react-icons/fa";
 import { axiosClient } from "../../api/axios"; // Make sure axiosClient is set up properly
 import { IoAdd } from "react-icons/io5";
 
-const ChhatResearchBlog = () => {
+const ChhatBlog = () => {
     const [posts, setPosts] = useState([]);
     const [modalOpen, setModalOpen] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
@@ -16,15 +16,19 @@ const ChhatResearchBlog = () => {
         media: null,
     });
     const [searchTerm, setSearchTerm] = useState("");
+    const [loading, setLoading] = useState(true);
 
     // Fetch blog posts from the API
     const fetchPosts = async () => {
+        setLoading(true);
         try {
             const response = await axiosClient.get("/blogs");
             console.log("Fetched blogs:", response.data);
             setPosts(Array.isArray(response.data) ? response.data : []);
         } catch (error) {
             console.error("Error fetching blogs:", error);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -170,6 +174,13 @@ const ChhatResearchBlog = () => {
             post.created_at.toLowerCase().includes(searchTerm.toLowerCase()) ||
             post.category.toLowerCase().includes(searchTerm.toLowerCase())
     );
+    if (loading) {
+        return (
+            <div className="py-72 flex items-center justify-center">
+                <div className="flex justify-center items-center border-gray-300 h-7 w-7 animate-spin rounded-full border-2 border-t-sky-700"></div>
+            </div>
+        );
+    }
 
     return (
         <div className="flex flex-col space-y-6 p-5 shadow-lg rounded-lg">
@@ -179,11 +190,11 @@ const ChhatResearchBlog = () => {
                     placeholder="Search Blogs"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="border px-4 py-2 rounded w-1/6"
+                    className="border px-4 py-2 rounded w-1/6 font-medium text-gray-700"
                 />
                 <button
                     onClick={openModal}
-                    className="bg-cyan-700 px-4 py-2 rounded-lg text-white flex items-center justify-center hover:bg-cyan-800 transition-colors"
+                    className="bg-cyan-700 font-medium px-4 py-2 rounded-lg text-white flex items-center justify-center hover:bg-cyan-800 transition-colors"
                 >
                     <IoAdd className="text-lg text-white font-medium mr-2" />{" "}
                     Add Blog
@@ -194,19 +205,19 @@ const ChhatResearchBlog = () => {
                 <table className="min-w-full table-auto text-sm">
                     <thead>
                         <tr className="bg-cyan-700 text-left">
-                            <th className="py-2 px-4 border-2 border-cyan-700 text-white">
+                            <th className="py-2 px-4 border-2 border-cyan-700 text-white font-medium">
                                 ID
                             </th>
-                            <th className="py-2 px-4 border-2 border-cyan-700 text-white">
+                            <th className="py-2 px-4 border-2 border-cyan-700 text-white font-medium">
                                 Title
                             </th>
-                            <th className="py-2 px-4 border-2 border-cyan-700 text-white">
+                            <th className="py-2 px-4 border-2 border-cyan-700 text-white font-medium">
                                 Category
                             </th>
-                            <th className="py-2 px-4 border-2 border-cyan-700 text-white">
+                            <th className="py-2 px-4 border-2 border-cyan-700 text-white font-medium">
                                 Date Posted
                             </th>
-                            <th className="py-2 px-4 border-2 border-cyan-700 text-white">
+                            <th className="py-2 px-4 border-2 border-cyan-700 text-white font-medium">
                                 Actions
                             </th>
                         </tr>
@@ -218,29 +229,29 @@ const ChhatResearchBlog = () => {
                                     key={post.id}
                                     className="border-b text-gray-700 transition duration-300 ease-in-out hover:bg-gray-100"
                                 >
-                                    <td className="border py-2 px-4">
+                                    <td className="border py-2 px-4 font-medium text-gray-700">
                                         {index + 1}
                                     </td>
-                                    <td className="border py-2 px-4">
+                                    <td className="border py-2 px-4 font-medium text-gray-700">
                                         {post.title}
                                     </td>
-                                    <td className="border py-2 px-4">
+                                    <td className="border py-2 px-4 font-medium text-gray-700">
                                         {post.category}
                                     </td>
-                                    <td className="border py-2 px-4">
+                                    <td className="border py-2 px-4 font-medium text-gray-700">
                                         {formatDate(post.created_at)}
                                     </td>
                                     <td className="border py-2 px-4">
                                         <div className="flex">
                                             <button
-                                                className="rounded-md rounded-r-none border-cyan-700 bg-cyan-700 text-white px-4 py-2 flex items-center hover:bg-cyan-800 duration-300 ease-in-out"
+                                                className="rounded-md rounded-r-none border-cyan-700 bg-cyan-700 font-medium text-white px-4 py-2 flex items-center hover:bg-cyan-800 duration-300 ease-in-out"
                                                 onClick={() => handleEdit(post)}
                                             >
                                                 <FaRegEdit className="mr-2" />
                                                 Edit
                                             </button>
                                             <button
-                                                className="rounded-md rounded-l-none border-red-600 px-4 py-2 bg-red-600 text-white flex items-center hover:bg-red-700 duration-300 ease-in-out"
+                                                className="rounded-md rounded-l-none border-red-600 px-4 py-2 bg-red-600 font-medium text-white flex items-center hover:bg-red-700 duration-300 ease-in-out"
                                                 onClick={() =>
                                                     handleDelete(post.id)
                                                 }
@@ -254,7 +265,10 @@ const ChhatResearchBlog = () => {
                             ))
                         ) : (
                             <tr>
-                                <td colSpan="5" className="text-center p-4">
+                                <td
+                                    colSpan="5"
+                                    className="text-center p-4 font-medium text-gray-700"
+                                >
                                     No blogs found.
                                 </td>
                             </tr>
@@ -351,4 +365,4 @@ const ChhatResearchBlog = () => {
     );
 };
 
-export default ChhatResearchBlog;
+export default ChhatBlog;

@@ -57,10 +57,8 @@ const AdminNavBar = ({ toggleSidebar, isOpen }) => {
         switch (location.pathname) {
             case "/admin/dashboard":
                 return "Dashboard";
-            case "/admin/chhat-group-blog":
-                return "Chhat Group Blog";
-            case "/admin/chhat-research-blog":
-                return "Chhat Research Blog";
+            case "/admin/blog":
+                return "Blog";
             case "/admin/career":
                 return "Career";
             case "/admin/user":
@@ -131,7 +129,7 @@ const AdminNavBar = ({ toggleSidebar, isOpen }) => {
                                 <li>
                                     <Link
                                         to="/admin/profile"
-                                        className="block px-4 py-2 text-gray-700 hover:bg-gray-100 flex items-center"
+                                        className=" px-4 py-2 text-gray-700 hover:bg-gray-100 flex items-center"
                                     >
                                         <UserIcon className="w-5 h-5 mr-2" />
                                         Profile
@@ -139,7 +137,7 @@ const AdminNavBar = ({ toggleSidebar, isOpen }) => {
                                 </li>
                                 <li>
                                     <button
-                                        className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 flex items-center"
+                                        className=" w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 flex items-center"
                                         onClick={handleLogout}
                                     >
                                         <ArrowLeftEndOnRectangleIcon className="w-5 h-5 mr-2" />

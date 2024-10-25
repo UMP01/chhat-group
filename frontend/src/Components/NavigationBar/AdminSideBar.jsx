@@ -71,22 +71,7 @@ const AdminSideBar = () => {
                             <span>Dashboard</span>
                         </Link>
                     </li>
-                    <li
-                        className={`flex items-center p-2 cursor-pointer transition duration-200 ease-in-out transform ${
-                            active === 1
-                                ? "bg-cyan-800 text-white rounded-md"
-                                : "text-gray-300 hover:text-primary hover:bg-cyan-800 rounded-md"
-                        }`}
-                        onClick={() => handleClick(1)}
-                    >
-                        <Link
-                            to="/admin/chhat-group-blog"
-                            className="flex items-center w-full"
-                        >
-                            <NewspaperIcon className="w-6 h-6 mr-2" />
-                            <span>Chhat Group Blog</span>
-                        </Link>
-                    </li>
+                    
                     <li
                         className={`flex items-center p-2 cursor-pointer transition duration-200 ease-in-out transform ${
                             active === 2
@@ -96,11 +81,11 @@ const AdminSideBar = () => {
                         onClick={() => handleClick(2)}
                     >
                         <Link
-                            to="/admin/chhat-research-blog"
+                            to="/admin/blog"
                             className="flex items-center w-full"
                         >
-                            <NewspaperIcon className="w-6 h-6 mr-2" />
-                            <span>Chhat Research Blog</span>
+                              <NewspaperIcon className="w-6 h-6 mr-2" />
+                            <span>Blog</span>
                         </Link>
                     </li>
                     <li

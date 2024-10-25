@@ -58,12 +58,16 @@ const AdminProfile = () => {
         }
 
         try {
-            const response = await axiosClient.put(`/users/${userId}`, formData, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                    "Content-Type": "multipart/form-data",
-                },
-            });
+            const response = await axiosClient.put(
+                `/users/${userId}`,
+                formData,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        "Content-Type": "multipart/form-data",
+                    },
+                }
+            );
             setProfile(response.data);
             setIsEditing(false);
             setNewPassword("");
@@ -75,7 +79,11 @@ const AdminProfile = () => {
     };
 
     if (loading) {
-        return <div className="text-center">Loading profile...</div>;
+        return (
+            <div className="py-72 flex items-center justify-center">
+                <div className="flex justify-center items-center border-gray-300 h-7 w-7 animate-spin rounded-full border-2 border-t-sky-700"></div>
+            </div>
+        );
     }
 
     if (!profile) {
@@ -86,7 +94,9 @@ const AdminProfile = () => {
         <div className="bg-gray-100">
             <div className="bg-white p-6 rounded-md shadow-md">
                 <div className="flex items-center justify-between mb-6">
-                    <h2 className="text-2xl font-bold text-gray-800">Profile</h2>
+                    <h2 className="text-2xl font-bold text-gray-800">
+                        Profile
+                    </h2>
                     <button
                         onClick={handleEditToggle}
                         className="flex items-center text-sky-600 hover:text-sky-800"
@@ -98,7 +108,10 @@ const AdminProfile = () => {
 
                 {error && <div className="text-red-500">{error}</div>}
 
-                <form onSubmit={handleSaveChanges} className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                <form
+                    onSubmit={handleSaveChanges}
+                    className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6"
+                >
                     <div>
                         <img
                             className="w-32 h-32 rounded-full border-2 border-gray-300 mb-4" // Increased size of the image
@@ -116,7 +129,13 @@ const AdminProfile = () => {
                                 />
                                 <button
                                     type="button"
-                                    onClick={() => document.querySelector('input[name="profileImage"]').click()} // Trigger file input on button click
+                                    onClick={() =>
+                                        document
+                                            .querySelector(
+                                                'input[name="profileImage"]'
+                                            )
+                                            .click()
+                                    } // Trigger file input on button click
                                     className="px-4 py-2 bg-sky-600 text-white rounded-md hover:bg-sky-700"
                                 >
                                     Upload
@@ -125,7 +144,9 @@ const AdminProfile = () => {
                         )}
                     </div>
                     <div>
-                        <label className="block text-gray-600 mb-2">Full Name</label>
+                        <label className="block text-gray-600 mb-2">
+                            Full Name
+                        </label>
                         <input
                             type="text"
                             name="name"
@@ -136,7 +157,9 @@ const AdminProfile = () => {
                         />
                     </div>
                     <div>
-                        <label className="block text-gray-600 mb-2">Email</label>
+                        <label className="block text-gray-600 mb-2">
+                            Email
+                        </label>
                         <input
                             type="email"
                             name="email"
@@ -147,7 +170,9 @@ const AdminProfile = () => {
                         />
                     </div>
                     <div>
-                        <label className="block text-gray-600 mb-2">Phone Number</label>
+                        <label className="block text-gray-600 mb-2">
+                            Phone Number
+                        </label>
                         <input
                             type="text"
                             name="phone"
@@ -158,11 +183,17 @@ const AdminProfile = () => {
                         />
                     </div>
                     <div>
-                        <label className="block text-gray-600 mb-2">Date of Birth</label>
+                        <label className="block text-gray-600 mb-2">
+                            Date of Birth
+                        </label>
                         <input
                             type="date"
                             name="dateOfBirth"
-                            value={profile.dateOfBirth ? profile.dateOfBirth.split("T")[0] : ""}
+                            value={
+                                profile.dateOfBirth
+                                    ? profile.dateOfBirth.split("T")[0]
+                                    : ""
+                            }
                             onChange={handleInputChange}
                             className="w-full px-4 py-2 border rounded-md"
                             disabled={!isEditing}
@@ -170,7 +201,9 @@ const AdminProfile = () => {
                     </div>
                     {isEditing && (
                         <div>
-                            <label className="block text-gray-600 mb-2">New Password</label>
+                            <label className="block text-gray-600 mb-2">
+                                New Password
+                            </label>
                             <input
                                 type="password"
                                 value={newPassword}

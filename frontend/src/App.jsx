@@ -28,8 +28,7 @@ import AdminLayout from "./Pages/Admin/Layout/AdminLayout";
 import AdminDashboard from "./Pages/Admin/Dashboard";
 import AdminUser from "./Pages/Admin/User";
 import AdminCareer from "./Pages/Admin/Career";
-import AdminChhatGroupBlog from "./Pages/Admin/ChhatGroupBlog";
-import AdminChhatResearchBlog from "./Pages/Admin/ChhatReseachBlog";
+import AdminBlog from "./Pages/Admin/Blog.jsx";
 import AdminProfile from "./Pages/Admin/AdminProfile";
 import AdminContact from "./Pages/Admin/Contact";
 import ProtectedRoute from "./api/ProtectedRoute.js";
@@ -85,14 +84,7 @@ const AppRoutes = () => {
                     }
                 >
                     <Route path="dashboard" element={<AdminDashboard />} />
-                    <Route
-                        path="chhat-group-blog"
-                        element={<AdminChhatGroupBlog />}
-                    />
-                    <Route
-                        path="chhat-research-blog"
-                        element={<AdminChhatResearchBlog />}
-                    />
+                    <Route path="blog" element={<AdminBlog />} />
                     <Route path="career" element={<AdminCareer />} />
                     <Route path="user" element={<AdminUser />} />
                     <Route path="profile" element={<AdminProfile />} />
