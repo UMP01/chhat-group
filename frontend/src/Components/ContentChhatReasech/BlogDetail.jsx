@@ -48,10 +48,12 @@ const BlogDetail = () => {
                         <h1 className="text-md sm:text-lg md:text-xl lg:text-2xl font-semibold mb-4 text-gray-700">
                             {article.title}
                         </h1>
-                        <p className="text-gray-700 my-2">Category: {article.category}</p>
+                        <p className="text-gray-700 my-2">
+                            Category: {article.category}
+                        </p>
                         <div className="flex items-center text-gray-700">
                             <BsCalendarDate className="mr-2" />
-                            <p className="text-sm font-medium">
+                            <p className="">
                                 Posted on:{" "}
                                 {new Date(
                                     article.created_at
@@ -70,17 +72,19 @@ const BlogDetail = () => {
                             )}
                         </div>
                         <div className="px-5 py-5 w-full md:w-1/2">
-                            <p className="text-gray-700 text-sm sm:text-base md:text-base lg:text-base">
+                            <p className="text-gray-700 font-normal text-base sm:text-base md:text-base lg:text-base">
                                 {article.content}
                             </p>
                             <div className="text-gray-700 mt-4">
-                                <p className="font-khmer">ព័ត៌មានបន្ថែម៖</p>
+                                <p className="font-khmer-nato">
+                                    ព័ត៌មានបន្ថែម៖
+                                </p>
                                 <ul>
                                     <li>012 890 801</li>
                                     <li>010 969 005</li>
                                 </ul>
                             </div>
-                            <div className="text-gray-700 mt-4 font-khmer">
+                            <div className="text-gray-700 mt-4 font-khmer-nato">
                                 <p>អាស័យដ្ឋាន៖</p>
                                 <p>
                                     បុរីពិភពថ្មី ឡាសែនសុខពីរ ផ្ទះលេខ 43-45 ផ្លូវ

@@ -3,7 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import Logo from "../../assets/Images/logo.png";
 import LogoBackground from "../../assets/Images/login-bg.jpg";
 import Swal from "sweetalert2"; // For alerts
-import axios from "axios"; // For API calls
+import { axiosClient } from "../../api/axios"; // Make sure this is correctly defined
 
 const Login = () => {
     const [email, setEmail] = useState("");
@@ -16,20 +16,21 @@ const Login = () => {
         setIsLoading(true);
 
         try {
-            const response = await axios.post(
-                "http://localhost:8000/api/login",
-                {
-                    email,
-                    password,
-                }
-            );
+            const response = await axiosClient.post("login", {
+                email,
+                password,
+            });
 
-            // Handle success response
+            console.log("Response received:", response.data);
+
             if (response.data.status === "success") {
                 localStorage.setItem("authToken", response.data.token);
-                localStorage.setItem("userId", response.data.user.id); 
+                localStorage.setItem("userId", response.data.user.id);
                 localStorage.setItem("userName", response.data.user.name);
-                localStorage.setItem("permission", response.data.user.permission);
+                localStorage.setItem(
+                    "permission",
+                    response.data.user.permission
+                );
                 navigate("/admin/dashboard");
             } else {
                 Swal.fire("Error", response.data.message, "error");
@@ -41,7 +42,8 @@ const Login = () => {
                 const errorMessage = Object.values(errors).flat().join(", ");
                 Swal.fire(
                     "Error",
-                    errorMessage || "Invalid login credentials. Please try again.",
+                    errorMessage ||
+                        "Invalid login credentials. Please try again.",
                     "error"
                 );
             } else {
@@ -85,7 +87,9 @@ const Login = () => {
                                 <div className="mt-2">
                                     <input
                                         value={email}
-                                        onChange={(e) => setEmail(e.target.value)}
+                                        onChange={(e) =>
+                                            setEmail(e.target.value)
+                                        }
                                         id="email"
                                         name="email"
                                         type="email"
@@ -119,7 +123,9 @@ const Login = () => {
                                 <div className="mt-2">
                                     <input
                                         value={password}
-                                        onChange={(e) => setPassword(e.target.value)}
+                                        onChange={(e) =>
+                                            setPassword(e.target.value)
+                                        }
                                         id="password"
                                         name="password"
                                         type="password"

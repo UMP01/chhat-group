@@ -61,13 +61,14 @@ const News = () => {
     }
 
     if (error) {
-        return(
+        return (
             <div className="max-w-7xl mx-auto">
                 <div className="py-5 px-5 bg-cyan-100 rounded-md">
-                    <p className="text-cyan-700 text-center text-base font-medium">{error}</p>
+                    <p className="text-cyan-700 text-center text-base font-medium">
+                        {error}
+                    </p>
                 </div>
             </div>
-            
         );
     }
 
@@ -92,7 +93,7 @@ const News = () => {
                             <h2 className="text-md font-semibold text-gray-600 my-3 line-clamp-1">
                                 {article.title}
                             </h2>
-                            <p className="text-gray-600 line-clamp-4 text-sm">
+                            <p className="text-gray-600 line-clamp-4 font-normal">
                                 {article.content}
                             </p>
                             <div className="flex items-center justify-between">
@@ -106,7 +107,7 @@ const News = () => {
                                 </div>
                                 <a
                                     href={`/blog/${article.id}`} // Update to use Link from React Router
-                                    className="primary-color text-sm inline-flex items-center pt-3 hover:translate-x-3 duration-200 cursor-pointer"
+                                    className="primary-color font-normal inline-flex items-center pt-3 hover:translate-x-3 duration-200 cursor-pointer"
                                 >
                                     Read More{" "}
                                     <HiOutlineArrowNarrowRight className="ml-1" />

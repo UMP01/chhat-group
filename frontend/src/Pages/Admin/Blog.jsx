@@ -70,45 +70,58 @@ const ChhatBlog = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+    
         // Ensure all required fields are filled
         if (!formData.title || !formData.content || !formData.category) {
             alert("Please fill out all required fields.");
             return;
         }
-
+    
         try {
             // FormData construction
             const postData = new FormData();
             postData.append("title", formData.title);
             postData.append("content", formData.content);
             postData.append("category", formData.category);
-
+    
             if (formData.media) {
-                postData.append("media", formData.media); // Make sure the key matches your API requirement
+                postData.append("image", formData.media);
+            } else {
+                console.error("Media is not defined:", formData.media);
+                alert("Please select an image file.");
+                return;
             }
-
+    
+            // Log FormData contents for debugging
+            for (let pair of postData.entries()) {
+                console.log(`${pair[0]}:`, pair[1]);
+            }
+    
             if (isEditing && currentPost) {
                 await updatePost(currentPost.id, postData);
                 const updatedPosts = posts.map((post) =>
                     post.id === currentPost.id ? { ...post, ...formData } : post
                 );
                 setPosts(updatedPosts);
+                Swal.fire("Success", "Blog updated successfully!", "success");
             } else {
                 const newPost = await createPost(postData);
                 setPosts([...posts, newPost]);
+                Swal.fire("Success", "Blog created successfully!", "success");
             }
+    
             resetForm();
         } catch (error) {
-            console.error("Error during submit:", error.message);
+            console.error("Error during submit:", error.response?.data || error.message);
             Swal.fire(
                 "Error",
                 "An error occurred while processing your request: " +
-                    error.message,
+                    (error.response?.data.message || error.message),
                 "error"
             );
         }
     };
+    
 
     const handleEdit = (post) => {
         setIsEditing(true);
@@ -338,6 +351,7 @@ const ChhatBlog = () => {
                             </label>
                             <input
                                 type="file"
+                                accept="image/*"
                                 onChange={handleFileChange}
                                 className="border mb-3 text-sm block w-full text-slate-500 rounded leading-6"
                             />

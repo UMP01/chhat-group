@@ -1,8 +1,7 @@
-// ProtectedRoute.js
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const isAuthenticated = () => {
-    return localStorage.getItem("token") !== null;
+    return localStorage.getItem("authToken") !== null;
 };
 
 const getUserPermission = () => {
@@ -11,15 +10,16 @@ const getUserPermission = () => {
 
 const ProtectedRoute = ({ children }) => {
     const location = useLocation();
+    const navigate = useNavigate();
 
-        if (!isAuthenticated()) {
-            window.location.href = "/admin/login";
+    if (!isAuthenticated()) {
+        navigate("/admin/login", { replace: true });
         return null;
     }
 
     const permission = getUserPermission();
     if (permission === "user" && location.pathname.includes("/admin/user")) {
-        window.location.href = "/";
+        navigate("/", { replace: true });
         return null;
     }
 
