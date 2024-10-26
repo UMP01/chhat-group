@@ -15,11 +15,12 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('location');
-            $table->date('datedpost');
+            $table->date('dateline');
             $table->string('jobtype');
-            $table->decimal('salary',10,2);
-            $table->text('requirement');
-            $table->text('benefit');
+            $table->string('salary');
+            $table->text('requirement')->nullable(); // Make nullable
+            $table->text('responsible')->nullable(); // Make nullable
+            $table->text('benefit')->nullable(); // Make nullable
             $table->timestamps();
         });
     }

@@ -7,5 +7,20 @@ use Illuminate\Database\Eloquent\Model;
 
 class Career extends Model
 {
-    protected $fillable = ['title', 'location', 'dateposted','jobtype','salary','requirement','benefit'];
+    use HasFactory; // Enables the use of factories
+
+    protected $fillable = [
+        'title', 
+        'location', 
+        'dateline', 
+        'jobtype', 
+        'salary', 
+        'requirement', 
+        'responsible', 
+        'benefit'
+    ];
+
+    protected $casts = [
+        'dateline' => 'date', // Treat dateline as a date
+    ];
 }

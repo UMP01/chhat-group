@@ -213,7 +213,7 @@ const ChhatBlog = () => {
                     placeholder="Search Blogs"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="border px-4 py-2 rounded w-1/6 font-medium text-gray-700"
+                    className="border px-4 py-2 rounded w-2/6 font-medium text-gray-700"
                 />
                 <button
                     onClick={openModal}

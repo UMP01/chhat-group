@@ -13,18 +13,22 @@ const Dashboard = () => {
     const [contactCount, setContactCount] = useState(0);
     const [groupBlogCount, setGroupBlogCount] = useState(0);
     const [researchBlogCount, setResearchBlogCount] = useState(0);
+    const [careersCount, setCareersCount] = useState(0);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
     const fetchCounts = async () => {
         setLoading(true);
         try {
-            const [contactsResponse, blogsResponse] = await Promise.all([
-                axiosClient.get("/contacts"),
-                axiosClient.get("/blogs"),
-            ]);
+            const [contactsResponse, blogsResponse, careersResponse] =
+                await Promise.all([
+                    axiosClient.get("/contacts"),
+                    axiosClient.get("/blogs"),
+                    axiosClient.get("/careers"),
+                ]);
 
             setContactCount(contactsResponse.data.length);
+            setCareersCount(careersResponse.data.length);
 
             if (Array.isArray(blogsResponse.data)) {
                 const groupArticles = blogsResponse.data.filter(
@@ -73,8 +77,8 @@ const Dashboard = () => {
             link: "/admin/contact",
         },
         {
-            title: "Applicant Apply",
-            statics: "3",
+            title: "Job Announcement",
+            statics: careersCount.toString(),
             background: "bg-green-100",
             icon: <BookOpenIcon className={iconClass} />,
             link: "/admin/career",
