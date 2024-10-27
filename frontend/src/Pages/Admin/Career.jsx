@@ -27,14 +27,14 @@ const Career = () => {
     }
 
     const fetchCareers = async () => {
-        setLoading(true)
+        setLoading(true);
         try {
             const response = await axiosClient.get("/careers");
             setCareers(Array.isArray(response.data) ? response.data : []);
         } catch (error) {
             console.error("Error fetching careers:", error);
             setError("An error occured while fetching data");
-        }finally{
+        } finally {
             setLoading(false);
         }
     };
@@ -75,7 +75,7 @@ const Career = () => {
         setFormData({
             title: career.title,
             location: career.location,
-            dateline: career.dateline,
+            dateline: new Date(career.dateline).toISOString().split('T')[0],
             jobtype: career.jobtype,
             salary: career.salary,
             requirement: career.requirement,
@@ -172,7 +172,7 @@ const Career = () => {
                 <table className="min-w-full text-sm">
                     <thead>
                         <tr className="bg-cyan-700 text-white">
-                        {[
+                            {[
                                 "No.",
                                 "Title",
                                 "Location",
@@ -198,7 +198,9 @@ const Career = () => {
                                     key={career.id}
                                     className="border-b hover:bg-gray-100"
                                 >
-                                    <td className="border py-2 px-4 font-medium text-gray-700">{index + 1}</td>
+                                    <td className="border py-2 px-4 font-medium text-gray-700">
+                                        {index + 1}
+                                    </td>
                                     <td className="border py-2 px-4 font-medium text-gray-700">
                                         {career.title}
                                     </td>
@@ -242,7 +244,10 @@ const Career = () => {
                             ))
                         ) : (
                             <tr>
-                                <td colSpan="7" className="text-center p-4 font-medium text-gray-700">
+                                <td
+                                    colSpan="7"
+                                    className="text-center p-4 font-medium text-gray-700"
+                                >
                                     No careers found.
                                 </td>
                             </tr>
@@ -274,44 +279,88 @@ const Modal = ({
     isEditing,
 }) => (
     <div
-        className={`fixed inset-0 flex items-center justify-center z-50 ${
+        className={`fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 ${
             isOpen ? "block" : "hidden"
         }`}
     >
-        <div className="bg-white rounded-lg shadow-lg px-6 py-3 w-1/3 border-2">
-            <h2 className="text-lg font-bold mb-4 text-cyan-700">
+        <div className="bg-white rounded-lg shadow-lg px-6 py-3 w-1/3 border-2 max-h-[90vh] overflow-y-auto">
+            <h2 className="text-lg font-normal mb-4 text-cyan-700">
                 {isEditing
                     ? "Edit Career Opportunity"
                     : "Add Career Opportunity"}
             </h2>
             <form onSubmit={onSubmit}>
-                {Object.keys(formData).map((field) => (
-                    <InputField
-                        key={field}
-                        name={field}
-                        value={formData[field]}
+                {["title", "location", "dateline", "jobtype", "salary"].map(
+                    (field, i) => (
+                        <InputField
+                            key={i}
+                            name={field}
+                            value={formData[field]}
+                            onChange={onChange}
+                            required={
+                                field === "title" ||
+                                field === "location" ||
+                                field === "jobtype" ||
+                                field === "salary"
+                            }
+                        />
+                    )
+                )}
+                <div className="mb-4">
+                    <label className="block text-gray-700 font-normal mb-3">
+                        Requirement
+                    </label>
+                    <textarea
+                        name="requirement"
+                        value={formData.requirement}
                         onChange={onChange}
-                        required={
-                            field === "title" ||
-                            field === "location" ||
-                            field === "jobtype" ||
-                            field === "salary"
-                        }
+                        className="w-full p-2 border rounded"
+                        required
+                        placeholder="requirement"
+                        rows="5"
                     />
-                ))}
+                </div>
+                <div className="mb-4">
+                    <label className="block text-gray-700 font-normal mb-3">
+                        Responsible
+                    </label>
+                    <textarea
+                        name="responsible"
+                        value={formData.responsible}
+                        onChange={onChange}
+                        className="w-full p-2 border rounded"
+                        required
+                        placeholder="Responsible"
+                        rows="5"
+                    />
+                </div>
+                <div className="mb-4">
+                    <label className="block text-gray-700 font-normal mb-3">
+                        Benefit
+                    </label>
+                    <textarea
+                        name="benefit"
+                        value={formData.benefit}
+                        onChange={onChange}
+                        className="w-full p-2 border rounded"
+                        required
+                        placeholder="Benefit"
+                        rows="5"
+                    />
+                </div>
                 <div className="flex justify-end space-x-2">
-                    <button
-                        type="button"
-                        className="bg-gray-300 text-black px-4 py-2 rounded"
-                        onClick={onClose}
-                    >
-                        Cancel
-                    </button>
                     <button
                         type="submit"
                         className="bg-cyan-700 text-white px-4 py-2 rounded hover:bg-cyan-800"
                     >
                         {isEditing ? "Update" : "Add"}
+                    </button>
+                    <button
+                        type="button"
+                        className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded"
+                        onClick={onClose}
+                    >
+                        Cancel
                     </button>
                 </div>
             </form>
@@ -321,7 +370,7 @@ const Modal = ({
 
 const InputField = ({ name, value, onChange, required }) => (
     <div className="mb-4">
-        <label className="block text-gray-700" htmlFor={name}>
+        <label className="block text-gray-700 mb-3" htmlFor={name}>
             {name.charAt(0).toUpperCase() + name.slice(1)}
         </label>
         {name === "dateline" ? (
@@ -335,7 +384,7 @@ const InputField = ({ name, value, onChange, required }) => (
             />
         ) : (
             <input
-                type="text"
+                type={name === "dateline" ? "date" : "text"}
                 name={name}
                 value={value}
                 onChange={onChange}
