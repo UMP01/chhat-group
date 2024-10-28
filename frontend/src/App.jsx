@@ -32,6 +32,7 @@ import AdminBlog from "./Pages/Admin/Blog.jsx";
 import AdminProfile from "./Pages/Admin/AdminProfile";
 import AdminContact from "./Pages/Admin/Contact";
 import ProtectedRoute from "./api/ProtectedRoute.js";
+import CareerDetails from './Pages/Website/CareerDetails';
 
 const App = () => {
     return (
@@ -59,6 +60,7 @@ const AppRoutes = () => {
                 <Route path="/chhat-diamond" element={<ChhatDiamond />} />
                 <Route path="/chhat-capital" element={<ChhatCapital />} />
                 <Route path="/chhat-trading" element={<ChhatTrading />} />
+                <Route path="/careerdetails/:id" element={<CareerDetails />} />
                 <Route
                     path="/chhat-real-estate"
                     element={<ChhatRealEstate />}

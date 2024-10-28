@@ -19,7 +19,7 @@ const Career = () => {
         lastPage="Career"
         lastPageLink="/career"
       />
-      <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr] lg:grid-cols-[2fr_1fr] gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr] lg:grid-cols-[2fr_1fr] gap-4 mb-3">
         <div className="px-4">
           <JobList />
         </div>
