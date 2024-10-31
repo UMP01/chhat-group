@@ -10,7 +10,7 @@ import profile04 from "../../assets/Images/AboutUs/profile-04.png";
 
 const teamMembers = [
     {
-        name: "Chhat Chansocheat",
+        name: "Chhat Lengchansocheat",
         role: "Founder | Chairman | CEO",
         location: "Cambodia",
         phone: "(+855) 12-630-103",
