@@ -89,7 +89,7 @@ const About = () => {
                         <h3 className="text-2xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold text-cyan-700">
                             Meet our team
                         </h3>
-                        <p className="text-base sm:text-base md:text-base lg:text-base text-cyan-700 py-3">
+                        <p className="text-base sm:text-base md:text-base lg:text-base font-medium text-cyan-700 py-3">
                             We are building the future of Chhat Group together.
                         </p>
                     </div>
