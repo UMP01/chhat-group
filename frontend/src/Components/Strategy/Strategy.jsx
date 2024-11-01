@@ -1,4 +1,3 @@
-import { TbBrandMailgun } from "react-icons/tb";
 import { RiFocus2Fill } from "react-icons/ri";
 import { PiStrategyDuotone } from "react-icons/pi";
 import { VscGraphLine } from "react-icons/vsc";
@@ -19,7 +18,7 @@ const Strategies = [
         bgColor: "bg-orange-600",
     },
     {
-        icon: VscGraphLine,
+        icon: VscGraphLine, 
         header: "Investments",
         text: "Making strategic investments that have a significant impact on business growth.",
         bgColor: "bg-cyan-600",
@@ -41,11 +40,11 @@ const Strategies = [
 const Strategy = ({ strategies = Strategies }) => {
     return (
         <div>
-            <div className="text-gray-700 text-start lg:pt-7 bg-gray-100 rounded-2xl p-10 mb-5 shadow-sm">
-                <h1 className="text-cyan-700 py-2">
+            <div className="text-gray-700 text-start">
+                <h1 className="text-cyan-700 text-lg font-medium">
                     Strategy For Business Growth And Market Leadership
                 </h1>
-                <p className="text-gray-600">
+                <p className="text-gray-700 font-medium">
                     Creating customer-centric companies is our priority. We
                     focus on strengthening and building your brand, making
                     impactful investments, increasing customer penetration and
@@ -53,7 +52,7 @@ const Strategy = ({ strategies = Strategies }) => {
                     play.
                 </p>
             </div>
-            <div className="flex flex-wrap mx-2">
+            <div className="flex flex-wrap mt-10">
                 {strategies.map((strategy, index) => (
                     <div
                         key={index}
