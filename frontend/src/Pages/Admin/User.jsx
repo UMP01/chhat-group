@@ -11,7 +11,6 @@ const User = () => {
     const [formData, setFormData] = useState(initialFormData());
     const [searchTerm, setSearchTerm] = useState("");
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const defaultLogoUrl = "../assets/Images/default-profile.jpg";
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
@@ -25,10 +24,9 @@ const User = () => {
             email: "",
             phone: "",
             dob: "",
-            branch: "",
-            permission: "",
+            branch: "Phnom Penh", // Default branch
+            permission: "admin",    // Default permission
             password: "",
-            profileImage: "",
         };
     }
 
@@ -39,7 +37,7 @@ const User = () => {
             setUsers(Array.isArray(response.data) ? response.data : []);
         } catch (error) {
             console.error("Error fetching users:", error);
-            setError("An error occured while fetching data");
+            setError("An error occurred while fetching data");
         } finally {
             setLoading(false);
         }
@@ -66,10 +64,7 @@ const User = () => {
     async function handleSubmit(e) {
         e.preventDefault();
         try {
-            const updatedFormData = {
-                ...formData,
-                profileImage: formData.profileImage || defaultLogoUrl,
-            };
+            const updatedFormData = { ...formData };
             if (editUser) {
                 await axiosClient.put(`/users/${editUser}`, updatedFormData);
                 Swal.fire("Success", "User updated successfully", "success");
@@ -96,10 +91,9 @@ const User = () => {
             email: user.email,
             phone: user.phone,
             dob: user.dob.split("T")[0],
-            branch: user.branch,
+            branch: "Phnom Penh", // Ensure branch remains "Phnom Penh"
             permission: user.permission,
             password: "",
-            profileImage: "",
         });
         setIsModalOpen(true);
     }
@@ -126,6 +120,7 @@ const User = () => {
             Swal.fire("Error", "There was an error deleting the user", "error");
         }
     }
+
     if (loading) {
         return (
             <div className="py-72 flex items-center justify-center">
@@ -133,6 +128,7 @@ const User = () => {
             </div>
         );
     }
+
     if (error) {
         return (
             <div className="bg-red-100 text-red-700 py-5 px-5 rounded-md text-center">
@@ -145,126 +141,123 @@ const User = () => {
         new Date(dateString).toLocaleDateString();
 
     return (
-        <div className="flex flex-col p-2 space-y-6 shadow-lg rounded-lg">
-            <div className="flex justify-between px-2 text-sm">
-                <input
-                    type="text"
-                    placeholder="Search Users"
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className="border px-3 py-2 rounded w-2/6 font-medium text-gray-600"
-                />
-                <div className="flex gap-5">
-                    <button
-                        onClick={() => setIsModalOpen(true)}
-                        className="bg-cyan-700 font-medium text-white py-1 px-4 rounded hover:bg-cyan-800 flex items-center"
-                    >
-                        <IoPersonAdd className="mr-2" /> Add User
-                    </button>
-                    <button
-                        onClick={fetchUsers}
-                        className="bg-green-600 font-medium text-white py-2 px-4 rounded hover:bg-green-700 flex items-center"
-                    >
-                        <FaSync className="mr-2" /> Refresh
-                    </button>
+        <div>
+            <h2 className="text-2xl font-bold text-gray-800 mb-4">User</h2>
+            <div className="bg-white flex flex-col p-2 space-y-6 shadow-lg rounded-lg">
+                <div className="flex justify-between px-2 text-sm">
+                    <input
+                        type="text"
+                        placeholder="Search Users"
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        className="border px-3 py-2 rounded w-2/6 font-medium text-gray-600"
+                    />
+                    <div className="flex gap-5">
+                        <button
+                            onClick={() => setIsModalOpen(true)}
+                            className="bg-cyan-700 font-medium text-white py-1 px-4 rounded hover:bg-cyan-800 flex items-center"
+                        >
+                            <IoPersonAdd className="mr-2" /> Add User
+                        </button>
+                        <button
+                            onClick={fetchUsers}
+                            className="bg-green-600 font-medium text-white py-2 px-4 rounded hover:bg-green-700 flex items-center"
+                        >
+                            <FaSync className="mr-2" /> Refresh
+                        </button>
+                    </div>
                 </div>
-            </div>
 
-            <div className="overflow-x-auto px-2">
-                <table className="min-w-full text-sm">
-                    <thead>
-                        <tr className="bg-cyan-700 text-white">
-                            {[
-                                "No.",
-                                "Name",
-                                "Email",
-
-                                "Branch",
-                                "Permission",
-                                "Created Date",
-                                "Actions",
-                            ].map((header, i) => (
-                                <th
-                                    key={i}
-                                    className="py-2 px-4 font-medium text-start"
-                                >
-                                    {header}
-                                </th>
-                            ))}
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {filteredUsers.length > 0 ? (
-                            filteredUsers.map((user, index) => (
-                                <tr
-                                    key={user.id}
-                                    className="border-b hover:bg-gray-100"
-                                >
-                                    <td className="border py-2 px-4 font-medium text-gray-700">
-                                        {index + 1}
-                                    </td>
-                                    <td className="border py-2 px-4 font-medium text-gray-700">
-                                        {user.name}
-                                    </td>
-                                    <td className="border py-2 px-4 font-medium text-gray-700">
-                                        {user.email}
-                                    </td>
-
-                                    <td className="border py-2 px-4 font-medium text-gray-700">
-                                        {user.branch}
-                                    </td>
-                                    <td className="border py-2 px-4 capitalize font-medium text-gray-700">
-                                        {user.permission}
-                                    </td>
-                                    <td className="border py-2 px-4 font-medium text-gray-700">
-                                        {formatDate(user.created_at)}
-                                    </td>
-                                    <td className="border py-2 px-4">
-                                        <div className="flex">
-                                            <button
-                                                className="bg-cyan-700 font-medium text-white px-4 py-2 flex items-center rounded-l-md hover:bg-cyan-800  duration-300 ease-in-out"
-                                                onClick={() => handleEdit(user)}
-                                            >
-                                                <FaRegEdit className="mr-2" />{" "}
-                                                Edit
-                                            </button>
-                                            <button
-                                                className="bg-red-600 font-medium text-white px-4 py-2 rounded-r-md hover:bg-red-700 flex items-center duration-300 ease-in-out"
-                                                onClick={() =>
-                                                    handleDelete(user.id)
-                                                }
-                                            >
-                                                <FaTrash className="mr-2" />{" "}
-                                                Delete
-                                            </button>
-                                        </div>
+                <div className="overflow-x-auto px-2">
+                    <table className="min-w-full text-sm table-auto">
+                        <thead>
+                            <tr className="bg-cyan-700 text-white">
+                                {[
+                                    "No.",
+                                    "Name",
+                                    "Email",
+                                    "Branch",
+                                    "Permission",
+                                    "Created Date",
+                                    "Actions",
+                                ].map((header, i) => (
+                                    <th
+                                        key={i}
+                                        className="py-2 px-4 font-medium text-center"
+                                    >
+                                        {header}
+                                    </th>
+                                ))}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {filteredUsers.length > 0 ? (
+                                filteredUsers.map((user, index) => (
+                                    <tr
+                                        key={user.id}
+                                        className="border-b hover:bg-gray-100"
+                                    >
+                                        <td className="border py-2 px-4 font-medium text-gray-700 text-center">
+                                            {index + 1}
+                                        </td>
+                                        <td className="border py-2 px-4 font-medium text-gray-700">
+                                            {user.name}
+                                        </td>
+                                        <td className="border py-2 px-4 font-medium text-gray-700">
+                                            {user.email}
+                                        </td>
+                                        <td className="border py-2 px-4 font-medium text-gray-700 text-center">
+                                            {user.branch}
+                                        </td>
+                                        <td className="border py-2 px-4 capitalize font-medium text-gray-700 text-center">
+                                            {user.permission}
+                                        </td>
+                                        <td className="border py-2 px-4 font-medium text-gray-700 text-center">
+                                            {formatDate(user.created_at)}
+                                        </td>
+                                        <td className="border py-2 px-4 text-center"> {/* Change to text-center */}
+                                            <div className="flex justify-center"> {/* Center the actions */}
+                                                <button
+                                                    className="bg-cyan-700 font-medium text-white px-4 py-2 flex items-center rounded-l-md hover:bg-cyan-800 duration-300 ease-in-out"
+                                                    onClick={() => handleEdit(user)}
+                                                >
+                                                    <FaRegEdit className="mr-2" /> Edit
+                                                </button>
+                                                <button
+                                                    className="bg-red-600 font-medium text-white px-4 py-2 rounded-r-md hover:bg-red-700 flex items-center duration-300 ease-in-out"
+                                                    onClick={() => handleDelete(user.id)}
+                                                >
+                                                    <FaTrash className="mr-2" /> Delete
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                ))
+                            ) : (
+                                <tr>
+                                    <td
+                                        colSpan="7"
+                                        className="text-center p-4 font-medium text-gray-700"
+                                    >
+                                        No users found.
                                     </td>
                                 </tr>
-                            ))
-                        ) : (
-                            <tr>
-                                <td
-                                    colSpan="9"
-                                    className="text-center p-4 font-medium text-gray-700"
-                                >
-                                    No users found.
-                                </td>
-                            </tr>
-                        )}
-                    </tbody>
-                </table>
-            </div>
+                            )}
+                        </tbody>
+                    </table>
+                </div>
 
-            {isModalOpen && (
-                <Modal
-                    isOpen={isModalOpen}
-                    onClose={resetFormData}
-                    formData={formData}
-                    onChange={handleChange}
-                    onSubmit={handleSubmit}
-                    isEditMode={!!editUser}
-                />
-            )}
+                {isModalOpen && (
+                    <Modal
+                        isOpen={isModalOpen}
+                        onClose={resetFormData}
+                        formData={formData}
+                        onChange={handleChange}
+                        onSubmit={handleSubmit}
+                        isEditMode={!!editUser}
+                    />
+                )}
+            </div>
         </div>
     );
 };
@@ -287,17 +280,27 @@ const Modal = ({
                 {isEditMode ? "Edit User" : "Add User"}
             </h2>
             <form onSubmit={onSubmit}>
-                {["name", "email", "phone", "dob", "branch", "password"].map(
-                    (field, i) => (
-                        <InputField
-                            key={i}
-                            name={field}
-                            value={formData[field]}
-                            onChange={onChange}
-                            required={!isEditMode && field === "password"}
-                        />
-                    )
-                )}
+                {["name", "email", "phone", "dob", "password"].map((field, i) => (
+                    <InputField
+                        key={i}
+                        name={field}
+                        value={formData[field]}
+                        onChange={onChange}
+                        required={!isEditMode && field === "password"}
+                    />
+                ))}
+                <div className="mb-4">
+                    <label className="block text-gray-700 text-sm font-bold mb-2">
+                        Branch
+                    </label>
+                    <input
+                        type="text"
+                        name="branch"
+                        value={formData.branch}
+                        readOnly
+                        className="w-full p-2 border rounded bg-gray-200 cursor-not-allowed"
+                    />
+                </div>
                 <div className="mb-4">
                     <label className="block text-gray-700 text-sm font-bold mb-2">
                         Permission
@@ -309,9 +312,6 @@ const Modal = ({
                         className="w-full p-2 border rounded"
                         required
                     >
-                        <option value="" disabled>
-                            Select permission
-                        </option>
                         <option value="admin">Admin</option>
                         <option value="user">User</option>
                     </select>

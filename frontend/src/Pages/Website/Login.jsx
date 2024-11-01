@@ -6,8 +6,8 @@ import Swal from "sweetalert2"; // For alerts
 import { axiosClient } from "../../api/axios"; // Make sure this is correctly defined
 
 const Login = () => {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [email, setEmail] = useState("roeun@gmail.com");
+    const [password, setPassword] = useState("12345678a");
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
 
@@ -111,6 +111,7 @@ const Login = () => {
                                     <div className="text-sm">
                                         <Link
                                             to="#"
+                                            onClick={() => Swal.fire("Contact to Admin", "Please reach out to the admin for password recovery.", "info")}
                                             className="font-normal text-indigo-600 hover:text-indigo-500"
                                             style={{
                                                 color: "var(--primary-color)",
@@ -123,9 +124,7 @@ const Login = () => {
                                 <div className="mt-2">
                                     <input
                                         value={password}
-                                        onChange={(e) =>
-                                            setPassword(e.target.value)
-                                        }
+                                        onChange={(e) => setPassword(e.target.value)}
                                         id="password"
                                         name="password"
                                         type="password"

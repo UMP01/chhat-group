@@ -13,14 +13,13 @@ import DefaultAvatar from "../../assets/Images/default-profile.jpg";
 const AdminNavBar = ({ toggleSidebar, isOpen }) => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const location = useLocation();
-    const userName = localStorage.getItem("userName") || "User"; // Get the user name from localStorage or use "User"
+    const userName = localStorage.getItem("userName") || "User"; 
     const [userData, setUserData] = useState({
         name: userName,
         avatar: DefaultAvatar,
     });
 
     useEffect(() => {
-        // Check if an avatar URL is stored in localStorage, if any
         const storedAvatar = localStorage.getItem("userAvatar");
         if (storedAvatar) {
             setUserData((prevData) => ({
@@ -43,36 +42,15 @@ const AdminNavBar = ({ toggleSidebar, isOpen }) => {
             });
 
             if (result.isConfirmed) {
-                localStorage.removeItem("authToken"); // Clear the authentication token
-                localStorage.removeItem("userName"); // Clear the user name
-                localStorage.removeItem("userAvatar"); // Clear the avatar if stored
+                localStorage.removeItem("authToken");
+                localStorage.removeItem("userName");
+                localStorage.removeItem("userAvatar");
                 window.location.href = "/admin/login";
             }
         } catch (error) {
             Swal.fire("Error", "There was an error logging out", "error");
         }
     };
-
-    const getTitle = () => {
-        switch (location.pathname) {
-            case "/admin/dashboard":
-                return "Dashboard";
-            case "/admin/blog":
-                return "Blog";
-            case "/admin/career":
-                return "Career";
-            case "/admin/user":
-                return "User";
-            case "/admin/contact":
-                return "Contact";
-            case "/admin/profile":
-                return "Profile";
-            default:
-                return "Admin Panel";
-        }
-    };
-
-    const title = getTitle();
 
     const handleSidebarToggle = () => {
         toggleSidebar();
@@ -100,7 +78,6 @@ const AdminNavBar = ({ toggleSidebar, isOpen }) => {
                     <Bars3Icon className="w-10 h-10 text-cyan-700" />
                 )}
             </button>
-            <h1 className="text-xl text-gray-800">{title}</h1>
             <div className="flex items-center space-x-4">
                 <div className="relative">
                     <BellIcon className="w-6 h-6 text-gray-600 hover:text-primary" />
@@ -129,7 +106,7 @@ const AdminNavBar = ({ toggleSidebar, isOpen }) => {
                                 <li>
                                     <Link
                                         to="/admin/profile"
-                                        className=" px-4 py-2 text-gray-700 hover:bg-gray-100 flex items-center"
+                                        className="px-4 py-2 text-gray-700 hover:bg-gray-100 flex items-center"
                                     >
                                         <UserIcon className="w-5 h-5 mr-2" />
                                         Profile
@@ -137,7 +114,7 @@ const AdminNavBar = ({ toggleSidebar, isOpen }) => {
                                 </li>
                                 <li>
                                     <button
-                                        className=" w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 flex items-center"
+                                        className="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 flex items-center"
                                         onClick={handleLogout}
                                     >
                                         <ArrowLeftEndOnRectangleIcon className="w-5 h-5 mr-2" />
