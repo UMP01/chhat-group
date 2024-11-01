@@ -3,7 +3,6 @@ import { axiosClient } from "../../api/axios"; // Make sure this is correctly de
 import { HiOutlineArrowNarrowRight } from "react-icons/hi";
 import { GoArrowRight, GoArrowLeft } from "react-icons/go";
 import { BsCalendarDate } from "react-icons/bs";
-import Breadcrumb from "../../Components/Breadcrumb/Breadcrumb";
 
 const News = () => {
     const [articles, setArticles] = useState([]);
@@ -74,9 +73,9 @@ const News = () => {
 
     return (
         <>
-            <Breadcrumb curPage="Blog" />
             <div className="container max-w-7xl mx-auto px-5 pb-5 pt-0 rubik">
-                <h1 className="text-2xl mb-4 text-gray-700">Latest News</h1>
+                <h1 className="text-lg text-cyan-700 mb-4 font-medium">Latest News</h1>
+                <hr class="w-full mt-3 mb-5 border" />
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {currentArticles.map((article) => (
                         <div

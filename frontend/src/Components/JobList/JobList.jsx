@@ -92,7 +92,7 @@ const JobList = () => {
                                 key={job.id}
                                 className="py-2 px-5 rounded-md shadow-md border border-gray-100"
                             >
-                                <h3 className="text-xl text-gray-700 py-1">
+                                <h3 className="text-xl text-cyan-700 py-1 font-medium">
                                     {job.title}
                                 </h3>
                                 <div className="flex">
@@ -105,7 +105,7 @@ const JobList = () => {
                                     <div className="flex">
                                         <IoTimeOutline className="mt-1" />
                                         <h3 className=" text-gray-700 pb-3 pl-2">
-                                            DateLine:
+                                            DeadLine:
                                             {new Date(
                                                 job.dateline
                                             ).toLocaleDateString()}
