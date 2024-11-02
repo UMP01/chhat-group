@@ -5,6 +5,8 @@ import { FaRegEdit, FaTrash, FaSync } from "react-icons/fa";
 import { IoPersonAdd } from "react-icons/io5";
 import { TiTick } from "react-icons/ti";
 
+const ITEMS_PER_PAGE = 5; // Set your desired items per page
+
 const User = () => {
     const [users, setUsers] = useState([]);
     const [editUser, setEditUser] = useState(null);
@@ -13,22 +15,11 @@ const User = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [currentPage, setCurrentPage] = useState(1);
 
     useEffect(() => {
         fetchUsers();
     }, []);
-
-    function initialFormData() {
-        return {
-            name: "",
-            email: "",
-            phone: "",
-            dob: "",
-            branch: "Phnom Penh", // Default branch
-            permission: "admin",    // Default permission
-            password: "",
-        };
-    }
 
     async function fetchUsers() {
         setLoading(true);
@@ -43,12 +34,29 @@ const User = () => {
         }
     }
 
+    function initialFormData() {
+        return {
+            name: "",
+            email: "",
+            phone: "",
+            dob: "",
+            branch: "Phnom Penh", // Default branch
+            permission: "admin",    // Default permission
+            password: "",
+        };
+    }
+
     const filteredUsers = users.filter(
         ({ name, email, phone, dob, branch, permission }) =>
             [name, email, phone, dob, branch, permission].some((field) =>
                 field.toLowerCase().includes(searchTerm.toLowerCase())
             )
     );
+
+    const indexOfLastUser = currentPage * ITEMS_PER_PAGE;
+    const indexOfFirstUser = indexOfLastUser - ITEMS_PER_PAGE;
+    const currentUsers = filteredUsers.slice(indexOfFirstUser, indexOfLastUser);
+    const totalPages = Math.ceil(filteredUsers.length / ITEMS_PER_PAGE);
 
     function resetFormData() {
         setFormData(initialFormData());
@@ -76,11 +84,7 @@ const User = () => {
             resetFormData();
         } catch (error) {
             console.error("Error submitting form:", error);
-            Swal.fire(
-                "Error",
-                "There was an error submitting the form",
-                "error"
-            );
+            Swal.fire("Error", "There was an error submitting the form", "error");
         }
     }
 
@@ -97,6 +101,10 @@ const User = () => {
         });
         setIsModalOpen(true);
     }
+
+    function handlePageChange(pageNumber) {
+        setCurrentPage(pageNumber);
+    };
 
     async function handleDelete(id) {
         try {
@@ -143,7 +151,7 @@ const User = () => {
     return (
         <div>
             <h2 className="text-2xl font-bold text-gray-800 mb-4">User</h2>
-            <div className="bg-white flex flex-col p-2 space-y-6 shadow-lg rounded-lg">
+            <div className="bg-white flex flex-col space-y-6 p-5 shadow-lg rounded-lg">
                 <div className="flex justify-between px-2 text-sm">
                     <input
                         type="text"
@@ -191,14 +199,14 @@ const User = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {filteredUsers.length > 0 ? (
-                                filteredUsers.map((user, index) => (
+                            {currentUsers.length > 0 ? (
+                                currentUsers.map((user, index) => (
                                     <tr
                                         key={user.id}
                                         className="border-b hover:bg-gray-100"
                                     >
                                         <td className="border py-2 px-4 font-medium text-gray-700 text-center">
-                                            {index + 1}
+                                            {index + 1 + (currentPage - 1) * ITEMS_PER_PAGE}
                                         </td>
                                         <td className="border py-2 px-4 font-medium text-gray-700">
                                             {user.name}
@@ -215,8 +223,8 @@ const User = () => {
                                         <td className="border py-2 px-4 font-medium text-gray-700 text-center">
                                             {formatDate(user.created_at)}
                                         </td>
-                                        <td className="border py-2 px-4 text-center"> {/* Change to text-center */}
-                                            <div className="flex justify-center"> {/* Center the actions */}
+                                        <td className="border py-2 px-4 text-center">
+                                            <div className="flex justify-center">
                                                 <button
                                                     className="bg-cyan-700 font-medium text-white px-4 py-2 flex items-center rounded-l-md hover:bg-cyan-800 duration-300 ease-in-out"
                                                     onClick={() => handleEdit(user)}
@@ -246,110 +254,142 @@ const User = () => {
                         </tbody>
                     </table>
                 </div>
-
-                {isModalOpen && (
-                    <Modal
-                        isOpen={isModalOpen}
-                        onClose={resetFormData}
-                        formData={formData}
-                        onChange={handleChange}
-                        onSubmit={handleSubmit}
-                        isEditMode={!!editUser}
-                    />
-                )}
+                {/* Pagination */}
+                <div className="flex justify-between px-4">
+                    <button
+                        onClick={() => handlePageChange(currentPage - 1)}
+                        disabled={currentPage === 1}
+                        className="bg-gray-300 text-gray-700 px-4 py-2 rounded disabled:opacity-50"
+                    >
+                        Previous
+                    </button>
+                    <span>
+                        Page {currentPage} of {totalPages}
+                    </span>
+                    <button
+                        onClick={() => handlePageChange(currentPage + 1)}
+                        disabled={currentPage === totalPages}
+                        className="bg-gray-300 text-gray-700 px-4 py-2 rounded disabled:opacity-50"
+                    >
+                        Next
+                    </button>
+                </div>
             </div>
+
+            {isModalOpen && (
+                <div className="fixed inset-0 flex items-center justify-center z-50">
+                    <div className="bg-white rounded-lg shadow-lg p-5 w-1/3">
+                        <h3 className="text-xl font-bold mb-4">
+                            {editUser ? "Edit User" : "Add User"}
+                        </h3>
+                        <form onSubmit={handleSubmit}>
+                            <div className="mb-4">
+                                <label htmlFor="name" className="block mb-2">Name</label>
+                                <input
+                                    type="text"
+                                    name="name"
+                                    id="name"
+                                    value={formData.name}
+                                    onChange={handleChange}
+                                    className="border w-full px-3 py-2"
+                                    required
+                                />
+                            </div>
+                            <div className="mb-4">
+                                <label htmlFor="email" className="block mb-2">Email</label>
+                                <input
+                                    type="email"
+                                    name="email"
+                                    id="email"
+                                    value={formData.email}
+                                    onChange={handleChange}
+                                    className="border w-full px-3 py-2"
+                                    required
+                                />
+                            </div>
+                            <div className="mb-4">
+                                <label htmlFor="phone" className="block mb-2">Phone</label>
+                                <input
+                                    type="text"
+                                    name="phone"
+                                    id="phone"
+                                    value={formData.phone}
+                                    onChange={handleChange}
+                                    className="border w-full px-3 py-2"
+                                    required
+                                />
+                            </div>
+                            <div className="mb-4">
+                                <label htmlFor="dob" className="block mb-2">Date of Birth</label>
+                                <input
+                                    type="date"
+                                    name="dob"
+                                    id="dob"
+                                    value={formData.dob}
+                                    onChange={handleChange}
+                                    className="border w-full px-3 py-2"
+                                />
+                            </div>
+                            <div className="mb-4">
+                                <label htmlFor="branch" className="block mb-2">Branch</label>
+                                <select
+                                    name="branch"
+                                    id="branch"
+                                    value={formData.branch}
+                                    onChange={handleChange}
+                                    className="border w-full px-3 py-2"
+                                >
+                                    <option value="Phnom Penh">Phnom Penh</option>
+                                </select>
+                            </div>
+                            <div className="mb-4">
+                                <label htmlFor="permission" className="block mb-2">Permission</label>
+                                <select
+                                    name="permission"
+                                    id="permission"
+                                    value={formData.permission}
+                                    onChange={handleChange}
+                                    className="border w-full px-3 py-2"
+                                >
+                                    <option value="admin">Admin</option>
+                                    <option value="user">User</option>
+                                </select>
+                            </div>
+                            {!editUser && (
+                                <div className="mb-4">
+                                    <label htmlFor="password" className="block mb-2">Password</label>
+                                    <input
+                                        type="password"
+                                        name="password"
+                                        id="password"
+                                        value={formData.password}
+                                        onChange={handleChange}
+                                        className="border w-full px-3 py-2"
+                                        required={!editUser}
+                                    />
+                                </div>
+                            )}
+                            <div className="flex justify-end">
+                                <button
+                                    type="button"
+                                    onClick={resetFormData}
+                                    className="bg-gray-300 text-gray-700 px-4 py-2 rounded mr-2"
+                                >
+                                    Cancel
+                                </button>
+                                <button
+                                    type="submit"
+                                    className="bg-cyan-600 text-white py-2 px-4 rounded hover:bg-cyan-700"
+                                >
+                                    {editUser ? "Update User" : "Add User"}
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
-
-const Modal = ({
-    isOpen,
-    onClose,
-    formData,
-    onChange,
-    onSubmit,
-    isEditMode,
-}) => (
-    <div
-        className={`fixed inset-0 flex items-center justify-center z-50 ${
-            isOpen ? "block" : "hidden"
-        }`}
-    >
-        <div className="bg-white rounded-lg shadow-lg px-6 py-3 w-1/3 border-2">
-            <h2 className="text-lg font-bold mb-4 text-cyan-700">
-                {isEditMode ? "Edit User" : "Add User"}
-            </h2>
-            <form onSubmit={onSubmit}>
-                {["name", "email", "phone", "dob", "password"].map((field, i) => (
-                    <InputField
-                        key={i}
-                        name={field}
-                        value={formData[field]}
-                        onChange={onChange}
-                        required={!isEditMode && field === "password"}
-                    />
-                ))}
-                <div className="mb-4">
-                    <label className="block text-gray-700 text-sm font-bold mb-2">
-                        Branch
-                    </label>
-                    <input
-                        type="text"
-                        name="branch"
-                        value={formData.branch}
-                        readOnly
-                        className="w-full p-2 border rounded bg-gray-200 cursor-not-allowed"
-                    />
-                </div>
-                <div className="mb-4">
-                    <label className="block text-gray-700 text-sm font-bold mb-2">
-                        Permission
-                    </label>
-                    <select
-                        name="permission"
-                        value={formData.permission}
-                        onChange={onChange}
-                        className="w-full p-2 border rounded"
-                        required
-                    >
-                        <option value="admin">Admin</option>
-                        <option value="user">User</option>
-                    </select>
-                </div>
-                <div className="flex justify-end space-x-2">
-                    <button
-                        type="submit"
-                        className="bg-cyan-700 text-white px-4 py-2 rounded hover:bg-cyan-800"
-                    >
-                        <TiTick className="inline-block" /> Save
-                    </button>
-                    <button
-                        type="button"
-                        onClick={onClose}
-                        className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
-                    >
-                        Cancel
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-);
-
-const InputField = ({ name, value, onChange, required }) => (
-    <div className="mb-4">
-        <label className="block text-gray-700 text-sm font-bold mb-2 capitalize">
-            {name}
-        </label>
-        <input
-            type={name === "dob" ? "date" : "text"}
-            name={name}
-            value={value}
-            onChange={onChange}
-            required={required}
-            className="w-full p-2 border rounded"
-        />
-    </div>
-);
 
 export default User;
