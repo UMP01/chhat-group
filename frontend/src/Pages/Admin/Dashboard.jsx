@@ -166,16 +166,16 @@ const Dashboard = () => {
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-6">
                 <div className="bg-white shadow-md rounded-lg p-4">
-                    <h2 className="text-sm font-semibold text-center mb-2">Data Distribution - Donut Chart</h2>
+                    <h2 className="text-sm font-semibold text-center mb-2">Chhat Group - Data Distribution</h2>
                     <ApexCharts
                         options={donutOptions}
-                        series={donutSeries}
+                    series={donutSeries}
                         type="donut"
                         width="100%"
                     />
                 </div>
                 <div className="bg-white shadow-md rounded-lg p-4">
-                    <h2 className="text-sm font-semibold text-center mb-2">Data Count - Column Chart</h2>
+                    <h2 className="text-sm font-semibold text-center mb-2">Chhat Group - Data Count</h2>
                     <ApexCharts
                         options={columnOptions}
                         series={columnSeries}
