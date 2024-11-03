@@ -14,18 +14,26 @@ const News = () => {
 
     const fetchArticles = async () => {
         setLoading(true);
+        setError(null); // Reset error state on fetch
         try {
             const response = await axiosClient.get("/blogs");
             console.log("Fetched Blogs:", response.data);
-            const activeArticles = Array.isArray(response.data)
-                ? response.data.filter(
-                      (article) => article.category === "Chhat Group"
-                  ) // Filter by category
-                : [];
-            setArticles(activeArticles);
+
+            if (!Array.isArray(response.data) || response.data.length === 0) {
+                setError("No blog available at this time");
+                setArticles([]); // Ensure articles is set to an empty array
+            } else {
+                const activeArticles = response.data.filter(
+                    (article) => article.category === "Chhat Group"
+                );
+                setArticles(activeArticles);
+                if (activeArticles.length === 0) {
+                    setError("No blog available at this time");
+                }
+            }
         } catch (error) {
             console.error("Error fetching blogs:", error);
-            setError("No blog available at this time");
+            setError("Error fetching blogs, please try again later");
         } finally {
             setLoading(false);
         }

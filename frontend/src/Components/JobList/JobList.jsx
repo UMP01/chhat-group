@@ -3,6 +3,7 @@ import { axiosClient } from "../../api/axios";
 import { IoLocationOutline } from "react-icons/io5";
 import { IoTimeOutline } from "react-icons/io5";
 import { Link } from "react-router-dom";
+
 const JobList = () => {
     const [jobs, setJobs] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
@@ -11,12 +12,17 @@ const JobList = () => {
 
     const fetchJobs = async () => {
         setLoading(true);
+        setError(null); // Reset error state on fetch
         try {
             const response = await axiosClient.get("/careers");
-            setJobs(Array.isArray(response.data) ? response.data : []);
+            const jobList = Array.isArray(response.data) ? response.data : [];
+            if (jobList.length === 0) {
+                setError("No job listings available at this time.");
+            }
+            setJobs(jobList);
         } catch (error) {
             console.error("Error fetching jobs:", error);
-            setError("Failed to fetch job listings");
+            setError("Failed to fetch job listings. Please try again later.");
         } finally {
             setLoading(false);
         }
@@ -28,7 +34,10 @@ const JobList = () => {
 
     const handleSearch = (e) => {
         e.preventDefault();
-        setJobs(searchTerm);
+        const filteredJobs = jobs.filter((job) =>
+            job.title.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+        setJobs(filteredJobs);
     };
 
     if (loading) {
@@ -38,6 +47,7 @@ const JobList = () => {
             </div>
         );
     }
+
     if (error) {
         return (
             <div className="max-w-7xl mx-auto text-cyan-700">
@@ -83,7 +93,6 @@ const JobList = () => {
                     Search
                 </button>
             </form>
-            {error && <p className="text-red-500">{error}</p>}
             <div className="mt-4">
                 <ul className="space-y-2">
                     {jobs.length > 0 ? (
@@ -97,30 +106,24 @@ const JobList = () => {
                                 </h3>
                                 <div className="flex">
                                     <IoLocationOutline className="mt-3" />
-                                    <h3 className=" text-gray-700 pb-3 pt-2 pl-2">
+                                    <h3 className="text-gray-700 pb-3 pt-2 pl-2">
                                         {job.location}
                                     </h3>
                                 </div>
                                 <div className="flex flex-row justify-between text-center">
                                     <div className="flex">
                                         <IoTimeOutline className="mt-1" />
-                                        <h3 className=" text-gray-700 pb-3 pl-2">
-                                            DeadLine:
+                                        <h3 className="text-gray-700 pb-3 pl-2">
+                                            Deadline:{" "}
                                             {new Date(
                                                 job.deadline
                                             ).toLocaleDateString()}
                                         </h3>
                                     </div>
                                     <Link to={`/careerdetails/${job.id}`}>
-                                        <a
-                                            href=""
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="text-cyan-700 text-sm font-medium
-                                    hover:text-cyan-600 duration-75"
-                                        >
+                                        <span className="text-cyan-700 text-sm font-medium hover:text-cyan-600 duration-75 cursor-pointer">
                                             View More
-                                        </a>
+                                        </span>
                                     </Link>
                                 </div>
                             </li>
