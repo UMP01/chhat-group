@@ -69,7 +69,7 @@ const CareerDetails = () => {
                 <div className="flex justify-between items-center mb-2">
                     <span className="pt-3 font-base">
                         Expire Date: &nbsp;
-                        {new Date(jobs.dateline).toLocaleDateString()}
+                        {new Date(jobs.deadline).toLocaleDateString()}
                     </span>
                     <div className="flex items-center text-base">
                         <h2>Location:</h2>

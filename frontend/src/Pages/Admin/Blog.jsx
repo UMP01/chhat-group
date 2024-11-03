@@ -13,7 +13,7 @@ const ChhatBlog = () => {
         title: "",
         content: "",
         category: "",
-        media: null,
+        image: "",
     });
     const [searchTerm, setSearchTerm] = useState("");
     const [loading, setLoading] = useState(true);
@@ -133,7 +133,7 @@ const ChhatBlog = () => {
             title: post.title,
             content: post.content,
             category: post.category,
-            media: post.media,
+            image: post.image,
         });
         setModalOpen(true);
     };
@@ -172,7 +172,7 @@ const ChhatBlog = () => {
             title: "",
             content: "",
             category: "",
-            media: null,
+            image: "",
         });
         setCurrentPost(null);
         setModalOpen(false);
@@ -361,6 +361,7 @@ const ChhatBlog = () => {
                             </label>
                             <input
                                 type="file"
+                                name="image"
                                 accept="image/*"
                                 onChange={handleFileChange}
                                 className="border mb-3 text-sm block w-full text-slate-500 rounded leading-6"

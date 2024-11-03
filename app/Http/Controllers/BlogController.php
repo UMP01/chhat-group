@@ -25,7 +25,7 @@ class BlogController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif',
             'title' => 'required|string',
             'content' => 'required|string',
             'category' => 'required|string',
@@ -54,7 +54,7 @@ class BlogController extends Controller
 
     // Validate incoming data
     $request->validate([
-        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        'image' => 'sometime|image|mimes:jpeg,png,jpg,gif',
         'title' => 'required|string',
         'content' => 'required|string',
         'category' => 'required|string',
@@ -72,7 +72,7 @@ class BlogController extends Controller
         $imagePath = $blog->image; // Get the current image path
 
         // Delete the old image if it exists
-        if (Storage::disk('public')->exists($imagePath)) {
+        if ($imagePath && Storage::disk('public')->exists($imagePath)) {
             Storage::disk('public')->delete($imagePath);
         }
 
