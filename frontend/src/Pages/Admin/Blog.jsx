@@ -133,7 +133,7 @@ const ChhatBlog = () => {
             title: post.title,
             content: post.content,
             category: post.category,
-            media: null,
+            media: post.media,
         });
         setModalOpen(true);
     };

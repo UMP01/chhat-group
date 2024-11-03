@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('location');
-            $table->date('dateline');
+            $table->date('deadline');
             $table->string('jobtype');
             $table->string('salary');
             $table->text('requirement')->nullable(); // Make nullable

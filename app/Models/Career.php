@@ -12,7 +12,7 @@ class Career extends Model
     protected $fillable = [
         'title', 
         'location', 
-        'dateline', 
+        'deadline', 
         'jobtype', 
         'salary', 
         'requirement', 
@@ -21,6 +21,6 @@ class Career extends Model
     ];
 
     protected $casts = [
-        'dateline' => 'date', // Treat dateline as a date
+        'deadline' => 'date', // Treat dateline as a date
     ];
 }

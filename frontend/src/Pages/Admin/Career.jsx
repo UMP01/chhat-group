@@ -4,6 +4,8 @@ import { axiosClient } from "../../api/axios";
 import { FaRegEdit, FaTrash, FaSync } from "react-icons/fa";
 import Swal from "sweetalert2";
 
+const ITEMS_PER_PAGE = 5;
+
 const Career = () => {
     const [careers, setCareers] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
@@ -12,12 +14,14 @@ const Career = () => {
     const [formData, setFormData] = useState(initialFormData());
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [currentPage, setCurrentPage] = useState(1);
+    
 
     function initialFormData() {
         return {
             title: "",
             location: "",
-            dateline: "",
+            deadline: "",
             jobtype: "",
             salary: "",
             requirement: "",
@@ -75,7 +79,7 @@ const Career = () => {
         setFormData({
             title: career.title,
             location: career.location,
-            dateline: new Date(career.dateline).toISOString().split('T')[0],
+            deadline: new Date(career.deadline).toISOString().split('T')[0],
             jobtype: career.jobtype,
             salary: career.salary,
             requirement: career.requirement,
@@ -119,11 +123,19 @@ const Career = () => {
     };
 
     const filteredCareers = careers.filter(
-        ({ title, location, dateline, jobtype }) =>
-            [title, location, dateline, jobtype].some((field) =>
+        ({ title, location, deadline, jobtype }) =>
+            [title, location, deadline, jobtype].some((field) =>
                 field.toLowerCase().includes(searchTerm.toLowerCase())
             )
     );
+
+    const indexOfLastCareer = currentPage * ITEMS_PER_PAGE;
+    const indexOfFirstCareer = indexOfLastCareer - ITEMS_PER_PAGE;
+    const currentCareeres = filteredCareers.slice(indexOfFirstCareer, indexOfLastCareer);
+    const totalPages = Math.ceil(filteredCareers.length / ITEMS_PER_PAGE);
+    function handlePageChange(pageNumber) {
+        setCurrentPage(pageNumber);
+    };
     if (loading) {
         return (
             <div className="py-72 flex items-center justify-center">
@@ -176,8 +188,7 @@ const Career = () => {
                                 "No.",
                                 "Title",
                                 "Location",
-
-                                "Date Line",
+                                "Dead Line",
                                 "Job Type",
                                 "Salary",
                                 "Actions",
@@ -192,14 +203,14 @@ const Career = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {filteredCareers.length > 0 ? (
-                            filteredCareers.map((career, index) => (
+                        {currentCareeres.length > 0 ? (
+                            currentCareeres.map((career, index) => (
                                 <tr
                                     key={career.id}
                                     className="border-b hover:bg-gray-100"
                                 >
                                     <td className="border py-2 px-4 font-medium text-gray-700">
-                                        {index + 1}
+                                        {index + 1+(currentPage - 1) * ITEMS_PER_PAGE}
                                     </td>
                                     <td className="border py-2 px-4 font-medium text-gray-700">
                                         {career.title}
@@ -209,7 +220,7 @@ const Career = () => {
                                     </td>
                                     <td className="border py-2 px-4 font-medium text-gray-700">
                                         {new Date(
-                                            career.dateline
+                                            career.deadline
                                         ).toLocaleDateString()}
                                     </td>
                                     <td className="border py-2 px-4 font-medium text-gray-700">
@@ -255,6 +266,26 @@ const Career = () => {
                     </tbody>
                 </table>
             </div>
+            {/* Pagination */}
+            <div className="flex justify-between px-4">
+                    <button
+                        onClick={() => handlePageChange(currentPage - 1)}
+                        disabled={currentPage === 1}
+                        className="bg-gray-300 text-gray-700 px-4 py-2 rounded disabled:opacity-50"
+                    >
+                        Previous
+                    </button>
+                    <span>
+                        Page {currentPage} of {totalPages}
+                    </span>
+                    <button
+                        onClick={() => handlePageChange(currentPage + 1)}
+                        disabled={currentPage === totalPages}
+                        className="bg-gray-300 text-gray-700 px-4 py-2 rounded disabled:opacity-50"
+                    >
+                        Next
+                    </button>
+                </div>
 
             {modalOpen && (
                 <Modal
@@ -290,7 +321,7 @@ const Modal = ({
                     : "Add Career Opportunity"}
             </h2>
             <form onSubmit={onSubmit}>
-                {["title", "location", "dateline", "jobtype", "salary"].map(
+                {["title", "location", "deadline", "salary"].map(
                     (field, i) => (
                         <InputField
                             key={i}
@@ -300,12 +331,26 @@ const Modal = ({
                             required={
                                 field === "title" ||
                                 field === "location" ||
-                                field === "jobtype" ||
                                 field === "salary"
                             }
                         />
                     )
                 )}
+                <div className="mb-4">
+                    <label htmlFor="jobtype" className="block text-gray-700 font-normal mb-3">
+                        Jobtype
+                    </label>
+                    <select
+                        name="jobtype"
+                        id="jobtype"
+                        value={formData.jobtype}
+                        onChange={onChange}
+                        className="border w-full px-3 py-2"
+                    >
+                        <option value="full time">Full time</option>
+                        <option value="part time">Part time</option>
+                    </select>
+                </div>
                 <div className="mb-4">
                     <label className="block text-gray-700 font-normal mb-3">
                         Requirement
@@ -373,7 +418,7 @@ const InputField = ({ name, value, onChange, required }) => (
         <label className="block text-gray-700 mb-3" htmlFor={name}>
             {name.charAt(0).toUpperCase() + name.slice(1)}
         </label>
-        {name === "dateline" ? (
+        {name === "deadline" ? (
             <input
                 type="date"
                 name={name}
@@ -384,7 +429,7 @@ const InputField = ({ name, value, onChange, required }) => (
             />
         ) : (
             <input
-                type={name === "dateline" ? "date" : "text"}
+                type={name === "deadline" ? "date" : "text"}
                 name={name}
                 value={value}
                 onChange={onChange}

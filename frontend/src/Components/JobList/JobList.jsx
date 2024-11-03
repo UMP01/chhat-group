@@ -107,7 +107,7 @@ const JobList = () => {
                                         <h3 className=" text-gray-700 pb-3 pl-2">
                                             DeadLine:
                                             {new Date(
-                                                job.dateline
+                                                job.deadline
                                             ).toLocaleDateString()}
                                         </h3>
                                     </div>

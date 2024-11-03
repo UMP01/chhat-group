@@ -25,7 +25,7 @@ class BlogController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'title' => 'required|string',
             'content' => 'required|string',
             'category' => 'required|string',
@@ -51,38 +51,43 @@ class BlogController extends Controller
         return response()->json(['message' => 'Blog not found'], 404);
     }
 
-    // Debugging: Log incoming request data
-    \Log::info('Received request for update:', $request->all());
 
     // Validate incoming data
     $request->validate([
-        'image' => 'sometimes|image|mimes:jpeg,png,jpg,gif|max:2048',
+        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         'title' => 'required|string',
         'content' => 'required|string',
         'category' => 'required|string',
     ]);
 
-    $data = []; // Initialize the data array
+    $data = [
+        'title' => $request->title,
+        'content' => $request->content,
+        'category' => $request->category,
+    ];
+    
 
-    // Update fields if provided
+    // Check if there's a new image to update
     if ($request->hasFile('image')) {
-        // Optionally delete the old image
-        Storage::disk('public')->delete($blog->image);
-        $data['image'] = $request->file('image')->store('images', 'public');
-    } else {
-        // If no new image is provided, keep the existing one
-        $data['image'] = $blog->image;
+        $imagePath = $blog->image; // Get the current image path
+
+        // Delete the old image if it exists
+        if (Storage::disk('public')->exists($imagePath)) {
+            Storage::disk('public')->delete($imagePath);
+        }
+
+        // Store the new image and update the image path
+        $newImagePath = $request->file('image')->store('images', 'public');
+        $data['image'] = $newImagePath;
     }
 
-    // Always include title, content, and category if they are required
-    $data['title'] = $request->input('title', $blog->title);
-    $data['content'] = $request->input('content', $blog->content);
-    $data['category'] = $request->input('category', $blog->category);
-
-    // Update the blog with the new data
+    // Update the blog entry
     $blog->update($data);
 
-    return response()->json($blog);
+    return response()->json([
+        'message' => 'Blog updated successfully!',
+        'blog' => $blog,
+    ], 200);
 }
 
 

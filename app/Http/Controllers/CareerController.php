@@ -18,7 +18,7 @@ class CareerController extends Controller
             $request->validate([
                 'title' => 'required|string',
                 'location' => 'required|string',
-                'dateline' => 'required|date',
+                'deadline' => 'required|date',
                 'jobtype' => 'required|string',
                 'salary' => 'required|string',
                 'requirement' => 'nullable|string', // Make optional
@@ -27,7 +27,7 @@ class CareerController extends Controller
             ]);
 
             $career = Career::create($request->only([
-                'title', 'location', 'dateline', 'jobtype', 'salary', 'requirement', 'responsible', 'benefit'
+                'title', 'location', 'deadline', 'jobtype', 'salary', 'requirement', 'responsible', 'benefit'
             ]));
 
             return response()->json([
@@ -54,7 +54,7 @@ class CareerController extends Controller
         $validatedData = $request->validate([
             'title' => 'required|string',
             'location' => 'required|string',
-            'dateline' => 'required|date',
+            'deadline' => 'required|date',
             'jobtype' => 'required|string',
             'salary' => 'required|string',
             'requirement' => 'nullable|string', // Make optional
