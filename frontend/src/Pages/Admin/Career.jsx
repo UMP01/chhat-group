@@ -154,7 +154,7 @@ const Career = () => {
 
     return (
         <div>
-            <h2 className="text-2xl font-bold text-gray-800 mb-4">User</h2>
+            <h2 className="text-2xl font-bold text-gray-800 mb-4">Career</h2>
             <div className="bg-white flex flex-col space-y-6 p-5 shadow-lg rounded-lg">
                 <div className="flex justify-between px-2 text-sm">
                     <input
@@ -184,7 +184,7 @@ const Career = () => {
                 </div>
 
                 <div className="overflow-x-auto px-2">
-                    <table className="min-w-full text-sm">
+                    <table className="min-w-full text-sm table-auto">
                         <thead>
                             <tr className="bg-cyan-700 text-white">
                                 {[
@@ -198,7 +198,7 @@ const Career = () => {
                                 ].map((header, i) => (
                                     <th
                                         key={i}
-                                        className="py-2 px-4 font-medium text-start"
+                                        className="py-2 px-4 font-medium text-left"
                                     >
                                         {header}
                                     </th>
@@ -212,7 +212,7 @@ const Career = () => {
                                         key={career.id}
                                         className="border-b hover:bg-gray-100"
                                     >
-                                        <td className="border py-2 px-4 font-medium text-gray-700">
+                                        <td className="border py-2 px-4 font-medium text-gray-700 text-center">
                                             {index + 1+(currentPage - 1) * ITEMS_PER_PAGE}
                                         </td>
                                         <td className="border py-2 px-4 font-medium text-gray-700">

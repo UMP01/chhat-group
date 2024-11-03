@@ -13,7 +13,7 @@ const ChhatBlog = () => {
         title: "",
         content: "",
         category: "",
-        image: "",
+        image: null, // Changed to null to indicate no image selected
     });
     const [searchTerm, setSearchTerm] = useState("");
     const [loading, setLoading] = useState(true);
@@ -27,11 +27,69 @@ const ChhatBlog = () => {
             setPosts(Array.isArray(response.data) ? response.data : []);
         } catch (error) {
             console.error("Error fetching blogs:", error);
-            setError("An error occured while fetching data");
+            setError("An error occurred while fetching data");
         } finally {
             setLoading(false);
         }
     };
+
+    const createPost = async (postData) => {
+        try {
+            const formData = new FormData();
+            formData.append('title', postData.title);
+            formData.append('content', postData.content);
+            formData.append('category', postData.category);
+            if (postData.image) {
+                formData.append('image', postData.image); // Ensure image is the file object
+            }
+
+            const response = await axiosClient.post("/blogs", formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+            });
+
+            if (response.status !== 201) {
+                throw new Error("Failed to create post");
+            }
+            return response.data;
+        } catch (error) {
+            console.error("Error creating post:", error);
+            throw error;
+        }
+    };
+
+    const updatePost = async (id, postData) => {
+        try {
+            const formData = new FormData();
+            formData.append('title', postData.title);
+            formData.append('content', postData.content);
+            formData.append('category', postData.category);
+    
+            // Use the image from formData
+            if (postData.image) {
+                formData.append('image', postData.image);
+            }
+    
+            // Ensure you use PUT method for update
+            const response = await axiosClient.put(`/blogs/${id}`, formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+            });
+    
+            if (response.status !== 200) {
+                throw new Error("Failed to update post");
+            }
+            return response.data; // Return the updated post data
+        } catch (error) {
+            console.error('Error during update:', error);
+            throw error; // Rethrow the error to be handled in handleSubmit
+        }
+    };
+    
+    
+    
 
     useEffect(() => {
         fetchPosts();
@@ -43,88 +101,46 @@ const ChhatBlog = () => {
     };
 
     const handleFileChange = (e) => {
-        setFormData({ ...formData, media: e.target.files[0] });
-    };
-
-    const createPost = async (postData) => {
-        const response = await axiosClient.post("/blogs", postData);
-        if (response.status !== 201) {
-            throw new Error("Failed to create post");
-        }
-        return response.data;
-    };
-
-    const updatePost = async (id, postData) => {
-        try {
-            await axiosClient.put(`/blogs/${id}`, postData);
-        } catch (error) {
-            console.error(
-                "Update failed:",
-                error.response ? error.response.data : error
-            );
-            throw new Error(
-                "Failed to update post: " +
-                    (error.response?.data?.message || "Unknown error")
-            );
-        }
+        setFormData({ ...formData, image: e.target.files[0] });
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+    
         // Ensure all required fields are filled
         if (!formData.title || !formData.content || !formData.category) {
             alert("Please fill out all required fields.");
             return;
         }
-
+    
         try {
-            // FormData construction
-            const postData = new FormData();
-            postData.append("title", formData.title);
-            postData.append("content", formData.content);
-            postData.append("category", formData.category);
-
-            if (formData.media) {
-                postData.append("image", formData.media);
-            } else {
-                console.error("Media is not defined:", formData.media);
-                alert("Please select an image file.");
-                return;
-            }
-
-            // Log FormData contents for debugging
-            for (let pair of postData.entries()) {
-                console.log(`${pair[0]}:`, pair[1]);
-            }
-
             if (isEditing && currentPost) {
-                await updatePost(currentPost.id, postData);
+                // Pass the id and formData to the updatePost function
+                const updatedPost = await updatePost(currentPost.id, formData);
                 const updatedPosts = posts.map((post) =>
-                    post.id === currentPost.id ? { ...post, ...formData } : post
+                    post.id === currentPost.id ? updatedPost : post
                 );
                 setPosts(updatedPosts);
                 Swal.fire("Success", "Blog updated successfully!", "success");
             } else {
-                const newPost = await createPost(postData);
+                const newPost = await createPost(formData);
                 setPosts([...posts, newPost]);
                 Swal.fire("Success", "Blog created successfully!", "success");
             }
-
+    
             resetForm();
         } catch (error) {
-            console.error(
-                "Error during submit:",
-                error.response?.data || error.message
-            );
+            console.error("Error during submit:", error.response?.data || error.message);
             Swal.fire(
                 "Error",
                 "An error occurred while processing your request: " +
-                    (error.response?.data.message || error.message),
+                (error.response?.data.message || error.message),
                 "error"
             );
         }
     };
+    
+    
 
     const handleEdit = (post) => {
         setIsEditing(true);
@@ -133,7 +149,7 @@ const ChhatBlog = () => {
             title: post.title,
             content: post.content,
             category: post.category,
-            image: post.image,
+            image: null, // Reset image since we are editing
         });
         setModalOpen(true);
     };
@@ -172,7 +188,7 @@ const ChhatBlog = () => {
             title: "",
             content: "",
             category: "",
-            image: "",
+            image: null,
         });
         setCurrentPost(null);
         setModalOpen(false);
@@ -190,6 +206,7 @@ const ChhatBlog = () => {
             post.created_at.toLowerCase().includes(searchTerm.toLowerCase()) ||
             post.category.toLowerCase().includes(searchTerm.toLowerCase())
     );
+
     if (loading) {
         return (
             <div className="py-72 flex items-center justify-center">
@@ -246,140 +263,117 @@ const ChhatBlog = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {filteredBlogs.length > 0 ? (
-                            filteredBlogs.map((post, index) => (
-                                <tr
-                                    key={post.id}
-                                    className="border-b text-gray-700 transition duration-300 ease-in-out hover:bg-gray-100"
-                                >
-                                    <td className="border py-2 px-4 font-medium text-gray-700">
-                                        {index + 1}
-                                    </td>
-                                    <td className="border py-2 px-4 font-medium text-gray-700">
-                                        {post.title}
-                                    </td>
-                                    <td className="border py-2 px-4 font-medium text-gray-700">
-                                        {post.category}
-                                    </td>
-                                    <td className="border py-2 px-4 font-medium text-gray-700">
-                                        {formatDate(post.created_at)}
-                                    </td>
-                                    <td className="border py-2 px-4">
-                                        <div className="flex">
-                                            <button
-                                                className="rounded-md rounded-r-none border-cyan-700 bg-cyan-700 font-medium text-white px-4 py-2 flex items-center hover:bg-cyan-800 duration-300 ease-in-out"
-                                                onClick={() => handleEdit(post)}
-                                            >
-                                                <FaRegEdit className="mr-2" />
-                                                Edit
-                                            </button>
-                                            <button
-                                                className="rounded-md rounded-l-none border-red-600 px-4 py-2 bg-red-600 font-medium text-white flex items-center hover:bg-red-700 duration-300 ease-in-out"
-                                                onClick={() =>
-                                                    handleDelete(post.id)
-                                                }
-                                            >
-                                                <FaTrash className="mr-2" />
-                                                Delete
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                            ))
-                        ) : (
-                            <tr>
-                                <td
-                                    colSpan="5"
-                                    className="text-center p-4 font-medium text-gray-700"
-                                >
-                                    No blogs found.
+                        {filteredBlogs.map((post) => (
+                            <tr key={post.id} className="border-b">
+                                <td className="py-2 px-4 border-2 border-gray-300">
+                                    {post.id}
+                                </td>
+                                <td className="py-2 px-4 border-2 border-gray-300">
+                                    {post.title}
+                                </td>
+                                <td className="py-2 px-4 border-2 border-gray-300">
+                                    {post.category}
+                                </td>
+                                <td className="py-2 px-4 border-2 border-gray-300">
+                                    {formatDate(post.created_at)}
+                                </td>
+                                <td className="py-2 px-4 border-2 border-gray-300 flex justify-between items-center">
+                                    <button
+                                        onClick={() => handleEdit(post)}
+                                        className="text-cyan-700 hover:underline"
+                                    >
+                                        <FaRegEdit />
+                                    </button>
+                                    <button
+                                        onClick={() => handleDelete(post.id)}
+                                        className="text-red-600 hover:underline"
+                                    >
+                                        <FaTrash />
+                                    </button>
                                 </td>
                             </tr>
-                        )}
+                        ))}
                     </tbody>
                 </table>
             </div>
 
+            {/* Modal for Add/Edit Blog */}
             {modalOpen && (
-                <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 text-sm">
-                    <div className="bg-white p-6 rounded shadow-md w-1/3 max-h-[90vh] overflow-y-auto">
-                        <h2 className="text-lg font-medium text-cyan-700 mb-4">
-                            {isEditing ? "Edit Blog Post" : "Add Blog Post"}
+                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                    <div className="bg-white p-8 rounded shadow-lg">
+                        <h2 className="text-lg font-semibold mb-4">
+                            {isEditing ? "Edit Blog" : "Add Blog"}
                         </h2>
                         <form onSubmit={handleSubmit}>
-                            <label className="text-cyan-700 font-medium">
-                                Title
-                            </label>
-                            <input
-                                type="text"
-                                name="title"
-                                value={formData.title}
-                                onChange={handleChange}
-                                className="border rounded w-full px-3 py-2 mb-4"
-                                required
-                            />
-
-                            <label className="text-cyan-700 font-medium">
-                                Content
-                            </label>
-                            <textarea
-                                name="content"
-                                value={formData.content}
-                                onChange={handleChange}
-                                className="border rounded w-full px-3 py-2 mb-4"
-                                rows="5"
-                                required
-                            ></textarea>
-
-                            <label className="text-cyan-700 font-medium">
-                                Category
-                            </label>
-                            <input
-                                type="text"
-                                name="category"
-                                value={formData.category}
-                                onChange={handleChange}
-                                className="border rounded w-full px-3 py-2 mb-4"
-                                required
-                            />
-
-                            {isEditing && currentPost && currentPost.image && (
-                                <div className="mb-3">
-                                    <label className="text-cyan-700 font-medium">
-                                        Current Image
-                                    </label>
+                            <div className="mb-4">
+                                <label className="block text-sm font-medium mb-2">
+                                    Title
+                                </label>
+                                <input
+                                    type="text"
+                                    name="title"
+                                    value={formData.title}
+                                    onChange={handleChange}
+                                    required
+                                    className="border w-full p-2 rounded"
+                                />
+                            </div>
+                            <div className="mb-4">
+                                <label className="block text-sm font-medium mb-2">
+                                    Content
+                                </label>
+                                <textarea
+                                    name="content"
+                                    value={formData.content}
+                                    onChange={handleChange}
+                                    required
+                                    className="border w-full p-2 rounded"
+                                ></textarea>
+                            </div>
+                            <div className="mb-4">
+                                <label className="block text-sm font-medium mb-2">
+                                    Category
+                                </label>
+                                <input
+                                    type="text"
+                                    name="category"
+                                    value={formData.category}
+                                    onChange={handleChange}
+                                    required
+                                    className="border w-full p-2 rounded"
+                                />
+                            </div>
+                            <div className="mb-4">
+                                <label className="block text-sm font-medium mb-2">
+                                    Image
+                                </label>
+                                <input
+                                    type="file"
+                                    accept="image/*"
+                                    onChange={handleFileChange}
+                                    className="border p-2 rounded w-full"
+                                />
+                                {currentPost && currentPost.imageUrl && (
                                     <img
-                                        src={`http://127.0.0.1:8000/storage/${currentPost.image}`}
-                                        alt={currentPost.title || "Blog image"}
-                                        className="w-full object-cover rounded mb-2"
+                                        src={currentPost.imageUrl}
+                                        alt="Current Post"
+                                        className="mt-2 w-full h-auto"
                                     />
-                                </div>
-                            )}
-
-                            <label className="text-cyan-700 font-medium">
-                                Media
-                            </label>
-                            <input
-                                type="file"
-                                name="image"
-                                accept="image/*"
-                                onChange={handleFileChange}
-                                className="border mb-3 text-sm block w-full text-slate-500 rounded leading-6"
-                            />
-
+                                )}
+                            </div>
                             <div className="flex justify-end">
                                 <button
                                     type="button"
                                     onClick={resetForm}
-                                    className="bg-gray-300 px-4 py-2 rounded-lg mr-2 hover:bg-gray-400 transition-colors"
+                                    className="bg-gray-300 px-4 py-2 rounded mr-2"
                                 >
                                     Cancel
                                 </button>
                                 <button
                                     type="submit"
-                                    className="bg-cyan-700 px-4 py-2 rounded-lg text-white hover:bg-cyan-800 transition-colors"
+                                    className="bg-cyan-700 text-white px-4 py-2 rounded"
                                 >
-                                    {isEditing ? "Update Blog" : "Add Blog"}
+                                    {isEditing ? "Update" : "Create"}
                                 </button>
                             </div>
                         </form>

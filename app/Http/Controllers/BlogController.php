@@ -25,71 +25,67 @@ class BlogController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'title' => 'required|string',
             'content' => 'required|string',
             'category' => 'required|string',
         ]);
 
-        // Store the image
-        $imagePath = $request->file('image')->store('images', 'public');
+        $input = $request->all();
 
-        $blog = Blog::create([
-            'image' => $imagePath,
-            'title' => $request->title,
-            'content' => $request->content,
-            'category' => $request->category,
-        ]);
+        // Handle image storage similar to Product
+        if ($image = $request->file('image')) {
+            $destinationPath = 'images/';
+            $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
+            $image->move($destinationPath, $profileImage);
+            $input['image'] = "$profileImage";
+        }
+
+        $blog = Blog::create($input);
 
         return response()->json($blog, 201);
     }
 
     public function update(Request $request, $id)
-{
-    $blog = Blog::find($id);
-    if (!$blog) {
-        return response()->json(['message' => 'Blog not found'], 404);
-    }
-
-
-    // Validate incoming data
-    $request->validate([
-        'image' => 'sometime|image|mimes:jpeg,png,jpg,gif',
-        'title' => 'required|string',
-        'content' => 'required|string',
-        'category' => 'required|string',
-    ]);
-
-    $data = [
-        'title' => $request->title,
-        'content' => $request->content,
-        'category' => $request->category,
-    ];
-    
-
-    // Check if there's a new image to update
-    if ($request->hasFile('image')) {
-        $imagePath = $blog->image; // Get the current image path
-
-        // Delete the old image if it exists
-        if ($imagePath && Storage::disk('public')->exists($imagePath)) {
-            Storage::disk('public')->delete($imagePath);
+    {
+        $blog = Blog::find($id);
+        if (!$blog) {
+            return response()->json(['message' => 'Blog not found'], 404);
         }
 
-        // Store the new image and update the image path
-        $newImagePath = $request->file('image')->store('images', 'public');
-        $data['image'] = $newImagePath;
+        $request->validate([
+            'image' => 'sometimes|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'title' => 'required|string',
+            'content' => 'required|string',
+            'category' => 'required|string',
+        ]);
+
+        $input = $request->all();
+
+        if ($request->hasFile('image')) {
+            $imagePath = 'images/' . $blog->image; // Full path to the current image
+
+            // Delete the old image if it exists
+            if ($blog->image && file_exists($imagePath)) {
+                unlink($imagePath);
+            }
+
+            // Store the new image
+            $destinationPath = 'images/';
+            $profileImage = date('YmdHis') . "." . $request->file('image')->getClientOriginalExtension();
+            $request->file('image')->move($destinationPath, $profileImage);
+            $input['image'] = "$profileImage";
+        } else {
+            unset($input['image']);
+        }
+
+        $blog->update($input);
+
+        return response()->json([
+            'message' => 'Blog updated successfully!',
+            'blog' => $blog,
+        ], 200);
     }
-
-    // Update the blog entry
-    $blog->update($data);
-
-    return response()->json([
-        'message' => 'Blog updated successfully!',
-        'blog' => $blog,
-    ], 200);
-}
-
 
     public function destroy($id)
     {
@@ -98,9 +94,12 @@ class BlogController extends Controller
             return response()->json(['message' => 'Blog not found'], 404);
         }
 
-        // Image delete
+        // Delete image from the filesystem
         if ($blog->image) {
-            Storage::disk('public')->delete($blog->image);
+            $imagePath = 'images/' . $blog->image;
+            if (file_exists($imagePath)) {
+                unlink($imagePath);
+            }
         }
 
         $blog->delete();
