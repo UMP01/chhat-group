@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { IoAdd } from "react-icons/io5";
 import { axiosClient } from "../../api/axios";
 import { FaRegEdit, FaTrash, FaSync } from "react-icons/fa";
+import { GoArrowRight, GoArrowLeft } from "react-icons/go";
 import Swal from "sweetalert2";
 
 const ITEMS_PER_PAGE = 5;
@@ -152,151 +153,157 @@ const Career = () => {
     }
 
     return (
-        <div className="flex flex-col p-2 space-y-6 shadow-lg rounded-lg">
-            <div className="flex justify-between px-2 text-sm">
-                <input
-                    type="text"
-                    placeholder="Search Careers"
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className="border px-3 py-2 rounded w-2/6 font-medium text-gray-600"
-                />
-                <div className="flex gap-5">
-                    <button
-                        onClick={() => {
-                            resetForm();
-                            setModalOpen(true);
-                        }}
-                        className="bg-cyan-700 font-medium text-white py-1 px-4 rounded hover:bg-cyan-800 flex items-center"
-                    >
-                        <IoAdd className="mr-2" /> Add Career
-                    </button>
-                    <button
-                        onClick={fetchCareers}
-                        className="bg-green-600 font-medium text-white py-2 px-4 rounded hover:bg-green-700 flex items-center"
-                    >
-                        <FaSync className="mr-2" /> Refresh
-                    </button>
+        <div>
+            <h2 className="text-2xl font-bold text-gray-800 mb-4">User</h2>
+            <div className="bg-white flex flex-col space-y-6 p-5 shadow-lg rounded-lg">
+                <div className="flex justify-between px-2 text-sm">
+                    <input
+                        type="text"
+                        placeholder="Search Careers"
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        className="border px-3 py-2 rounded w-2/6 font-medium text-gray-600"
+                    />
+                    <div className="flex gap-5">
+                        <button
+                            onClick={() => {
+                                resetForm();
+                                setModalOpen(true);
+                            }}
+                            className="bg-cyan-700 font-medium text-white py-1 px-4 rounded hover:bg-cyan-800 flex items-center"
+                        >
+                            <IoAdd className="mr-2" /> Add Career
+                        </button>
+                        <button
+                            onClick={fetchCareers}
+                            className="bg-green-600 font-medium text-white py-2 px-4 rounded hover:bg-green-700 flex items-center"
+                        >
+                            <FaSync className="mr-2" /> Refresh
+                        </button>
+                    </div>
                 </div>
-            </div>
 
-            <div className="overflow-x-auto px-2">
-                <table className="min-w-full text-sm">
-                    <thead>
-                        <tr className="bg-cyan-700 text-white">
-                            {[
-                                "No.",
-                                "Title",
-                                "Location",
-                                "Dead Line",
-                                "Job Type",
-                                "Salary",
-                                "Actions",
-                            ].map((header, i) => (
-                                <th
-                                    key={i}
-                                    className="py-2 px-4 font-medium text-start"
-                                >
-                                    {header}
-                                </th>
-                            ))}
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {currentCareeres.length > 0 ? (
-                            currentCareeres.map((career, index) => (
-                                <tr
-                                    key={career.id}
-                                    className="border-b hover:bg-gray-100"
-                                >
-                                    <td className="border py-2 px-4 font-medium text-gray-700">
-                                        {index + 1+(currentPage - 1) * ITEMS_PER_PAGE}
-                                    </td>
-                                    <td className="border py-2 px-4 font-medium text-gray-700">
-                                        {career.title}
-                                    </td>
-                                    <td className="border py-2 px-4 font-medium text-gray-700">
-                                        {career.location}
-                                    </td>
-                                    <td className="border py-2 px-4 font-medium text-gray-700">
-                                        {new Date(
-                                            career.deadline
-                                        ).toLocaleDateString()}
-                                    </td>
-                                    <td className="border py-2 px-4 font-medium text-gray-700">
-                                        {career.jobtype}
-                                    </td>
-                                    <td className="border py-2 px-4 font-medium text-gray-700">
-                                        {career.salary}
-                                    </td>
-                                    <td className="border py-2 px-4 font-medium text-gray-700">
-                                        <div className="flex">
-                                            <button
-                                                className="bg-cyan-700 font-medium text-white px-4 py-2 flex items-center rounded-l-md hover:bg-cyan-800  duration-300 ease-in-out"
-                                                onClick={() =>
-                                                    handleEdit(career)
-                                                }
-                                            >
-                                                <FaRegEdit className="mr-2" />{" "}
-                                                Edit
-                                            </button>
-                                            <button
-                                                className="bg-red-600 font-medium text-white px-4 py-2 rounded-r-md hover:bg-red-700 flex items-center duration-300 ease-in-out"
-                                                onClick={() =>
-                                                    handleDelete(career.id)
-                                                }
-                                            >
-                                                <FaTrash className="mr-2" />{" "}
-                                                Delete
-                                            </button>
-                                        </div>
+                <div className="overflow-x-auto px-2">
+                    <table className="min-w-full text-sm">
+                        <thead>
+                            <tr className="bg-cyan-700 text-white">
+                                {[
+                                    "No.",
+                                    "Title",
+                                    "Location",
+                                    "Dead Line",
+                                    "Job Type",
+                                    "Salary",
+                                    "Actions",
+                                ].map((header, i) => (
+                                    <th
+                                        key={i}
+                                        className="py-2 px-4 font-medium text-start"
+                                    >
+                                        {header}
+                                    </th>
+                                ))}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {currentCareeres.length > 0 ? (
+                                currentCareeres.map((career, index) => (
+                                    <tr
+                                        key={career.id}
+                                        className="border-b hover:bg-gray-100"
+                                    >
+                                        <td className="border py-2 px-4 font-medium text-gray-700">
+                                            {index + 1+(currentPage - 1) * ITEMS_PER_PAGE}
+                                        </td>
+                                        <td className="border py-2 px-4 font-medium text-gray-700">
+                                            {career.title}
+                                        </td>
+                                        <td className="border py-2 px-4 font-medium text-gray-700">
+                                            {career.location}
+                                        </td>
+                                        <td className="border py-2 px-4 font-medium text-gray-700">
+                                            {new Date(
+                                                career.deadline
+                                            ).toLocaleDateString()}
+                                        </td>
+                                        <td className="border py-2 px-4 font-medium text-gray-700">
+                                            {career.jobtype}
+                                        </td>
+                                        <td className="border py-2 px-4 font-medium text-gray-700">
+                                            {career.salary}
+                                        </td>
+                                        <td className="border py-2 px-4 font-medium text-gray-700">
+                                            <div className="flex">
+                                                <button
+                                                    className="bg-cyan-700 font-medium text-white px-4 py-2 flex items-center rounded-l-md hover:bg-cyan-800  duration-300 ease-in-out"
+                                                    onClick={() =>
+                                                        handleEdit(career)
+                                                    }
+                                                >
+                                                    <FaRegEdit className="mr-2" />{" "}
+                                                    Edit
+                                                </button>
+                                                <button
+                                                    className="bg-red-600 font-medium text-white px-4 py-2 rounded-r-md hover:bg-red-700 flex items-center duration-300 ease-in-out"
+                                                    onClick={() =>
+                                                        handleDelete(career.id)
+                                                    }
+                                                >
+                                                    <FaTrash className="mr-2" />{" "}
+                                                    Delete
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                ))
+                            ) : (
+                                <tr>
+                                    <td
+                                        colSpan="7"
+                                        className="text-center p-4 font-medium text-gray-700"
+                                    >
+                                        No careers found.
                                     </td>
                                 </tr>
-                            ))
-                        ) : (
-                            <tr>
-                                <td
-                                    colSpan="7"
-                                    className="text-center p-4 font-medium text-gray-700"
-                                >
-                                    No careers found.
-                                </td>
-                            </tr>
-                        )}
-                    </tbody>
-                </table>
-            </div>
-            {/* Pagination */}
-            <div className="flex justify-between px-4">
-                    <button
-                        onClick={() => handlePageChange(currentPage - 1)}
-                        disabled={currentPage === 1}
-                        className="bg-gray-300 text-gray-700 px-4 py-2 rounded disabled:opacity-50"
-                    >
-                        Previous
-                    </button>
-                    <span>
-                        Page {currentPage} of {totalPages}
-                    </span>
-                    <button
-                        onClick={() => handlePageChange(currentPage + 1)}
-                        disabled={currentPage === totalPages}
-                        className="bg-gray-300 text-gray-700 px-4 py-2 rounded disabled:opacity-50"
-                    >
-                        Next
-                    </button>
+                            )}
+                        </tbody>
+                    </table>
                 </div>
+                {/* Pagination */}
+                <div className="flex justify-between items-center mt-4">
+                        <button
+                            onClick={() => handlePageChange(currentPage - 1)}
+                                disabled={currentPage === 1}
+                                aria-label="Previous page"
+                                className="primary-bg-color text-white text-sm px-4 py-2 rounded disabled:opacity-50 inline-flex"
+                            >
+                                <GoArrowLeft className="mr-2 mt-1" />
+                                Previous
+                            </button>
+                        <div>
+                            Page {currentPage} of {totalPages}
+                        </div>
+                        <button
+                            onClick={() => handlePageChange(currentPage + 1)}
+                            disabled={currentPage === totalPages}
+                            className="primary-bg-color text-white text-sm px-4 py-2 rounded disabled:opacity-50 inline-flex"
+                        >
+                            Next
+                            <GoArrowRight className="mt-1 ml-2" />
+                        </button>
+                    </div>
 
-            {modalOpen && (
-                <Modal
-                    isOpen={modalOpen}
-                    onClose={resetForm}
-                    formData={formData}
-                    onChange={handleChange}
-                    onSubmit={handleSubmit}
-                    isEditing={isEditing}
-                />
-            )}
+                {modalOpen && (
+                    <Modal
+                        isOpen={modalOpen}
+                        onClose={resetForm}
+                        formData={formData}
+                        onChange={handleChange}
+                        onSubmit={handleSubmit}
+                        isEditing={isEditing}
+                    />
+                )}
+            </div>
         </div>
     );
 };

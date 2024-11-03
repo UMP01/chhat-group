@@ -66,19 +66,6 @@ const AdminProfile = ({ toggleSidebar }) => {
         }
     };
 
-    useEffect(() => {
-        const handleResize = () => {
-            if (window.innerWidth < 768) {
-                toggleSidebar(false); // Close sidebar on mobile
-            }
-        };
-
-        window.addEventListener('resize', handleResize);
-        handleResize(); // Check on initial load
-
-        return () => window.removeEventListener('resize', handleResize);
-    }, [toggleSidebar]);
-
     if (loading) {
         return (
             <div className="py-72 flex items-center justify-center">

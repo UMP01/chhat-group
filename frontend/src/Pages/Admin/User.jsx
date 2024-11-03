@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { axiosClient } from "../../api/axios";
 import Swal from "sweetalert2";
 import { FaRegEdit, FaTrash, FaSync } from "react-icons/fa";
+import { GoArrowRight, GoArrowLeft } from "react-icons/go";
 import { IoPersonAdd } from "react-icons/io5";
 import { TiTick } from "react-icons/ti";
 
@@ -191,7 +192,7 @@ const User = () => {
                                 ].map((header, i) => (
                                     <th
                                         key={i}
-                                        className="py-2 px-4 font-medium text-center"
+                                        className="py-2 px-4 font-medium text-left"
                                     >
                                         {header}
                                     </th>
@@ -255,23 +256,26 @@ const User = () => {
                     </table>
                 </div>
                 {/* Pagination */}
-                <div className="flex justify-between px-4">
+                <div className="flex justify-between items-center mt-4">
                     <button
                         onClick={() => handlePageChange(currentPage - 1)}
-                        disabled={currentPage === 1}
-                        className="bg-gray-300 text-gray-700 px-4 py-2 rounded disabled:opacity-50"
-                    >
-                        Previous
-                    </button>
-                    <span>
+                            disabled={currentPage === 1}
+                            aria-label="Previous page"
+                            className="primary-bg-color text-white text-sm px-4 py-2 rounded disabled:opacity-50 inline-flex"
+                        >
+                            <GoArrowLeft className="mr-2 mt-1" />
+                            Previous
+                        </button>
+                    <div>
                         Page {currentPage} of {totalPages}
-                    </span>
+                    </div>
                     <button
                         onClick={() => handlePageChange(currentPage + 1)}
                         disabled={currentPage === totalPages}
-                        className="bg-gray-300 text-gray-700 px-4 py-2 rounded disabled:opacity-50"
+                        className="primary-bg-color text-white text-sm px-4 py-2 rounded disabled:opacity-50 inline-flex"
                     >
                         Next
+                        <GoArrowRight className="mt-1 ml-2" />
                     </button>
                 </div>
             </div>

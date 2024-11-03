@@ -1,4 +1,3 @@
-// src/Dashboard.js
 import React, { useEffect, useState } from "react";
 import {
     BookOpenIcon,
@@ -7,6 +6,7 @@ import {
 } from "@heroicons/react/24/solid";
 import CardDataStats from "../../Components/CardDataStats/CardDataStats";
 import { axiosClient } from "../../api/axios";
+import ApexCharts from "react-apexcharts";
 
 const Dashboard = () => {
     const iconClass = "w-8 h-8 text-gray-700";
@@ -85,19 +85,69 @@ const Dashboard = () => {
         },
         {
             title: "Chhat Group Articles",
-            statics: groupBlogCount.toString(), // Use the group blog count
+            statics: groupBlogCount.toString(),
             background: "bg-yellow-100",
             icon: <NewspaperIcon className={iconClass} />,
             link: "/admin/blog",
         },
         {
             title: "Chhat Research Articles",
-            statics: researchBlogCount.toString(), // Use the research blog count
+            statics: researchBlogCount.toString(),
             background: "bg-red-100",
             icon: <NewspaperIcon className={iconClass} />,
             link: "/admin/blog",
         },
     ];
+
+    // Data for ApexCharts
+    const donutSeries = [contactCount, careersCount, groupBlogCount, researchBlogCount];
+    const donutOptions = {
+        chart: {
+            type: "donut",
+            width: "100%", // Set chart width
+            height: 200, // Adjusted height for smaller size
+        },
+        labels: ["Contacts", "Careers", "Group Articles", "Research Articles"],
+        dataLabels: {
+            enabled: true,
+            formatter: (val) => `${val.toFixed(1)}%`,
+        },
+        legend: {
+            position: "bottom",
+        },
+        tooltip: {
+            enabled: true,
+            y: {
+                formatter: (value) => `${value} entries`,
+            },
+        },
+    };
+
+    const columnSeries = [
+        {
+            data: [
+                { x: "Contacts", y: contactCount },
+                { x: "Careers", y: careersCount },
+                { x: "Group Articles", y: groupBlogCount },
+                { x: "Research Articles", y: researchBlogCount },
+            ],
+        },
+    ];
+    const columnOptions = {
+        chart: {
+            type: "bar",
+            distributed: true,
+            width: "100%",
+            height: 200, // Adjusted height for smaller size
+        },
+        colors: ["#1E90FF", "#3CB371", "#FFD700", "#FF6347"],
+        xaxis: {
+            categories: ["Contacts", "Careers", "Group Articles", "Research Articles"],
+        },
+        legend: {
+            show: false,
+        },
+    };
 
     return (
         <div className="flex flex-col space-y-6 p-5 shadow-lg">
@@ -113,6 +163,26 @@ const Dashboard = () => {
                         {card.icon}
                     </CardDataStats>
                 ))}
+            </div>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-6">
+                <div className="bg-white shadow-md rounded-lg p-4">
+                    <h2 className="text-sm font-semibold text-center mb-2">Data Distribution - Donut Chart</h2>
+                    <ApexCharts
+                        options={donutOptions}
+                        series={donutSeries}
+                        type="donut"
+                        width="100%"
+                    />
+                </div>
+                <div className="bg-white shadow-md rounded-lg p-4">
+                    <h2 className="text-sm font-semibold text-center mb-2">Data Count - Column Chart</h2>
+                    <ApexCharts
+                        options={columnOptions}
+                        series={columnSeries}
+                        type="bar"
+                        width="100%"
+                    />
+                </div>
             </div>
         </div>
     );

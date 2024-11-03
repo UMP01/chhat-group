@@ -3,6 +3,7 @@ import { axiosClient } from "../../api/axios";
 import Swal from "sweetalert2";
 import { FaTelegramPlane } from "react-icons/fa";
 import { FaTrash, FaSync, FaEnvelope } from "react-icons/fa";
+import { GoArrowRight, GoArrowLeft } from "react-icons/go";
 import { CiViewTimeline } from "react-icons/ci";
 import { IoMdClose } from "react-icons/io";
 
@@ -136,7 +137,7 @@ const Contact = () => {
                 <div className="overflow-x-auto px-2 flex justify-center">
                     <table className="min-w-full table-auto text-sm text-center">
                         <thead>
-                            <tr className="bg-cyan-700 rounded-lg">
+                            <tr className="bg-cyan-700 rounded-lg text-left">
                                 <th className="py-2 px-4 border-2 border-cyan-700 text-white font-medium">
                                     No.
                                 </th>
@@ -219,20 +220,23 @@ const Contact = () => {
                 <div className="flex justify-between items-center mt-4">
                     <button
                         onClick={() => handlePageChange(currentPage - 1)}
-                        disabled={currentPage === 1}
-                        className="bg-gray-300 text-gray-700 px-4 py-2 rounded disabled:opacity-50"
-                    >
-                        Previous
-                    </button>
+                            disabled={currentPage === 1}
+                            aria-label="Previous page"
+                            className="primary-bg-color text-white text-sm px-4 py-2 rounded disabled:opacity-50 inline-flex"
+                        >
+                            <GoArrowLeft className="mr-2 mt-1" />
+                            Previous
+                        </button>
                     <div>
                         Page {currentPage} of {totalPages}
                     </div>
                     <button
                         onClick={() => handlePageChange(currentPage + 1)}
                         disabled={currentPage === totalPages}
-                        className="bg-gray-300 text-gray-700 px-4 py-2 rounded disabled:opacity-50"
+                        className="primary-bg-color text-white text-sm px-4 py-2 rounded disabled:opacity-50 inline-flex"
                     >
                         Next
+                        <GoArrowRight className="mt-1 ml-2" />
                     </button>
                 </div>
                 {isModalOpen && (
