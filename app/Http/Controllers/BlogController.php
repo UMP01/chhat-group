@@ -47,45 +47,39 @@ class BlogController extends Controller
     }
 
     public function update(Request $request, $id)
-    {
-        $blog = Blog::find($id);
-        if (!$blog) {
-            return response()->json(['message' => 'Blog not found'], 404);
+{
+    $post = Blog::findOrFail($id);
+
+    // Validate the incoming request
+    $request->validate([
+        'title' => 'required|string|max:255',
+        'content' => 'required|string',
+        'category' => 'required|string',
+        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+    ]);
+
+    // Update post data
+    $post->title = $request->input('title');
+    $post->content = $request->input('content');
+    $post->category = $request->input('category');
+
+    // Handle image upload if a new image is provided
+    if ($request->hasFile('image')) {
+        // Delete old image if exists
+        if ($post->image && \Storage::exists("images/{$post->image}")) {
+            \Storage::delete("images/{$post->image}");
         }
 
-        $request->validate([
-            'image' => 'sometimes|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'title' => 'required|string',
-            'content' => 'required|string',
-            'category' => 'required|string',
-        ]);
-
-        $input = $request->all();
-
-        if ($request->hasFile('image')) {
-            $imagePath = 'images/' . $blog->image; // Full path to the current image
-
-            // Delete the old image if it exists
-            if ($blog->image && file_exists($imagePath)) {
-                unlink($imagePath);
-            }
-
-            // Store the new image
-            $destinationPath = 'images/';
-            $profileImage = date('YmdHis') . "." . $request->file('image')->getClientOriginalExtension();
-            $request->file('image')->move($destinationPath, $profileImage);
-            $input['image'] = "$profileImage";
-        } else {
-            unset($input['image']);
-        }
-
-        $blog->update($input);
-
-        return response()->json([
-            'message' => 'Blog updated successfully!',
-            'blog' => $blog,
-        ], 200);
+        // Store new image and update post image path
+        $path = $request->file('image')->store('images', 'public');
+        $post->image = basename($path);
     }
+
+    // Save the updated post
+    $post->save();
+
+    return response()->json($post, 200);
+}
 
     public function destroy($id)
     {
