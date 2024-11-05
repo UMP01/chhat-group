@@ -34,6 +34,10 @@ import AdminContact from "./Pages/Admin/Contact";
 import ProtectedRoute from "./api/ProtectedRoute.js";
 import CareerDetails from './Pages/Website/CareerDetails';
 
+if (process.env.NODE_ENV === 'production') {
+    console.log = function() {};
+}
+
 const App = () => {
     return (
         <Router>
