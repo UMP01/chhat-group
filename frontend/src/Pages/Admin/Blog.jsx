@@ -3,10 +3,10 @@ import Swal from "sweetalert2";
 import { GoArrowRight, GoArrowLeft } from "react-icons/go";
 import { FaRegEdit, FaTrash } from "react-icons/fa";
 import { axiosClient } from "../../api/axios";
-import DefaultAvatar from "../../assets/Images/default-profile.jpg";
 import { IoAdd } from "react-icons/io5";
 
-const ITEMS_PER_PAGE = 5; 
+const ITEMS_PER_PAGE = 4;
+
 const ChhatBlog = () => {
     const [posts, setPosts] = useState([]);
     const [modalOpen, setModalOpen] = useState(false);
@@ -18,9 +18,8 @@ const ChhatBlog = () => {
         content: "",
         category: "",
         image: null, // Image file
-        imageUrl: "", // Image preview URL
     });
-    
+
     const [searchTerm, setSearchTerm] = useState("");
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -30,9 +29,6 @@ const ChhatBlog = () => {
         setLoading(true);
         try {
             const response = await axiosClient.get("/blogs");
-
-        console.log(response.data);
-        
             setPosts(Array.isArray(response.data) ? response.data : []);
         } catch (error) {
             console.error("Error fetching blogs:", error);
@@ -45,11 +41,11 @@ const ChhatBlog = () => {
     const createPost = async (postData) => {
         try {
             const formData = new FormData();
-            formData.append('title', postData.title);
-            formData.append('content', postData.content);
-            formData.append('category', postData.category);
+            formData.append("title", postData.title);
+            formData.append("content", postData.content);
+            formData.append("category", postData.category);
             if (postData.image) {
-                formData.append('image', postData.image);
+                formData.append("image", postData.image);
             }
 
             const response = await axiosClient.post("/blogs", formData, {
@@ -58,10 +54,11 @@ const ChhatBlog = () => {
                 },
             });
 
-            if (response.status !== 201) {
-                throw new Error("Failed to create post");
+            if (response.status === 201) {
+                return response.data;
             }
-            return response.data;
+
+            throw new Error("Failed to create post");
         } catch (error) {
             console.error("Error creating post:", error);
             throw error;
@@ -71,30 +68,31 @@ const ChhatBlog = () => {
     const updatePost = async (id, postData) => {
         try {
             const formData = new FormData();
-            formData.append('title', postData.title);
-            formData.append('content', postData.content);
-            formData.append('category', postData.category);
+            formData.append("title", postData.title);
+            formData.append("content", postData.content);
+            formData.append("category", postData.category);
             if (postData.image) {
-                formData.append('image', postData.image);
+                formData.append("image", postData.image);
             }
 
             const response = await axiosClient.post(`/blogs/${id}`, formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
-                    "X-HTTP-Method-Override": "PUT" 
+                    "X-HTTP-Method-Override": "PUT",
                 },
             });
 
             if (response.status !== 200) {
                 throw new Error("Failed to update post");
             }
+
             return response.data;
         } catch (error) {
-            console.error('Error during update:', error);
+            console.error("Error during update:", error);
             throw error;
         }
-    };    
-    
+    };
+
     useEffect(() => {
         fetchPosts();
     }, []);
@@ -107,7 +105,10 @@ const ChhatBlog = () => {
     const handleFileChange = (e) => {
         const file = e.target.files[0];
         if (file) {
-            setFormData({ ...formData, image: file, imageUrl: URL.createObjectURL(file) });
+            setFormData({
+                ...formData,
+                image: file,
+            });
         }
     };
 
@@ -120,14 +121,24 @@ const ChhatBlog = () => {
         }
 
         try {
+            let updatedPost;
             if (isEditing && currentPost) {
-                const updatedPost = await updatePost(currentPost.id, formData);
-                setPosts((prevPosts) => 
-                    prevPosts.map((post) => (post.id === currentPost.id ? updatedPost : post))
+                // Update the post with the new image
+                updatedPost = await updatePost(currentPost.id, formData);
+
+                // Update the list of posts and current post with the new data (including the new image URL)
+                setPosts((prevPosts) =>
+                    prevPosts.map((post) =>
+                        post.id === currentPost.id ? updatedPost : post
+                    )
                 );
+
+                // Update currentPost with the new image path for display
+                setCurrentPost(updatedPost);
 
                 Swal.fire("Success", "Blog updated successfully!", "success");
             } else {
+                // If creating a new post
                 const newPost = await createPost(formData);
                 setPosts([...posts, newPost]);
                 Swal.fire("Success", "Blog created successfully!", "success");
@@ -135,11 +146,14 @@ const ChhatBlog = () => {
 
             resetForm();
         } catch (error) {
-            console.error("Error during submit:", error.response?.data || error.message);
+            console.error(
+                "Error during submit:",
+                error.response?.data || error.message
+            );
             Swal.fire(
                 "Error",
                 "An error occurred while processing your request: " +
-                (error.response?.data.message || error.message),
+                    (error.response?.data.message || error.message),
                 "error"
             );
         }
@@ -152,8 +166,7 @@ const ChhatBlog = () => {
             title: post.title,
             content: post.content,
             category: post.category,
-            image: null,
-            imageUrl: post.imageUrl || ""
+            image: null, // Reset the image on edit
         });
         setModalOpen(true);
     };
@@ -193,7 +206,6 @@ const ChhatBlog = () => {
             content: "",
             category: "",
             image: null,
-            imageUrl: "",
         });
         setCurrentPost(null);
         setModalOpen(false);
@@ -206,7 +218,7 @@ const ChhatBlog = () => {
 
     function handlePageChange(pageNumber) {
         setCurrentPage(pageNumber);
-    };
+    }
 
     const filteredBlogs = posts.filter(
         (post) =>
@@ -219,7 +231,6 @@ const ChhatBlog = () => {
     const indexOfFirstBlog = indexOfLastBlog - ITEMS_PER_PAGE;
     const totalPages = Math.ceil(filteredBlogs.length / ITEMS_PER_PAGE);
     const currentBlogs = filteredBlogs.slice(indexOfFirstBlog, indexOfLastBlog);
-
 
     if (loading) {
         return (
@@ -252,71 +263,87 @@ const ChhatBlog = () => {
                         onClick={openModal}
                         className="bg-cyan-700 font-medium text-white py-1 px-4 rounded hover:bg-cyan-800 flex items-center"
                     >
-                        <IoAdd className="text-lg text-white font-medium mr-2" /> Add Blog
+                        <IoAdd className="text-lg text-white font-medium mr-2" />{" "}
+                        Add Blog
                     </button>
                 </div>
 
                 <div className="overflow-x-auto px-2">
-                <table className="min-w-full table-auto text-sm">
-    <thead>
-        <tr className="bg-cyan-700 text-left">
-            <th className="py-2 px-4 text-white font-medium w-20">No.</th>
-            <th className="py-2 px-4 text-white font-medium">Title</th>
-            <th className="py-2 px-4 text-white font-medium">Category</th>
-            <th className="py-2 px-4 text-white font-medium">Image</th>
-            <th className="py-2 px-4 text-white font-medium">Date Posted</th>
-            <th className="py-2 px-4 text-white font-medium w-48">Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        {currentBlogs.map((post, index) => (
-            <tr key={post.id} className="border-b hover:bg-gray-100">
-                <td className="border py-2 px-4 font-medium text-gray-700 text-center">
-                    {index + 1 + (currentPage - 1) * ITEMS_PER_PAGE}
-                </td>
-                <td className="border py-2 px-4 font-medium text-gray-700">{post.title}</td>
-                <td className="border py-2 px-4 font-medium text-gray-700">{post.category}</td>
-                <td className="border py-2 px-4 text-center">
-                    {post.image_url ? ( // Ensure you're using the correct key for image URL
-                        <img
-                            src={post.image_url}
-                            alt={post.title}
-                            style={{ width: '100px', height: 'auto' }}
-                            className="w-20 h-20 object-cover rounded"
-                        />
-                    ) : (
-                        <span>No image</span>
-                    )}
-                </td>
-                <td className="border py-2 px-4 font-medium text-gray-700">
-                    {formatDate(post.created_at)} {/* Ensure this function is correctly defined */}
-                </td>
-                <td className="border py-2 px-4 text-center">
-                    <div className="flex justify-center">
-                        <button
-                            onClick={() => handleEdit(post)}
-                            className="bg-cyan-700 font-medium text-white px-4 py-2 flex items-center rounded-l-md hover:bg-cyan-800 duration-300 ease-in-out"
-                        >
-                            <FaRegEdit />
-                        </button>
-                        <button
-                            onClick={() => handleDelete(post.id)}
-                            className="bg-red-600 font-medium text-white px-4 py-2 rounded-r-md hover:bg-red-700 flex items-center duration-300 ease-in-out"
-                        >
-                            <FaTrash />
-                        </button>
-                    </div>
-                </td>
-            </tr>
-        ))}
-    </tbody>
-</table>
-
+                    <table className="min-w-full table-auto text-sm">
+                        <thead>
+                            <tr className="bg-cyan-700 text-left">
+                                <th className="py-2 px-4 text-white font-medium">
+                                    #
+                                </th>
+                                <th className="py-2 px-4 text-white font-medium">
+                                    Title
+                                </th>
+                                <th className="py-2 px-4 text-white font-medium">
+                                    Category
+                                </th>
+                                <th className="py-2 px-4 text-white font-medium text-center">
+                                    Image
+                                </th>
+                                <th className="py-2 px-4 text-white font-medium">
+                                    Created At
+                                </th>
+                                <th className="py-2 px-4 text-white font-medium">
+                                    Actions
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {currentBlogs.map((post, index) => (
+                                <tr key={post.id}>
+                                    <td className="border py-2 px-4">
+                                        {index + 1}
+                                    </td>
+                                    <td className="border py-2 px-4">
+                                        {post.title}
+                                    </td>
+                                    <td className="border py-2 px-4">
+                                        {post.category}
+                                    </td>
+                                    <td className="border py-2 px-4 text-center">
+                                        {post.image && (
+                                            <img
+                                                src={`http://127.0.0.1:8000/storage/${
+                                                    post.image
+                                                }?${new Date().getTime()}`}
+                                                alt={post.title || "News image"}
+                                                className="w-20 h-20 object-cover rounded"
+                                            />
+                                        )}
+                                    </td>
+                                    <td className="border py-2 px-4">
+                                        {formatDate(post.created_at)}
+                                    </td>
+                                    <td className="border py-2 px-4 text-center">
+                                        <button
+                                            className="bg-blue-500 text-white p-2 rounded mr-2"
+                                            onClick={() => handleEdit(post)}
+                                        >
+                                            <FaRegEdit />
+                                        </button>
+                                        <button
+                                            className="bg-red-500 text-white p-2 rounded"
+                                            onClick={() =>
+                                                handleDelete(post.id)
+                                            }
+                                        >
+                                            <FaTrash />
+                                        </button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
                 </div>
-                {/* Pagination */}
+
                 <div className="flex justify-between items-center mt-4">
-                    <button
-                        onClick={() => handlePageChange(currentPage - 1)}
+                    <div className="flex items-center">
+                        <button
+                            onClick={() => handlePageChange(currentPage - 1)}
                             disabled={currentPage === 1}
                             aria-label="Previous page"
                             className="primary-bg-color text-white text-sm px-4 py-2 rounded disabled:opacity-50 inline-flex"
@@ -324,99 +351,115 @@ const ChhatBlog = () => {
                             <GoArrowLeft className="mr-2 mt-1" />
                             Previous
                         </button>
-                    <div>
+                        <button
+                            onClick={() => handlePageChange(currentPage + 1)}
+                            disabled={currentPage === totalPages}
+                            className="primary-bg-color text-white text-sm px-4 py-2 rounded disabled:opacity-50 inline-flex"
+                        >
+                            Next
+                            <GoArrowRight className="mt-1 ml-2" />
+                        </button>
+                    </div>
+                    <div className="text-sm text-gray-500">
                         Page {currentPage} of {totalPages}
                     </div>
-                    <button
-                        onClick={() => handlePageChange(currentPage + 1)}
-                        disabled={currentPage === totalPages}
-                        className="primary-bg-color text-white text-sm px-4 py-2 rounded disabled:opacity-50 inline-flex"
-                    >
-                        Next
-                        <GoArrowRight className="mt-1 ml-2" />
-                    </button>
                 </div>
+            </div>
 
-                {modalOpen && (
-                    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-                        <div className="bg-white p-5 rounded-lg shadow-lg max-w-lg w-full">
-                            <h2 className="text-xl font-medium mb-4">{isEditing ? "Edit Blog" : "Add Blog"}</h2>
+            {modalOpen && (
+                <div className="fixed top-0 left-0 z-50 bg-black bg-opacity-50 w-full h-full">
+                    <div className="flex justify-center items-center h-full">
+                        <div className="bg-white w-11/12 sm:w-96 p-6 rounded-lg shadow-md">
+                            <h3 className="text-2xl mb-4">
+                                {isEditing ? "Edit Blog" : "Add Blog"}
+                            </h3>
                             <form onSubmit={handleSubmit}>
                                 <div className="mb-4">
-                                    <label className="block text-sm font-medium mb-2">Title</label>
+                                    <label className="block text-gray-700 font-semibold mb-2">
+                                        Title
+                                    </label>
                                     <input
                                         type="text"
                                         name="title"
                                         value={formData.title}
                                         onChange={handleChange}
-                                        className="border p-2 rounded w-full"
+                                        className="w-full px-4 py-2 border rounded"
                                         required
                                     />
                                 </div>
                                 <div className="mb-4">
-                                    <label className="block text-sm font-medium mb-2">Content</label>
-                                    <textarea
-                                        name="content"
-                                        value={formData.content}
-                                        onChange={handleChange}
-                                        className="border p-2 rounded w-full"
-                                        required
-                                    ></textarea>
-                                </div>
-                                <div className="mb-4">
-                                    <label className="block text-sm font-medium mb-2">Category</label>
+                                    <label className="block text-gray-700 font-semibold mb-2">
+                                        Category
+                                    </label>
                                     <input
                                         type="text"
                                         name="category"
                                         value={formData.category}
                                         onChange={handleChange}
-                                        className="border p-2 rounded w-full"
+                                        className="w-full px-4 py-2 border rounded"
                                         required
                                     />
                                 </div>
                                 <div className="mb-4">
-                                    <label className="block text-sm font-medium mb-2">Image</label>
+                                    <label className="block text-gray-700 font-semibold mb-2">
+                                        Content
+                                    </label>
+                                    <textarea
+                                        name="content"
+                                        value={formData.content}
+                                        onChange={handleChange}
+                                        className="w-full px-4 py-2 border rounded"
+                                        required
+                                    />
+                                </div>
+                                <div className="mb-4">
+                                    <label className="block text-gray-700 font-semibold mb-2">
+                                        Image
+                                    </label>
                                     <input
                                         type="file"
-                                        accept="image/*"
+                                        name="image"
                                         onChange={handleFileChange}
-                                        className="border p-2 rounded w-full"
+                                        className="w-full px-4 py-2 border rounded"
                                     />
-                                    {formData.image && (
-                                        <img
-                                            src={formData.imageUrl || DefaultAvatar}
-                                            alt="Selected"
-                                            className="mt-2 w-1/3 h-56 object-cover"
-                                        />
-                                    )}
-                                    {isEditing && currentPost && currentPost.imageUrl && !formData.image && (
-                                        <img
-                                            src={currentPost.imageUrl}
-                                            alt="Current Post"
-                                            className="mt-2 w-full h-40 object-cover"
-                                        />
-                                    )}
+                                    {isEditing &&
+                                        currentPost &&
+                                        currentPost.image && (
+                                            <div className="mt-2">
+                                                <h4>Current Image:</h4>
+                                                <img
+                                                    src={`http://127.0.0.1:8000/storage/${
+                                                        currentPost.image
+                                                    }?${new Date().getTime()}`}
+                                                    alt="Current post"
+                                                    className="w-20 h-20 object-cover rounded mt-2"
+                                                />
+                                            </div>
+                                        )}
                                 </div>
-                                <div className="flex justify-end">
+
+                                <div className="flex justify-end space-x-3">
                                     <button
                                         type="button"
-                                        onClick={() => setModalOpen(false)}
-                                        className="mr-2 px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600"
+                                        onClick={resetForm}
+                                        className="bg-gray-300 text-black px-4 py-2 rounded"
                                     >
                                         Cancel
                                     </button>
                                     <button
                                         type="submit"
-                                        className="px-4 py-2 bg-cyan-700 text-white rounded-lg hover:bg-cyan-800"
+                                        className="bg-cyan-700 text-white px-4 py-2 rounded"
                                     >
-                                        {isEditing ? "Update Blog" : "Create Blog"}
+                                        {isEditing
+                                            ? "Update Blog"
+                                            : "Create Blog"}
                                     </button>
                                 </div>
                             </form>
                         </div>
                     </div>
-                )}
-            </div>
+                </div>
+            )}
         </div>
     );
 };

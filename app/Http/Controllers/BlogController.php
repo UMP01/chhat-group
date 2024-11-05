@@ -9,9 +9,17 @@ use Illuminate\Support\Facades\Storage;
 class BlogController extends Controller
 {
     public function index()
-    {
-        return Blog::all();
-    }
+{
+    $posts = Blog::all();
+
+    // Ensure the full image URL is included
+    $posts->each(function ($post) {
+        $post->image_url = $post->image ? Storage::url("images/{$post->image}") : null;
+    });
+
+    return response()->json($posts);
+}
+
 
     public function show($id)
     {
@@ -35,11 +43,12 @@ class BlogController extends Controller
 
         // Handle image storage similar to Product
         if ($image = $request->file('image')) {
-            $destinationPath = 'images/';
+            $destinationPath = public_path('storage/images');
             $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
             $image->move($destinationPath, $profileImage);
-            $input['image'] = "$profileImage";
+            $input['image'] = "images/$profileImage";
         }
+        
 
         $blog = Blog::create($input);
 
@@ -55,7 +64,7 @@ class BlogController extends Controller
         'title' => 'required|string|max:255',
         'content' => 'required|string',
         'category' => 'required|string',
-        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Ensure the image is optional
     ]);
 
     // Update post data
@@ -65,14 +74,15 @@ class BlogController extends Controller
 
     // Handle image upload if a new image is provided
     if ($request->hasFile('image')) {
-        // Delete old image if exists
-        if ($post->image && \Storage::exists("images/{$post->image}")) {
-            \Storage::delete("images/{$post->image}");
+        // Check if the post already has an image
+        if ($post->image && \Storage::exists("public/images/{$post->image}")) {
+            // Delete the old image from storage
+            \Storage::delete("public/images/{$post->image}");
         }
 
-        // Store new image and update post image path
+        // Store the new image
         $path = $request->file('image')->store('images', 'public');
-        $post->image = basename($path);
+        $post->image = basename($path); // Store just the filename (not the full path)
     }
 
     // Save the updated post
@@ -88,15 +98,19 @@ class BlogController extends Controller
             return response()->json(['message' => 'Blog not found'], 404);
         }
 
-        // Delete image from the filesystem
+        // Delete the image from storage if it exists
         if ($blog->image) {
             $imagePath = 'images/' . $blog->image;
-            if (file_exists($imagePath)) {
-                unlink($imagePath);
+            // Delete image using Storage facade
+            if (Storage::exists('public/' . $imagePath)) {
+                Storage::delete('public/' . $imagePath);
             }
         }
 
+        // Delete the blog post itself
         $blog->delete();
+
         return response()->json(['message' => 'Blog deleted successfully'], 204);
     }
+
 }
