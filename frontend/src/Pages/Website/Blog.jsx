@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { axiosClient } from "../../api/axios"; // Make sure this is correctly defined
+import { axiosClient } from "../../api/axios";
 import { HiOutlineArrowNarrowRight } from "react-icons/hi";
 import { GoArrowRight, GoArrowLeft } from "react-icons/go";
 import { BsCalendarDate } from "react-icons/bs";
@@ -14,14 +14,13 @@ const News = () => {
 
     const fetchArticles = async () => {
         setLoading(true);
-        setError(null); // Reset error state on fetch
+        setError(null);
         try {
             const response = await axiosClient.get("/blogs");
-            console.log("Fetched Blogs:", response.data);
 
             if (!Array.isArray(response.data) || response.data.length === 0) {
                 setError("No blog available at this time");
-                setArticles([]); // Ensure articles is set to an empty array
+                setArticles([]);
             } else {
                 const activeArticles = response.data.filter(
                     (article) => article.category === "Chhat Group"

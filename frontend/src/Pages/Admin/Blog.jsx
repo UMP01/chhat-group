@@ -17,14 +17,13 @@ const ChhatBlog = () => {
         title: "",
         content: "",
         category: "",
-        image: null, // Image file
+        image: null,
     });
 
     const [searchTerm, setSearchTerm] = useState("");
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    // Fetch blog posts from the API
     const fetchPosts = async () => {
         setLoading(true);
         try {
@@ -123,22 +122,18 @@ const ChhatBlog = () => {
         try {
             let updatedPost;
             if (isEditing && currentPost) {
-                // Update the post with the new image
                 updatedPost = await updatePost(currentPost.id, formData);
 
-                // Update the list of posts and current post with the new data (including the new image URL)
                 setPosts((prevPosts) =>
                     prevPosts.map((post) =>
                         post.id === currentPost.id ? updatedPost : post
                     )
                 );
 
-                // Update currentPost with the new image path for display
                 setCurrentPost(updatedPost);
 
                 Swal.fire("Success", "Blog updated successfully!", "success");
             } else {
-                // If creating a new post
                 const newPost = await createPost(formData);
                 setPosts([...posts, newPost]);
                 Swal.fire("Success", "Blog created successfully!", "success");
@@ -166,7 +161,7 @@ const ChhatBlog = () => {
             title: post.title,
             content: post.content,
             category: post.category,
-            image: null, // Reset the image on edit
+            image: null,
         });
         setModalOpen(true);
     };

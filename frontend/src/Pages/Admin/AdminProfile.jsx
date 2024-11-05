@@ -13,7 +13,6 @@ const AdminProfile = ({ toggleSidebar }) => {
     const userId = localStorage.getItem("userId");
     const token = localStorage.getItem("token");
 
-    // Function to fetch user profile
     const fetchUserProfile = async () => {
         setLoading(true);
         try {
@@ -44,18 +43,17 @@ const AdminProfile = ({ toggleSidebar }) => {
         
         const payload = {
             ...profile,
-            ...(newPassword && { password: newPassword }), // Include password if provided
+            ...(newPassword && { password: newPassword }),
         };
 
         try {
             await axiosClient.put(`/users/${userId}`, payload, {
                 headers: {
                     Authorization: `Bearer ${token}`,
-                    "Content-Type": "application/json", // Set content type to JSON
+                    "Content-Type": "application/json",
                 },
             });
 
-            // Refetch user profile after successful update
             await fetchUserProfile();
             Swal.fire("Success", "Profile updated successfully!", "success");
             setIsEditing(false);

@@ -6,7 +6,7 @@ import { GoArrowRight, GoArrowLeft } from "react-icons/go";
 import { IoPersonAdd } from "react-icons/io5";
 import { TiTick } from "react-icons/ti";
 
-const ITEMS_PER_PAGE = 5; // Set your desired items per page
+const ITEMS_PER_PAGE = 5;
 
 const User = () => {
     const [users, setUsers] = useState([]);
@@ -41,8 +41,8 @@ const User = () => {
             email: "",
             phone: "",
             dob: "",
-            branch: "Phnom Penh", // Default branch
-            permission: "admin",    // Default permission
+            branch: "Phnom Penh",
+            permission: "admin",
             password: "",
         };
     }
@@ -96,7 +96,7 @@ const User = () => {
             email: user.email,
             phone: user.phone,
             dob: user.dob.split("T")[0],
-            branch: "Phnom Penh", // Ensure branch remains "Phnom Penh"
+            branch: "Phnom Penh",
             permission: user.permission,
             password: "",
         });

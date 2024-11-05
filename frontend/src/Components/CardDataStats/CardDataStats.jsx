@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 
 function CardData(props) {
-    const backgroundClass = props.background || "bg-gray-100"; // Default bg
+    const backgroundClass = props.background || "bg-gray-100";
 
     return (
         <div

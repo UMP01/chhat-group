@@ -1,6 +1,5 @@
 import React from "react";
 import Image1 from "../../assets/Images/Slideshow/banner11.jpg";
-//import { IoMdCheckmark } from "react-icons/io";
 import { Link } from "react-router-dom";
 
 const FindOut = () => {

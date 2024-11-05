@@ -37,11 +37,10 @@ const AdminNavBar = ({ toggleSidebar, isOpen }) => {
         const fetchNotifications = async () => {
             try {
                 const response = await axiosClient.get("/contacts");
-                console.log(response.data);
                 
                 const sortedNotifications = response.data
                     .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
-                    .slice(0, 5); // Get the last 5 notifications
+                    .slice(0, 5);
 
                 setNotifications(sortedNotifications); 
                 setHasNewNotification(sortedNotifications.length > 0);
@@ -52,7 +51,6 @@ const AdminNavBar = ({ toggleSidebar, isOpen }) => {
 
         fetchNotifications();
 
-        // Refresh notifications every 30 seconds
         const interval = setInterval(fetchNotifications, 30000);
         return () => clearInterval(interval);
     }, []);
@@ -91,7 +89,7 @@ const AdminNavBar = ({ toggleSidebar, isOpen }) => {
 
     const handleNotificationDropdownToggle = () => {
         setIsNotificationDropdownOpen(!isNotificationDropdownOpen);
-        setHasNewNotification(false); // Reset notification indicator
+        setHasNewNotification(false);
     };
 
     const handleNotificationClick = (notification) => {

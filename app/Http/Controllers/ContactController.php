@@ -25,8 +25,6 @@ class ContactController extends Controller
         $contact = Contact::create($request->all());
         return response()->json(['message' => 'Contact message sent successfully!', 'data' => $contact], 201);
     } catch (\Exception $e) {
-        // Log the error message for debugging
-        \Log::error('Failed to store contact: ' . $e->getMessage());
         return response()->json(['message' => 'Failed to store contact message.'], 500);
     }
 }

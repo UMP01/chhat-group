@@ -1,4 +1,3 @@
-// TeamMember.js
 import React from "react";
 import PropTypes from "prop-types";
 import { FiPhone } from "react-icons/fi";
@@ -47,4 +46,4 @@ TeamMember.propTypes = {
     mailLink: PropTypes.string,
 };
 
-export default TeamMember; // Ensure this line is present
+export default TeamMember;

@@ -1,6 +1,5 @@
-// TeamMembersList.js
 import React from "react";
-import TeamMember from "./TeamMember"; // Ensure the path is correct
+import TeamMember from "./TeamMember";
 import profile01 from "../../assets/Images/AboutUs/profile-01.png"; 
 import profile02 from "../../assets/Images/AboutUs/profile-02.png"; 
 import profile03 from "../../assets/Images/AboutUs/profile-03.png"; 

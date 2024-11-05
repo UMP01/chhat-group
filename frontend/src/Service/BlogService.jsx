@@ -5,7 +5,6 @@ const BASE_URL = "https://127.0.0.1/api/blogs";
 
 export const fetchNews = async (query) => {
     try {
-        // Validate query parameter
         if (typeof query !== "string" || query.trim() === "") {
             throw new Error("Invalid query parameter");
         }
@@ -17,12 +16,10 @@ export const fetchNews = async (query) => {
             },
         });
 
-        // Check if response is valid
         if (!response.data || !Array.isArray(response.data.articles)) {
             throw new Error("Invalid response format");
         }
 
-        // Format dates
         const articles = response.data.articles.map((article) => {
             const formattedDate = formatDate(article.publishedAt);
             return {
@@ -42,13 +39,12 @@ export const fetchNews = async (query) => {
     }
 };
 
-// function to format date
 const formatDate = (dateString) => {
     if (!dateString) return "";
 
     const date = new Date(dateString);
     const day = date.getDate().toString().padStart(2, "0");
-    const month = (date.getMonth() + 1).toString().padStart(2, "0"); // Months are zero-based
+    const month = (date.getMonth() + 1).toString().padStart(2, "0");
     const year = date.getFullYear();
 
     return `${day}-${month}-${year}`;

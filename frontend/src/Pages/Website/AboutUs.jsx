@@ -1,7 +1,6 @@
-// About.js
 import React from "react";
 import logo from "../../assets/Images/logo.png";
-import TeamMembersList from "../../Components/TeamMember/TeamMemberList"; // Adjust the path as necessary
+import TeamMembersList from "../../Components/TeamMember/TeamMemberList";
 
 const About = () => {
     const Mission = [

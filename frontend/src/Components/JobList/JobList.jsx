@@ -12,7 +12,7 @@ const JobList = () => {
 
     const fetchJobs = async () => {
         setLoading(true);
-        setError(null); // Reset error state on fetch
+        setError(null);
         try {
             const response = await axiosClient.get("/careers");
             const jobList = Array.isArray(response.data) ? response.data : [];

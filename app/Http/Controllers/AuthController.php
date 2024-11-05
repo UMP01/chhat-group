@@ -37,7 +37,6 @@ class AuthController extends Controller
             }
 
         } catch (\Throwable $e) {
-            \Log::error('Login error: ' . $e->getMessage());
             return response()->json([
                 'status' => 'error',
                 'message' => $e->getMessage()

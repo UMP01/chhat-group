@@ -1,19 +1,6 @@
-import { useState } from "react";
-import {
-    FaYoutube,
-    FaFacebookF,
-    FaTwitter,
-    FaGithub,
-    FaDribbble,
-} from "react-icons/fa";
-import { IoIosMenu, IoMdClose } from "react-icons/io";
-import Logo from "../../assets/Images/logo.png";
+import { FaYoutube, FaFacebookF, FaPhoneAlt, FaEnvelope, FaMapMarkerAlt, FaLink } from "react-icons/fa";
 
-const Navbar = () => {
-    const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
-    const [activeDropdown, setActiveDropdown] = useState(null);
-
-    // Function to copy text to clipboard
+const Footer = () => {
     const copyToClipboard = (text) => {
         navigator.clipboard
             .writeText(text)
@@ -22,117 +9,87 @@ const Navbar = () => {
     };
 
     return (
-        <footer
-            className="bg-white dark:bg-gray-900 pt-5"
-            style={{ background: "var(--secondary-color)" }}
-        >
-            <div className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
-                <div className="grid grid-cols-3 gap-8">
-                    <div className="col-span-12 md:col-span-8 grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
-                        <div>
-                            <h2 className="mb-6 text-lg font-medium text-neutral-300 uppercase dark:text-white">
-                                Contact
-                            </h2>
-                            <ul className="text-gray-500 dark:text-gray-400 font-normal">
-                                <li className="mb-2">
-                                    <a
-                                        href="mailto:info@chhatgroup.com"
-                                        className="text-gray-300 hover:text-gray-500 duration-500 ease-in-out"
-                                    >
-                                        Email: info@chhatgroup.com
-                                    </a>
-                                </li>
-                                <li>
-                                    <a
-                                        className="hover:underline text-gray-300 duration-500 ease-in-out"
-                                        onClick={() =>
-                                            copyToClipboard("+855-12-890-801")
-                                        }
-                                    >
-                                        Phone Number: +855 12 890 801 / +855 10
-                                        969 005
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
+        <footer style={{ background: "var(--secondary-color)" }} className="py-8">
+            <div className="max-w-screen-xl mx-auto px-4">
+                {/* Desktop Layout */}
+                <div className="hidden md:grid grid-cols-3 gap-8 text-center md:text-left">
+                    {/* Contact Section */}
+                    <div>
+                        <h2 className="mb-4 text-lg font-medium text-neutral-300 uppercase flex items-center gap-2">
+                            <FaPhoneAlt className="text-neutral-300" /> Contact
+                        </h2>
+                        <ul className="text-neutral space-y-2">
+                            <li>
+                                <a href="mailto:info@chhatgroup.com" className="text-neutral-300 hover:text-neutral-500 flex items-center gap-2">
+                                    Email: info@chhatgroup.com
+                                </a>
+                            </li>
+                            <li>
+                                <button onClick={() => copyToClipboard("+855-12-890-801")} className="text-neutral-300 hover:text-neutral-500 flex items-center gap-2">
+                                    Phone: +855 12 890 801 / +855 10 969 005
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    {/* Quick Links Section */}
+                    <div>
+                        <h2 className="mb-4 text-lg font-medium text-neutral-300 uppercase flex items-center gap-2">
+                            <FaLink className="text-neutral-300" /> Quick Links
+                        </h2>
+                        <ul className="text-neutral space-y-2">
+                            <li><a href="/about" className="text-neutral-300 hover:text-neutral-500">About Us</a></li>
+                            <li><a href="/contact" className="text-neutral-300 hover:text-neutral-500">Contact Us</a></li>
+                            <li><a className="text-neutral-300 hover:text-neutral-500">Privacy & Policy</a></li>
+                        </ul>
+                    </div>
 
-                        <div>
-                            <h2 className="mb-6 text-lg font-medium text-neutral-300 uppercase dark:text-white">
-                                Quick Links
-                            </h2>
-                            <ul className="text-gray-500 dark:text-gray-400 font-normal">
-                                <li className="mb-2">
-                                    <a
-                                        href="/about"
-                                        className="text-gray-300 hover:text-gray-500 duration-500 ease-in-out"
-                                    >
-                                        About Us
-                                    </a>
-                                </li>
-                                <li className="mb-2">
-                                    <a
-                                        href="/contact"
-                                        className="text-gray-300 hover:text-gray-500 duration-500 ease-in-out"
-                                    >
-                                        Contact Us
-                                    </a>
-                                </li>
-                                <li className="mb-2">
-                                    <a className="text-gray-300 hover:text-gray-500 duration-500 ease-in-out">
-                                        Privacy & Policy
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <div>
-                            <h2 className="mb-6 text-lg  font-medium text-neutral-300 uppercase dark:text-white">
-                                Address
-                            </h2>
-                            <ul className="text-gray-600 dark:text-gray-400">
-                                <li className="mb-4">
-                                    <a
-                                        className="text-gray-300 hover:text-gray-500 duration-500 ease-in-out"
-                                        onClick={() =>
-                                            copyToClipboard(
-                                                "Borey Piphup Thmey La Sen Sok 2 #47-49, Street BT-08M, Phum Krang Angkrong, Sangkat Krang Thnong, Khan Sen Sok, Phnom Penh, Cambodia"
-                                            )
-                                        }
-                                    >
-                                        Borey Piphup Thmey La Sen Sok 2 #47-49,
-                                        Street BT-08M, Phum Krang Angkrong,
-                                        Sangkat Krang Thnong, Khan Sen Sok,
-                                        Phnom Penh, Cambodia
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
+                    {/* Address Section */}
+                    <div>
+                        <h2 className="mb-4 text-lg font-medium text-neutral-300 uppercase flex items-center gap-2">
+                            <FaMapMarkerAlt className="text-neutral-300" /> Address
+                        </h2>
+                        <button
+                            onClick={() => copyToClipboard("Borey Piphup Thmey La Sen Sok 2 #47-49, Street BT-08M, Phum Krang Angkrong, Sangkat Krang Thnong, Khan Sen Sok, Phnom Penh, Cambodia")}
+                            className="text-neutral-300 hover:text-neutral-500 text-left gap-2"
+                        >
+                            Borey Piphup Thmey La Sen Sok 2, Phnom Penh, Cambodia
+                        </button>
                     </div>
                 </div>
 
-                <hr className="my-6 border-gray-500 sm:mx-auto lg:my-8" />
-                <div className="sm:flex sm:items-center sm:justify-between">
-                    <span className="text-sm text-neutral-400 sm:text-center dark:text-gray-400">
-                        © 2024{" "}
-                        <a href="/" className="hover:underline ">
-                            Chhat Group™
-                        </a>
-                        . All Rights Reserved.
-                    </span>
-                    <div className="flex mt-4 sm:justify-center sm:mt-0">
-                        <a
-                            href="https://web.facebook.com/chhatgroup"
-                            className="text-neutral-400 hover:text-gray-900 dark:hover:text-white"
-                        >
-                            <FaFacebookF className="w-4 h-4" />
+                {/* Mobile Layout */}
+                <div className="md:hidden space-y-4">
+                    {/* Condensed Contact Info */}
+                    <button onClick={() => copyToClipboard("+855-12-890-801")} className="block text-neutral-300 hover:text-neutral-500 flex items-center gap-2">
+                        <FaPhoneAlt /> Phone: <b>+855 12 890 801</b>
+                    </button>
+                    <a href="mailto:info@chhatgroup.com" className="block text-neutral-300 hover:text-neutral-500 flex items-center gap-2">
+                        <FaEnvelope /> Mail: <b>info@chhatgroup.com</b>
+                    </a>
+                    
+                    {/* Condensed Address */}
+                    <button
+                        onClick={() => copyToClipboard("Borey Piphup Thmey La Sen Sok 2, Phnom Penh")}
+                        className="block text-neutral-300 hover:text-neutral-500 text-left flex items-center gap-2"
+                    >
+                        <FaMapMarkerAlt /> Address: <b>Borey Piphup Thmey La Sen Sok 2, Phnom Penh, Cambodia</b>
+                    </button>
+                </div>
+
+                <hr className="my-6 border-gray-400" />
+
+                {/* Footer Bottom */}
+                <div className="flex flex-col sm:flex-row items-center justify-between text-center text-sm text-neutral-300 space-y-4 sm:space-y-0">
+                    <span>© 2024 <a href="/" className="text-neutral-300 hover:underline">Chhat Group™</a>. All Rights Reserved.</span>
+                    <div className="flex justify-center space-x-4">
+                        <a href="https://web.facebook.com/chhatgroup" className="text-neutral hover:text-gray-700">
+                            <FaFacebookF className="w-5 h-5" />
                             <span className="sr-only">Facebook page</span>
                         </a>
-                        <a
-                            href="https://www.youtube.com/@chhatgroup7225"
-                            className="text-neutral-400 hover:text-gray-900 dark:hover:text-white ms-5"
-                        >
-                            <FaYoutube className="w-4 h-4" />
-                            <span className="sr-only">Youtube channel</span>
+                        <a href="https://www.youtube.com/@chhatgroup7225" className="text-neutral hover:text-gray-700">
+                            <FaYoutube className="w-5 h-5" />
+                            <span className="sr-only">YouTube channel</span>
                         </a>
                     </div>
                 </div>
@@ -141,4 +98,4 @@ const Navbar = () => {
     );
 };
 
-export default Navbar;
+export default Footer;

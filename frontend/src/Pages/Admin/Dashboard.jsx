@@ -99,13 +99,12 @@ const Dashboard = () => {
         },
     ];
 
-    // Data for ApexCharts
     const donutSeries = [contactCount, careersCount, groupBlogCount, researchBlogCount];
     const donutOptions = {
         chart: {
             type: "donut",
-            width: "100%", // Set chart width
-            height: 200, // Adjusted height for smaller size
+            width: "100%",
+            height: 200,
         },
         labels: ["Contacts", "Careers", "Group Articles", "Research Articles"],
         dataLabels: {
@@ -138,7 +137,7 @@ const Dashboard = () => {
             type: "bar",
             distributed: true,
             width: "100%",
-            height: 200, // Adjusted height for smaller size
+            height: 200,
         },
         colors: ["#1E90FF", "#3CB371", "#FFD700", "#FF6347"],
         xaxis: {

@@ -7,7 +7,7 @@ import { GoArrowRight, GoArrowLeft } from "react-icons/go";
 import { CiViewTimeline } from "react-icons/ci";
 import { IoMdClose } from "react-icons/io";
 
-const ITEMS_PER_PAGE = 5; // Number of items to display per page
+const ITEMS_PER_PAGE = 5;
 
 const Contact = () => {
     const [contacts, setContacts] = useState([]);
@@ -16,15 +16,14 @@ const Contact = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [currentPage, setCurrentPage] = useState(1); // State for the current page
+    const [currentPage, setCurrentPage] = useState(1);
 
     const fetchContacts = async () => {
         setLoading(true);
         try {
             const response = await axiosClient.get("/contacts");
-            console.log("Fetched contacts:", response.data);
             const activeContacts = Array.isArray(response.data)
-                ? response.data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at)) // Sort in descending order
+                ? response.data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
                 : [];
             setContacts(activeContacts);
         } catch (error) {
@@ -83,13 +82,11 @@ const Contact = () => {
             contact.subject.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
-    // New function to refresh contacts and clear search
     const handleRefresh = () => {
         fetchContacts();
-        setSearchTerm(""); // Clear the search term
+        setSearchTerm("");
     };
 
-    // Calculate pagination
     const indexOfLastContact = currentPage * ITEMS_PER_PAGE;
     const indexOfFirstContact = indexOfLastContact - ITEMS_PER_PAGE;
     const currentContacts = filteredContacts.slice(indexOfFirstContact, indexOfLastContact);
@@ -207,7 +204,7 @@ const Contact = () => {
                             ) : (
                                 <tr>
                                     <td
-                                        colSpan="6" // Adjusted to match the number of columns
+                                        colSpan="6"
                                         className="text-center p-4 font-medium"
                                     >
                                         No contacts found.
@@ -304,7 +301,7 @@ const Contact = () => {
 
 const formatDate = (dateString) => {
     const date = new Date(dateString);
-    return date.toLocaleString(); // Format as needed
+    return date.toLocaleString();
 };
 
 export default Contact;

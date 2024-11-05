@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FaTelegramPlane } from "react-icons/fa";
-import { axiosClient } from "../../api/axios"; // Adjust the import path if necessary
+import { axiosClient } from "../../api/axios";
 import Swal from "sweetalert2";
 
 const ContactForm = () => {

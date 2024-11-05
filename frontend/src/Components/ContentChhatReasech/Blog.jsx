@@ -13,14 +13,13 @@ const News = () => {
 
     const fetchArticles = async () => {
         setLoading(true);
-        setError(null); // Reset error state on fetch
+        setError(null);
         try {
             const response = await axiosClient.get("/blogs");
-            console.log("Fetched Blogs:", response.data);
             const activeArticles = Array.isArray(response.data)
                 ? response.data.filter(
                       (article) => article.category === "Chhat Research"
-                  ) // Filter by category
+                  )
                 : [];
             if (activeArticles.length === 0) {
                 setError("No articles available at this time.");

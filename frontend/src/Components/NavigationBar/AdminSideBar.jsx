@@ -32,7 +32,6 @@ const AdminSideBar = () => {
             });
 
             if (result.isConfirmed) {
-                // Perform the logout logic here, if applicable
                 window.location.href = "/admin/login";
             }
         } catch (error) {

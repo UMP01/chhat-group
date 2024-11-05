@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import Logo from "../../assets/Images/logo.png";
 import LogoBackground from "../../assets/Images/login-bg.jpg";
-import Swal from "sweetalert2"; // For alerts
-import { axiosClient } from "../../api/axios"; // Make sure this is correctly defined
+import Swal from "sweetalert2";
+import { axiosClient } from "../../api/axios";
 
 const Login = () => {
     const [email, setEmail] = useState("roeun@gmail.com");
@@ -20,8 +20,6 @@ const Login = () => {
                 email,
                 password,
             });
-
-            console.log("Response received:", response.data);
 
             if (response.data.status === "success") {
                 localStorage.setItem("authToken", response.data.token);
