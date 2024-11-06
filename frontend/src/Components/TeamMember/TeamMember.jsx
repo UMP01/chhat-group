@@ -5,7 +5,7 @@ import { IoLocationOutline, IoMailOutline } from "react-icons/io5";
 
 const TeamMember = ({ name, location, role, phone, email, mailLink, image }) => {
     return (
-        <div className="rounded-lg p-5 bg-gray-200 bg-opacity-30">
+        <div className="rounded-lg p-5 bg-gray-100 bg-opacity-50 border border-gray-200">
             <div className="flex flex-wrap">
                 <div>
                     <img src={image} alt={name} className="rounded-full w-20" />

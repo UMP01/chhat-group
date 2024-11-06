@@ -44,11 +44,11 @@ const Card = ({ imageSrc, altText, title, description, link }) => (
                 <h5 className=" text-lg sm:text-lg md:text-lg lg:text-xl font-semibold text-gray-600 pb-2 pt-5">
                     {title}
                 </h5>
-                <p className="text-gray-500 line-clamp-4 text-base sm:text-base md:text-base lg:text-base">
+                <p className="text-gray-500 line-clamp-4 text-base sm:text-base md:text-base lg:text-base font-medium">
                     {description}
                 </p>
                 <Link
-                    className="primary-color text-base sm:text-base md:text-base lg:text-base inline-flex items-center pt-3 border-b-2 border-cyan-500 hover:translate-x-3 duration-200 cursor-pointer"
+                    className="primary-color font-medium text-base sm:text-base md:text-base lg:text-base inline-flex items-center pt-3 border-b-2 border-cyan-500 hover:translate-x-3 duration-200 cursor-pointer"
                     to={link}
                 >
                     Read More <HiOutlineArrowNarrowRight className="ml-1" />

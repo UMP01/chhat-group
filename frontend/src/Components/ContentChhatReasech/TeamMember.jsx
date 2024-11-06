@@ -154,7 +154,7 @@ const TeamMember = ({
             <div className="flex flex-wrap">
                 {teamMembers.map((member, index) => (
                     <div key={index} className="w-full md:w-1/2 lg:w-1/2 p-2">
-                        <div className="rounded-lg p-5 bg-gray-50 bg-opacity-30">
+                        <div className="rounded-lg p-5 bg-gray-50 bg-opacity-30 border border-gray-100">
                             <div className="flex flex-wrap  font-medium">
                                 <div>
                                     <img

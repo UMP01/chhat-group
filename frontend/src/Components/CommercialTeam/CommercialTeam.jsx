@@ -49,7 +49,7 @@ const CommercialTeam = ({ logoes = Logoes }) => {
             <h1 className="text-center pb-3 text-xl sm:text-2xl md:text-3xl lg:text-3xl text-gray-600 font-semibold">
                 Commercial Team
             </h1>
-            <p className="text-center text-gray-500 text-sm sm:text-base md:text-base lg:text-base">
+            <p className="text-center text-gray-500 text-sm sm:text-base md:text-base lg:text-base font-medium">
                 The public / social research team works with global,
                 international and local NGOs in different sectors
             </p>
