@@ -23,7 +23,9 @@ const Contact = () => {
         try {
             const response = await axiosClient.get("/contacts");
             const activeContacts = Array.isArray(response.data)
-                ? response.data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+                ? response.data.sort(
+                      (a, b) => new Date(b.created_at) - new Date(a.created_at)
+                  )
                 : [];
             setContacts(activeContacts);
         } catch (error) {
@@ -89,7 +91,10 @@ const Contact = () => {
 
     const indexOfLastContact = currentPage * ITEMS_PER_PAGE;
     const indexOfFirstContact = indexOfLastContact - ITEMS_PER_PAGE;
-    const currentContacts = filteredContacts.slice(indexOfFirstContact, indexOfLastContact);
+    const currentContacts = filteredContacts.slice(
+        indexOfFirstContact,
+        indexOfLastContact
+    );
     const totalPages = Math.ceil(filteredContacts.length / ITEMS_PER_PAGE);
 
     const handlePageChange = (pageNumber) => {
@@ -182,7 +187,9 @@ const Contact = () => {
                                                 <button
                                                     className="bg-cyan-700 font-medium text-white px-4 py-2 flex items-center rounded-l-md hover:bg-cyan-800 duration-300 ease-in-out"
                                                     onClick={() =>
-                                                        handleViewDetails(contact)
+                                                        handleViewDetails(
+                                                            contact
+                                                        )
                                                     }
                                                 >
                                                     <CiViewTimeline className="mr-2" />
@@ -217,20 +224,20 @@ const Contact = () => {
                 <div className="flex justify-between items-center mt-4">
                     <button
                         onClick={() => handlePageChange(currentPage - 1)}
-                            disabled={currentPage === 1}
-                            aria-label="Previous page"
-                            className="primary-bg-color text-white text-sm px-4 py-2 rounded disabled:opacity-50 inline-flex"
-                        >
-                            <GoArrowLeft className="mr-2 mt-1" />
-                            Previous
-                        </button>
+                        disabled={currentPage === 1}
+                        aria-label="Previous page"
+                        className="bg-cyan-700 text-white text-sm px-4 py-2 rounded disabled:opacity-50 inline-flex hover:shadow-lg duration-300 hover:bg-cyan-600"
+                    >
+                        <GoArrowLeft className="mr-2 mt-1" />
+                        Previous
+                    </button>
                     <div>
                         Page {currentPage} of {totalPages}
                     </div>
                     <button
                         onClick={() => handlePageChange(currentPage + 1)}
                         disabled={currentPage === totalPages}
-                        className="primary-bg-color text-white text-sm px-4 py-2 rounded disabled:opacity-50 inline-flex"
+                        className="bg-cyan-700 text-white text-sm px-4 py-2 rounded disabled:opacity-50 inline-flex hover:shadow-lg duration-300 hover:bg-cyan-600"
                     >
                         Next
                         <GoArrowRight className="mt-1 ml-2" />
@@ -238,62 +245,65 @@ const Contact = () => {
                 </div>
                 {isModalOpen && (
                     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-20 z-50">
-                    <div className="bg-white rounded-lg shadow-lg w-11/12 max-w-lg">
-                        <div className="bg-cyan-700 text-white p-5 rounded-t-lg flex justify-between">
-                            <h2 className="text-lg font-normal flex items-center">
-                                <FaEnvelope className="me-2" />
-                                Contact Details
-                            </h2>
-                            <button onClick={closeModal}>
-                                <IoMdClose className="w-6 h-6" />
-                            </button>
+                        <div className="bg-white rounded-lg shadow-lg w-11/12 max-w-lg">
+                            <div className="bg-cyan-700 text-white p-5 rounded-t-lg flex justify-between">
+                                <h2 className="text-lg font-normal flex items-center">
+                                    <FaEnvelope className="me-2" />
+                                    Contact Details
+                                </h2>
+                                <button onClick={closeModal}>
+                                    <IoMdClose className="w-6 h-6" />
+                                </button>
+                            </div>
+                            {selectedContact && (
+                                <div className="text-gray-700 p-5">
+                                    <p className="pb-2">
+                                        <span className="text-cyan-800 font-medium">
+                                            From:{" "}
+                                        </span>
+                                        {selectedContact.fullname}
+                                    </p>
+                                    <a
+                                        className="py-10"
+                                        href={`mailto:${selectedContact.email}`}
+                                    >
+                                        <span className="text-cyan-800 font-medium">
+                                            Email:{" "}
+                                        </span>
+                                        {selectedContact.email}
+                                    </a>
+                                    <p className="py-2">
+                                        <span className="text-cyan-800 font-medium">
+                                            Subject:{" "}
+                                        </span>
+                                        {selectedContact.subject}
+                                    </p>
+                                    <p className="py-2">
+                                        <span className="text-cyan-800 font-medium">
+                                            Message:{" "}
+                                        </span>
+                                        {selectedContact.message}
+                                    </p>
+                                    <p className="py-2">
+                                        <span className="text-cyan-800 font-medium">
+                                            Sent At:{" "}
+                                        </span>
+                                        {formatDate(selectedContact.created_at)}
+                                    </p>
+                                    <div className="flex justify-end">
+                                        <a
+                                            href={`mailto:${selectedContact.email}`}
+                                            className="bg-cyan-600 inline-flex items-center transition delay-900 duration-500 ease-in-out text-white py-2 px-4 rounded hover:bg-cyan-700"
+                                        >
+                                            Send Mail
+                                            <FaTelegramPlane className="ml-2" />
+                                        </a>
+                                    </div>
+                                </div>
+                            )}
                         </div>
-                        {selectedContact && (
-                            <div className="text-gray-700 p-5">
-                                <p className="pb-2">
-                                    <span className="text-cyan-800 font-medium">
-                                        From:{" "}
-                                    </span>
-                                    {selectedContact.fullname}
-                                </p>
-                                <a
-                                    className="py-10"
-                                    href={`mailto:${selectedContact.email}`}
-                                >
-                                    <span className="text-cyan-800 font-medium">
-                                        Email:{" "}
-                                    </span>
-                                    {selectedContact.email}
-                                </a>
-                                <p className="py-2">
-                                    <span className="text-cyan-800 font-medium">
-                                        Subject:{" "}
-                                    </span>
-                                    {selectedContact.subject}
-                                </p>
-                                <p className="py-2">
-                                    <span className="text-cyan-800 font-medium">
-                                        Message:{" "}
-                                    </span>
-                                    {selectedContact.message}
-                                </p>
-                                <p className="py-2">
-                                    <span className="text-cyan-800 font-medium">
-                                        Sent At:{" "}
-                                    </span>
-                                    {formatDate(selectedContact.created_at)}
-                                </p>
-                                <div className="flex justify-end">
-                                <a href={`mailto:${selectedContact.email}`} className="bg-cyan-600 inline-flex items-center transition delay-900 duration-500 ease-in-out text-white py-2 px-4 rounded hover:bg-cyan-700">
-                                    Send Mail
-                                    <FaTelegramPlane className="ml-2" />
-                                </a>
-                            </div>
-                            </div>
-                        )}
-            </div>
-                </div>
-            )}
+                    </div>
+                )}
             </div>
         </div>
     );

@@ -16,7 +16,6 @@ const Career = () => {
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
     const [currentPage, setCurrentPage] = useState(1);
-    
 
     function initialFormData() {
         return {
@@ -80,7 +79,7 @@ const Career = () => {
         setFormData({
             title: career.title,
             location: career.location,
-            deadline: new Date(career.deadline).toISOString().split('T')[0],
+            deadline: new Date(career.deadline).toISOString().split("T")[0],
             jobtype: career.jobtype,
             salary: career.salary,
             requirement: career.requirement,
@@ -132,11 +131,14 @@ const Career = () => {
 
     const indexOfLastCareer = currentPage * ITEMS_PER_PAGE;
     const indexOfFirstCareer = indexOfLastCareer - ITEMS_PER_PAGE;
-    const currentCareeres = filteredCareers.slice(indexOfFirstCareer, indexOfLastCareer);
+    const currentCareeres = filteredCareers.slice(
+        indexOfFirstCareer,
+        indexOfLastCareer
+    );
     const totalPages = Math.ceil(filteredCareers.length / ITEMS_PER_PAGE);
     function handlePageChange(pageNumber) {
         setCurrentPage(pageNumber);
-    };
+    }
     if (loading) {
         return (
             <div className="py-72 flex items-center justify-center">
@@ -213,7 +215,10 @@ const Career = () => {
                                         className="border-b hover:bg-gray-100"
                                     >
                                         <td className="border py-2 px-4 font-medium text-gray-700 text-center">
-                                            {index + 1+(currentPage - 1) * ITEMS_PER_PAGE}
+                                            {index +
+                                                1 +
+                                                (currentPage - 1) *
+                                                    ITEMS_PER_PAGE}
                                         </td>
                                         <td className="border py-2 px-4 font-medium text-gray-700">
                                             {career.title}
@@ -271,27 +276,27 @@ const Career = () => {
                 </div>
                 {/* Pagination */}
                 <div className="flex justify-between items-center mt-4">
-                        <button
-                            onClick={() => handlePageChange(currentPage - 1)}
-                                disabled={currentPage === 1}
-                                aria-label="Previous page"
-                                className="primary-bg-color text-white text-sm px-4 py-2 rounded disabled:opacity-50 inline-flex"
-                            >
-                                <GoArrowLeft className="mr-2 mt-1" />
-                                Previous
-                            </button>
-                        <div>
-                            Page {currentPage} of {totalPages}
-                        </div>
-                        <button
-                            onClick={() => handlePageChange(currentPage + 1)}
-                            disabled={currentPage === totalPages}
-                            className="primary-bg-color text-white text-sm px-4 py-2 rounded disabled:opacity-50 inline-flex"
-                        >
-                            Next
-                            <GoArrowRight className="mt-1 ml-2" />
-                        </button>
+                    <button
+                        onClick={() => handlePageChange(currentPage - 1)}
+                        disabled={currentPage === 1}
+                        aria-label="Previous page"
+                        className="bg-cyan-700 text-white text-sm px-4 py-2 rounded disabled:opacity-50 inline-flex hover:shadow-lg duration-300 hover:bg-cyan-600"
+                    >
+                        <GoArrowLeft className="mr-2 mt-1" />
+                        Previous
+                    </button>
+                    <div>
+                        Page {currentPage} of {totalPages}
                     </div>
+                    <button
+                        onClick={() => handlePageChange(currentPage + 1)}
+                        disabled={currentPage === totalPages}
+                        className="bg-cyan-700 text-white text-sm px-4 py-2 rounded disabled:opacity-50 inline-flex hover:shadow-lg duration-300 hover:bg-cyan-600"
+                    >
+                        Next
+                        <GoArrowRight className="mt-1 ml-2" />
+                    </button>
+                </div>
 
                 {modalOpen && (
                     <Modal
@@ -328,23 +333,24 @@ const Modal = ({
                     : "Add Career Opportunity"}
             </h2>
             <form onSubmit={onSubmit}>
-                {["title", "location", "deadline", "salary"].map(
-                    (field, i) => (
-                        <InputField
-                            key={i}
-                            name={field}
-                            value={formData[field]}
-                            onChange={onChange}
-                            required={
-                                field === "title" ||
-                                field === "location" ||
-                                field === "salary"
-                            }
-                        />
-                    )
-                )}
+                {["title", "location", "deadline", "salary"].map((field, i) => (
+                    <InputField
+                        key={i}
+                        name={field}
+                        value={formData[field]}
+                        onChange={onChange}
+                        required={
+                            field === "title" ||
+                            field === "location" ||
+                            field === "salary"
+                        }
+                    />
+                ))}
                 <div className="mb-4">
-                    <label htmlFor="jobtype" className="block text-gray-700 font-normal mb-3">
+                    <label
+                        htmlFor="jobtype"
+                        className="block text-gray-700 font-normal mb-3"
+                    >
                         Jobtype
                     </label>
                     <select

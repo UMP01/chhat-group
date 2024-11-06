@@ -74,17 +74,26 @@ class BlogController extends Controller
 
     // Handle image upload if a new image is provided
     if ($request->hasFile('image')) {
-        // Check if the post already has an image
-        if ($post->image && \Storage::exists("public/images/{$post->image}")) {
-            // Delete the old image from storage
-            \Storage::delete("public/images/{$post->image}");
+        // Check if the post already has an image and delete the old one if exists
+        if ($post->image && \Storage::exists("public/{$post->image}")) {
+            \Storage::delete("public/{$post->image}");
         }
-
-        // Store the new image
-        $path = $request->file('image')->store('images', 'public');
-        $post->image = basename($path); // Store just the filename (not the full path)
+    
+        // Get the uploaded image
+        $image = $request->file('image');
+        
+        // Generate the same filename as the initial upload (e.g., based on current date)
+        $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
+        
+        // Store the image with the same filename in the 'public/images' folder
+        $path = $image->storeAs('images', $profileImage, 'public');
+        
+        // Save the new image path to the database (store just the relative path)
+        $post->image = 'images/' . $profileImage;
+        $post->save();
     }
-
+    
+    
     // Save the updated post
     $post->save();
 

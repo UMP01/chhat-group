@@ -85,7 +85,11 @@ const User = () => {
             resetFormData();
         } catch (error) {
             console.error("Error submitting form:", error);
-            Swal.fire("Error", "There was an error submitting the form", "error");
+            Swal.fire(
+                "Error",
+                "There was an error submitting the form",
+                "error"
+            );
         }
     }
 
@@ -105,7 +109,7 @@ const User = () => {
 
     function handlePageChange(pageNumber) {
         setCurrentPage(pageNumber);
-    };
+    }
 
     async function handleDelete(id) {
         try {
@@ -207,7 +211,10 @@ const User = () => {
                                         className="border-b hover:bg-gray-100"
                                     >
                                         <td className="border py-2 px-4 font-medium text-gray-700 text-center">
-                                            {index + 1 + (currentPage - 1) * ITEMS_PER_PAGE}
+                                            {index +
+                                                1 +
+                                                (currentPage - 1) *
+                                                    ITEMS_PER_PAGE}
                                         </td>
                                         <td className="border py-2 px-4 font-medium text-gray-700">
                                             {user.name}
@@ -228,15 +235,21 @@ const User = () => {
                                             <div className="flex justify-center">
                                                 <button
                                                     className="bg-cyan-700 font-medium text-white px-4 py-2 flex items-center rounded-l-md hover:bg-cyan-800 duration-300 ease-in-out"
-                                                    onClick={() => handleEdit(user)}
+                                                    onClick={() =>
+                                                        handleEdit(user)
+                                                    }
                                                 >
-                                                    <FaRegEdit className="mr-2" /> Edit
+                                                    <FaRegEdit className="mr-2" />{" "}
+                                                    Edit
                                                 </button>
                                                 <button
                                                     className="bg-red-600 font-medium text-white px-4 py-2 rounded-r-md hover:bg-red-700 flex items-center duration-300 ease-in-out"
-                                                    onClick={() => handleDelete(user.id)}
+                                                    onClick={() =>
+                                                        handleDelete(user.id)
+                                                    }
                                                 >
-                                                    <FaTrash className="mr-2" /> Delete
+                                                    <FaTrash className="mr-2" />{" "}
+                                                    Delete
                                                 </button>
                                             </div>
                                         </td>
@@ -259,20 +272,20 @@ const User = () => {
                 <div className="flex justify-between items-center mt-4">
                     <button
                         onClick={() => handlePageChange(currentPage - 1)}
-                            disabled={currentPage === 1}
-                            aria-label="Previous page"
-                            className="primary-bg-color text-white text-sm px-4 py-2 rounded disabled:opacity-50 inline-flex"
-                        >
-                            <GoArrowLeft className="mr-2 mt-1" />
-                            Previous
-                        </button>
+                        disabled={currentPage === 1}
+                        aria-label="Previous page"
+                        className="bg-cyan-700 text-white text-sm px-4 py-2 rounded disabled:opacity-50 inline-flex hover:shadow-lg duration-300 hover:bg-cyan-600"
+                    >
+                        <GoArrowLeft className="mr-2 mt-1" />
+                        Previous
+                    </button>
                     <div>
                         Page {currentPage} of {totalPages}
                     </div>
                     <button
                         onClick={() => handlePageChange(currentPage + 1)}
                         disabled={currentPage === totalPages}
-                        className="primary-bg-color text-white text-sm px-4 py-2 rounded disabled:opacity-50 inline-flex"
+                        className="bg-cyan-700 text-white text-sm px-4 py-2 rounded disabled:opacity-50 inline-flex hover:shadow-lg duration-300 hover:bg-cyan-600"
                     >
                         Next
                         <GoArrowRight className="mt-1 ml-2" />
@@ -288,7 +301,9 @@ const User = () => {
                         </h3>
                         <form onSubmit={handleSubmit}>
                             <div className="mb-4">
-                                <label htmlFor="name" className="block mb-2">Name</label>
+                                <label htmlFor="name" className="block mb-2">
+                                    Name
+                                </label>
                                 <input
                                     type="text"
                                     name="name"
@@ -300,7 +315,9 @@ const User = () => {
                                 />
                             </div>
                             <div className="mb-4">
-                                <label htmlFor="email" className="block mb-2">Email</label>
+                                <label htmlFor="email" className="block mb-2">
+                                    Email
+                                </label>
                                 <input
                                     type="email"
                                     name="email"
@@ -312,7 +329,9 @@ const User = () => {
                                 />
                             </div>
                             <div className="mb-4">
-                                <label htmlFor="phone" className="block mb-2">Phone</label>
+                                <label htmlFor="phone" className="block mb-2">
+                                    Phone
+                                </label>
                                 <input
                                     type="text"
                                     name="phone"
@@ -324,7 +343,9 @@ const User = () => {
                                 />
                             </div>
                             <div className="mb-4">
-                                <label htmlFor="dob" className="block mb-2">Date of Birth</label>
+                                <label htmlFor="dob" className="block mb-2">
+                                    Date of Birth
+                                </label>
                                 <input
                                     type="date"
                                     name="dob"
@@ -335,7 +356,9 @@ const User = () => {
                                 />
                             </div>
                             <div className="mb-4">
-                                <label htmlFor="branch" className="block mb-2">Branch</label>
+                                <label htmlFor="branch" className="block mb-2">
+                                    Branch
+                                </label>
                                 <select
                                     name="branch"
                                     id="branch"
@@ -343,11 +366,18 @@ const User = () => {
                                     onChange={handleChange}
                                     className="border w-full px-3 py-2"
                                 >
-                                    <option value="Phnom Penh">Phnom Penh</option>
+                                    <option value="Phnom Penh">
+                                        Phnom Penh
+                                    </option>
                                 </select>
                             </div>
                             <div className="mb-4">
-                                <label htmlFor="permission" className="block mb-2">Permission</label>
+                                <label
+                                    htmlFor="permission"
+                                    className="block mb-2"
+                                >
+                                    Permission
+                                </label>
                                 <select
                                     name="permission"
                                     id="permission"
@@ -361,7 +391,12 @@ const User = () => {
                             </div>
                             {!editUser && (
                                 <div className="mb-4">
-                                    <label htmlFor="password" className="block mb-2">Password</label>
+                                    <label
+                                        htmlFor="password"
+                                        className="block mb-2"
+                                    >
+                                        Password
+                                    </label>
                                     <input
                                         type="password"
                                         name="password"

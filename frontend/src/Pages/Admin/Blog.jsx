@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 import { GoArrowRight, GoArrowLeft } from "react-icons/go";
-import { FaRegEdit, FaTrash } from "react-icons/fa";
+import { FaRegEdit, FaTrash, FaSync } from "react-icons/fa";
 import { axiosClient } from "../../api/axios";
 import { IoAdd } from "react-icons/io5";
 
@@ -111,6 +111,14 @@ const ChhatBlog = () => {
         }
     };
 
+    // Filtering posts based on search term
+    const filteredPosts = posts.filter(
+        (post) =>
+            post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            post.content.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            post.category.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -215,17 +223,10 @@ const ChhatBlog = () => {
         setCurrentPage(pageNumber);
     }
 
-    const filteredBlogs = posts.filter(
-        (post) =>
-            post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            post.content.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            post.category.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-
     const indexOfLastBlog = currentPage * ITEMS_PER_PAGE;
     const indexOfFirstBlog = indexOfLastBlog - ITEMS_PER_PAGE;
-    const totalPages = Math.ceil(filteredBlogs.length / ITEMS_PER_PAGE);
-    const currentBlogs = filteredBlogs.slice(indexOfFirstBlog, indexOfLastBlog);
+    const totalPages = Math.ceil(filteredPosts.length / ITEMS_PER_PAGE);
+    const currentBlogs = filteredPosts.slice(indexOfFirstBlog, indexOfLastBlog);
 
     if (loading) {
         return (
@@ -254,13 +255,21 @@ const ChhatBlog = () => {
                         onChange={(e) => setSearchTerm(e.target.value)}
                         className="border px-3 py-2 rounded w-2/6 font-medium text-gray-600"
                     />
-                    <button
-                        onClick={openModal}
-                        className="bg-cyan-700 font-medium text-white py-1 px-4 rounded hover:bg-cyan-800 flex items-center"
-                    >
-                        <IoAdd className="text-lg text-white font-medium mr-2" />{" "}
-                        Add Blog
-                    </button>
+                    <div className="flex gap-5">
+                        <button
+                            onClick={openModal}
+                            className="bg-cyan-700 font-medium text-white py-1 px-4 rounded hover:bg-cyan-800 flex items-center"
+                        >
+                            <IoAdd className="text-lg text-white font-medium mr-2" />{" "}
+                            Add Blog
+                        </button>
+                        <button
+                            onClick={fetchPosts}
+                            className="bg-green-600 font-medium text-white py-2 px-4 rounded hover:bg-green-700 flex items-center"
+                        >
+                            <FaSync className="mr-2" /> Refresh
+                        </button>
+                    </div>
                 </div>
 
                 <div className="overflow-x-auto px-2">
@@ -268,7 +277,7 @@ const ChhatBlog = () => {
                         <thead>
                             <tr className="bg-cyan-700 text-left">
                                 <th className="py-2 px-4 text-white font-medium">
-                                    #
+                                    No.
                                 </th>
                                 <th className="py-2 px-4 text-white font-medium">
                                     Title
@@ -276,11 +285,11 @@ const ChhatBlog = () => {
                                 <th className="py-2 px-4 text-white font-medium">
                                     Category
                                 </th>
-                                <th className="py-2 px-4 text-white font-medium text-center">
+                                <th className="py-2 px-4 text-white font-medium ">
                                     Image
                                 </th>
                                 <th className="py-2 px-4 text-white font-medium">
-                                    Created At
+                                    Posted Date
                                 </th>
                                 <th className="py-2 px-4 text-white font-medium">
                                     Actions
@@ -289,7 +298,7 @@ const ChhatBlog = () => {
                         </thead>
                         <tbody>
                             {currentBlogs.map((post, index) => (
-                                <tr key={post.id}>
+                                <tr key={post.id} className="font-medium text-gray-700">
                                     <td className="border py-2 px-4">
                                         {index + 1}
                                     </td>
@@ -300,34 +309,43 @@ const ChhatBlog = () => {
                                         {post.category}
                                     </td>
                                     <td className="border py-2 px-4 text-center">
-                                        {post.image && (
-                                            <img
-                                                src={`http://127.0.0.1:8000/storage/${
-                                                    post.image
-                                                }?${new Date().getTime()}`}
-                                                alt={post.title || "News image"}
-                                                className="w-20 h-20 object-cover rounded"
-                                            />
-                                        )}
+                                        <div className="flex justify-center items-center">
+                                            {post.image && (
+                                                <img
+                                                    src={`http://127.0.0.1:8000/storage/${
+                                                        post.image
+                                                    }?${new Date().getTime()}`}
+                                                    alt={
+                                                        post.title ||
+                                                        "News image"
+                                                    }
+                                                    className="w-30 h-20 object-cover rounded"
+                                                />
+                                            )}
+                                        </div>
                                     </td>
                                     <td className="border py-2 px-4">
                                         {formatDate(post.created_at)}
                                     </td>
                                     <td className="border py-2 px-4 text-center">
-                                        <button
-                                            className="bg-blue-500 text-white p-2 rounded mr-2"
-                                            onClick={() => handleEdit(post)}
-                                        >
-                                            <FaRegEdit />
-                                        </button>
-                                        <button
-                                            className="bg-red-500 text-white p-2 rounded"
-                                            onClick={() =>
-                                                handleDelete(post.id)
-                                            }
-                                        >
-                                            <FaTrash />
-                                        </button>
+                                        <div className="flex">
+                                            <button
+                                                className="bg-cyan-700 font-medium text-white px-4 py-2 flex items-center rounded-l-md hover:bg-cyan-800  duration-300 ease-in-out"
+                                                onClick={() => handleEdit(post)}
+                                            >
+                                                <FaRegEdit className="mr-2" />
+                                                Edit
+                                            </button>
+                                            <button
+                                                className="bg-red-600 font-medium text-white px-4 py-2 rounded-r-md hover:bg-red-700 flex items-center duration-300 ease-in-out"
+                                                onClick={() =>
+                                                    handleDelete(post.id)
+                                                }
+                                            >
+                                                <FaTrash className="mr-2" />
+                                                Delete
+                                            </button>
+                                        </div>
                                     </td>
                                 </tr>
                             ))}
@@ -336,35 +354,33 @@ const ChhatBlog = () => {
                 </div>
 
                 <div className="flex justify-between items-center mt-4">
-                    <div className="flex items-center">
-                        <button
-                            onClick={() => handlePageChange(currentPage - 1)}
-                            disabled={currentPage === 1}
-                            aria-label="Previous page"
-                            className="primary-bg-color text-white text-sm px-4 py-2 rounded disabled:opacity-50 inline-flex"
-                        >
-                            <GoArrowLeft className="mr-2 mt-1" />
-                            Previous
-                        </button>
-                        <button
-                            onClick={() => handlePageChange(currentPage + 1)}
-                            disabled={currentPage === totalPages}
-                            className="primary-bg-color text-white text-sm px-4 py-2 rounded disabled:opacity-50 inline-flex"
-                        >
-                            Next
-                            <GoArrowRight className="mt-1 ml-2" />
-                        </button>
-                    </div>
-                    <div className="text-sm text-gray-500">
+                    <button
+                        onClick={() => handlePageChange(currentPage - 1)}
+                        disabled={currentPage === 1}
+                        aria-label="Previous page"
+                        className="bg-cyan-700 text-white text-sm px-4 py-2 rounded disabled:opacity-50 inline-flex hover:shadow-lg duration-300 hover:bg-cyan-600"
+                    >
+                        <GoArrowLeft className="mr-2 mt-1" />
+                        Previous
+                    </button>
+                    <div>
                         Page {currentPage} of {totalPages}
                     </div>
+                    <button
+                        onClick={() => handlePageChange(currentPage + 1)}
+                        disabled={currentPage === totalPages}
+                        className="bg-cyan-700 text-white text-sm px-4 py-2 rounded disabled:opacity-50 inline-flex hover:shadow-lg duration-300 hover:bg-cyan-600"
+                    >
+                        Next
+                        <GoArrowRight className="mt-1 ml-2" />
+                    </button>
                 </div>
             </div>
 
             {modalOpen && (
                 <div className="fixed top-0 left-0 z-50 bg-black bg-opacity-50 w-full h-full">
-                    <div className="flex justify-center items-center h-full">
-                        <div className="bg-white w-11/12 sm:w-96 p-6 rounded-lg shadow-md">
+                    <div className="flex justify-center items-center h-full w-2/3 mx-auto">
+                        <div className="bg-white p-6 rounded-lg shadow-md w-full">
                             <h3 className="text-2xl mb-4">
                                 {isEditing ? "Edit Blog" : "Add Blog"}
                             </h3>
