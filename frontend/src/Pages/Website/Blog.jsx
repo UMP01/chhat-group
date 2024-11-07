@@ -110,10 +110,10 @@ const News = () => {
                                     className="w-full h-48 object-cover mb-4 rounded"
                                 />
                             )}
-                            <h2 className="text-md font-semibold text-gray-600 my-3 line-clamp-1">
+                            <h2 className="text-lg font-bold  my-3 line-clamp-1 font-khmer-nato">
                                 {article.title}
                             </h2>
-                            <p className="text-gray-600 line-clamp-4 font-normal">
+                            <p className="text-gray-600 line-clamp-4 font-normal font-khmer-nato">
                                 {article.content}
                             </p>
                             <div className="flex items-center justify-between">

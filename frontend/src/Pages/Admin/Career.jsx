@@ -322,9 +322,7 @@ const Modal = ({
     isEditing,
 }) => (
     <div
-        className={`fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 ${
-            isOpen ? "block" : "hidden"
-        }`}
+        className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50" 
     >
         <div className="bg-white rounded-lg shadow-lg px-6 py-3 w-1/3 border-2 max-h-[90vh] overflow-y-auto">
             <h2 className="text-lg font-normal mb-4 text-cyan-700">

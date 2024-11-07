@@ -45,7 +45,7 @@ const BlogDetail = () => {
             {article && (
                 <>
                     <div className="py-5 px-5 border-2 rounded-md">
-                        <h1 className="text-md sm:text-lg md:text-xl lg:text-2xl font-semibold mb-4 text-gray-700">
+                        <h1 className="text-md sm:text-lg md:text-xl lg:text-2xl font-semibold mb-4 text-gray-700 font-khmer-nato">
                             {article.title}
                         </h1>
                         <p className="text-gray-700 my-2">
@@ -72,7 +72,7 @@ const BlogDetail = () => {
                             )}
                         </div>
                         <div className="px-5 py-5 w-full md:w-1/2">
-                            <p className="text-gray-700 font-normal text-base sm:text-base md:text-base lg:text-base">
+                            <p className="text-gray-700 font-normal text-base sm:text-base md:text-base lg:text-base font-khmer-nato">
                                 {article.content}
                             </p>
                             <div className="text-gray-700 mt-4">
