@@ -144,7 +144,7 @@ const User = () => {
 
     if (error) {
         return (
-            <div className="bg-red-100 text-red-700 py-5 px-5 rounded-md text-center">
+            <div className="bg-red-100 text-red-700 py-5 px-5 rounded-md">
                 <p>Error: {error}</p>
             </div>
         );
@@ -210,7 +210,7 @@ const User = () => {
                                         key={user.id}
                                         className="border-b hover:bg-gray-100"
                                     >
-                                        <td className="border py-2 px-4 font-medium text-gray-700 text-center">
+                                        <td className="border py-2 px-4 font-medium text-gray-700" style={{width: '4%'}}>
                                             {index +
                                                 1 +
                                                 (currentPage - 1) *
@@ -222,17 +222,17 @@ const User = () => {
                                         <td className="border py-2 px-4 font-medium text-gray-700">
                                             {user.email}
                                         </td>
-                                        <td className="border py-2 px-4 font-medium text-gray-700">
+                                        <td className="border py-2 px-4 font-medium text-gray-700 w-1/12">
                                             {user.branch}
                                         </td>
-                                        <td className="border py-2 px-4 capitalize font-medium text-gray-700">
+                                        <td className="border py-2 px-4 capitalize font-medium text-gray-700 w-1/12">
                                             {user.permission}
                                         </td>
-                                        <td className="border py-2 px-4 font-medium text-gray-700">
+                                        <td className="border py-2 px-4 font-medium text-gray-700 w-2/12">
                                             {formatDate(user.created_at)}
                                         </td>
-                                        <td className="border py-2 px-4 text-center">
-                                            <div className="flex justify-center">
+                                        <td className="border py-2 px-4 w-2/12">
+                                            <div className="flex">
                                                 <button
                                                     className="bg-cyan-700 font-medium text-white px-4 py-2 flex items-center rounded-l-md hover:bg-cyan-800 duration-300 ease-in-out"
                                                     onClick={() =>
@@ -294,11 +294,11 @@ const User = () => {
             </div>
 
             {isModalOpen && (
-                <div className="fixed inset-0 flex items-center justify-center z-50">
+                <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
                     <div className="bg-white rounded-lg shadow-lg p-5 w-1/3">
-                        <h3 className="text-xl font-bold mb-4">
+                        <h2 className="text-lg font-normal mb-4 text-cyan-700">
                             {editUser ? "Edit User" : "Add User"}
-                        </h3>
+                        </h2>
                         <form onSubmit={handleSubmit}>
                             <div className="mb-4">
                                 <label htmlFor="name" className="block mb-2">
@@ -308,6 +308,7 @@ const User = () => {
                                     type="text"
                                     name="name"
                                     id="name"
+                                    placeholder="Enter Name"
                                     value={formData.name}
                                     onChange={handleChange}
                                     className="border w-full px-3 py-2"
@@ -322,6 +323,7 @@ const User = () => {
                                     type="email"
                                     name="email"
                                     id="email"
+                                    placeholder="Enter Email"
                                     value={formData.email}
                                     onChange={handleChange}
                                     className="border w-full px-3 py-2"
@@ -336,6 +338,7 @@ const User = () => {
                                     type="text"
                                     name="phone"
                                     id="phone"
+                                    placeholder="Enter Phone Number"
                                     value={formData.phone}
                                     onChange={handleChange}
                                     className="border w-full px-3 py-2"
@@ -364,7 +367,7 @@ const User = () => {
                                     id="branch"
                                     value={formData.branch}
                                     onChange={handleChange}
-                                    className="border w-full px-3 py-2"
+                                    className="w-full px-4 py-2 border rounded"
                                 >
                                     <option value="Phnom Penh">
                                         Phnom Penh
@@ -383,7 +386,7 @@ const User = () => {
                                     id="permission"
                                     value={formData.permission}
                                     onChange={handleChange}
-                                    className="border w-full px-3 py-2"
+                                    className="w-full px-4 py-2 border rounded"
                                 >
                                     <option value="admin">Admin</option>
                                     <option value="user">User</option>
@@ -401,6 +404,7 @@ const User = () => {
                                         type="password"
                                         name="password"
                                         id="password"
+                                        placeholder="Enter New Password"
                                         value={formData.password}
                                         onChange={handleChange}
                                         className="border w-full px-3 py-2"
@@ -408,17 +412,17 @@ const User = () => {
                                     />
                                 </div>
                             )}
-                            <div className="flex justify-end">
+                            <div className="flex justify-end space-x-3">
                                 <button
                                     type="button"
                                     onClick={resetFormData}
-                                    className="bg-gray-300 text-gray-700 px-4 py-2 rounded mr-2"
+                                    className="bg-gray-300 text-black px-4 py-2 rounded hover:bg-gray-400"
                                 >
                                     Cancel
                                 </button>
                                 <button
                                     type="submit"
-                                    className="bg-cyan-600 text-white py-2 px-4 rounded hover:bg-cyan-700"
+                                    className="bg-cyan-700 text-white px-4 py-2 rounded hover:bg-cyan-800"
                                 >
                                     {editUser ? "Update User" : "Add User"}
                                 </button>

@@ -171,7 +171,7 @@ const AdminNavBar = ({ toggleSidebar, isOpen }) => {
                             src={userData.avatar || DefaultAvatar}
                             alt="User Avatar"
                         />
-                        <span className="font-bold text-gray-800">
+                        <span className="font-bold capitalize text-gray-800">
                             {userData.name}
                         </span>
                     </button>

@@ -103,12 +103,12 @@ const JobList = () => {
                     type="text"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="w-full py-2 pl-4 pr-20 rounded-l-md text-gray-700 border-t-2 border-l-2 border-b-2 border-sky-600 focus:outline-none focus:ring-0 focus:ring-sky-600"
+                    className="w-full py-2 pl-4 pr-20 rounded-l-md text-gray-700 border-t-2 border-l-2 border-b-2 border-cyan-700 focus:outline-none focus:ring-0 focus:ring-cyan-700"
                     placeholder="Search for jobs..."
                 />
                 <button
                     type="submit"
-                    className="py-2 px-4 bg-sky-600 text-white border-2 border-sky-600 rounded-r-md hover:bg-sky-700"
+                    className="py-2 px-4 bg-cyan-700 text-white border-2 border-cyan-700 rounded-r-md hover:bg-cyan-800"
                 >
                     Search
                 </button>

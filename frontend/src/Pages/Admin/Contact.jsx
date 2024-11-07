@@ -100,7 +100,7 @@ const SentContact = () => {
 
     if (error) {
         return (
-            <div className="bg-red-100 text-red-700 py-5 px-5 rounded-md text-center">
+            <div className="bg-red-100 text-red-700 py-5 px-5 rounded-md">
                 <p>{error}</p>
             </div>
         );
@@ -129,7 +129,7 @@ const SentContact = () => {
                     </button>
                 </div>
                 <div className="overflow-x-auto px-2 flex justify-center">
-                    <table className="min-w-full table-auto text-sm text-center">
+                    <table className="min-w-full table-auto text-sm">
                         <thead>
                             <tr className="bg-cyan-700 rounded-lg text-left">
                                 <th className="py-2 px-4 border-2 border-cyan-700 text-white font-medium">
@@ -156,22 +156,20 @@ const SentContact = () => {
                                         key={contact.id}
                                         className="border-b text-gray-800 transition duration-300 ease-in-out hover:bg-gray-100"
                                     >
-                                        <td className="border py-2 px-4 font-medium text-gray-700">
+                                        <td className="border py-2 px-4 font-medium text-gray-700" style={{width: '4%'}}>
                                             {index + indexOfFirstContact + 1}
                                         </td>
-                                        <td className="border py-2 px-4 font-medium text-gray-700 text-left">
+                                        <td className="border py-2 px-4 font-medium text-gray-700 text-left w-2/12">
                                             {contact.fullname}
                                         </td>
                                         <td className="border py-2 px-4 font-medium text-gray-700 text-left">
                                             {contact.subject}
                                         </td>
-                                        <td className="border py-2 px-4 font-medium text-start text-gray-700">
-                                            {new Date(
-                                                contact.created_at
-                                            ).toLocaleString()}
+                                        <td className="border py-2 px-4 font-medium text-gray-700  w-2/12">
+                                            {formatDate(contact.created_at)}
                                         </td>
-                                        <td className="border py-2 px-4 text-center">
-                                            <div className="flex justify-center">
+                                        <td className="border py-2 px-4 w-2/12">
+                                            <div className="flex">
                                                 <Link
                                                     to={`/admin/contact/sent/${contact.id}`} // Link to the details page
                                                     className="bg-cyan-700 font-medium text-white px-4 py-2 flex items-center rounded-l-md hover:bg-cyan-800 duration-300 ease-in-out"
@@ -230,6 +228,11 @@ const SentContact = () => {
             </div>
         </div>
     );
+};
+
+const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleString();
 };
 
 export default SentContact;

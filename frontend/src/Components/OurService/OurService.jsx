@@ -12,7 +12,7 @@ const cardsData = [
         title: "Chhat Research",
         description:
             "Discover why countless businesses trust us as their go-to partner for quality and service. Welcome to Chhat Research where excellence meets your business needs.",
-        link: "/contact",
+        link: "/chhat-research",
     },
     {
         imageSrc: Trading,

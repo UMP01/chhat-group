@@ -131,7 +131,7 @@ const Career = () => {
 
     const indexOfLastCareer = currentPage * ITEMS_PER_PAGE;
     const indexOfFirstCareer = indexOfLastCareer - ITEMS_PER_PAGE;
-    const currentCareeres = filteredCareers.slice(
+    const currentCareer = filteredCareers.slice(
         indexOfFirstCareer,
         indexOfLastCareer
     );
@@ -148,7 +148,7 @@ const Career = () => {
     }
     if (error) {
         return (
-            <div className="bg-red-100 text-red-700 py-5 px-5 rounded-md text-center">
+            <div className="bg-red-100 text-red-700 py-5 px-5 rounded-md">
                 <p>Error: {error}</p>
             </div>
         );
@@ -193,7 +193,7 @@ const Career = () => {
                                     "No.",
                                     "Title",
                                     "Location",
-                                    "Dead Line",
+                                    "Deadline",
                                     "Job Type",
                                     "Salary",
                                     "Actions",
@@ -208,13 +208,13 @@ const Career = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {currentCareeres.length > 0 ? (
-                                currentCareeres.map((career, index) => (
+                            {currentCareer.length > 0 ? (
+                                currentCareer.map((career, index) => (
                                     <tr
                                         key={career.id}
                                         className="border-b hover:bg-gray-100"
                                     >
-                                        <td className="border py-2 px-4 font-medium text-gray-700 text-center">
+                                        <td className="border py-2 px-4 font-medium text-gray-700" style={{width: '4%'}}>
                                             {index +
                                                 1 +
                                                 (currentPage - 1) *
@@ -223,22 +223,22 @@ const Career = () => {
                                         <td className="border py-2 px-4 font-medium text-gray-700">
                                             {career.title}
                                         </td>
-                                        <td className="border py-2 px-4 font-medium text-gray-700">
+                                        <td className="border py-2 px-4 font-medium text-gray-700 w-2/12">
                                             {career.location}
                                         </td>
-                                        <td className="border py-2 px-4 font-medium text-gray-700">
+                                        <td className="border py-2 px-4 font-medium text-gray-700 w-1/12">
                                             {new Date(
                                                 career.deadline
                                             ).toLocaleDateString()}
                                         </td>
-                                        <td className="border py-2 px-4 font-medium text-gray-700">
+                                        <td className="border py-2 px-4 font-medium capitalize text-gray-700 w-1/12">
                                             {career.jobtype}
                                         </td>
-                                        <td className="border py-2 px-4 font-medium text-gray-700 text-right">
+                                        <td className="border py-2 px-4 font-medium text-gray-700 w-1/12">
                                             {career.salary}.00 $
                                         </td>
                                         <td className="border py-2 px-4 font-medium text-gray-700 w-2/12">
-                                            <div className="flex justify-center">
+                                            <div className="flex">
                                                 <button
                                                     className="bg-cyan-700 font-medium text-white px-4 py-2 flex items-center rounded-l-md hover:bg-cyan-800  duration-300 ease-in-out"
                                                     onClick={() =>
@@ -351,14 +351,14 @@ const Modal = ({
                         htmlFor="jobtype"
                         className="block text-gray-700 font-normal mb-3"
                     >
-                        Jobtype
+                        Job Type
                     </label>
                     <select
                         name="jobtype"
                         id="jobtype"
                         value={formData.jobtype}
                         onChange={onChange}
-                        className="border w-full px-3 py-2"
+                        className="w-full px-4 py-2 border rounded"
                     >
                         <option value="full time">Full time</option>
                         <option value="part time">Part time</option>
@@ -406,19 +406,19 @@ const Modal = ({
                         rows="5"
                     />
                 </div>
-                <div className="flex justify-end space-x-2">
+                <div className="flex justify-end space-x-3">
+                    <button
+                        type="button"
+                        className="bg-gray-300 text-black px-4 py-2 rounded hover:bg-gray-400"
+                        onClick={onClose}
+                    >
+                        Cancel
+                    </button>
                     <button
                         type="submit"
                         className="bg-cyan-700 text-white px-4 py-2 rounded hover:bg-cyan-800"
                     >
-                        {isEditing ? "Update" : "Add"}
-                    </button>
-                    <button
-                        type="button"
-                        className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded"
-                        onClick={onClose}
-                    >
-                        Cancel
+                        {isEditing ? "Update Career" : "Create Career"}
                     </button>
                 </div>
             </form>

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom"; // To access the dynamic 'id' from URL
-import { axiosClient } from "../../api/axios"; // Your axios instance
+import { useNavigate, useParams } from "react-router-dom";
+import { axiosClient } from "../../api/axios";
 import { FaTelegramPlane } from "react-icons/fa";
 
 const SentContactDetails = () => {
-    const { id } = useParams(); // Extract contact ID from URL
+    const { id } = useParams();
     const [contact, setContact] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -13,7 +13,7 @@ const SentContactDetails = () => {
     useEffect(() => {
         const fetchContactDetails = async () => {
             try {
-                const response = await axiosClient.get(`/contacts/${id}`); // Make API call with the contact ID
+                const response = await axiosClient.get(`/contacts/${id}`);
                 setContact(response.data);
             } catch (error) {
                 setError("Error fetching contact details");
@@ -23,9 +23,9 @@ const SentContactDetails = () => {
         };
 
         fetchContactDetails();
-    }, [id]); // Triggered whenever 'id' changes
+    }, [id]);
     const handleGoBack = () => {
-        navigate("/admin/contact"); // Navigate back to the sent contacts page
+        navigate("/admin/contact");
     };
     if (loading) {
         return (
@@ -48,8 +48,8 @@ const SentContactDetails = () => {
     }
 
     return (
-        <div className="container mx-auto p-4 font-medium">
-            <h2 className="text-2xl font-medium text-gray-800 mb-4">
+        <div>
+            <h2 className="text-2xl font-bold text-gray-800 mb-4">
                 Contact Details
             </h2>
             <div className="bg-white p-6 shadow-lg rounded-lg">
@@ -77,7 +77,7 @@ const SentContactDetails = () => {
                 <div className="flex justify-start my-2 gap-4">
                     <button
                         onClick={handleGoBack}
-                        className="bg-red-500 text-sm hover:bg-red-600 duration-300 text-white px-4 py-2 rounded"
+                        className="bg-gray-300 text-black px-4 py-2 rounded hover:bg-gray-400"
                     >
                         Go Back
                     </button>

@@ -40,7 +40,7 @@ const Footer = () => {
                         <ul className="text-neutral space-y-2">
                             <li><a href="/about" className="text-neutral-300 hover:text-neutral-500">About Us</a></li>
                             <li><a href="/contact" className="text-neutral-300 hover:text-neutral-500">Contact Us</a></li>
-                            <li><a className="text-neutral-300 hover:text-neutral-500">Privacy & Policy</a></li>
+                            {/* <li><a className="text-neutral-300 hover:text-neutral-500">Privacy & Policy</a></li> */}
                         </ul>
                     </div>
 

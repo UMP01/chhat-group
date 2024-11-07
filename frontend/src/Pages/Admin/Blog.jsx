@@ -323,7 +323,7 @@ const ChhatBlog = () => {
                     <table className="min-w-full table-auto text-sm">
                         <thead>
                             <tr className="bg-cyan-700 text-left">
-                                <th className="py-2 px-4 text-white font-medium w-1/12">
+                                <th className="py-2 px-4 text-white font-medium" style={{width: '4%'}}>
                                     No.
                                 </th>
                                 <th className="py-2 px-4 text-white font-medium w-3/12">
@@ -346,19 +346,19 @@ const ChhatBlog = () => {
                         <tbody>
                             {currentBlogs.map((post, index) => (
                                 <tr key={post.id} className="font-medium text-gray-700">
-                                    <td className="border py-2 px-4 text-center">
-                                    {index +
-                                                1 +
-                                                (currentPage - 1) *
-                                                    ITEMS_PER_PAGE}
+                                    <td className="border py-2 px-4">
+                                        {index +
+                                            1 +
+                                            (currentPage - 1) *
+                                                ITEMS_PER_PAGE}
                                     </td>
                                     <td className="border py-2 px-4">
                                         {post.title}
                                     </td>
-                                    <td className="border py-2 px-4 text-center">
+                                    <td className="border py-2 px-4">
                                         {post.category}
                                     </td>
-                                    <td className="border py-2 px-4 text-center">
+                                    <td className="border py-2 px-4">
                                         <div className="flex justify-center items-center">
                                             {post.image && (
                                                 <img
@@ -374,11 +374,11 @@ const ChhatBlog = () => {
                                             )}
                                         </div>
                                     </td>
-                                    <td className="border py-2 px-4 text-center">
+                                    <td className="border py-2 px-4">
                                         {formatDate(post.created_at)}
                                     </td>
-                                    <td className="border py-2 px-4 text-center">
-                                        <div className="flex justify-center">
+                                    <td className="border py-2 px-4">
+                                        <div className="flex">
                                             <button
                                                 className="bg-cyan-700 font-medium text-white px-4 py-2 flex items-center rounded-l-md hover:bg-cyan-800  duration-300 ease-in-out"
                                                 onClick={() => handleEdit(post)}
@@ -441,6 +441,7 @@ const ChhatBlog = () => {
                                     <input
                                         type="text"
                                         name="title"
+                                        placeholder="Enter Title"
                                         value={formData.title}
                                         onChange={handleChange}
                                         className="w-full px-4 py-2 border rounded"
@@ -472,6 +473,7 @@ const ChhatBlog = () => {
                                     </label>
                                     <textarea
                                         name="content"
+                                        placeholder="Content"
                                         value={formData.content}
                                         onChange={handleChange}
                                         className="w-full px-4 py-2 border rounded"
@@ -508,17 +510,17 @@ const ChhatBlog = () => {
                                     <button
                                         type="button"
                                         onClick={resetForm}
-                                        className="bg-gray-300 text-black px-4 py-2 rounded"
+                                        className="bg-gray-300 text-black px-4 py-2 rounded hover:bg-gray-400"
                                     >
                                         Cancel
                                     </button>
                                     <button
                                         type="submit"
-                                        className="bg-cyan-700 text-white px-4 py-2 rounded"
+                                        className="bg-cyan-700 text-white px-4 py-2 rounded hover:bg-cyan-800"
                                     >
                                         {isEditing
                                             ? "Update Blog"
-                                            : "Create Blog"}
+                                            : "Add Blog"}
                                     </button>
                                 </div>
                             </form>
