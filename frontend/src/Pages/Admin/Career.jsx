@@ -185,7 +185,7 @@ const Career = () => {
                     </div>
                 </div>
 
-                <div className="overflow-x-auto px-2 capitalize">
+                <div className="overflow-x-auto px-2">
                     <table className="min-w-full text-sm table-auto">
                         <thead>
                             <tr className="bg-cyan-700 text-white">
@@ -234,11 +234,11 @@ const Career = () => {
                                         <td className="border py-2 px-4 font-medium text-gray-700">
                                             {career.jobtype}
                                         </td>
-                                        <td className="border py-2 px-4 font-medium text-gray-700">
-                                            {career.salary}
+                                        <td className="border py-2 px-4 font-medium text-gray-700 text-right">
+                                            {career.salary}.00 $
                                         </td>
-                                        <td className="border py-2 px-4 font-medium text-gray-700">
-                                            <div className="flex">
+                                        <td className="border py-2 px-4 font-medium text-gray-700 w-2/12">
+                                            <div className="flex justify-center">
                                                 <button
                                                     className="bg-cyan-700 font-medium text-white px-4 py-2 flex items-center rounded-l-md hover:bg-cyan-800  duration-300 ease-in-out"
                                                     onClick={() =>

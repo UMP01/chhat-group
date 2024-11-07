@@ -5,7 +5,7 @@ import { FaRegEdit, FaTrash, FaSync } from "react-icons/fa";
 import { axiosClient } from "../../api/axios";
 import { IoAdd } from "react-icons/io5";
 
-const ITEMS_PER_PAGE = 4;
+const ITEMS_PER_PAGE = 5;
 
 const ChhatBlog = () => {
     const [posts, setPosts] = useState([]);
@@ -104,10 +104,57 @@ const ChhatBlog = () => {
     const handleFileChange = (e) => {
         const file = e.target.files[0];
         if (file) {
-            setFormData({
-                ...formData,
-                image: file,
-            });
+            const img = new Image();
+            const reader = new FileReader();
+    
+            reader.onload = (event) => {
+                img.src = event.target.result;
+                img.onload = () => {
+                    const canvas = document.createElement("canvas");
+                    const ctx = canvas.getContext("2d");
+    
+                    // Set canvas dimensions to 4:3 aspect ratio (e.g., 400x300)
+                    const aspectRatio = 4 / 3;
+                    let width = img.width;
+                    let height = img.height;
+    
+                    // Adjust width and height to fit the 4:3 aspect ratio
+                    if (width / height > aspectRatio) {
+                        width = height * aspectRatio;
+                    } else {
+                        height = width / aspectRatio;
+                    }
+    
+                    canvas.width = width;
+                    canvas.height = height;
+    
+                    // Draw cropped image
+                    ctx.drawImage(
+                        img,
+                        (img.width - width) / 2,
+                        (img.height - height) / 2,
+                        width,
+                        height,
+                        0,
+                        0,
+                        width,
+                        height
+                    );
+    
+                    // Convert canvas to blob and set it to formData
+                    canvas.toBlob((blob) => {
+                        const croppedFile = new File([blob], file.name, {
+                            type: file.type,
+                            lastModified: Date.now(),
+                        });
+                        setFormData({
+                            ...formData,
+                            image: croppedFile,
+                        });
+                    }, file.type);
+                };
+            };
+            reader.readAsDataURL(file);
         }
     };
 
@@ -276,22 +323,22 @@ const ChhatBlog = () => {
                     <table className="min-w-full table-auto text-sm">
                         <thead>
                             <tr className="bg-cyan-700 text-left">
-                                <th className="py-2 px-4 text-white font-medium">
+                                <th className="py-2 px-4 text-white font-medium w-1/12">
                                     No.
                                 </th>
-                                <th className="py-2 px-4 text-white font-medium">
+                                <th className="py-2 px-4 text-white font-medium w-3/12">
                                     Title
                                 </th>
-                                <th className="py-2 px-4 text-white font-medium">
+                                <th className="py-2 px-4 text-white font-medium w-1/12">
                                     Category
                                 </th>
-                                <th className="py-2 px-4 text-white font-medium ">
+                                <th className="py-2 px-4 text-white font-medium w-1/12">
                                     Image
                                 </th>
-                                <th className="py-2 px-4 text-white font-medium">
+                                <th className="py-2 px-4 text-white font-medium w-1/12">
                                     Posted Date
                                 </th>
-                                <th className="py-2 px-4 text-white font-medium">
+                                <th className="py-2 px-4 text-white font-medium w-1/12">
                                     Actions
                                 </th>
                             </tr>
@@ -299,13 +346,16 @@ const ChhatBlog = () => {
                         <tbody>
                             {currentBlogs.map((post, index) => (
                                 <tr key={post.id} className="font-medium text-gray-700">
-                                    <td className="border py-2 px-4">
-                                        {index + 1}
+                                    <td className="border py-2 px-4 text-center">
+                                    {index +
+                                                1 +
+                                                (currentPage - 1) *
+                                                    ITEMS_PER_PAGE}
                                     </td>
                                     <td className="border py-2 px-4">
                                         {post.title}
                                     </td>
-                                    <td className="border py-2 px-4">
+                                    <td className="border py-2 px-4 text-center">
                                         {post.category}
                                     </td>
                                     <td className="border py-2 px-4 text-center">
@@ -324,11 +374,11 @@ const ChhatBlog = () => {
                                             )}
                                         </div>
                                     </td>
-                                    <td className="border py-2 px-4">
+                                    <td className="border py-2 px-4 text-center">
                                         {formatDate(post.created_at)}
                                     </td>
                                     <td className="border py-2 px-4 text-center">
-                                        <div className="flex">
+                                        <div className="flex justify-center">
                                             <button
                                                 className="bg-cyan-700 font-medium text-white px-4 py-2 flex items-center rounded-l-md hover:bg-cyan-800  duration-300 ease-in-out"
                                                 onClick={() => handleEdit(post)}
@@ -378,12 +428,11 @@ const ChhatBlog = () => {
             </div>
 
             {modalOpen && (
-                <div className="fixed top-0 left-0 z-50 bg-black bg-opacity-50 w-full h-full">
-                    <div className="flex justify-center items-center h-full w-2/3 mx-auto">
-                        <div className="bg-white p-6 rounded-lg shadow-md w-full">
-                            <h3 className="text-2xl mb-4">
+                <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
+                    <div className="bg-white rounded-lg shadow-lg px-6 py-3 w-1/3 border-2 max-h-[90vh] overflow-y-auto">
+                            <h2 className="text-lg font-normal mb-4 text-cyan-700">
                                 {isEditing ? "Edit Blog" : "Add Blog"}
-                            </h3>
+                            </h2>
                             <form onSubmit={handleSubmit}>
                                 <div className="mb-4">
                                     <label className="block text-gray-700 font-semibold mb-2">
@@ -402,14 +451,20 @@ const ChhatBlog = () => {
                                     <label className="block text-gray-700 font-semibold mb-2">
                                         Category
                                     </label>
-                                    <input
-                                        type="text"
+                                    <select
+                                        id="cacategory"
                                         name="category"
                                         value={formData.category}
                                         onChange={handleChange}
                                         className="w-full px-4 py-2 border rounded"
                                         required
-                                    />
+                                    >
+                                        <option value="" disabled>
+                                            Select Category
+                                        </option>
+                                        <option value="Chhat Group">Chhat Group</option>
+                                        <option value="Chhat Research">Chhat Research</option>
+                                    </select>
                                 </div>
                                 <div className="mb-4">
                                     <label className="block text-gray-700 font-semibold mb-2">
@@ -467,7 +522,6 @@ const ChhatBlog = () => {
                                     </button>
                                 </div>
                             </form>
-                        </div>
                     </div>
                 </div>
             )}
