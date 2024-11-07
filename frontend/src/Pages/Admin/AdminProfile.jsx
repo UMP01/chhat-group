@@ -77,7 +77,7 @@ const AdminProfile = ({ toggleSidebar }) => {
     }
 
     return (
-        <div>
+        <div className="font-medium">
             <h2 className="text-2xl font-bold text-gray-800 mb-4">Profile</h2>
     
             <div className="bg-white p-6 rounded-md shadow-md w-full">

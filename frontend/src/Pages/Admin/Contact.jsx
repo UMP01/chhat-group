@@ -146,9 +146,7 @@ const Contact = () => {
                                 <th className="py-2 px-4 border-2 border-cyan-700 text-white font-medium">
                                     Name
                                 </th>
-                                <th className="py-2 px-4 border-2 border-cyan-700 text-white font-medium">
-                                    Message
-                                </th>
+                                
                                 <th className="py-2 px-4 border-2 border-cyan-700 text-white font-medium">
                                     Subject
                                 </th>
@@ -173,13 +171,11 @@ const Contact = () => {
                                         <td className="border py-2 px-4 font-medium text-gray-700  text-left">
                                             {contact.fullname}
                                         </td>
-                                        <td className="border py-2 px-4 font-medium text-gray-700  text-left">
-                                            {contact.message}
-                                        </td>
+                                        
                                         <td className="border py-2 px-4 font-medium text-gray-700  text-left">
                                             {contact.subject}
                                         </td>
-                                        <td className="border py-2 px-4 font-medium text-gray-700">
+                                        <td className="border py-2 px-4 font-medium text-start text-gray-700">
                                             {formatDate(contact.created_at)}
                                         </td>
                                         <td className="border py-2 px-4 text-center">

@@ -222,13 +222,13 @@ const User = () => {
                                         <td className="border py-2 px-4 font-medium text-gray-700">
                                             {user.email}
                                         </td>
-                                        <td className="border py-2 px-4 font-medium text-gray-700 text-center">
+                                        <td className="border py-2 px-4 font-medium text-gray-700">
                                             {user.branch}
                                         </td>
-                                        <td className="border py-2 px-4 capitalize font-medium text-gray-700 text-center">
+                                        <td className="border py-2 px-4 capitalize font-medium text-gray-700">
                                             {user.permission}
                                         </td>
-                                        <td className="border py-2 px-4 font-medium text-gray-700 text-center">
+                                        <td className="border py-2 px-4 font-medium text-gray-700">
                                             {formatDate(user.created_at)}
                                         </td>
                                         <td className="border py-2 px-4 text-center">
