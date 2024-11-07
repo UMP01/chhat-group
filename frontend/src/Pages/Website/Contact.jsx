@@ -1,4 +1,4 @@
-import ContactForm from "../../Components/ContactForm/ContactForm";
+import ContactForm from "../../Components/Contact/ContactForm";
 import { FaPhoneAlt } from "react-icons/fa";
 import { IoMailSharp, IoLocationSharp } from "react-icons/io5";
 import { FaYoutube, FaFacebookF } from "react-icons/fa";
