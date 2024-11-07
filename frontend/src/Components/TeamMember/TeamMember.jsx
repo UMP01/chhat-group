@@ -26,7 +26,7 @@ const TeamMember = ({ name, location, role, phone, email, mailLink, image }) => 
                     <FiPhone className="me-1 text-cyan-700" />
                     {phone}
                 </p>
-                <a className="flex items-center text-gray-700 text-sm my-1" href={mailLink}>
+                <a className="flex items-center text-gray-700 text-sm my-1 hover:text-cyan-700 hover:scale-105 duration-300" href={mailLink}>
                     <IoMailOutline className="me-1 text-cyan-700" />
                     {email}
                 </a>

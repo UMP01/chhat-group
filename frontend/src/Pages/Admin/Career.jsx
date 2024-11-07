@@ -185,7 +185,7 @@ const Career = () => {
                     </div>
                 </div>
 
-                <div className="overflow-x-auto px-2">
+                <div className="overflow-x-auto px-2 capitalize">
                     <table className="min-w-full text-sm table-auto">
                         <thead>
                             <tr className="bg-cyan-700 text-white">

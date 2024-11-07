@@ -7,7 +7,7 @@ import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 const Breadcrumb = ({ curPage, lastPage = null, lastPageLink = null }) => {
     return (
         <nav
-            className="container max-w-7xl mx-auto py-3 px-5"
+            className="container max-w-7xl mx-auto py-3 px-5 font-medium"
             aria-label="Breadcrumb"
         >
             <ol className="inline-flex items-center space-x-1 md:space-x-3">

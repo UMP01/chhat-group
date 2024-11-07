@@ -1,15 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { axiosClient } from "../../api/axios";
-import { IoLocationOutline } from "react-icons/io5";
-import { IoTimeOutline } from "react-icons/io5";
+import { IoLocationOutline, IoTimeOutline } from "react-icons/io5";
 import { Link } from "react-router-dom";
 
+const ITEMS_PER_PAGE = 5; // Number of jobs per page
+
 const JobList = () => {
-    const [jobs, setJobs] = useState([]);
+    const [jobs, setJobs] = useState([]); // Full list of jobs
+    const [filteredJobs, setFilteredJobs] = useState([]); // Jobs to display (filtered)
     const [searchTerm, setSearchTerm] = useState("");
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [currentPage, setCurrentPage] = useState(1);
 
+    // Fetch jobs from API
     const fetchJobs = async () => {
         setLoading(true);
         setError(null);
@@ -19,7 +23,8 @@ const JobList = () => {
             if (jobList.length === 0) {
                 setError("No job listings available at this time.");
             }
-            setJobs(jobList);
+            setJobs(jobList); // Save full list of jobs
+            setFilteredJobs(jobList); // Initially show all jobs
         } catch (error) {
             console.error("Error fetching jobs:", error);
             setError("Failed to fetch job listings. Please try again later.");
@@ -28,17 +33,32 @@ const JobList = () => {
         }
     };
 
+    // Handle search functionality
+    const handleSearch = (e) => {
+        e.preventDefault();
+        const filtered = jobs.filter((job) =>
+            job.title.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+        setFilteredJobs(filtered);
+        setCurrentPage(1); // Reset to first page after search
+    };
+
+    // Handle pagination change
+    const handlePageChange = (pageNumber) => {
+        setCurrentPage(pageNumber);
+    };
+
+    // Get jobs for the current page
+    const indexOfLastJob = currentPage * ITEMS_PER_PAGE;
+    const indexOfFirstJob = indexOfLastJob - ITEMS_PER_PAGE;
+    const currentJobs = filteredJobs.slice(indexOfFirstJob, indexOfLastJob);
+
+    // Calculate total pages
+    const totalPages = Math.ceil(filteredJobs.length / ITEMS_PER_PAGE);
+
     useEffect(() => {
         fetchJobs();
     }, []);
-
-    const handleSearch = (e) => {
-        e.preventDefault();
-        const filteredJobs = jobs.filter((job) =>
-            job.title.toLowerCase().includes(searchTerm.toLowerCase())
-        );
-        setJobs(filteredJobs);
-    };
 
     if (loading) {
         return (
@@ -74,7 +94,7 @@ const JobList = () => {
     }
 
     return (
-        <div className="rubik">
+        <div className="font-medium">
             <form
                 onSubmit={handleSearch}
                 className="search-container flex items-center mb-4"
@@ -95,8 +115,8 @@ const JobList = () => {
             </form>
             <div className="mt-4">
                 <ul className="space-y-2">
-                    {jobs.length > 0 ? (
-                        jobs.map((job) => (
+                    {currentJobs.length > 0 ? (
+                        currentJobs.map((job) => (
                             <li
                                 key={job.id}
                                 className="py-2 px-5 rounded-md shadow-md border border-gray-100"
@@ -129,10 +149,35 @@ const JobList = () => {
                             </li>
                         ))
                     ) : (
-                        <p>No jobs found</p>
+                        <div className="bg-cyan-100 bg-opacity-50 text-cyan-700 p-5">
+                            <p className="text-center">No Jobs Found.</p>
+                        </div>
                     )}
                 </ul>
             </div>
+
+            {/* Conditionally render pagination if jobs are found */}
+            {filteredJobs.length > 0 && (
+                <div className="flex justify-between items-center mt-4">
+                    <button
+                        onClick={() => handlePageChange(currentPage - 1)}
+                        disabled={currentPage === 1}
+                        className="bg-cyan-700 text-white text-sm px-4 py-2 rounded disabled:opacity-50 inline-flex hover:shadow-lg duration-300 hover:bg-cyan-600"
+                    >
+                        Previous
+                    </button>
+                    <div>
+                        Page {currentPage} of {totalPages}
+                    </div>
+                    <button
+                        onClick={() => handlePageChange(currentPage + 1)}
+                        disabled={currentPage === totalPages}
+                        className="bg-cyan-700 text-white text-sm px-4 py-2 rounded disabled:opacity-50 inline-flex hover:shadow-lg duration-300 hover:bg-cyan-600"
+                    >
+                        Next
+                    </button>
+                </div>
+            )}
         </div>
     );
 };

@@ -8,6 +8,7 @@
     font-weight: 400;
     --primary-color: #2494bc;
     --secondary-color: #384d5e;
+    line-height: 1.5;
 }
 .primary-color {
     color: #2494bc;

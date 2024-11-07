@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { axiosClient } from "../../api/axios";
+import Breadcrumb from "../../Components/Breadcrumb/Breadcrumb";
 
 const CareerDetails = () => {
     const { id } = useParams();
@@ -63,8 +64,9 @@ const CareerDetails = () => {
     }
 
     return (
-        <div className="max-w-7xl mx-auto mb-5 px-5">
-            <div className="bg-cyan-100 py-4 px-5 rounded-md text-gray-600">
+        <div className="max-w-7xl mx-auto mb-5 px-5 font-medium">
+            <Breadcrumb curPage={jobs.title} lastPage="Career" lastPageLink="/career" />
+            <div className="bg-cyan-100 bg-opacity-50 py-4 px-5 rounded-md text-gray-600">
                 <h2 className="text-xl">{jobs.title}</h2>
                 <div className="flex justify-between items-center mb-2">
                     <span className="pt-3 font-base">
@@ -96,7 +98,7 @@ const CareerDetails = () => {
             </div>
             <div className="mt-6 px-5">
                 <h2 className="text-lg text-cyan-700">
-                    Key Selection Criteria and Qualification
+                    Qualification and Requirement
                 </h2>
                 <ul className="pl-5 pt-3 list-disc text-gray-700">
                     {jobs.requirement ? (
@@ -130,7 +132,7 @@ const CareerDetails = () => {
                 <h2 className="text-xl text-cyan-700 mb-3">How to Apply</h2>
                 <a
                     href="mailto:info@chhatgroup.com"
-                    className="hover:text-cyan-700 hover:scale-150 duration-200 underline"
+                    className="hover:text-cyan-700 duration-200 underline"
                 >
                     Email: info@chhatgroup.com
                 </a>
