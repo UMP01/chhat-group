@@ -436,7 +436,7 @@ const ChhatBlog = () => {
                             <form onSubmit={handleSubmit}>
                                 <div className="mb-4">
                                     <label className="block text-gray-700 font-semibold mb-2">
-                                        Title
+                                        Title <span className="text-red-500">*</span>
                                     </label>
                                     <input
                                         type="text"
@@ -450,7 +450,7 @@ const ChhatBlog = () => {
                                 </div>
                                 <div className="mb-4">
                                     <label className="block text-gray-700 font-semibold mb-2">
-                                        Category
+                                        Category <span className="text-red-500">*</span>
                                     </label>
                                     <select
                                         id="cacategory"
@@ -469,7 +469,7 @@ const ChhatBlog = () => {
                                 </div>
                                 <div className="mb-4">
                                     <label className="block text-gray-700 font-semibold mb-2">
-                                        Content
+                                        Content <span className="text-red-500">*</span>
                                     </label>
                                     <textarea
                                         name="content"
