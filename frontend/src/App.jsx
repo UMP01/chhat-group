@@ -33,6 +33,7 @@ import AdminProfile from "./Pages/Admin/AdminProfile";
 import AdminContact from "./Pages/Admin/Contact";
 import ProtectedRoute from "./api/ProtectedRoute.js";
 import CareerDetails from './Pages/Website/CareerDetails';
+import SentContactDetails from "./Components/Contact/SentContactDetails.jsx";
 
 if (process.env.NODE_ENV === 'production') {
     console.log = function() {};
@@ -95,6 +96,8 @@ const AppRoutes = () => {
                     <Route path="user" element={<AdminUser />} />
                     <Route path="profile" element={<AdminProfile />} />
                     <Route path="contact" element={<AdminContact />} />
+                    <Route path="contact/sent/:id" element={<SentContactDetails />} /> {/* Dynamic route for contact details */}
+
                 </Route>
             </Routes>
             {!hideNavbarAndFooter && <Footer />}

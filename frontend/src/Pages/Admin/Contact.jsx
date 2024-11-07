@@ -1,83 +1,43 @@
 import React, { useState, useEffect } from "react";
-import { axiosClient } from "../../api/axios";
-import Swal from "sweetalert2";
-import { FaTelegramPlane } from "react-icons/fa";
-import { FaTrash, FaSync, FaEnvelope } from "react-icons/fa";
+import { axiosClient } from "../../api/axios"; // Ensure this is your API client
+import { FaSync, FaTrash } from "react-icons/fa"; // Correct import for FaTrash
 import { GoArrowRight, GoArrowLeft } from "react-icons/go";
 import { CiViewTimeline } from "react-icons/ci";
-import { IoMdClose } from "react-icons/io";
+import { Link } from "react-router-dom"; // Import Link from react-router-dom
+import Swal from "sweetalert2"; // Ensure SweetAlert2 is installed
 
 const ITEMS_PER_PAGE = 5;
 
-const Contact = () => {
-    const [contacts, setContacts] = useState([]);
+const SentContact = () => {
+    const [sentContacts, setSentContacts] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
-    const [selectedContact, setSelectedContact] = useState(null);
-    const [isModalOpen, setIsModalOpen] = useState(false);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
 
-    const fetchContacts = async () => {
+    // Fetch sent contacts (you can adapt this endpoint to fetch only the sent ones)
+    const fetchSentContacts = async () => {
         setLoading(true);
         try {
-            const response = await axiosClient.get("/contacts");
-            const activeContacts = Array.isArray(response.data)
+            const response = await axiosClient.get("/contacts"); // Adjust API endpoint if needed
+            const activeSentContacts = Array.isArray(response.data)
                 ? response.data.sort(
                       (a, b) => new Date(b.created_at) - new Date(a.created_at)
                   )
                 : [];
-            setContacts(activeContacts);
+            setSentContacts(activeSentContacts);
         } catch (error) {
-            console.error("Error fetching contacts:", error);
-            setError("An error occurred while fetching data");
+            setError("An error occurred while fetching sent contacts");
         } finally {
             setLoading(false);
         }
     };
 
     useEffect(() => {
-        fetchContacts();
+        fetchSentContacts();
     }, []);
 
-    const handleDelete = async (id) => {
-        try {
-            const result = await Swal.fire({
-                title: "Are you sure?",
-                text: "Do you really want to delete this Contact?",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-                confirmButtonText: "Yes, delete it!",
-            });
-
-            if (result.isConfirmed) {
-                await axiosClient.delete(`/contacts/${id}`);
-                Swal.fire("Deleted!", "Contact has been deleted.", "success");
-                fetchContacts();
-            }
-        } catch (error) {
-            console.error("Error deleting contact:", error);
-            Swal.fire(
-                "Error",
-                "There was an error deleting the contact",
-                "error"
-            );
-        }
-    };
-
-    const handleViewDetails = (contact) => {
-        setSelectedContact(contact);
-        setIsModalOpen(true);
-    };
-
-    const closeModal = () => {
-        setIsModalOpen(false);
-        setSelectedContact(null);
-    };
-
-    const filteredContacts = contacts.filter(
+    const filteredContacts = sentContacts.filter(
         (contact) =>
             contact.fullname.toLowerCase().includes(searchTerm.toLowerCase()) ||
             contact.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -85,7 +45,7 @@ const Contact = () => {
     );
 
     const handleRefresh = () => {
-        fetchContacts();
+        fetchSentContacts();
         setSearchTerm("");
     };
 
@@ -101,6 +61,35 @@ const Contact = () => {
         setCurrentPage(pageNumber);
     };
 
+    const handleDelete = async (id) => {
+        try {
+            const result = await Swal.fire({
+                title: "Are you sure?",
+                text: "Do you really want to delete this Contact?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!",
+            });
+
+            if (result.isConfirmed) {
+                // Perform the delete operation
+                await axiosClient.delete(`/contacts/${id}`);
+                Swal.fire("Deleted!", "Contact has been deleted.", "success");
+                // Refresh the list of contacts after deletion
+                fetchSentContacts();
+            }
+        } catch (error) {
+            console.error("Error deleting contact:", error);
+            Swal.fire(
+                "Error",
+                "There was an error deleting the contact",
+                "error"
+            );
+        }
+    };
+
     if (loading) {
         return (
             <div className="py-72 flex items-center justify-center">
@@ -108,22 +97,25 @@ const Contact = () => {
             </div>
         );
     }
+
     if (error) {
         return (
             <div className="bg-red-100 text-red-700 py-5 px-5 rounded-md text-center">
-                <p>Error: {error}</p>
+                <p>{error}</p>
             </div>
         );
     }
 
     return (
         <div>
-            <h2 className="text-2xl font-bold text-gray-800 mb-4">Contact</h2>
+            <h2 className="text-2xl font-bold text-gray-800 mb-4">
+                Sent Contacts
+            </h2>
             <div className="bg-white flex flex-col space-y-6 p-5 shadow-lg rounded-lg">
                 <div className="flex justify-between px-2 text-sm">
                     <input
                         type="text"
-                        placeholder="Search Contact"
+                        placeholder="Search Sent Contacts"
                         className="border px-4 py-2 rounded w-1/3 font-medium text-gray-700"
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
@@ -146,7 +138,6 @@ const Contact = () => {
                                 <th className="py-2 px-4 border-2 border-cyan-700 text-white font-medium">
                                     Name
                                 </th>
-                                
                                 <th className="py-2 px-4 border-2 border-cyan-700 text-white font-medium">
                                     Subject
                                 </th>
@@ -168,29 +159,26 @@ const Contact = () => {
                                         <td className="border py-2 px-4 font-medium text-gray-700">
                                             {index + indexOfFirstContact + 1}
                                         </td>
-                                        <td className="border py-2 px-4 font-medium text-gray-700  text-left">
+                                        <td className="border py-2 px-4 font-medium text-gray-700 text-left">
                                             {contact.fullname}
                                         </td>
-                                        
-                                        <td className="border py-2 px-4 font-medium text-gray-700  text-left">
+                                        <td className="border py-2 px-4 font-medium text-gray-700 text-left">
                                             {contact.subject}
                                         </td>
                                         <td className="border py-2 px-4 font-medium text-start text-gray-700">
-                                            {formatDate(contact.created_at)}
+                                            {new Date(
+                                                contact.created_at
+                                            ).toLocaleString()}
                                         </td>
                                         <td className="border py-2 px-4 text-center">
                                             <div className="flex justify-center">
-                                                <button
+                                                <Link
+                                                    to={`/admin/contact/sent/${contact.id}`} // Link to the details page
                                                     className="bg-cyan-700 font-medium text-white px-4 py-2 flex items-center rounded-l-md hover:bg-cyan-800 duration-300 ease-in-out"
-                                                    onClick={() =>
-                                                        handleViewDetails(
-                                                            contact
-                                                        )
-                                                    }
                                                 >
                                                     <CiViewTimeline className="mr-2" />
                                                     View
-                                                </button>
+                                                </Link>
                                                 <button
                                                     className="bg-red-600 font-medium text-white px-4 py-2 rounded-r-md hover:bg-red-700 flex items-center duration-300 ease-in-out"
                                                     onClick={() =>
@@ -207,10 +195,10 @@ const Contact = () => {
                             ) : (
                                 <tr>
                                     <td
-                                        colSpan="6"
+                                        colSpan="5"
                                         className="text-center p-4 font-medium"
                                     >
-                                        No contacts found.
+                                        No sent contacts found.
                                     </td>
                                 </tr>
                             )}
@@ -239,75 +227,9 @@ const Contact = () => {
                         <GoArrowRight className="mt-1 ml-2" />
                     </button>
                 </div>
-                {isModalOpen && (
-                    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-20 z-50">
-                        <div className="bg-white rounded-lg shadow-lg w-11/12 max-w-lg">
-                            <div className="bg-cyan-700 text-white p-5 rounded-t-lg flex justify-between">
-                                <h2 className="text-lg font-normal flex items-center">
-                                    <FaEnvelope className="me-2" />
-                                    Contact Details
-                                </h2>
-                                <button onClick={closeModal}>
-                                    <IoMdClose className="w-6 h-6" />
-                                </button>
-                            </div>
-                            {selectedContact && (
-                                <div className="text-gray-700 p-5">
-                                    <p className="pb-2">
-                                        <span className="text-cyan-800 font-medium">
-                                            From:{" "}
-                                        </span>
-                                        {selectedContact.fullname}
-                                    </p>
-                                    <a
-                                        className="py-10"
-                                        href={`mailto:${selectedContact.email}`}
-                                    >
-                                        <span className="text-cyan-800 font-medium">
-                                            Email:{" "}
-                                        </span>
-                                        {selectedContact.email}
-                                    </a>
-                                    <p className="py-2">
-                                        <span className="text-cyan-800 font-medium">
-                                            Subject:{" "}
-                                        </span>
-                                        {selectedContact.subject}
-                                    </p>
-                                    <p className="py-2">
-                                        <span className="text-cyan-800 font-medium">
-                                            Message:{" "}
-                                        </span>
-                                        {selectedContact.message}
-                                    </p>
-                                    <p className="py-2">
-                                        <span className="text-cyan-800 font-medium">
-                                            Sent At:{" "}
-                                        </span>
-                                        {formatDate(selectedContact.created_at)}
-                                    </p>
-                                    <div className="flex justify-end">
-                                        <a
-                                            href={`mailto:${selectedContact.email}`}
-                                            className="bg-cyan-600 inline-flex items-center transition delay-900 duration-500 ease-in-out text-white py-2 px-4 rounded hover:bg-cyan-700"
-                                        >
-                                            Send Mail
-                                            <FaTelegramPlane className="ml-2" />
-                                        </a>
-                                    </div>
-                                </div>
-                            )}
-                        </div>
-                    </div>
-                )}
             </div>
         </div>
     );
 };
 
-const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    return date.toLocaleString();
-};
-
-export default Contact;
+export default SentContact;
