@@ -103,31 +103,70 @@ const ChhatBlog = () => {
 
     const handleFileChange = (e) => {
         const file = e.target.files[0];
+
+        // Reset the file input value if there's an error
+        const inputFile = e.target;
+
         if (file) {
+            // Validate file type
+            const validTypes = [
+                "image/jpeg",
+                "image/png",
+                "image/jpg",
+                "image/gif",
+            ];
+            if (!validTypes.includes(file.type)) {
+                Swal.fire(
+                    "Sorry",
+                    "Please upload an image file (jpeg, png, jpg, gif).",
+                    "error"
+                );
+
+                // Reset the file input to remove the file name from the input
+                inputFile.value = "";
+                setFormData({ ...formData, image: null });
+                return;
+            }
+
+            // Validate file size (max 2MB)
+            if (file.size > 2048 * 1024) {
+                Swal.fire(
+                    "Sorry",
+                    "The image size should not exceed 2MB.",
+                    "error"
+                );
+
+                // Reset the file input to remove the file name from the input
+                inputFile.value = "";
+                setFormData({ ...formData, image: null });
+                return;
+            }
+
+            // If validation passes, process the image
             const img = new Image();
             const reader = new FileReader();
-    
+
             reader.onload = (event) => {
                 img.src = event.target.result;
                 img.onload = () => {
                     const canvas = document.createElement("canvas");
                     const ctx = canvas.getContext("2d");
-    
+
                     // Set canvas dimensions to 4:3 aspect ratio (e.g., 400x300)
                     const aspectRatio = 4 / 3;
                     let width = img.width;
                     let height = img.height;
-    
+
                     // Adjust width and height to fit the 4:3 aspect ratio
                     if (width / height > aspectRatio) {
                         width = height * aspectRatio;
                     } else {
                         height = width / aspectRatio;
                     }
-    
+
                     canvas.width = width;
                     canvas.height = height;
-    
+
                     // Draw cropped image
                     ctx.drawImage(
                         img,
@@ -140,7 +179,7 @@ const ChhatBlog = () => {
                         width,
                         height
                     );
-    
+
                     // Convert canvas to blob and set it to formData
                     canvas.toBlob((blob) => {
                         const croppedFile = new File([blob], file.name, {
@@ -323,7 +362,10 @@ const ChhatBlog = () => {
                     <table className="min-w-full table-auto text-sm">
                         <thead>
                             <tr className="bg-cyan-700 text-left">
-                                <th className="py-2 px-4 text-white font-medium" style={{width: '4%'}}>
+                                <th
+                                    className="py-2 px-4 text-white font-medium"
+                                    style={{ width: "4%" }}
+                                >
                                     No.
                                 </th>
                                 <th className="py-2 px-4 text-white font-medium w-3/12">
@@ -345,12 +387,14 @@ const ChhatBlog = () => {
                         </thead>
                         <tbody>
                             {currentBlogs.map((post, index) => (
-                                <tr key={post.id} className="font-medium text-gray-700">
+                                <tr
+                                    key={post.id}
+                                    className="font-medium text-gray-700"
+                                >
                                     <td className="border py-2 px-4">
                                         {index +
                                             1 +
-                                            (currentPage - 1) *
-                                                ITEMS_PER_PAGE}
+                                            (currentPage - 1) * ITEMS_PER_PAGE}
                                     </td>
                                     <td className="border py-2 px-4 font-khmer-nato">
                                         {post.title}
@@ -430,100 +474,105 @@ const ChhatBlog = () => {
             {modalOpen && (
                 <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
                     <div className="bg-white rounded-lg shadow-lg px-6 py-3 w-1/3 border-2 max-h-[90vh] overflow-y-auto">
-                            <h2 className="text-lg font-normal mb-4 text-cyan-700">
-                                {isEditing ? "Edit Blog" : "Add Blog"}
-                            </h2>
-                            <form onSubmit={handleSubmit}>
-                                <div className="mb-4">
-                                    <label className="block text-gray-700 font-semibold mb-2">
-                                        Title <span className="text-red-500">*</span>
-                                    </label>
-                                    <input
-                                        type="text"
-                                        name="title"
-                                        placeholder="Enter Title"
-                                        value={formData.title}
-                                        onChange={handleChange}
-                                        className="w-full px-4 py-2 border rounded font-khmer-nato"
-                                        required
-                                    />
-                                </div>
-                                <div className="mb-4">
-                                    <label className="block text-gray-700 font-semibold mb-2">
-                                        Category <span className="text-red-500">*</span>
-                                    </label>
-                                    <select
-                                        id="cacategory"
-                                        name="category"
-                                        value={formData.category}
-                                        onChange={handleChange}
-                                        className="w-full px-4 py-2 border rounded"
-                                        required
-                                    >
-                                        <option value="" disabled>
-                                            Select Category
-                                        </option>
-                                        <option value="Chhat Group">Chhat Group</option>
-                                        <option value="Chhat Research">Chhat Research</option>
-                                    </select>
-                                </div>
-                                <div className="mb-4">
-                                    <label className="block text-gray-700 font-semibold mb-2">
-                                        Content <span className="text-red-500">*</span>
-                                    </label>
-                                    <textarea
-                                        name="content"
-                                        placeholder="Content"
-                                        value={formData.content}
-                                        onChange={handleChange}
-                                        className="w-full px-4 py-2 border rounded"
-                                        required
-                                    />
-                                </div>
-                                <div className="mb-4">
-                                    <label className="block text-gray-700 font-semibold mb-2">
-                                        Image
-                                    </label>
-                                    <input
-                                        type="file"
-                                        name="image"
-                                        onChange={handleFileChange}
-                                        className="w-full px-4 py-2 border rounded"
-                                    />
-                                    {isEditing &&
-                                        currentPost &&
-                                        currentPost.image && (
-                                            <div className="mt-2">
-                                                <h4>Current Image:</h4>
-                                                <img
-                                                    src={`http://127.0.0.1:8000/storage/${
-                                                        currentPost.image
-                                                    }?${new Date().getTime()}`}
-                                                    alt="Current post"
-                                                    className="w-20 h-20 object-cover rounded mt-2"
-                                                />
-                                            </div>
-                                        )}
-                                </div>
+                        <h2 className="text-lg font-normal mb-4 text-cyan-700">
+                            {isEditing ? "Edit Blog" : "Add Blog"}
+                        </h2>
+                        <form onSubmit={handleSubmit}>
+                            <div className="mb-4">
+                                <label className="block text-gray-700 font-semibold mb-2">
+                                    Title{" "}
+                                    <span className="text-red-500">*</span>
+                                </label>
+                                <input
+                                    type="text"
+                                    name="title"
+                                    placeholder="Enter Title"
+                                    value={formData.title}
+                                    onChange={handleChange}
+                                    className="w-full px-4 py-2 border rounded font-khmer-nato"
+                                    required
+                                />
+                            </div>
+                            <div className="mb-4">
+                                <label className="block text-gray-700 font-semibold mb-2">
+                                    Category{" "}
+                                    <span className="text-red-500">*</span>
+                                </label>
+                                <select
+                                    id="cacategory"
+                                    name="category"
+                                    value={formData.category}
+                                    onChange={handleChange}
+                                    className="w-full px-4 py-2 border rounded"
+                                    required
+                                >
+                                    <option value="" disabled>
+                                        Select Category
+                                    </option>
+                                    <option value="Chhat Group">
+                                        Chhat Group
+                                    </option>
+                                    <option value="Chhat Research">
+                                        Chhat Research
+                                    </option>
+                                </select>
+                            </div>
+                            <div className="mb-4">
+                                <label className="block text-gray-700 font-semibold mb-2">
+                                    Content{" "}
+                                    <span className="text-red-500">*</span>
+                                </label>
+                                <textarea
+                                    name="content"
+                                    placeholder="Content"
+                                    value={formData.content}
+                                    onChange={handleChange}
+                                    className="w-full px-4 py-2 border rounded"
+                                    required
+                                />
+                            </div>
+                            <div className="mb-4">
+                                <label className="block text-gray-700 font-semibold mb-2">
+                                    Image
+                                </label>
+                                <input
+                                    type="file"
+                                    name="image"
+                                    onChange={handleFileChange}
+                                    className="w-full px-4 py-2 border rounded"
+                                />
+                                {isEditing &&
+                                    currentPost &&
+                                    currentPost.image && (
+                                        <div className="mt-2">
+                                            <h4>Current Image:</h4>
+                                            <img
+                                                src={`http://127.0.0.1:8000/storage/${
+                                                    currentPost.image
+                                                }?${new Date().getTime()}`}
+                                                alt="Current post"
+                                                className="w-20 h-20 object-cover rounded mt-2"
+                                            />
+                                        </div>
+                                    )}
+                            </div>
 
-                                <div className="flex justify-end space-x-3">
-                                    <button
-                                        type="button"
-                                        onClick={resetForm}
-                                        className="bg-gray-300 text-black px-4 py-2 rounded hover:bg-gray-400"
-                                    >
-                                        Cancel
-                                    </button>
-                                    <button
-                                        type="submit"
-                                        className="bg-cyan-700 text-white px-4 py-2 rounded hover:bg-cyan-800"
-                                    >
-                                        {isEditing
-                                            ? "Update Blog"
-                                            : "Add Blog"}
-                                    </button>
-                                </div>
-                            </form>
+                            <div className="flex justify-end space-x-3">
+                                <button
+                                    type="button"
+                                    onClick={resetForm}
+                                    className="bg-gray-300 text-black px-4 py-2 rounded hover:bg-gray-400"
+                                >
+                                    Cancel
+                                </button>
+                                <button
+                                    type="submit"
+                                    className="bg-cyan-700 text-white px-4 py-2 rounded hover:bg-cyan-800"
+                                >
+                                    {isEditing ? "Update Blog" : "Add Blog"}
+                                </button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             )}
