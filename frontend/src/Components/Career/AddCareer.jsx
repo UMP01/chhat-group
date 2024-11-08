@@ -40,10 +40,14 @@ const AddCareer = () => {
                 Add Career
             </h2>
             <div className="bg-white flex flex-col space-y-6 p-5 shadow-lg rounded-lg">
-                <form onSubmit={handleSubmit} className="space-y-4 text-gray-700">
-                    {/* Title Field */}
-                    <div className="flex justify-center items-center gap-4">
-                        <div className="lg:w-1/2 sm:w-full">
+                <form
+                    onSubmit={handleSubmit}
+                    className="space-y-4 text-gray-700"
+                >
+                    {/* Title & Location Fields */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        {/* Title Field */}
+                        <div>
                             <label
                                 htmlFor="title"
                                 className="block font-medium"
@@ -62,7 +66,7 @@ const AddCareer = () => {
                         </div>
 
                         {/* Location Field */}
-                        <div className="lg:w-1/2 sm:w-full">
+                        <div>
                             <label
                                 htmlFor="location"
                                 className="block font-medium"
@@ -81,9 +85,10 @@ const AddCareer = () => {
                         </div>
                     </div>
 
-                    {/* Deadline Field */}
-                    <div className="flex justify-center items-center gap-4">
-                        <div className="lg:w-1/3 sm:w-full">
+                    {/* Deadline, Salary & Job Type Fields */}
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        {/* Deadline Field */}
+                        <div>
                             <label
                                 htmlFor="deadline"
                                 className="block font-medium"
@@ -101,7 +106,7 @@ const AddCareer = () => {
                         </div>
 
                         {/* Salary Field */}
-                        <div className="lg:w-1/3 sm:w-full">
+                        <div>
                             <label
                                 htmlFor="salary"
                                 className="block font-medium"
@@ -120,7 +125,7 @@ const AddCareer = () => {
                         </div>
 
                         {/* Job Type Field */}
-                        <div className="lg:w-1/3 sm:w-full">
+                        <div>
                             <label
                                 htmlFor="jobtype"
                                 className="block font-medium"
@@ -139,58 +144,61 @@ const AddCareer = () => {
                         </div>
                     </div>
 
-                    {/* Requirement Field */}
-                    <div>
-                        <label
-                            htmlFor="requirement"
-                            className="block font-medium"
-                        >
-                            Requirement
-                        </label>
-                        <textarea
-                            name="requirement"
-                            value={formData.requirement}
-                            onChange={handleChange}
-                            placeholder="Enter the job requirements"
-                            className="border p-2 rounded w-full"
-                            rows="5"
-                        />
-                    </div>
+                    {/* Requirement, Responsible & Benefit Fields */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        {/* Requirement Field */}
+                        <div>
+                            <label
+                                htmlFor="requirement"
+                                className="block font-medium"
+                            >
+                                Requirement
+                            </label>
+                            <textarea
+                                name="requirement"
+                                value={formData.requirement}
+                                onChange={handleChange}
+                                placeholder="Enter the job requirements"
+                                className="border p-2 rounded w-full"
+                                rows="8"
+                            />
+                        </div>
 
-                    {/* Responsible Field */}
-                    <div>
-                        <label
-                            htmlFor="responsible"
-                            className="block font-medium"
-                        >
-                            Responsible
-                        </label>
-                        <textarea
-                            name="responsible"
-                            value={formData.responsible}
-                            onChange={handleChange}
-                            placeholder="Enter job responsibilities"
-                            className="border p-2 rounded w-full"
-                            rows="5"
-                        />
-                    </div>
+                        {/* Responsible Field */}
+                        <div>
+                            <label
+                                htmlFor="responsible"
+                                className="block font-medium"
+                            >
+                                Responsible
+                            </label>
+                            <textarea
+                                name="responsible"
+                                value={formData.responsible}
+                                onChange={handleChange}
+                                placeholder="Enter job responsibilities"
+                                className="border p-2 rounded w-full"
+                                rows="8"
+                            />
+                        </div>
 
-                    {/* Benefit Field */}
-                    <div>
-                        <label
-                            htmlFor="benefit"
-                            className="block font-medium"
-                        >
-                            Benefit
-                        </label>
-                        <textarea
-                            name="benefit"
-                            value={formData.benefit}
-                            onChange={handleChange}
-                            placeholder="Enter the benefits"
-                            className="border p-2 rounded w-full"
-                            rows="5"
-                        />
+                        {/* Benefit Field */}
+                        <div>
+                            <label
+                                htmlFor="benefit"
+                                className="block font-medium"
+                            >
+                                Benefit
+                            </label>
+                            <textarea
+                                name="benefit"
+                                value={formData.benefit}
+                                onChange={handleChange}
+                                placeholder="Enter the benefits"
+                                className="border p-2 rounded w-full"
+                                rows="5"
+                            />
+                        </div>
                     </div>
 
                     {/* Submit Button */}
