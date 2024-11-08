@@ -1,11 +1,15 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FaAngleDown } from "react-icons/fa";
 import { IoIosMenu, IoMdClose } from "react-icons/io";
 import Logo from "../../assets/Images/logo.png";
+import { useLocation } from "react-router-dom"; // React Router hook for getting the current URL path
 
 const Navbar = () => {
     const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [activeDropdown, setActiveDropdown] = useState(null);
+
+    const location = useLocation(); // This hook gives the current URL
+    const currentPath = location.pathname; // Get the current path
 
     const navItems = [
         { name: "About Us", link: "/about" },
@@ -42,6 +46,9 @@ const Navbar = () => {
         setActiveDropdown(null);
     };
 
+    // Check if the current path matches the nav item's link
+    const isActiveLink = (link) => currentPath === link;
+
     return (
         <nav className="sticky top-0 z-50">
             {/* Desktop Screen */}
@@ -72,6 +79,10 @@ const Navbar = () => {
                                                     activeDropdown === index
                                                         ? "text-sky-600"
                                                         : "text-gray-700"
+                                                } ${
+                                                    isActiveLink(item.link)
+                                                        ? "text-sky-600"
+                                                        : ""
                                                 }`}
                                             >
                                                 {item.name}
@@ -101,7 +112,13 @@ const Navbar = () => {
                                                                     href={
                                                                         subItem.link
                                                                     }
-                                                                    className="block px-5 py-3 text-md text-dark text-gray-600 hover:bg-gray-100 rubik hover:rounded-md"
+                                                                    className={`block px-5 py-3 text-md text-dark text-gray-600 hover:bg-gray-100 rubik hover:rounded-md ${
+                                                                        isActiveLink(
+                                                                            subItem.link
+                                                                        )
+                                                                            ? "text-sky-600"
+                                                                            : ""
+                                                                    }`}
                                                                 >
                                                                     {
                                                                         subItem.name
@@ -116,7 +133,11 @@ const Navbar = () => {
                                     ) : (
                                         <a
                                             href={item.link}
-                                            className="text-gray-700 px-3 py-2 rounded-md text-md rubik"
+                                            className={`text-gray-700 px-3 py-2 rounded-md text-md rubik ${
+                                                isActiveLink(item.link)
+                                                    ? "text-sky-600"
+                                                    : ""
+                                            }`}
                                             target={item.target}
                                         >
                                             {item.name}
@@ -144,6 +165,7 @@ const Navbar = () => {
                     </div>
                 </div>
             </div>
+
             {/* Phone Screen */}
             {isMobileMenuOpen && (
                 <div
@@ -162,7 +184,11 @@ const Navbar = () => {
                                             className={`block px-3 py-2 rounded-md text-md font-normal rubik w-full text-left hover:bg-gray-100 ${
                                                 activeDropdown === index
                                                     ? "text-sky-600"
-                                                    : "text-gray-700"
+                                                    : ""
+                                            } ${
+                                                isActiveLink(item.link)
+                                                    ? "text-sky-600"
+                                                    : ""
                                             }`}
                                         >
                                             {item.name}
@@ -187,7 +213,13 @@ const Navbar = () => {
                                                                 href={
                                                                     subItem.link
                                                                 }
-                                                                className="block pl-10 py-2 text-md text-dark text-gray-600 font-normal hover:bg-gray-100 rubik"
+                                                                className={`block pl-10 py-2 text-md text-dark text-gray-600 font-normal hover:bg-gray-100 rubik ${
+                                                                    isActiveLink(
+                                                                        subItem.link
+                                                                    )
+                                                                        ? "text-sky-600"
+                                                                        : ""
+                                                                }`}
                                                             >
                                                                 {subItem.name}
                                                             </a>
@@ -200,7 +232,11 @@ const Navbar = () => {
                                 ) : (
                                     <a
                                         href={item.link}
-                                        className="block px-3 py-2 rounded-md text-md font-normal rubik hover:bg-gray-100"
+                                        className={`block px-3 py-2 rounded-md text-md font-normal rubik hover:bg-gray-100 ${
+                                            isActiveLink(item.link)
+                                                ? "text-sky-600"
+                                                : ""
+                                        }`}
                                     >
                                         {item.name}
                                     </a>

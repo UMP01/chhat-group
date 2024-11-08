@@ -352,7 +352,7 @@ const ChhatBlog = () => {
                                             (currentPage - 1) *
                                                 ITEMS_PER_PAGE}
                                     </td>
-                                    <td className="border py-2 px-4">
+                                    <td className="border py-2 px-4 font-khmer-nato">
                                         {post.title}
                                     </td>
                                     <td className="border py-2 px-4">
@@ -444,7 +444,7 @@ const ChhatBlog = () => {
                                         placeholder="Enter Title"
                                         value={formData.title}
                                         onChange={handleChange}
-                                        className="w-full px-4 py-2 border rounded"
+                                        className="w-full px-4 py-2 border rounded font-khmer-nato"
                                         required
                                     />
                                 </div>

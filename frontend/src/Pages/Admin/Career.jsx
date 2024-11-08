@@ -371,7 +371,6 @@ const Modal = ({
                         value={formData.requirement}
                         onChange={onChange}
                         className="w-full p-2 border rounded"
-                        required
                         placeholder="requirement"
                         rows="5"
                     />
@@ -385,7 +384,6 @@ const Modal = ({
                         value={formData.responsible}
                         onChange={onChange}
                         className="w-full p-2 border rounded"
-                        required
                         placeholder="Responsible"
                         rows="5"
                     />
@@ -399,7 +397,6 @@ const Modal = ({
                         value={formData.benefit}
                         onChange={onChange}
                         className="w-full p-2 border rounded"
-                        required
                         placeholder="Benefit"
                         rows="5"
                     />
