@@ -1,43 +1,26 @@
-import React, { useEffect, useState } from "react";
-import { IoAdd } from "react-icons/io5";
-import { axiosClient } from "../../api/axios";
-import { FaRegEdit, FaTrash, FaSync } from "react-icons/fa";
-import { GoArrowRight, GoArrowLeft } from "react-icons/go";
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { axiosClient } from "../../api/axios"; // Replace with your API logic
+import { FaRegEdit, FaTrash, FaSyncAlt } from "react-icons/fa";
 import Swal from "sweetalert2";
+import { IoAdd } from "react-icons/io5";
 
 const ITEMS_PER_PAGE = 5;
 
 const Career = () => {
     const [careers, setCareers] = useState([]);
-    const [searchTerm, setSearchTerm] = useState("");
-    const [modalOpen, setModalOpen] = useState(false);
-    const [isEditing, setIsEditing] = useState(false);
-    const [formData, setFormData] = useState(initialFormData());
-    const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
-
-    function initialFormData() {
-        return {
-            title: "",
-            location: "",
-            deadline: "",
-            jobtype: "",
-            salary: "",
-            requirement: "",
-            responsible: "",
-            benefit: "",
-        };
-    }
+    const [searchTerm, setSearchTerm] = useState(""); // Track search input
 
     const fetchCareers = async () => {
         setLoading(true);
         try {
             const response = await axiosClient.get("/careers");
-            setCareers(Array.isArray(response.data) ? response.data : []);
-        } catch (error) {
-            console.error("Error fetching careers:", error);
-            setError("An error occured while fetching data");
+            setCareers(response.data || []);
+        } catch (err) {
+            setError("An error occurred while fetching careers");
         } finally {
             setLoading(false);
         }
@@ -47,53 +30,40 @@ const Career = () => {
         fetchCareers();
     }, []);
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData((prev) => ({ ...prev, [name]: value }));
+    // Filter careers based on the search term
+    const filteredCareers = careers.filter(({ title, location, jobtype }) =>
+        [title, location, jobtype].some((field) =>
+            field.toLowerCase().includes(searchTerm.toLowerCase())
+        )
+    );
+
+    const indexOfLastCareer = currentPage * ITEMS_PER_PAGE;
+    const indexOfFirstCareer = indexOfLastCareer - ITEMS_PER_PAGE;
+    const currentCareers = filteredCareers.slice(
+        indexOfFirstCareer,
+        indexOfLastCareer
+    );
+    const totalPages = Math.ceil(filteredCareers.length / ITEMS_PER_PAGE);
+
+    const handlePageChange = (pageNumber) => {
+        if (pageNumber < 1 || pageNumber > totalPages) return;
+        setCurrentPage(pageNumber);
     };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            if (isEditing) {
-                await axiosClient.put(`/careers/${isEditing}`, formData);
-                Swal.fire("Success", "Career updated successfully", "success");
-            } else {
-                await axiosClient.post("/careers", formData);
-                Swal.fire("Success", "Career created successfully", "success");
-            }
-            resetForm();
-            fetchCareers();
-        } catch (error) {
-            console.error("Error submitting form:", error);
-            Swal.fire(
-                "Error",
-                "There was an error submitting the form",
-                "error"
-            );
-        }
+    const handleSearchChange = (e) => {
+        setSearchTerm(e.target.value);
     };
 
-    const handleEdit = (career) => {
-        setIsEditing(career.id);
-        setFormData({
-            title: career.title,
-            location: career.location,
-            deadline: new Date(career.deadline).toISOString().split("T")[0],
-            jobtype: career.jobtype,
-            salary: career.salary,
-            requirement: career.requirement,
-            responsible: career.responsible,
-            benefit: career.benefit,
-        });
-        setModalOpen(true);
+    const handleRefresh = () => {
+        fetchCareers(); // Simply call the fetch function again
+        setSearchTerm(""); // Reset search field
     };
 
     const handleDelete = async (id) => {
         try {
             const result = await Swal.fire({
                 title: "Are you sure?",
-                text: "Do you really want to delete this item?",
+                text: "Do you really want to delete this career?",
                 icon: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#3085d6",
@@ -103,11 +73,14 @@ const Career = () => {
 
             if (result.isConfirmed) {
                 await axiosClient.delete(`/careers/${id}`);
-                Swal.fire("Deleted!", "Career has been deleted.", "success");
+                Swal.fire(
+                    "Deleted!",
+                    "The career has been deleted.",
+                    "success"
+                );
                 fetchCareers();
             }
-        } catch (error) {
-            console.error("Error deleting career:", error);
+        } catch (err) {
             Swal.fire(
                 "Error",
                 "There was an error deleting the career",
@@ -116,29 +89,6 @@ const Career = () => {
         }
     };
 
-    const resetForm = () => {
-        setFormData(initialFormData());
-        setIsEditing(false);
-        setModalOpen(false);
-    };
-
-    const filteredCareers = careers.filter(
-        ({ title, location, deadline, jobtype }) =>
-            [title, location, deadline, jobtype].some((field) =>
-                field.toLowerCase().includes(searchTerm.toLowerCase())
-            )
-    );
-
-    const indexOfLastCareer = currentPage * ITEMS_PER_PAGE;
-    const indexOfFirstCareer = indexOfLastCareer - ITEMS_PER_PAGE;
-    const currentCareer = filteredCareers.slice(
-        indexOfFirstCareer,
-        indexOfLastCareer
-    );
-    const totalPages = Math.ceil(filteredCareers.length / ITEMS_PER_PAGE);
-    function handlePageChange(pageNumber) {
-        setCurrentPage(pageNumber);
-    }
     if (loading) {
         return (
             <div className="py-72 flex items-center justify-center">
@@ -148,7 +98,7 @@ const Career = () => {
     }
     if (error) {
         return (
-            <div className="bg-red-100 text-red-700 py-5 px-5 rounded-md">
+            <div className="bg-red-100 text-red-700 py-5 px-5 rounded-md text-center">
                 <p>Error: {error}</p>
             </div>
         );
@@ -161,31 +111,28 @@ const Career = () => {
                 <div className="flex justify-between px-2 text-sm">
                     <input
                         type="text"
-                        placeholder="Search Careers"
+                        placeholder="Search Careers (Title, Location, Job Type)"
                         value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
+                        onChange={handleSearchChange}
                         className="border px-3 py-2 rounded w-2/6 font-medium text-gray-600"
                     />
                     <div className="flex gap-5">
-                        <button
-                            onClick={() => {
-                                resetForm();
-                                setModalOpen(true);
-                            }}
+                        <Link
+                            to="/admin/career/add"
                             className="bg-cyan-700 font-medium text-white py-1 px-4 rounded hover:bg-cyan-800 flex items-center"
                         >
                             <IoAdd className="mr-2" /> Add Career
-                        </button>
+                        </Link>
                         <button
-                            onClick={fetchCareers}
+                            onClick={handleRefresh}
                             className="bg-green-600 font-medium text-white py-2 px-4 rounded hover:bg-green-700 flex items-center"
                         >
-                            <FaSync className="mr-2" /> Refresh
+                            <FaSyncAlt className="mr-2" /> Refresh
                         </button>
                     </div>
                 </div>
 
-                <div className="overflow-x-auto px-2">
+                <div className="overflow-x-auto px-2 mt-6">
                     <table className="min-w-full text-sm table-auto">
                         <thead>
                             <tr className="bg-cyan-700 text-white">
@@ -208,13 +155,13 @@ const Career = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {currentCareer.length > 0 ? (
-                                currentCareer.map((career, index) => (
+                            {currentCareers.length > 0 ? (
+                                currentCareers.map((career, index) => (
                                     <tr
                                         key={career.id}
                                         className="border-b hover:bg-gray-100"
                                     >
-                                        <td className="border py-2 px-4 font-medium text-gray-700" style={{width: '4%'}}>
+                                        <td className="border py-2 px-4 font-medium text-gray-700">
                                             {index +
                                                 1 +
                                                 (currentPage - 1) *
@@ -223,36 +170,34 @@ const Career = () => {
                                         <td className="border py-2 px-4 font-medium text-gray-700">
                                             {career.title}
                                         </td>
-                                        <td className="border py-2 px-4 font-medium text-gray-700 w-2/12">
+                                        <td className="border py-2 px-4 font-medium text-gray-700">
                                             {career.location}
                                         </td>
-                                        <td className="border py-2 px-4 font-medium text-gray-700 w-1/12">
+                                        <td className="border py-2 px-4 font-medium text-gray-700">
                                             {new Date(
                                                 career.deadline
                                             ).toLocaleDateString()}
                                         </td>
-                                        <td className="border py-2 px-4 font-medium capitalize text-gray-700 w-1/12">
+                                        <td className="border py-2 px-4 font-medium text-gray-700 capitalize">
                                             {career.jobtype}
                                         </td>
-                                        <td className="border py-2 px-4 font-medium text-gray-700 w-1/12">
-                                            {career.salary}.00 $
+                                        <td className="border py-2 px-4 font-medium text-gray-700">
+                                            {career.salary} $
                                         </td>
-                                        <td className="border py-2 px-4 font-medium text-gray-700 w-2/12">
+                                        <td className="border py-2 px-4 font-medium text-gray-700">
                                             <div className="flex">
-                                                <button
-                                                    className="bg-cyan-700 font-medium text-white px-4 py-2 flex items-center rounded-l-md hover:bg-cyan-800  duration-300 ease-in-out"
-                                                    onClick={() =>
-                                                        handleEdit(career)
-                                                    }
+                                                <Link
+                                                    to={`/admin/career/edit/${career.id}`}
+                                                    className="bg-cyan-700 font-medium text-white px-4 py-2 flex items-center rounded-l-md hover:bg-cyan-800"
                                                 >
                                                     <FaRegEdit className="mr-2" />{" "}
                                                     Edit
-                                                </button>
+                                                </Link>
                                                 <button
-                                                    className="bg-red-600 font-medium text-white px-4 py-2 rounded-r-md hover:bg-red-700 flex items-center duration-300 ease-in-out"
                                                     onClick={() =>
                                                         handleDelete(career.id)
                                                     }
+                                                    className="bg-red-600 font-medium text-white px-4 py-2 rounded-r-md hover:bg-red-700 flex items-center"
                                                 >
                                                     <FaTrash className="mr-2" />{" "}
                                                     Delete
@@ -274,15 +219,13 @@ const Career = () => {
                         </tbody>
                     </table>
                 </div>
-                {/* Pagination */}
+
                 <div className="flex justify-between items-center mt-4">
                     <button
                         onClick={() => handlePageChange(currentPage - 1)}
                         disabled={currentPage === 1}
-                        aria-label="Previous page"
-                        className="bg-cyan-700 text-white text-sm px-4 py-2 rounded disabled:opacity-50 inline-flex hover:shadow-lg duration-300 hover:bg-cyan-600"
+                        className="bg-cyan-700 text-white text-sm px-4 py-2 rounded disabled:opacity-50"
                     >
-                        <GoArrowLeft className="mr-2 mt-1" />
                         Previous
                     </button>
                     <div>
@@ -291,162 +234,14 @@ const Career = () => {
                     <button
                         onClick={() => handlePageChange(currentPage + 1)}
                         disabled={currentPage === totalPages}
-                        className="bg-cyan-700 text-white text-sm px-4 py-2 rounded disabled:opacity-50 inline-flex hover:shadow-lg duration-300 hover:bg-cyan-600"
+                        className="bg-cyan-700 text-white text-sm px-4 py-2 rounded disabled:opacity-50"
                     >
                         Next
-                        <GoArrowRight className="mt-1 ml-2" />
                     </button>
                 </div>
-
-                {modalOpen && (
-                    <Modal
-                        isOpen={modalOpen}
-                        onClose={resetForm}
-                        formData={formData}
-                        onChange={handleChange}
-                        onSubmit={handleSubmit}
-                        isEditing={isEditing}
-                    />
-                )}
             </div>
         </div>
     );
 };
-
-const Modal = ({
-    isOpen,
-    onClose,
-    formData,
-    onChange,
-    onSubmit,
-    isEditing,
-}) => (
-    <div
-        className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50" 
-    >
-        <div className="bg-white rounded-lg shadow-lg px-6 py-3 w-1/3 border-2 max-h-[90vh] overflow-y-auto">
-            <h2 className="text-lg font-normal mb-4 text-cyan-700">
-                {isEditing
-                    ? "Edit Career Opportunity"
-                    : "Add Career Opportunity"}
-            </h2>
-            <form onSubmit={onSubmit}>
-                {["title", "location", "deadline", "salary"].map((field, i) => (
-                    <InputField
-                        key={i}
-                        name={field}
-                        value={formData[field]}
-                        onChange={onChange}
-                        required={
-                            field === "title" ||
-                            field === "location" ||
-                            field === "salary"
-                        }
-                    />
-                ))}
-                <div className="mb-4">
-                    <label
-                        htmlFor="jobtype"
-                        className="block text-gray-700 font-normal mb-3"
-                    >
-                        Job Type
-                    </label>
-                    <select
-                        name="jobtype"
-                        id="jobtype"
-                        value={formData.jobtype}
-                        onChange={onChange}
-                        className="w-full px-4 py-2 border rounded"
-                    >
-                        <option value="full time">Full time</option>
-                        <option value="part time">Part time</option>
-                    </select>
-                </div>
-                <div className="mb-4">
-                    <label className="block text-gray-700 font-normal mb-3">
-                        Requirement
-                    </label>
-                    <textarea
-                        name="requirement"
-                        value={formData.requirement}
-                        onChange={onChange}
-                        className="w-full p-2 border rounded"
-                        placeholder="requirement"
-                        rows="5"
-                    />
-                </div>
-                <div className="mb-4">
-                    <label className="block text-gray-700 font-normal mb-3">
-                        Responsible
-                    </label>
-                    <textarea
-                        name="responsible"
-                        value={formData.responsible}
-                        onChange={onChange}
-                        className="w-full p-2 border rounded"
-                        placeholder="Responsible"
-                        rows="5"
-                    />
-                </div>
-                <div className="mb-4">
-                    <label className="block text-gray-700 font-normal mb-3">
-                        Benefit
-                    </label>
-                    <textarea
-                        name="benefit"
-                        value={formData.benefit}
-                        onChange={onChange}
-                        className="w-full p-2 border rounded"
-                        placeholder="Benefit"
-                        rows="5"
-                    />
-                </div>
-                <div className="flex justify-end space-x-3">
-                    <button
-                        type="button"
-                        className="bg-gray-300 text-black px-4 py-2 rounded hover:bg-gray-400"
-                        onClick={onClose}
-                    >
-                        Cancel
-                    </button>
-                    <button
-                        type="submit"
-                        className="bg-cyan-700 text-white px-4 py-2 rounded hover:bg-cyan-800"
-                    >
-                        {isEditing ? "Update Career" : "Create Career"}
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-);
-
-const InputField = ({ name, value, onChange, required }) => (
-    <div className="mb-4">
-        <label className="block text-gray-700 mb-3" htmlFor={name}>
-            {name.charAt(0).toUpperCase() + name.slice(1)}
-        </label>
-        {name === "deadline" ? (
-            <input
-                type="date"
-                name={name}
-                value={value}
-                onChange={onChange}
-                className="border p-2 rounded w-full"
-                required={required}
-            />
-        ) : (
-            <input
-                type={name === "deadline" ? "date" : "text"}
-                name={name}
-                value={value}
-                onChange={onChange}
-                placeholder={`Enter ${name}`}
-                className="border p-2 rounded w-full"
-                required={required}
-            />
-        )}
-    </div>
-);
 
 export default Career;

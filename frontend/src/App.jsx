@@ -13,6 +13,8 @@ import Navbar from "./Components/NavigationBar/NavigationBar";
 import Footer from "./Components/Footer/Footer";
 import About from "./Pages/Website/AboutUs";
 import Career from "./Pages/Website/Career";
+import AddCareer from "./Components/Career/AddCareer.jsx";
+import EditCareer from "./Components/Career/EditCareer.jsx";
 import Blog from "./Pages/Website/Blog";
 import BlogDetail from "./Components/ContentChhatReasech/BlogDetail";
 import ChhatResearch from "./Pages/Website/ChhatResearch";
@@ -93,6 +95,8 @@ const AppRoutes = () => {
                     <Route path="dashboard" element={<AdminDashboard />} />
                     <Route path="blog" element={<AdminBlog />} />
                     <Route path="career" element={<AdminCareer />} />
+                    <Route path="career/add" element={<AddCareer />} />
+                    <Route path="career/edit/:id" element={<EditCareer />} />
                     <Route path="user" element={<AdminUser />} />
                     <Route path="profile" element={<AdminProfile />} />
                     <Route path="contact" element={<AdminContact />} />
