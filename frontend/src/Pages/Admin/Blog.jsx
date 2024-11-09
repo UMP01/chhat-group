@@ -23,6 +23,7 @@ const ChhatBlog = () => {
     const [searchTerm, setSearchTerm] = useState("");
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [imagePreview, setImagePreview] = useState(null);
 
     const fetchPosts = async () => {
         setLoading(true);
@@ -125,6 +126,7 @@ const ChhatBlog = () => {
                 // Reset the file input to remove the file name from the input
                 inputFile.value = "";
                 setFormData({ ...formData, image: null });
+                setImagePreview(null);
                 return;
             }
 
@@ -139,6 +141,7 @@ const ChhatBlog = () => {
                 // Reset the file input to remove the file name from the input
                 inputFile.value = "";
                 setFormData({ ...formData, image: null });
+                setImagePreview(null);
                 return;
             }
 
@@ -146,6 +149,7 @@ const ChhatBlog = () => {
             const img = new Image();
             const reader = new FileReader();
 
+            // Set up file reader to read the file as a Data URL
             reader.onload = (event) => {
                 img.src = event.target.result;
                 img.onload = () => {
@@ -190,9 +194,15 @@ const ChhatBlog = () => {
                             ...formData,
                             image: croppedFile,
                         });
+
+                        // Create an image preview
+                        const imageUrl = URL.createObjectURL(croppedFile);
+                        setImagePreview(imageUrl); // Set the preview image URL
                     }, file.type);
                 };
             };
+
+            // Read the image file as a Data URL
             reader.readAsDataURL(file);
         }
     };
@@ -473,8 +483,8 @@ const ChhatBlog = () => {
 
             {modalOpen && (
                 <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
-                    <div className="bg-white rounded-lg shadow-lg px-6 py-3 w-1/3 border-2 max-h-[90vh] overflow-y-auto">
-                        <h2 className="text-lg font-normal mb-4 text-cyan-700">
+                    <div className="bg-white rounded-lg shadow-lg px-6 py-3 w-2/3 border-2 max-h-[90vh] overflow-y-auto">
+                        <h2 className="text-lg font-semibold mb-4 text-cyan-700">
                             {isEditing ? "Edit Blog" : "Add Blog"}
                         </h2>
                         <form onSubmit={handleSubmit}>
@@ -529,6 +539,7 @@ const ChhatBlog = () => {
                                     onChange={handleChange}
                                     className="w-full px-4 py-2 border rounded"
                                     required
+                                    rows="7"
                                 />
                             </div>
                             <div className="mb-4">
@@ -539,35 +550,47 @@ const ChhatBlog = () => {
                                     type="file"
                                     name="image"
                                     onChange={handleFileChange}
-                                    className="w-full px-4 py-2 border rounded"
+                                    className=" text-gray-700 text-sm font-medium rounded leading-6 file:bg-cyan-900 file:bg-opacity-20 file:text-cyan-700 file:font-semibold file:border-none  file:px-4 file:py-1 file:mr-6 file:rounded hover:file:bg-cyan-900 hover:file:bg-opacity-30 file:duration-300"
                                 />
+                            </div>
+                            <div className="flex justify-center items-center gap-4 mb-5">
                                 {isEditing &&
                                     currentPost &&
                                     currentPost.image && (
-                                        <div className="mt-2">
-                                            <h4>Current Image:</h4>
+                                        <div className=" w-1/2">
+                                            <h4 className="font-semibold text-gray-700">Current Image:</h4>
                                             <img
                                                 src={`http://127.0.0.1:8000/storage/${
                                                     currentPost.image
                                                 }?${new Date().getTime()}`}
                                                 alt="Current post"
-                                                className="w-20 h-20 object-cover rounded mt-2"
+                                                className=" object-cover rounded mt-2"
                                             />
                                         </div>
                                     )}
+                                {imagePreview && (
+                                    <div className="w-1/2">
+                                        <h4 className="font-semibold text-gray-700">New Image:</h4>
+                                        <img
+                                            src={imagePreview}
+                                            alt="Image Preview"
+                                            className="object-cover rounded mt-2"
+                                        />
+                                    </div>
+                                )}
                             </div>
 
                             <div className="flex justify-end space-x-3">
                                 <button
                                     type="button"
                                     onClick={resetForm}
-                                    className="bg-gray-300 text-black px-4 py-2 rounded hover:bg-gray-400"
+                                    className="bg-gray-300 text-black px-4 py-2 rounded hover:bg-gray-400 duration-300"
                                 >
                                     Cancel
                                 </button>
                                 <button
                                     type="submit"
-                                    className="bg-cyan-700 text-white px-4 py-2 rounded hover:bg-cyan-800"
+                                    className="bg-cyan-700 text-white px-4 py-2 rounded hover:bg-cyan-800 duration-300"
                                 >
                                     {isEditing ? "Update Blog" : "Add Blog"}
                                 </button>

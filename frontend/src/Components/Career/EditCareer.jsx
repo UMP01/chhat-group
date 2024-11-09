@@ -189,8 +189,11 @@ const EditCareer = () => {
                                 className="border p-2 rounded w-full"
                                 required
                             >
-                                <option value="full time">Full time</option>
-                                <option value="part time">Part time</option>
+                                <option value="" disabled>
+                                    Select Category
+                                </option>
+                                <option value="Full Time">Full time</option>
+                                <option value="Part Time">Part time</option>
                             </select>
                         </div>
                     </div>

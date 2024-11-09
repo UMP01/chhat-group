@@ -8,7 +8,7 @@ const AddCareer = () => {
         title: "",
         location: "",
         deadline: "",
-        jobtype: "full time", // default to 'full time'
+        jobtype: "", // default to 'full time'
         salary: "",
         requirement: "",
         responsible: "",
@@ -138,8 +138,11 @@ const AddCareer = () => {
                                 onChange={handleChange}
                                 className="border p-2 rounded w-full"
                             >
-                                <option value="full time">Full time</option>
-                                <option value="part time">Part time</option>
+                                <option value="" disabled>
+                                    Select Category
+                                </option>
+                                <option value="Full Time">Full time</option>
+                                <option value="Part Time">Part time</option>
                             </select>
                         </div>
                     </div>
