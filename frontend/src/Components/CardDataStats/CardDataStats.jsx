@@ -5,7 +5,7 @@ function CardData(props) {
 
     return (
         <div
-            className={`rounded-md px-3 py-2 shadow font-medium ${backgroundClass} flex flex-col`}
+            className={`rounded-md px-3 py-2 shadow font-medium ${backgroundClass} bg-opacity-65 flex flex-col`}
         >
             <div className="flex space-x-4 items-center justify-between px-4 py-3">
                 {props.children}

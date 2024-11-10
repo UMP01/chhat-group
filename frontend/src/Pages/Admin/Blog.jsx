@@ -491,7 +491,7 @@ const ChhatBlog = () => {
                             <div className="mb-4">
                                 <label className="block text-gray-700 font-semibold mb-2">
                                     Title{" "}
-                                    <span className="text-red-500">*</span>
+                                    <span className="text-red-700">*</span>
                                 </label>
                                 <input
                                     type="text"
@@ -506,7 +506,7 @@ const ChhatBlog = () => {
                             <div className="mb-4">
                                 <label className="block text-gray-700 font-semibold mb-2">
                                     Category{" "}
-                                    <span className="text-red-500">*</span>
+                                    <span className="text-red-700">*</span>
                                 </label>
                                 <select
                                     id="cacategory"
@@ -530,7 +530,7 @@ const ChhatBlog = () => {
                             <div className="mb-4">
                                 <label className="block text-gray-700 font-semibold mb-2">
                                     Content{" "}
-                                    <span className="text-red-500">*</span>
+                                    <span className="text-red-700">*</span>
                                 </label>
                                 <textarea
                                     name="content"
@@ -544,7 +544,8 @@ const ChhatBlog = () => {
                             </div>
                             <div className="mb-4">
                                 <label className="block text-gray-700 font-semibold mb-2">
-                                    Image
+                                    Image{" "}
+                                    <span className="text-red-700">*</span>
                                 </label>
                                 <input
                                     type="file"
@@ -558,7 +559,9 @@ const ChhatBlog = () => {
                                     currentPost &&
                                     currentPost.image && (
                                         <div className=" w-1/2">
-                                            <h4 className="font-semibold text-gray-700">Current Image:</h4>
+                                            <h4 className="font-semibold text-gray-700">
+                                                Current Image:
+                                            </h4>
                                             <img
                                                 src={`http://127.0.0.1:8000/storage/${
                                                     currentPost.image
@@ -570,7 +573,9 @@ const ChhatBlog = () => {
                                     )}
                                 {imagePreview && (
                                     <div className="w-1/2">
-                                        <h4 className="font-semibold text-gray-700">New Image:</h4>
+                                        <h4 className="font-semibold text-gray-700">
+                                            New Image:
+                                        </h4>
                                         <img
                                             src={imagePreview}
                                             alt="Image Preview"

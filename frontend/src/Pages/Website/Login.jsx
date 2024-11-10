@@ -6,8 +6,8 @@ import Swal from "sweetalert2";
 import { axiosClient } from "../../api/axios";
 
 const Login = () => {
-    const [email, setEmail] = useState("roeun@gmail.com");
-    const [password, setPassword] = useState("12345678a");
+    const [email, setEmail] = useState(""); // Empty default for email
+    const [password, setPassword] = useState(""); // Empty default for password
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
 
@@ -16,12 +16,15 @@ const Login = () => {
         setIsLoading(true);
 
         try {
+            // Send login request to the API
             const response = await axiosClient.post("login", {
                 email,
                 password,
             });
 
+            // Handle success response
             if (response.data.status === "success") {
+                // Store authentication info in local storage
                 localStorage.setItem("authToken", response.data.token);
                 localStorage.setItem("userId", response.data.user.id);
                 localStorage.setItem("userName", response.data.user.name);
@@ -29,22 +32,58 @@ const Login = () => {
                     "permission",
                     response.data.user.permission
                 );
+
+                // Navigate to the dashboard
                 navigate("/admin/dashboard");
             } else {
-                Swal.fire("Error", response.data.message, "error");
+                // If the response contains an error message, show it
+                Swal.fire(
+                    "Error",
+                    response.data.message || "Invalid login credentials",
+                    "error"
+                );
             }
         } catch (error) {
             console.error("Login error:", error);
-            if (error.response && error.response.status === 422) {
-                const errors = error.response.data.errors;
-                const errorMessage = Object.values(errors).flat().join(", ");
+
+            if (error.response) {
+                // Handle specific errors based on status code
+
+                if (error.response.status === 401) {
+                    // Unauthorized error (incorrect password)
+                    Swal.fire(
+                        "Login Failed",
+                        "Incorrect email or password. Please try again.",
+                        "error"
+                    );
+                } else if (error.response.status === 422) {
+                    // Validation error (e.g., email format or missing fields)
+                    const errors = error.response.data.errors;
+                    const errorMessage = Object.values(errors)
+                        .flat()
+                        .join(", ");
+                    Swal.fire(
+                        "Validation Error",
+                        errorMessage || "Please check the form and try again.",
+                        "error"
+                    );
+                } else {
+                    // General API error (e.g., server-side issue)
+                    Swal.fire(
+                        "Error",
+                        "An unexpected error occurred. Please try again.",
+                        "error"
+                    );
+                }
+            } else if (error.request) {
+                // No response from server (network issues, etc.)
                 Swal.fire(
                     "Error",
-                    errorMessage ||
-                        "Invalid login credentials. Please try again.",
+                    "No response from server. Please try again.",
                     "error"
                 );
             } else {
+                // Handle unexpected errors
                 Swal.fire("Error", "An unexpected error occurred.", "error");
             }
         } finally {
@@ -109,7 +148,13 @@ const Login = () => {
                                     <div className="text-sm">
                                         <Link
                                             to="#"
-                                            onClick={() => Swal.fire("Contact to Admin", "Please reach out to the admin for password recovery.", "info")}
+                                            onClick={() =>
+                                                Swal.fire(
+                                                    "Contact to Admin",
+                                                    "Please reach out to the admin for password recovery.",
+                                                    "info"
+                                                )
+                                            }
                                             className="font-normal text-indigo-600 hover:text-indigo-500"
                                             style={{
                                                 color: "var(--primary-color)",
@@ -122,7 +167,9 @@ const Login = () => {
                                 <div className="mt-2">
                                     <input
                                         value={password}
-                                        onChange={(e) => setPassword(e.target.value)}
+                                        onChange={(e) =>
+                                            setPassword(e.target.value)
+                                        }
                                         id="password"
                                         name="password"
                                         type="password"

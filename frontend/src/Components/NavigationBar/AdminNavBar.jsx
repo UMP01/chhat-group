@@ -13,9 +13,10 @@ import DefaultAvatar from "../../assets/Images/default-profile.jpg";
 
 const AdminNavBar = ({ toggleSidebar, isOpen }) => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-    const [isNotificationDropdownOpen, setIsNotificationDropdownOpen] = useState(false);
+    const [isNotificationDropdownOpen, setIsNotificationDropdownOpen] =
+        useState(false);
     const navigate = useNavigate();
-    const userName = localStorage.getItem("userName") || "User"; 
+    const userName = localStorage.getItem("userName") || "User";
     const [userData, setUserData] = useState({
         name: userName,
         avatar: DefaultAvatar,
@@ -37,12 +38,15 @@ const AdminNavBar = ({ toggleSidebar, isOpen }) => {
         const fetchNotifications = async () => {
             try {
                 const response = await axiosClient.get("/contacts");
-                
+
                 const sortedNotifications = response.data
-                    .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+                    .sort(
+                        (a, b) =>
+                            new Date(b.created_at) - new Date(a.created_at)
+                    )
                     .slice(0, 5);
 
-                setNotifications(sortedNotifications); 
+                setNotifications(sortedNotifications);
                 setHasNewNotification(sortedNotifications.length > 0);
             } catch (error) {
                 console.error("Error fetching notifications:", error);
@@ -96,6 +100,13 @@ const AdminNavBar = ({ toggleSidebar, isOpen }) => {
         setIsNotificationDropdownOpen(false);
         navigate(notification.route || "/admin/contact");
     };
+    const truncateMessage = (message, wordLimit) => {
+        const words = message.split(" "); 
+        if (words.length <= wordLimit) {
+            return message; 
+        }
+        return words.slice(0, wordLimit).join(" ") + "...";
+    };
 
     return (
         <nav className="bg-white py-4 px-6 flex justify-between items-center">
@@ -123,43 +134,64 @@ const AdminNavBar = ({ toggleSidebar, isOpen }) => {
                         )}
                     </button>
                     {isNotificationDropdownOpen && (
-    <div className="absolute right-0 mt-2 w-72 bg-white rounded-md shadow-lg z-10 border">
-        <ul className="py-2">
-            {notifications.length > 0 ? (
-                notifications.map((notification) => (
-                    <li key={notification.id} className="border-b last:border-0">
-                        <button
-                            onClick={() => handleNotificationClick(notification)}
-                            className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100"
-                        >
-                            <div className="flex justify-between items-start">
-                                <div className="flex-1">
-                                    <div className="font-bold">{notification.subject}</div>
-                                    <div className="text-sm text-gray-700 mt-1">{notification.message}</div>
-                                </div>
-                                <div className="text-xs text-gray-500 ml-4">
-                                    {new Date(notification.created_at).toLocaleString('en-US', {
-                                        month: '2-digit',
-                                        day: '2-digit',
-                                        year: 'numeric',
-                                        hour: 'numeric',
-                                        minute: 'numeric',
-                                        hour12: true,
-                                    })}
-                                </div>
-                            </div>
-                        </button>
-                    </li>
-                ))
-            ) : (
-                <li className="px-4 py-2 text-gray-500">
-                    No new notifications
-                </li>
-            )}
-        </ul>
-    </div>
-)}
-
+                        <div className="absolute right-0 w-80 bg-white rounded-md shadow-lg z-10 border">
+                            <ul>
+                                {notifications.length > 0 ? (
+                                    notifications.map((notification) => (
+                                        <li
+                                            key={notification.id}
+                                            className="border-b last:border-0"
+                                        >
+                                            <button
+                                                onClick={() =>
+                                                    handleNotificationClick(
+                                                        notification
+                                                    )
+                                                }
+                                                className="block w-full text-left p-4 text-gray-700 hover:bg-gray-100 hover:bg-opacity-30"
+                                            >
+                                                <div className="flex justify-between items-start">
+                                                    <div className="flex-1">
+                                                        <div className="font-bold text-sm">
+                                                            {
+                                                                notification.subject
+                                                            }
+                                                        </div>
+                                                        {/* Truncate message to 4 words */}
+                                                        <div className="text-sm font-medium text-gray-700 mt-1">
+                                                            {truncateMessage(
+                                                                notification.message,
+                                                                4
+                                                            )}
+                                                        </div>
+                                                    </div>
+                                                    <div className="text-xs font-medium text-gray-500 ml-4">
+                                                        {new Date(
+                                                            notification.created_at
+                                                        ).toLocaleString(
+                                                            "en-US",
+                                                            {
+                                                                month: "2-digit",
+                                                                day: "2-digit",
+                                                                year: "numeric",
+                                                                hour: "numeric",
+                                                                minute: "numeric",
+                                                                hour12: true,
+                                                            }
+                                                        )}
+                                                    </div>
+                                                </div>
+                                            </button>
+                                        </li>
+                                    ))
+                                ) : (
+                                    <li className="px-4 py-2 text-gray-500">
+                                        No new notifications
+                                    </li>
+                                )}
+                            </ul>
+                        </div>
+                    )}
                 </div>
                 <div className="relative">
                     <button

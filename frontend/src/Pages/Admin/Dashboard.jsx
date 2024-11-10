@@ -72,7 +72,7 @@ const Dashboard = () => {
         {
             title: "Contact Submit",
             statics: contactCount.toString(),
-            background: "bg-blue-100",
+            background: "bg-rose-100",
             icon: <EnvelopeIcon className={iconClass} />,
             link: "/admin/contact",
         },
@@ -93,7 +93,7 @@ const Dashboard = () => {
         {
             title: "Chhat Research Articles",
             statics: researchBlogCount.toString(),
-            background: "bg-red-100",
+            background: "bg-cyan-100",
             icon: <NewspaperIcon className={iconClass} />,
             link: "/admin/blog",
         },

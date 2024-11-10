@@ -104,7 +104,8 @@ const EditCareer = () => {
                                 htmlFor="title"
                                 className="block font-medium"
                             >
-                                Title
+                                Title{" "}
+                                <span className="text-red-700">*</span>
                             </label>
                             <input
                                 type="text"
@@ -122,7 +123,8 @@ const EditCareer = () => {
                                 htmlFor="location"
                                 className="block font-medium"
                             >
-                                Location
+                                Location{" "}
+                                <span className="text-red-700">*</span>
                             </label>
                             <input
                                 type="text"
@@ -143,7 +145,8 @@ const EditCareer = () => {
                                 htmlFor="deadline"
                                 className="block font-medium"
                             >
-                                Deadline
+                                Deadline{" "}
+                                <span className="text-red-700">*</span>
                             </label>
                             <input
                                 type="date"
@@ -161,7 +164,8 @@ const EditCareer = () => {
                                 htmlFor="salary"
                                 className="block font-medium"
                             >
-                                Salary
+                                Salary{" "}
+                                <span className="text-red-700">*</span>
                             </label>
                             <input
                                 type="number"
@@ -179,7 +183,8 @@ const EditCareer = () => {
                                 htmlFor="jobtype"
                                 className="block font-medium"
                             >
-                                Job Type
+                                Job Type{" "}
+                                <span className="text-red-700">*</span>
                             </label>
                             <select
                                 name="jobtype"

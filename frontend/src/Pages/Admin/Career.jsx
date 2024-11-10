@@ -111,7 +111,7 @@ const Career = () => {
                 <div className="flex justify-between px-2 text-sm">
                     <input
                         type="text"
-                        placeholder="Search Careers (Title, Location, Job Type)"
+                        placeholder="Search Careers"
                         value={searchTerm}
                         onChange={handleSearchChange}
                         className="border px-3 py-2 rounded w-2/6 font-medium text-gray-600"

@@ -52,7 +52,7 @@ const AddCareer = () => {
                                 htmlFor="title"
                                 className="block font-medium"
                             >
-                                Title
+                                Title <span className="text-red-700">*</span>
                             </label>
                             <input
                                 type="text"
@@ -71,7 +71,7 @@ const AddCareer = () => {
                                 htmlFor="location"
                                 className="block font-medium"
                             >
-                                Location
+                                Location <span className="text-red-700">*</span>
                             </label>
                             <input
                                 type="text"
@@ -93,7 +93,7 @@ const AddCareer = () => {
                                 htmlFor="deadline"
                                 className="block font-medium"
                             >
-                                Deadline
+                                Deadline <span className="text-red-700">*</span>
                             </label>
                             <input
                                 type="date"
@@ -111,7 +111,7 @@ const AddCareer = () => {
                                 htmlFor="salary"
                                 className="block font-medium"
                             >
-                                Salary
+                                Salary <span className="text-red-700">*</span>
                             </label>
                             <input
                                 type="number"
@@ -130,7 +130,7 @@ const AddCareer = () => {
                                 htmlFor="jobtype"
                                 className="block font-medium"
                             >
-                                Job Type
+                                Job Type <span className="text-red-700">*</span>
                             </label>
                             <select
                                 name="jobtype"
