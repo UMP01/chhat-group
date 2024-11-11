@@ -2,7 +2,7 @@ const History = () => {
     return (
         <div className="mb-20">
             <h1 className="text-lg font-medium text-cyan-700">
-                Chhat Research History
+                Chhat Research Large-scale
             </h1>
             <hr class="w-full mt-3 mb-5 border" />
             <div className="mb-10">

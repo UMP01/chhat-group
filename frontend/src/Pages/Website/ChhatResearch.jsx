@@ -6,7 +6,7 @@ import Content from "../../Components/ContentChhatReasech/Content";
 const categories = [
     { id: "category1", name: "Who we are ?" },
     { id: "category2", name: "Chhat Research Expertise" },
-    { id: "category3", name: "Chhat Reseach History" },
+    { id: "category3", name: "Chhat Reseach Large-Scale" },
     { id: "category4", name: "Chhat Reseach blog" },
     { id: "category5", name: "Team Members" },
 ];

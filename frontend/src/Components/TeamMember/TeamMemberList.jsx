@@ -37,7 +37,7 @@ const teamMembers = [
     },
     {
         name: "Heng Bunikan",
-        role: "Sale & Marketing Manager",
+        role: "Sale & Marketing Director",
         location: "Cambodia",
         phone: "(+855) 12-704-867",
         email: "bunikan.Heng@chhatgroup.com",

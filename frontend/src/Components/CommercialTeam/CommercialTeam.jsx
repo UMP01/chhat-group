@@ -19,6 +19,23 @@ import Manulife from "../../assets/Images/Commercial-logo/manulife.png";
 import Nestle from "../../assets/Images/Commercial-logo/nestle.png";
 import Samsung from "../../assets/Images/Commercial-logo/samsung.png";
 import Ph from "../../assets/Images/Commercial-logo/ph.png";
+import Lexus from "../../assets/Images/Commercial-logo/lexus.png";
+import Caltex from "../../assets/Images/Commercial-logo/caltex.png";
+import Chipmong_bank from "../../assets/Images/Commercial-logo/chipmong-bank.png";
+import Visa from "../../assets/Images/Commercial-logo/visa.png";
+import Ezecom from "../../assets/Images/Commercial-logo/ezecom.png";
+import Heineken from "../../assets/Images/Commercial-logo/heineken.png";
+import Redbull from "../../assets/Images/Commercial-logo/redbull.jpg";
+import Forte from "../../assets/Images/Commercial-logo/forte.png";
+import Brown from "../../assets/Images/Commercial-logo/brown.png";
+import Yeos from "../../assets/Images/Commercial-logo/yeos.png";
+import JTI from "../../assets/Images/Commercial-logo/jti.png";
+import Danone from "../../assets/Images/Commercial-logo/danone.png";
+import Maybank from "../../assets/Images/Commercial-logo/maybank.jpg";
+import Prudential from "../../assets/Images/Commercial-logo/prudential.png";
+import Hongqi from "../../assets/Images/Commercial-logo/hongqi.jpg";
+import Pepsi from "../../assets/Images/Commercial-logo/pepsi.png";
+
 
 const Logoes = [
     { image: Sting, alt: "Sting Logo" },
@@ -41,6 +58,23 @@ const Logoes = [
     { image: Nestle, alt: "Nestle Logo" },
     { image: Samsung, alt: "Samsung Logo" },
     { image: Ph, alt: "Peng Hout Logo" },
+    { image: Lexus, alt: "Lexus Logo" },
+    { image: Caltex, alt: "Lexus Logo" },
+    { image: Chipmong_bank, alt: "Lexus Logo" },
+    { image: Visa, alt: "Lexus Logo" },
+    { image: Ezecom, alt: "Lexus Logo" },
+    { image: Heineken, alt: "Lexus Logo" },
+    { image: Redbull, alt: "Lexus Logo" },
+    { image: Forte, alt: "Lexus Logo" },
+    { image: Brown, alt: "Lexus Logo" },
+    { image: Yeos, alt: "Lexus Logo" },
+    { image: JTI, alt: "Lexus Logo" },
+    { image: Danone, alt: "Lexus Logo" },
+    { image: Maybank, alt: "Lexus Logo" },
+    { image: Prudential, alt: "Lexus Logo" },
+    { image: Hongqi, alt: "Lexus Logo" },
+    { image: Pepsi, alt: "Pepsi Logo" },
+
 ];
 
 const CommercialTeam = ({ logoes = Logoes }) => {

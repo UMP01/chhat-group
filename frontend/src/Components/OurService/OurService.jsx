@@ -34,7 +34,7 @@ const cardsData = [
 
 const Card = ({ imageSrc, altText, title, description, link }) => (
     <div className="lg:w-1/3 px-5 py-3">
-        <div className="shadow-lg rounded-lg border bg-gray-50 border-gray-100 overflow-hidden py-5 hover:scale-105 duration-300 hover:shadow-2xl">
+        <div className="shadow-md rounded-lg border border-gray-100 overflow-hidden py-5 hover:scale-105 duration-300 hover:shadow-2xl">
             <img
                 src={imageSrc}
                 alt={altText}
@@ -64,7 +64,7 @@ const CardGrid = () => (
             <h5 className="text-xl sm:text-2xl md:text-3xl lg:text-3xl text-gray-600 mb-3 font-semibold">
                 Our Services
             </h5>
-            <p className="text-gray-500 text-sm sm:text-base md:text-base lg:text-base">
+            <p className="text-gray-500 text-sm sm:text-base font-medium md:text-base lg:text-base">
                 We provide comprehensive services in trading, market research,
                 and product sales, specializing in high-quality jewelery.
             </p>
