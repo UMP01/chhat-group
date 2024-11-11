@@ -1,4 +1,3 @@
-// App.js
 import React from "react";
 import {
     BrowserRouter as Router,
@@ -35,6 +34,7 @@ import AdminProfile from "./Pages/Admin/AdminProfile";
 import AdminContact from "./Pages/Admin/Contact";
 import ProtectedRoute from "./api/ProtectedRoute.js";
 import CareerDetails from './Pages/Website/CareerDetails';
+import PageNotFound from './Pages/Website/PageNotFound'
 import SentContactDetails from "./Components/Contact/SentContactDetails.jsx";
 
 if (process.env.NODE_ENV === 'production') {
@@ -51,12 +51,17 @@ const App = () => {
 
 const AppRoutes = () => {
     const location = useLocation();
-    const hideNavbarAndFooter = location.pathname.startsWith("/admin");
+
+    // Determine visibility for Navbar and Footer based on the current path
+    const isAdminPage = location.pathname.startsWith("/admin");
+    const is404Page = location.pathname === "/404" || location.pathname === "*";
 
     return (
         <div className="App">
-            {!hideNavbarAndFooter && <Navbar />}
+            {/* Render Navbar only if not on admin or 404 pages */}
+            {!isAdminPage && !is404Page && <Navbar />}
             <Routes>
+                {/* Public routes */}
                 <Route path="/" element={<Home />} />
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/about" element={<About />} />
@@ -65,22 +70,8 @@ const AppRoutes = () => {
                 <Route path="/blog/:id" element={<BlogDetail />} />
                 <Route path="/chhat-research" element={<ChhatResearch />} />
                 <Route path="/chhat-diamond" element={<ChhatDiamond />} />
-                <Route path="/chhat-capital" element={<ChhatCapital />} />
                 <Route path="/chhat-trading" element={<ChhatTrading />} />
                 <Route path="/careerdetails/:id" element={<CareerDetails />} />
-                <Route
-                    path="/chhat-real-estate"
-                    element={<ChhatRealEstate />}
-                />
-                <Route
-                    path="/chhat-construction"
-                    element={<ChhatConstruction />}
-                />
-                <Route
-                    path="/chhat-agriculture"
-                    element={<ChhatAgriculture />}
-                />
-                <Route path="/chhat-cosmetic" element={<ChhatCosmetic />} />
                 <Route path="/admin/login" element={<Admin />} />
 
                 {/* Admin protected routes */}
@@ -100,13 +91,18 @@ const AppRoutes = () => {
                     <Route path="user" element={<AdminUser />} />
                     <Route path="profile" element={<AdminProfile />} />
                     <Route path="contact" element={<AdminContact />} />
-                    <Route path="contact/sent/:id" element={<SentContactDetails />} /> {/* Dynamic route for contact details */}
-
+                    <Route path="contact/sent/:id" element={<SentContactDetails />} />
+                    <Route path="*" element={<PageNotFound />} />
                 </Route>
+
+                {/* Catch-all route for unmatched paths */}
+                <Route path="*" element={<PageNotFound />} />
             </Routes>
-            {!hideNavbarAndFooter && <Footer />}
+            {/* Render Footer only if not on admin pages */}
+            {!isAdminPage && <Footer />}
         </div>
     );
 };
+
 
 export default App;

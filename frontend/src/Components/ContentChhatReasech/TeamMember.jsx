@@ -15,11 +15,6 @@ import profile12 from "../../assets/Images/ChhatResearch/Pic12.jpg";
 import profile13 from "../../assets/Images/ChhatResearch/Pic13.jpg";
 import profile14 from "../../assets/Images/ChhatResearch/Pic14.jpg";
 
-
-
-
-
-
 const teamMembers = [
     {
         name: "Chhat Leangchansocheat",
@@ -62,38 +57,6 @@ const teamMembers = [
         image: profile05,
     },
     {
-        name: "Tim Theavy",
-        location: "Cambodia",
-        role: "Association Research Manager",
-        email: "theavy.tim@chhatgroup.com",
-        mailLink: "mailto:theavy.tim@chhatgroup.com",
-        image: profile06,
-    },
-    {
-        name: "Lorn Sipheng",
-        location: "Cambodia",
-        role: "Association Research Manager",
-        email: "sipheng.lorn@chhatgroup.com",
-        mailLink: "mailto:sipheng.lorn@chhatgroup.com",
-        image: profile07,
-    },
-    {
-        name: "Meach Socheata",
-        location: "Cambodia",
-        role: "Research Executive",
-        email: "socheata.meach@chhatgroup.com",
-        mailLink: "mailto:socheata.meach@chhatgroup.com",
-        image: profile08,
-    },
-    {
-        name: "Rin Ratanakvisal",
-        location: "Cambodia",
-        role: "Association Research Executive",
-        email: "ratanakvisal.rin@chhatgroup.com",
-        mailLink: "mailto:ratanakvisal.rin@chhatgroup.com",
-        image: profile09,
-    },
-    {
         name: "Jessica Acuna",
         location: "Philipine",
         role: "Research Director",
@@ -110,14 +73,6 @@ const teamMembers = [
         image: profile11,
     },
     {
-        name: "Lay Kimly",
-        location: "Cambodia",
-        role: "Research Executive",
-        email: "kimly.lay@chhatgroup.com",
-        mailLink: "mailto:kimly.lay@chhatgroup.com",
-        image: profile12,
-    },
-    {
         name: "Chea Sreymom",
         location: "Cambodia",
         role: "Sr.Moderator",
@@ -132,6 +87,46 @@ const teamMembers = [
         email: "chanthyda.chhor@chhatgroup.com",
         mailLink: "mailto:chanthyda.chhor@chhatgroup.com",
         image: profile14,
+    },
+    {
+        name: "Tim Theavy",
+        location: "Cambodia",
+        role: "Association Research Manager",
+        email: "theavy.tim@chhatgroup.com",
+        mailLink: "mailto:theavy.tim@chhatgroup.com",
+        image: profile06,
+    },
+    {
+        name: "Lorn Sipheng",
+        location: "Cambodia",
+        role: "Association Research Manager",
+        email: "sipheng.lorn@chhatgroup.com",
+        mailLink: "mailto:sipheng.lorn@chhatgroup.com",
+        image: profile07,
+    },
+    {
+        name: "Rin Ratanakvisal",
+        location: "Cambodia",
+        role: "Association Research Executive",
+        email: "ratanakvisal.rin@chhatgroup.com",
+        mailLink: "mailto:ratanakvisal.rin@chhatgroup.com",
+        image: profile09,
+    },
+    {
+        name: "Lay Kimly",
+        location: "Cambodia",
+        role: "Research Executive",
+        email: "kimly.lay@chhatgroup.com",
+        mailLink: "mailto:kimly.lay@chhatgroup.com",
+        image: profile12,
+    },
+    {
+        name: "Meach Socheata",
+        location: "Cambodia",
+        role: "Research Executive",
+        email: "socheata.meach@chhatgroup.com",
+        mailLink: "mailto:socheata.meach@chhatgroup.com",
+        image: profile08,
     },
 ];
 
@@ -160,7 +155,7 @@ const TeamMember = ({
                                     <img
                                         src={member.image}
                                         alt={member.name}
-                                        className="rounded-full w-20"
+                                        className="rounded-full w-20 grayscale"
                                     />
                                 </div>
                                 <div className="px-5">

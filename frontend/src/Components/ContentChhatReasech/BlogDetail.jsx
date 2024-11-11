@@ -96,12 +96,12 @@ const BlogDetail = () => {
                             <div className="text-gray-700 mt-4">
                                 <p>Contact Us</p>
                                 <div className="flex flex-wrap gap-2 mt-2">
-                                    <a
+                                    {/* <a
                                         href="https://t.me/joinchat/JZW3WDMdHgkzODk1"
                                         className="p-4 bg-cyan-700 rounded-full flex items-center text-white hover:bg-white hover:text-cyan-700 duration-500 ease-in-out"
                                     >
                                         <FaTelegramPlane />
-                                    </a>
+                                    </a> */}
                                     <a
                                         href="https://facebook.com/chhatgroup"
                                         target="_blank"
@@ -110,14 +110,14 @@ const BlogDetail = () => {
                                     >
                                         <FaFacebookF />
                                     </a>
-                                    <a
+                                    {/* <a
                                         href="https://instagram.com/chhatgroup"
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className="p-4 bg-cyan-700 rounded-full flex items-center text-white hover:bg-white hover:text-cyan-700 duration-500 ease-in-out"
                                     >
                                         <FaInstagram />
-                                    </a>
+                                    </a> */}
                                     <a
                                         href="mailto:info@chhatgroup.com"
                                         className="p-4 bg-cyan-700 rounded-full flex items-center text-white hover:bg-white hover:text-cyan-700 duration-500 ease-in-out"

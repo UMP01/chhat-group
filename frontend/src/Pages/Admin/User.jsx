@@ -102,7 +102,7 @@ const User = () => {
             dob: user.dob.split("T")[0],
             branch: "Phnom Penh",
             permission: user.permission,
-            password: "",
+            password: user.password,
         });
         setIsModalOpen(true);
     }
@@ -392,7 +392,7 @@ const User = () => {
                                     <option value="user">User</option>
                                 </select>
                             </div>
-                            {!editUser && (
+                            {/* {!editUser && ( */}
                                 <div className="mb-4">
                                     <label
                                         htmlFor="password"
@@ -408,10 +408,10 @@ const User = () => {
                                         value={formData.password}
                                         onChange={handleChange}
                                         className="border w-full px-3 py-2"
-                                        required={!editUser}
+                                        // required={!editUser}
                                     />
                                 </div>
-                            )}
+                            {/* )} */}
                             <div className="flex justify-end space-x-3">
                                 <button
                                     type="button"
