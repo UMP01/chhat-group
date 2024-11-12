@@ -37,6 +37,7 @@ import ProtectedRoute from "./api/ProtectedRoute.js";
 import CareerDetails from "./Pages/Website/CareerDetails";
 import PageNotFound from "./Pages/Website/PageNotFound";
 import SentContactDetails from "./Components/Contact/SentContactDetails.jsx";
+import ScrollToTopButton from "./Components/ScrollToTop/ScrollToTop.jsx"
 
 if (process.env.NODE_ENV === "production") {
     console.log = function () {};
@@ -114,6 +115,7 @@ const AppRoutes = () => {
             </Routes>
             {/* Render Footer only if not on admin pages */}
             {!isAdminPage && <Footer />}
+            <ScrollToTopButton />
         </div>
     );
 };
