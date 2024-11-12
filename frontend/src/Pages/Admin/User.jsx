@@ -302,7 +302,8 @@ const User = () => {
                         <form onSubmit={handleSubmit}>
                             <div className="mb-4">
                                 <label htmlFor="name" className="block mb-2">
-                                    Name
+                                    Name{" "}
+                                    <span className="text-red-700">*</span>
                                 </label>
                                 <input
                                     type="text"
@@ -317,7 +318,8 @@ const User = () => {
                             </div>
                             <div className="mb-4">
                                 <label htmlFor="email" className="block mb-2">
-                                    Email
+                                    Email{" "}
+                                    <span className="text-red-700">*</span>
                                 </label>
                                 <input
                                     type="email"
@@ -332,7 +334,8 @@ const User = () => {
                             </div>
                             <div className="mb-4">
                                 <label htmlFor="phone" className="block mb-2">
-                                    Phone
+                                    Phone{" "}
+                                    <span className="text-red-700">*</span>
                                 </label>
                                 <input
                                     type="text"
@@ -347,7 +350,8 @@ const User = () => {
                             </div>
                             <div className="mb-4">
                                 <label htmlFor="dob" className="block mb-2">
-                                    Date of Birth
+                                    Date of Birth{" "}
+                                    <span className="text-red-700">*</span>
                                 </label>
                                 <input
                                     type="date"
@@ -360,7 +364,8 @@ const User = () => {
                             </div>
                             <div className="mb-4">
                                 <label htmlFor="branch" className="block mb-2">
-                                    Branch
+                                    Branch{" "}
+                                    <span className="text-red-700">*</span>
                                 </label>
                                 <select
                                     name="branch"
@@ -379,7 +384,8 @@ const User = () => {
                                     htmlFor="permission"
                                     className="block mb-2"
                                 >
-                                    Permission
+                                    Permission{" "}
+                                    <span className="text-red-700">*</span>
                                 </label>
                                 <select
                                     name="permission"
@@ -398,7 +404,8 @@ const User = () => {
                                         htmlFor="password"
                                         className="block mb-2"
                                     >
-                                        Password
+                                        Password{" "}
+                                        <span className="text-red-700">*</span>
                                     </label>
                                     <input
                                         type="password"
