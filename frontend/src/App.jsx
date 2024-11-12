@@ -5,6 +5,7 @@ import {
     Routes,
     useLocation,
 } from "react-router-dom";
+import { useEffect } from 'react';
 import "./App.css";
 import Home from "./Pages/Website/Home";
 import Contact from "./Pages/Website/Contact";
@@ -33,17 +34,27 @@ import AdminBlog from "./Pages/Admin/Blog.jsx";
 import AdminProfile from "./Pages/Admin/AdminProfile";
 import AdminContact from "./Pages/Admin/Contact";
 import ProtectedRoute from "./api/ProtectedRoute.js";
-import CareerDetails from './Pages/Website/CareerDetails';
-import PageNotFound from './Pages/Website/PageNotFound'
+import CareerDetails from "./Pages/Website/CareerDetails";
+import PageNotFound from "./Pages/Website/PageNotFound";
 import SentContactDetails from "./Components/Contact/SentContactDetails.jsx";
 
-if (process.env.NODE_ENV === 'production') {
-    console.log = function() {};
+if (process.env.NODE_ENV === "production") {
+    console.log = function () {};
 }
+const ScrollToTop = () => {
+    const location = useLocation();
+
+    useEffect(() => {
+        window.scrollTo(0, 0); // Scroll to top on route change
+    }, [location]);
+
+    return null; // This component doesn't render anything
+};
 
 const App = () => {
     return (
         <Router>
+            <ScrollToTop />
             <AppRoutes />
         </Router>
     );
@@ -91,7 +102,10 @@ const AppRoutes = () => {
                     <Route path="user" element={<AdminUser />} />
                     <Route path="profile" element={<AdminProfile />} />
                     <Route path="contact" element={<AdminContact />} />
-                    <Route path="contact/sent/:id" element={<SentContactDetails />} />
+                    <Route
+                        path="contact/sent/:id"
+                        element={<SentContactDetails />}
+                    />
                     <Route path="*" element={<PageNotFound />} />
                 </Route>
 
@@ -103,6 +117,5 @@ const AppRoutes = () => {
         </div>
     );
 };
-
 
 export default App;
