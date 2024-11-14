@@ -75,7 +75,7 @@ const News = () => {
     }
 
     return (
-        <div className="container max-w-7xl mx-auto px-5 pb-5 pt-0 rubik">
+        <div className="container max-w-7xl mx-auto pb-5 pt-0 rubik">
             <h1 className="text-lg text-cyan-700 mb-4 font-medium">
                 Latest News
             </h1>

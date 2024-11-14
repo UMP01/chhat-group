@@ -26,10 +26,12 @@ const MemberCompany = ({
                     </div>
                     <div className="w-full md:w-2/3 flex justify-start items-center px-5 md:pr-10">
                         <div className="text-start">
-                            <h1 className="text-4xl uppercase text-start my-5 text-gray-600">
+                            <h1 className="text-xl sm:text-xl md:text-2xl lg:text-4xl uppercase text-start my-5 text-gray-600 font-medium">
                                 {title}
                             </h1>
-                            <p className="my-5 text-gray-600">{description}</p>
+                            <p className="my-5 text-sm sm:text-base md:text-base lg:text-base font-medium text-gray-600">
+                                {description}
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -37,14 +39,14 @@ const MemberCompany = ({
             <Breadcrumb curPage={title} />
             <div className="max-w-7xl mx-auto flex flex-wrap">
                 <div className="lg:w-1/2 text-gray-700 p-5">
-                    <h1 className="text-2xl text-cyan-600 mb-5">
+                    <h1 className="text-lg sm:text-lg md:text-xl lg:text-2xl text-cyan-600 mb-5 font-medium">
                         {firstTitle}
                     </h1>
-                    <p className="my-1">{firstDescription}</p>
-                    <h1 className="text-2xl text-cyan-600 mb-5 mt-3">
+                    <p className="my-1 text-sm sm:text-base md:text-base lg:text-base font-medium text-gray-600">{firstDescription}</p>
+                    <h1 className="text-lg sm:text-lg md:text-xl lg:text-2xl text-cyan-600 mb-5 mt-3 font-medium">
                         {secondTitle}
                     </h1>
-                    <p className="mt-3 my-1">{secondDescription}</p>
+                    <p className="mt-3 my-1 text-sm sm:text-base md:text-base lg:text-base font-medium text-gray-600">{secondDescription}</p>
                 </div>
                 <div className="lg:w-1/2 p-5">
                     <div className="relative w-full h-full">

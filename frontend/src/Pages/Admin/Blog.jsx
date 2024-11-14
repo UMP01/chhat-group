@@ -349,7 +349,7 @@ const ChhatBlog = () => {
                         placeholder="Search Blogs"
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
-                        className="border px-3 py-2 rounded w-2/6 font-medium text-gray-600"
+                        className="border px-3 py-2 rounded w-2/6 font-medium text-gray-600​ font-khmer-nato text-gray-700"
                     />
                     <div className="flex gap-5">
                         <button
@@ -499,7 +499,7 @@ const ChhatBlog = () => {
                                     placeholder="Enter Title"
                                     value={formData.title}
                                     onChange={handleChange}
-                                    className="w-full px-4 py-2 border rounded font-khmer-nato"
+                                    className="w-full px-4 py-2 border rounded font-khmer-nato text-gray-800"
                                     required
                                 />
                             </div>
@@ -513,7 +513,7 @@ const ChhatBlog = () => {
                                     name="category"
                                     value={formData.category}
                                     onChange={handleChange}
-                                    className="w-full px-4 py-2 border rounded"
+                                    className="w-full px-4 py-2 border rounded font-medium text-gray-800"
                                     required
                                 >
                                     <option value="" disabled>
@@ -537,7 +537,7 @@ const ChhatBlog = () => {
                                     placeholder="Content"
                                     value={formData.content}
                                     onChange={handleChange}
-                                    className="w-full px-4 py-2 border rounded"
+                                    className="w-full px-4 py-2 border rounded font-khmer-nato text-gray-800"
                                     required
                                     rows="7"
                                 />

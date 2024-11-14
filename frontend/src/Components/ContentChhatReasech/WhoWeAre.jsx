@@ -8,7 +8,7 @@ const ChhatResearchHome = () => {
                     Who we are ?
                 </h1>
                 <hr class="w-full border" />
-                <div className="py-5 text-gray-700 font-medium">
+                <div className="py-5 text-sm sm:text-base md:text-base lg:textbase text-gray-600 font-medium">
                     <p>
                         Chhat Research is a professionally leading data,
                         insights, and consulting company. We are a regional

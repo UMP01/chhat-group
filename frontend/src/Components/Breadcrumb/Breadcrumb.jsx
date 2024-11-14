@@ -11,7 +11,7 @@ const Breadcrumb = ({ curPage, lastPage = null, lastPageLink = null }) => {
             aria-label="Breadcrumb"
         >
             <ol className="inline-flex items-center space-x-1 md:space-x-3">
-                <li className="inline-flex items-center">
+                <li className="inline-flex items-center text-sm sm:text-base md:text-base lg:text-base font-medium text-gray-600">
                     <Link
                         to="/"
                         className="text-gray-600 inline-flex items-center rubik"
@@ -21,7 +21,7 @@ const Breadcrumb = ({ curPage, lastPage = null, lastPageLink = null }) => {
                     </Link>
                 </li>
                 {lastPage && (
-                    <li>
+                    <li className="text-sm sm:text-base md:text-base lg:text-base font-medium text-gray-600">
                         <div className="flex items-center">
                             <MdOutlineKeyboardArrowRight className="w-6 h-6 text-gray-600" />
                             <Link
@@ -33,7 +33,10 @@ const Breadcrumb = ({ curPage, lastPage = null, lastPageLink = null }) => {
                         </div>
                     </li>
                 )}
-                <li aria-current="page">
+                <li
+                    aria-current="page"
+                    className="text-sm sm:text-base md:text-base lg:text-base font-medium text-gray-600"
+                >
                     <div className="flex items-center">
                         <MdOutlineKeyboardArrowRight className="w-6 h-6 text-gray-500" />
                         <span className="text-gray-500 ml-1 md:ml-2 rubik">

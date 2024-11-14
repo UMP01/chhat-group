@@ -65,15 +65,21 @@ const CareerDetails = () => {
 
     return (
         <div className="max-w-7xl mx-auto mb-5 px-5 font-medium">
-            <Breadcrumb curPage={jobs.title} lastPage="Career" lastPageLink="/career" />
+            <Breadcrumb
+                curPage={jobs.title}
+                lastPage="Career"
+                lastPageLink="/career"
+            />
             <div className="bg-cyan-100 bg-opacity-50 py-4 px-5 rounded-md text-gray-600">
-                <h2 className="text-xl">{jobs.title}</h2>
+                <h2 className="lg:text-xl md:text-ml sm;text-md font-medium">
+                    {jobs.title}
+                </h2>
                 <div className="flex justify-between items-center mb-2">
-                    <span className="pt-3 font-base">
+                    <span className="pt-3 font-medium text-sm">
                         Expire Date: &nbsp;
                         {new Date(jobs.deadline).toLocaleDateString()}
                     </span>
-                    <div className="flex items-center text-base">
+                    <div className="pt-2 flex items-center text-sm font-medium">
                         <h2>Location:</h2>
                         <p>&nbsp;{jobs.location}</p>
                     </div>
@@ -89,10 +95,17 @@ const CareerDetails = () => {
                             .split(".")
                             .filter(Boolean)
                             .map((responsibility, index) => (
-                                <li key={index}>{responsibility.trim()}</li>
+                                <li
+                                    key={index}
+                                    className="text-sm sm:text-base md:text-base lg:text-base font-medium text-gray-600"
+                                >
+                                    {responsibility.trim()}
+                                </li>
                             ))
                     ) : (
-                        <li>No responsibilities listed.</li>
+                        <li className="text-sm sm:text-base md:text-base lg:text-base font-medium text-gray-600">
+                            No responsibilities listed.
+                        </li>
                     )}
                 </ul>
             </div>
@@ -106,10 +119,17 @@ const CareerDetails = () => {
                             .split(".")
                             .filter(Boolean)
                             .map((requirement, index) => (
-                                <li key={index}>{requirement.trim()}</li>
+                                <li
+                                    key={index}
+                                    className="text-sm sm:text-base md:text-base lg:text-base font-medium text-gray-600"
+                                >
+                                    {requirement.trim()}
+                                </li>
                             ))
                     ) : (
-                        <li>No requirements listed.</li>
+                        <li className="text-sm sm:text-base md:text-base lg:text-base font-medium text-gray-600">
+                            No requirements listed.
+                        </li>
                     )}
                 </ul>
             </div>
@@ -121,10 +141,17 @@ const CareerDetails = () => {
                             .split(".")
                             .filter(Boolean)
                             .map((benefit, index) => (
-                                <li key={index}>{benefit.trim()}</li>
+                                <li
+                                    key={index}
+                                    className="text-sm sm:text-base md:text-base lg:text-base font-medium text-gray-600"
+                                >
+                                    {benefit.trim()}
+                                </li>
                             ))
                     ) : (
-                        <li>No benefits listed.</li>
+                        <li className="text-sm sm:text-base md:text-base lg:text-base font-medium text-gray-600">
+                            No benefits listed.
+                        </li>
                     )}
                 </ul>
             </div>
@@ -132,12 +159,14 @@ const CareerDetails = () => {
                 <h2 className="text-xl text-cyan-700 mb-3">How to Apply</h2>
                 <a
                     href="mailto:info@chhatgroup.com"
-                    className="hover:text-cyan-700 duration-200 underline"
+                    className="hover:text-cyan-700 duration-200 underline text-sm sm:text-base md:text-base lg:text-base font-medium text-gray-600"
                 >
                     Email: info@chhatgroup.com
                 </a>
-                <p>Phone: +855 12 890 801 / 10 969 005</p>
-                <p>
+                <p className="text-sm sm:text-base md:text-base lg:text-base font-medium text-gray-600">
+                    Phone: +855 12 890 801 / 10 969 005
+                </p>
+                <p className="text-sm sm:text-base md:text-base lg:text-base font-medium text-gray-600">
                     Head Office Address: Borey Piphup Thmey La Sen Sok 2 #47-49,
                     Street BT-08M, Phum Krang Angkrong, Sangkat Krang Thnong,
                     Khan Sen Sok, Phnom Penh, Cambodia, 120804

@@ -4,6 +4,7 @@ import { axiosClient } from "../../api/axios";
 import { BsCalendarDate } from "react-icons/bs";
 import { IoMdMail } from "react-icons/io";
 import { FaTelegramPlane, FaFacebookF, FaInstagram } from "react-icons/fa";
+import BreadCrumb from "../Breadcrumb/Breadcrumb";
 
 const BlogDetail = () => {
     const { id } = useParams();
@@ -41,17 +42,22 @@ const BlogDetail = () => {
     }
 
     return (
-        <div className="container max-w-7xl mx-auto pb-5 pt-0">
+        <div className="container max-w-7xl mx-auto pb-5 pt-0 font-medium">
+            <BreadCrumb
+                curPage={article.id}
+                lastPage="Blog"
+                lastPageLink="/blog"
+            />
             {article && (
                 <>
-                    <div className="py-5 px-5 border-2 rounded-md">
-                        <h1 className="text-md sm:text-lg md:text-xl lg:text-2xl font-semibold mb-4 text-gray-700 font-khmer-nato">
+                    <div className="bg-cyan-100 bg-opacity-50 py-4 px-5 my-3 rounded-md text-gray-600">
+                        <h1 className="text-md sm:text-lg md:text-xl lg:text-2xl mb-4 font-khmer-nato">
                             {article.title}
                         </h1>
-                        <p className="text-gray-700 my-2">
+                        <p className="my-2 font-semibold text-sm tracking-tight">
                             Category: {article.category}
                         </p>
-                        <div className="flex items-center text-gray-700">
+                        <div className="flex items-center text-gray-600 text-sm font-semibold tracking-tight">
                             <BsCalendarDate className="mr-2" />
                             <p className="">
                                 Posted on:{" "}

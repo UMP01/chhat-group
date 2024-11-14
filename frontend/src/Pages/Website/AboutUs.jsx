@@ -42,7 +42,7 @@ const About = () => {
                             {Goal.map((title, index) => (
                                 <li
                                     key={index}
-                                    className="list-disc text-white text-base md:text-base"
+                                    className="list-disc text-white text-sm sm:text-base md:text-base lg:text-base font-medium"
                                 >
                                     {title}
                                 </li>
@@ -57,7 +57,7 @@ const About = () => {
                             {Values.map((title, index) => (
                                 <li
                                     key={index}
-                                    className="list-disc text-white text-base md:text-base"
+                                    className="list-disc text-white text-sm sm:text-base md:text-base lg:text-base font-medium"
                                 >
                                     {title}
                                 </li>
@@ -72,7 +72,7 @@ const About = () => {
                             {Mission.map((title, index) => (
                                 <li
                                     key={index}
-                                    className="text-white list-disc text-base md:text-base"
+                                    className="text-white list-disc text-sm sm:text-base md:text-base lg:text-base"
                                 >
                                     {title}
                                 </li>
