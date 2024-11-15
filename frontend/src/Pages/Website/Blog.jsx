@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { axiosClient } from "../../api/axios";
-import { HiOutlineArrowNarrowRight } from "react-icons/hi";
 import { GoArrowRight, GoArrowLeft } from "react-icons/go";
 import { BsCalendarDate } from "react-icons/bs";
 import Breadcrumb from "../../Components/Breadcrumb/Breadcrumb";
@@ -96,7 +95,6 @@ const News = () => {
         <>
             <Breadcrumb curPage="Blog" />
             <div className="container max-w-7xl mx-auto px-5 pb-5 pt-0 rubik">
-                <h1 className="text-2xl mb-4 text-gray-700">Latest News</h1>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                     {currentArticles.map((article) => (
                         <div
@@ -110,7 +108,7 @@ const News = () => {
                                     className="w-full h-48 object-cover mb-4 rounded"
                                 />
                             )}
-                            <h2 className="text-lg font-bold  my-3 line-clamp-1 font-khmer-nato">
+                            <h2 className="text-lg font-bold text-gray-600  my-3 line-clamp-1 font-khmer-nato">
                                 {article.title}
                             </h2>
                             <p className="text-gray-600 line-clamp-4 font-normal font-khmer-nato">
@@ -127,10 +125,9 @@ const News = () => {
                                 </div>
                                 <a
                                     href={`/blog/${article.id}`} // Update to use Link from React Router
-                                    className="primary-color font-normal inline-flex items-center pt-3 hover:translate-x-3 duration-200 cursor-pointer"
+                                    className="text-cyan-700 font-semibold text-sm border-b-2 border-cyan-700 tracking-tight inline-flex items-center pt-3 hover:scale-105 duration-200 cursor-pointer"
                                 >
                                     Read More{" "}
-                                    <HiOutlineArrowNarrowRight className="ml-1" />
                                 </a>
                             </div>
                         </div>

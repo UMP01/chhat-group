@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { axiosClient } from "../../api/axios";
-import { HiOutlineArrowNarrowRight } from "react-icons/hi";
 import { GoArrowRight, GoArrowLeft } from "react-icons/go";
 import { BsCalendarDate } from "react-icons/bs";
 
@@ -110,10 +109,9 @@ const News = () => {
                             </div>
                             <a
                                 href={`/blog/${article.id}`}
-                                className="primary-color font-normal inline-flex items-center pt-3 hover:translate-x-3 duration-200 cursor-pointer"
+                                className="text-cyan-700 border-b-2 border-cyan-700 font-semibold text-sm inline-flex items-center pt-3 hover:scale-105 duration-200 cursor-pointer"
                             >
                                 Read More{" "}
-                                <HiOutlineArrowNarrowRight className="ml-1" />
                             </a>
                         </div>
                     </div>

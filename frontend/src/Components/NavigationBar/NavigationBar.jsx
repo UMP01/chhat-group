@@ -181,7 +181,7 @@ const Navbar = () => {
                                             onClick={() =>
                                                 toggleDropdown(index)
                                             }
-                                            className={`block px-3 py-2 rounded-md text-md font-normal rubik w-full text-left hover:bg-gray-100 ${
+                                            className={`block px-3 py-2 rounded-md text-md w-full text-left hover:bg-gray-100 ${
                                                 activeDropdown === index
                                                     ? "text-sky-600"
                                                     : ""
@@ -213,7 +213,7 @@ const Navbar = () => {
                                                                 href={
                                                                     subItem.link
                                                                 }
-                                                                className={`block pl-10 py-2 text-md text-dark text-gray-600 font-normal hover:bg-gray-100 rubik ${
+                                                                className={`block pl-10 py-2 text-md text-dark text-gray-600 hover:bg-gray-100 rubik ${
                                                                     isActiveLink(
                                                                         subItem.link
                                                                     )
@@ -232,7 +232,7 @@ const Navbar = () => {
                                 ) : (
                                     <a
                                         href={item.link}
-                                        className={`block px-3 py-2 rounded-md text-md font-normal rubik hover:bg-gray-100 ${
+                                        className={`block px-3 py-2 rounded-md text-md hover:bg-gray-100 ${
                                             isActiveLink(item.link)
                                                 ? "text-sky-600"
                                                 : ""
