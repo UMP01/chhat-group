@@ -1,14 +1,20 @@
-import img01 from "../../assets/Images/Homepage/expertise-01.png";
+import img01 from "../../assets/Images/ChhatResearch/ex-01.jpeg";
+import img02 from "../../assets/Images/ChhatResearch/ex-02.png";
+import img03 from "../../assets/Images/ChhatResearch/ex-03.jpg";
+import img04 from "../../assets/Images/ChhatResearch/ex-04.jpg";
+import img05 from "../../assets/Images/ChhatResearch/ex-05.jpg";
+import img06 from "../../assets/Images/ChhatResearch/ex-06.jpg";
+
 
 const Expertise = () => {
     return (
         <>
             <div className="px-3">
-                <h1 className="text-lg text-cyan-700">
+                <h1 className="text-lg text-cyan-700 font-medium">
                     Our Research Expertise
                 </h1>
                 <hr className="w-full my-3 border" />
-                <p className="text-gray-700">
+                <p className="text-gray-700 font-medium">
                     We cover different research areas and services to answer
                     clients' business needs.
                 </p>
@@ -43,7 +49,7 @@ const Expertise = () => {
                     </div>
                     <div className="relative">
                         <img
-                            src={img01}
+                            src={img02}
                             alt="Description of expertise 1"
                             className="w-full h-72 object-cover rounded-bl-lg rounded-br-lg"
                         />
@@ -65,7 +71,7 @@ const Expertise = () => {
                     </div>
                     <div className="relative">
                         <img
-                            src={img01}
+                            src={img03}
                             alt="Description of expertise 1"
                             className="w-full h-72 object-cover rounded-bl-lg rounded-br-lg"
                         />
@@ -86,7 +92,7 @@ const Expertise = () => {
                     </div>
                     <div className="relative">
                         <img
-                            src={img01}
+                            src={img04}
                             alt="Description of expertise 1"
                             className="w-full h-72 object-cover rounded-bl-lg rounded-br-lg"
                         />
@@ -106,7 +112,7 @@ const Expertise = () => {
                     </div>
                     <div className="relative">
                         <img
-                            src={img01}
+                            src={img05}
                             alt="Description of expertise 1"
                             className="w-full h-72 object-cover rounded-bl-lg rounded-br-lg"
                         />
@@ -126,7 +132,7 @@ const Expertise = () => {
                     </div>
                     <div className="relative">
                         <img
-                            src={img01}
+                            src={img06}
                             alt="Description of expertise 1"
                             className="w-full h-72 object-cover rounded-bl-lg rounded-br-lg"
                         />

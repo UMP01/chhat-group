@@ -6,7 +6,7 @@ import profile03 from "../../assets/Images/AboutUs/profile03.jpg";
 import profile04 from "../../assets/Images/AboutUs/profile-04.jpg";
 import sovichea from "../../assets/Images/AboutUs/sovichea.png";
 import mengleng from "../../assets/Images/AboutUs/mengleng.png";
-import dyna from "../../assets/Images/AboutUs/dyna.png";
+import dyna from "../../assets/Images/AboutUs/Pic15.jpg";
 
 const teamMembers = [
     {
