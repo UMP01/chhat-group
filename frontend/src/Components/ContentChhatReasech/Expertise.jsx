@@ -1,14 +1,14 @@
-import img01 from "../../assets/Images/ChhatResearch/ex-01.jpeg";
+import React from "react";
+import img01 from "../../assets/Images/ChhatResearch/ex-01.png";
 import img02 from "../../assets/Images/ChhatResearch/ex-02.png";
-import img03 from "../../assets/Images/ChhatResearch/ex-03.jpg";
-import img04 from "../../assets/Images/ChhatResearch/ex-04.jpg";
-import img05 from "../../assets/Images/ChhatResearch/ex-05.jpg";
-import img06 from "../../assets/Images/ChhatResearch/ex-06.jpg";
+import img03 from "../../assets/Images/ChhatResearch/ex-03.png";
+import img04 from "../../assets/Images/ChhatResearch/ex-04.png";
+import img05 from "../../assets/Images/ChhatResearch/ex-05.png";
+import img06 from "../../assets/Images/ChhatResearch/ex-06.png";
 
-
-const Expertise = () => {
+const Gallery = () => {
     return (
-        <>
+        <section className="text-gray-600 body-font mb-10">
             <div className="px-3">
                 <h1 className="text-lg text-cyan-700 font-medium">
                     Our Research Expertise
@@ -19,134 +19,141 @@ const Expertise = () => {
                     clients' business needs.
                 </p>
             </div>
-            <div className="flex flex-wrap justify-center items-center pt-3 pb-10">
-                <div className="lg:w-1/3 w-full p-3">
-                    <div className="primary-bg-color p-5 rounded-tr-lg rounded-tl-lg">
-                        <p className="uppercase text-sm text-white text-center">
-                            Brand Understanding
-                        </p>
-                    </div>
-                    <div className="relative">
-                        <img
-                            src={img01}
-                            alt="Description of expertise 1"
-                            className="w-full h-72 object-cover rounded-bl-lg rounded-br-lg"
-                        />
-                        <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-5 rounded-b-lg">
-                            <p className="uppercase text-center text-xs">
-                                Usage & Attitude, Brand Positioning, Brand
-                                Architecture, Segmentation, Pricing, Brand
-                                Health Tracking
-                            </p>
+            <div className="container mx-auto">
+                <div className="flex flex-wrap -m-4">
+                    <div className="lg:w-1/3 sm:w-1/2 w-full p-4">
+                        <div className="flex relative">
+                            <div className="w-full h-60 bg-cyan-100 flex flex-col justify-center items-center rounded-md shadow-sm">
+                                <img
+                                    src={img01}
+                                    alt="image"
+                                    className="w-20 h-20"
+                                />
+                                <h1 className="title-font text-lg font-medium mb-3 text-cyan-700 mt-5">
+                                    Brand Understanding
+                                </h1>
+                            </div>
+
+                            <div className="px-8 py-10 absolute inset-0 w-full h-full flex justify-center items-center bg-cyan-50 shadow-sm opacity-0 hover:opacity-100 transition-opacity duration-500 rounded-md text-center">
+                                <p className="leading-relaxed font-medium text-gray-700">
+                                    Usage & Attitude, Brand Positioning, Brand
+                                    Architecture, Segmentation, Pricing, Brand
+                                    Health Tracking
+                                </p>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div className="lg:w-1/3 w-full p-3">
-                    <div className="primary-bg-color p-5 rounded-tr-lg rounded-tl-lg">
-                        <p className="uppercase text-sm text-white text-center">
-                            Inovation
-                        </p>
-                    </div>
-                    <div className="relative">
-                        <img
-                            src={img02}
-                            alt="Description of expertise 1"
-                            className="w-full h-72 object-cover rounded-bl-lg rounded-br-lg"
-                        />
-                        <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-5 rounded-b-lg">
-                            <p className="uppercase text-center text-xs">
-                                Opportunity Identification, Sizing &
-                                Prioritization, Concept Design, Product &
-                                Service Testing, Pack & Product Testing, UX
-                                Testing
-                            </p>
+                    <div className="lg:w-1/3 sm:w-1/2 w-full p-4">
+                        <div className="flex relative">
+                            <div className="w-full h-60 bg-cyan-100 flex flex-col justify-center items-center rounded-md shadow-sm">
+                                <img
+                                    src={img02}
+                                    alt="image"
+                                    className="w-20 h-20"
+                                />
+                                <h1 className="title-font text-lg font-medium mb-3 text-cyan-700 mt-5">
+                                    Innovation
+                                </h1>
+                            </div>
+
+                            <div className="px-8 py-10 absolute inset-0 w-full h-full flex justify-center items-center bg-cyan-50 shadow-sm opacity-0 hover:opacity-100 transition-opacity duration-500 rounded-md text-center">
+                                <p className="leading-relaxed font-medium text-gray-700">
+                                    Opportunity Identification, Sizing &
+                                    Prioritization, Concept Design, Product &
+                                    Service Testing, Product Testing, UX Testing
+                                </p>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div className="lg:w-1/3 w-full p-3">
-                    <div className="primary-bg-color p-5 rounded-tr-lg rounded-tl-lg">
-                        <p className="uppercase text-sm text-white text-center">
-                            Creative Evaluation
-                        </p>
-                    </div>
-                    <div className="relative">
-                        <img
-                            src={img03}
-                            alt="Description of expertise 1"
-                            className="w-full h-72 object-cover rounded-bl-lg rounded-br-lg"
-                        />
-                        <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-5 rounded-b-lg">
-                            <p className="uppercase text-center text-xs">
-                                Pre and Post-Launch Creative Development, Social
-                                Listening, Comms & Ad Evaluation, Concept &
-                                Proposition Evaluation
-                            </p>
+                    <div className="lg:w-1/3 sm:w-1/2 w-full p-4">
+                        <div className="flex relative">
+                            <div className="w-full h-60 bg-cyan-100 flex flex-col justify-center items-center rounded-md shadow-sm">
+                                <img
+                                    src={img03}
+                                    alt="image"
+                                    className="w-20 h-20"
+                                />
+                                <h1 className="title-font text-lg font-medium mb-3 text-cyan-700 mt-5">
+                                    Creative Evaluation
+                                </h1>
+                            </div>
+
+                            <div className="px-8 py-10 absolute inset-0 w-full h-full flex justify-center items-center bg-cyan-50 shadow-sm opacity-0 hover:opacity-100 transition-opacity duration-500 rounded-md text-center">
+                                <p className="leading-relaxed font-medium text-gray-700">
+                                    Pre and Post-Launch Creative Development,
+                                    Social Listening, Comms & Ad Evaluation,
+                                    Concept & Proposition Evaluation
+                                </p>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div className="lg:w-1/3 w-full p-3">
-                    <div className="primary-bg-color p-5 rounded-tr-lg rounded-tl-lg">
-                        <p className="uppercase text-sm text-white text-center">
-                            Shopper
-                        </p>
-                    </div>
-                    <div className="relative">
-                        <img
-                            src={img04}
-                            alt="Description of expertise 1"
-                            className="w-full h-72 object-cover rounded-bl-lg rounded-br-lg"
-                        />
-                        <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-5 rounded-b-lg">
-                            <p className="uppercase text-center text-xs">
-                                Customer Journey Mapping, Path to Purchase,
-                                Mystery Shopping, Intercepts, Retail Audit
-                            </p>
+                    <div className="lg:w-1/3 sm:w-1/2 w-full p-4">
+                        <div className="flex relative">
+                            <div className="w-full h-60 bg-cyan-100 flex flex-col justify-center items-center rounded-md shadow-sm">
+                                <img
+                                    src={img04}
+                                    alt="image"
+                                    className="w-20 h-20"
+                                />
+                                <h1 className="title-font text-lg font-medium mb-3 text-cyan-700 mt-5">
+                                    Shopper
+                                </h1>
+                            </div>
+
+                            <div className="px-8 py-10 absolute inset-0 w-full h-full flex justify-center items-center bg-cyan-50 shadow-sm opacity-0 hover:opacity-100 transition-opacity duration-500 rounded-md text-center">
+                                <p className="leading-relaxed font-medium text-gray-700">
+                                    Customer Journey Mapping, Path to Purchase,
+                                    Mystery Shopping, Intercepts, Retail Audit
+                                </p>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div className="lg:w-1/3 w-full p-3">
-                    <div className="primary-bg-color p-5 rounded-tr-lg rounded-tl-lg">
-                        <p className="uppercase text-sm text-white text-center">
-                            Exploration
-                        </p>
-                    </div>
-                    <div className="relative">
-                        <img
-                            src={img05}
-                            alt="Description of expertise 1"
-                            className="w-full h-72 object-cover rounded-bl-lg rounded-br-lg"
-                        />
-                        <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-5 rounded-b-lg">
-                            <p className="uppercase text-center text-xs">
-                                Consumer Psyche & Lifestyle, Mobile Diaries,
-                                Market Entry, Segmentation
-                            </p>
+                    <div className="lg:w-1/3 sm:w-1/2 w-full p-4">
+                        <div className="flex relative">
+                            <div className="w-full h-60 bg-cyan-100 flex flex-col justify-center items-center rounded-md shadow-sm">
+                                <img
+                                    src={img05}
+                                    alt="image"
+                                    className="w-20 h-20"
+                                />
+                                <h1 className="title-font text-lg font-medium mb-3 text-cyan-700 mt-5">
+                                    Exploration
+                                </h1>
+                            </div>
+
+                            <div className="px-8 py-10 absolute inset-0 w-full h-full flex justify-center items-center bg-cyan-50 shadow-sm opacity-0 hover:opacity-100 transition-opacity duration-500 rounded-md text-center">
+                                <p className="leading-relaxed font-medium text-gray-700">
+                                    Consumer Psyche & Lifestyle, Mobile Diaries,
+                                    Market Entry, Segmentation
+                                </p>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div className="lg:w-1/3 w-full p-3">
-                    <div className="primary-bg-color p-5 rounded-tr-lg rounded-tl-lg">
-                        <p className="uppercase text-sm text-white text-center">
-                            Public Affairs
-                        </p>
-                    </div>
-                    <div className="relative">
-                        <img
-                            src={img06}
-                            alt="Description of expertise 1"
-                            className="w-full h-72 object-cover rounded-bl-lg rounded-br-lg"
-                        />
-                        <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-5 rounded-b-lg">
-                            <p className="uppercase text-center text-xs">
-                                Behaviour Change, Policy & Program Monitoring
-                                and Evaluation, Communications for Development
-                            </p>
+                    <div className="lg:w-1/3 sm:w-1/2 w-full p-4">
+                        <div className="flex relative">
+                            <div className="w-full h-60 bg-cyan-100 flex flex-col justify-center items-center rounded-md shadow-sm">
+                                <img
+                                    src={img06}
+                                    alt="image"
+                                    className="w-20 h-20"
+                                />
+                                <h1 className="title-font text-lg font-medium mb-3 text-cyan-700 mt-5">
+                                    Public Affairs
+                                </h1>
+                            </div>
+
+                            <div className="px-8 py-10 absolute inset-0 w-full h-full flex justify-center items-center bg-cyan-50 shadow-sm opacity-0 hover:opacity-100 transition-opacity duration-500 rounded-md text-center">
+                                <p className="leading-relaxed font-medium text-gray-700">
+                                    Behaviour Change, Policy & Program
+                                    Evaluation, Communications for Development
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </>
+        </section>
     );
 };
 
-export default Expertise;
+export default Gallery;
