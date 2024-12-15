@@ -103,12 +103,12 @@ const JobList = () => {
                     type="text"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="w-full py-2 pl-4 pr-20 rounded-l-md text-gray-700 border-t-2 border-l-2 border-b-2 border-cyan-700 focus:outline-none focus:ring-0 focus:ring-cyan-700"
+                    className="w-full py-2 pl-4 pr-20 text-sm sm:text-sm md:text-base lg:text-base rounded-l-md text-gray-700 border-t-2 border-l-2 border-b-2 border-cyan-700 focus:outline-none focus:ring-0 focus:ring-cyan-700"
                     placeholder="Search for jobs..."
                 />
                 <button
                     type="submit"
-                    className="py-2 px-4 bg-cyan-700 text-white border-2 border-cyan-700 rounded-r-md hover:bg-cyan-800"
+                    className="py-2 px-4 bg-cyan-700 text-white border-2 text-sm sm:text-sm md:text-base lg:text-base border-cyan-700 rounded-r-md hover:bg-cyan-800"
                 >
                     Search
                 </button>
@@ -119,21 +119,21 @@ const JobList = () => {
                         currentJobs.map((job) => (
                             <li
                                 key={job.id}
-                                className="py-2 px-5 rounded-md shadow-md border border-gray-100"
+                                className="py-2 px-5 rounded-md shadow-sm bg-cyan-50 bg-opacity-20 border border-gray-100"
                             >
-                                <h3 className="text-xl text-cyan-700 py-1 font-medium">
+                                <h3 className="text-base sm:text-base md:text-base lg:text-lg text-cyan-700 py-1 font-medium">
                                     {job.title}
                                 </h3>
                                 <div className="flex">
                                     <IoLocationOutline className="mt-3" />
-                                    <h3 className="text-gray-700 pb-3 pt-2 pl-2">
+                                    <h3 className="text-gray-700 pb-3 pt-2 pl-2 text-sm sm:text-base md:text-base lg:text-base">
                                         {job.location}
                                     </h3>
                                 </div>
                                 <div className="flex flex-row justify-between text-center">
                                     <div className="flex">
                                         <IoTimeOutline className="mt-1" />
-                                        <h3 className="text-gray-700 pb-3 pl-2">
+                                        <h3 className="text-gray-700 pb-3 pl-2 text-sm sm:text-base md:text-base lg:text-base">
                                             Deadline:{" "}
                                             {new Date(
                                                 job.deadline

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API_KEY = "7b49f41d08f84809ba508429a073970a";
-const BASE_URL = "https://127.0.0.1/api/blogs";
+const BASE_URL = "https://chhatgroup.com:9443/api/blogs";
 
 export const fetchNews = async (query) => {
     try {

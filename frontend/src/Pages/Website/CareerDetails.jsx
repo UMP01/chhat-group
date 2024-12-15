@@ -66,17 +66,17 @@ const CareerDetails = () => {
     return (
         <div className="max-w-7xl mx-auto mb-5 px-5 font-medium">
             <Breadcrumb
-                curPage={jobs.title}
+                curPage={jobs.id}
                 lastPage="Career"
                 lastPageLink="/career"
             />
-            <div className="bg-cyan-100 bg-opacity-50 py-4 px-5 rounded-md text-gray-600">
-                <h2 className="lg:text-xl md:text-ml sm;text-md font-medium">
+            <div className="bg-cyan-50 bg-opacity-50 py-4 px-5 rounded-md text-gray-600">
+                <h2 className="lg:text-xl md:text-lg sm:text-lg text-lg font-medium">
                     {jobs.title}
                 </h2>
                 <div className="flex justify-between items-center mb-2">
                     <span className="pt-3 font-medium text-sm">
-                        Expire Date: &nbsp;
+                        Deadline: &nbsp;
                         {new Date(jobs.deadline).toLocaleDateString()}
                     </span>
                     <div className="pt-2 flex items-center text-sm font-medium">

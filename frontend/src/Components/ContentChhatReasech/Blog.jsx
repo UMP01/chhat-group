@@ -87,15 +87,15 @@ const News = () => {
                     >
                         {article.image && (
                             <img
-                                src={`http://127.0.0.1:8000/storage/${article.image}`}
+                                src={`https://chhatgroup.com:9443/storage/${article.image}`}
                                 alt={article.title || "News image"}
                                 className="w-full h-48 object-cover mb-4 rounded"
                             />
                         )}
-                        <h2 className="text-lg font-semibold text-gray-600 my-3 line-clamp-1 font-khmer-nato">
+                        <h2 className="text-base lg:text-lg md:text-base sm:text-base font-semibold text-gray-600 my-3 line-clamp-1 font-khmer-nato">
                             {article.title}
                         </h2>
-                        <p className="text-gray-600 line-clamp-4 font-normal font-khmer-nato">
+                        <p className="text-gray-600 line-clamp-4 font-normal font-khmer-nato text-sm lg:text-base md:text-base sm:text-sm">
                             {article.content}
                         </p>
                         <div className="flex items-center justify-between">

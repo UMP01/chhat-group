@@ -14,7 +14,7 @@ const ContactForm = () => {
         e.preventDefault();
 
         if (!fullname || !email || !subject || !message) {
-            Swal.fire("Error", "All fields are required.", "error");
+            Swal.fire("Sorry", "All fields are required.", "error");
             return;
         }
 
@@ -36,7 +36,7 @@ const ContactForm = () => {
         } catch (error) {
             console.error("Error sending contact form:", error);
             Swal.fire(
-                "Error",
+                "Sorry",
                 "There was a problem sending your message.",
                 "error"
             );
@@ -46,8 +46,8 @@ const ContactForm = () => {
     };
 
     return (
-        <div className="p-4 max-w-xl mx-auto">
-            <h3 className="text-2xl font-semibold primary-color my-5">
+        <div className=" max-w-xl mx-auto">
+            <h3 className="text-2xl font-semibold primary-color mb-5">
                 Message Us
             </h3>
             <form onSubmit={handleSubmit}>

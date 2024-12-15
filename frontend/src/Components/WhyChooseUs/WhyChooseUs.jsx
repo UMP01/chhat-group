@@ -54,7 +54,7 @@ const WhyChooseUs = () => {
                                         {item.icon}
                                     </div>
                                     <div className="ml-4">
-                                        <p className="mb-0 text-gray-500 text-xs sm:text-sm md:text-base lg:text-base">
+                                        <p className="mb-0 text-gray-500 text-sm sm:text-sm md:text-base lg:text-base">
                                             {item.description}
                                         </p>
                                         <h5 className="mb-0 text-gray-700 text-sm sm:text-base md:text-base lg:text-base">

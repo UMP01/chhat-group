@@ -6,6 +6,7 @@ import { IoMdMail } from "react-icons/io";
 import { FaTelegramPlane, FaFacebookF, FaInstagram } from "react-icons/fa";
 import BreadCrumb from "../Breadcrumb/Breadcrumb";
 
+const Image_URL = "https://chhatgroup.com:9443/storage";
 const BlogDetail = () => {
     const { id } = useParams();
     const [article, setArticle] = useState(null);
@@ -50,8 +51,8 @@ const BlogDetail = () => {
             />
             {article && (
                 <>
-                    <div className="bg-cyan-100 bg-opacity-50 py-4 px-5 my-3 rounded-md text-gray-600">
-                        <h1 className="text-md sm:text-lg md:text-xl lg:text-2xl mb-4 font-khmer-nato">
+                    <div className="bg-sky-100 bg-opacity-30 py-4 px-5 my-3 rounded-md text-gray-600">
+                        <h1 className="text-base sm:text-md md:text-xl lg:text-2xl mb-4 font-khmer-nato">
                             {article.title}
                         </h1>
                         <p className="my-2 font-semibold text-sm tracking-tight">
@@ -68,20 +69,20 @@ const BlogDetail = () => {
                         </div>
                     </div>
                     <div className="flex flex-col md:flex-row items-start justify-between font-medium">
-                        <div className="w-full md:w-1/2 px-5 py-5">
+                        <div className="w-full md:w-1/2 px-2 py-5">
                             {article.image && (
                                 <img
-                                    src={`http://127.0.0.1:8000/storage/${article.image}`}
+                                    src={`${Image_URL}/${article.image}`}
                                     alt={article.title || "News image"}
                                     className="w-full object-cover rounded"
                                 />
                             )}
                         </div>
-                        <div className="px-5 py-5 w-full md:w-1/2">
-                            <p className="text-gray-700 font-normal text-base sm:text-base md:text-base lg:text-base font-khmer-nato">
+                        <div className="px-2 py-5 w-full md:w-1/2">
+                            <p className="text-gray-700 font-normal text-sm sm:text-base md:text-base lg:text-base font-khmer-nato">
                                 {article.content}
                             </p>
-                            <div className="text-gray-700 mt-4">
+                            <div className="text-gray-700 mt-4 text-sm sm:text-base md:text-base lg:text-base">
                                 <p className="font-khmer-nato">
                                     ព័ត៌មានបន្ថែម៖
                                 </p>
@@ -90,7 +91,7 @@ const BlogDetail = () => {
                                     <li>010 969 005</li>
                                 </ul>
                             </div>
-                            <div className="text-gray-700 mt-4 font-khmer-nato">
+                            <div className="text-gray-700 mt-4 font-khmer-nato text-sm sm:text-base md:text-base lg:text-base">
                                 <p>អាស័យដ្ឋាន៖</p>
                                 <p>
                                     បុរីពិភពថ្មី ឡាសែនសុខពីរ ផ្ទះលេខ 43-45 ផ្លូវ

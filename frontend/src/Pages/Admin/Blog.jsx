@@ -6,7 +6,7 @@ import { axiosClient } from "../../api/axios";
 import { IoAdd } from "react-icons/io5";
 
 const ITEMS_PER_PAGE = 5;
-
+const Image_URL = "https://chhatgroup.com:9443//storage";
 const ChhatBlog = () => {
     const [posts, setPosts] = useState([]);
     const [modalOpen, setModalOpen] = useState(false);
@@ -416,7 +416,7 @@ const ChhatBlog = () => {
                                         <div className="flex justify-center items-center">
                                             {post.image && (
                                                 <img
-                                                    src={`http://127.0.0.1:8000/storage/${
+                                                    src={`${Image_URL}/${
                                                         post.image
                                                     }?${new Date().getTime()}`}
                                                     alt={
@@ -563,7 +563,7 @@ const ChhatBlog = () => {
                                                 Current Image:
                                             </h4>
                                             <img
-                                                src={`http://127.0.0.1:8000/storage/${
+                                                src={`${Image_URL}/${
                                                     currentPost.image
                                                 }?${new Date().getTime()}`}
                                                 alt="Current post"
