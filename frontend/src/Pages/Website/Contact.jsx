@@ -1,7 +1,7 @@
 import ContactForm from "../../Components/Contact/ContactForm";
 import { FaPhoneAlt } from "react-icons/fa";
 import { IoMailSharp, IoLocationSharp } from "react-icons/io5";
-import { FaYoutube, FaFacebookF } from "react-icons/fa";
+import { FaYoutube, FaFacebookF, FaLinkedinIn } from "react-icons/fa";
 
 const Contact = () => {
     return (
@@ -38,6 +38,14 @@ const Contact = () => {
                                                 target="_blank"
                                             >
                                                 <FaYoutube className="w-5 h-5 text-cyan-700 hover:text-cyan-600 duration-500 ease-in-out" />
+                                            </a>
+                                        </div>
+                                        <div className="btn-lg-square bg-white rounded-full flex items-center justify-center w-10 h-10 mr-2 hover:scale-110 duration-300 transition-transform ease-in-out">
+                                            <a
+                                                href="https://www.linkedin.com/company/chhat-research-professional/?viewAsMember=true"
+                                                target="_blank"
+                                            >
+                                                <FaLinkedinIn className="w-5 h-5 text-cyan-700 hover:text-cyan-600 duration-500 ease-in-out" />
                                             </a>
                                         </div>
                                     </div>

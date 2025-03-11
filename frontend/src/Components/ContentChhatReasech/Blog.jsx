@@ -18,7 +18,7 @@ const News = () => {
             const activeArticles = Array.isArray(response.data)
                 ? response.data.filter(
                       (article) => article.category === "Chhat Research"
-                  )
+                  ).sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
                 : [];
             if (activeArticles.length === 0) {
                 setError("No articles available at this time.");

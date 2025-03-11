@@ -1,10 +1,10 @@
 import React from "react";
-
+import ChhatResearchLogo from "../../assets/Images/ChhatResearch/ChhatResearchLogo.png";
 const Sidebar = ({ activeTab, onTabChange, categories }) => {
     return (
         <div className="lg:w-1/4 lg:h-screen">
             <div className="p-4 ps-6">
-                <h1 className="text-lg text-gray-700 font-medium">Chhat Research</h1>
+                <img src={ChhatResearchLogo} alt="Chhat Research Logo" className="h-16" />
             </div>
             <nav className="ms-8">
                 <ul>

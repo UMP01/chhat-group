@@ -7,42 +7,40 @@ const History = () => {
             <hr class="w-full mt-3 mb-5 border" />
             <div className="mb-10">
                 <span className="font-medium bg-cyan-600 p-2 rounded-lg text-cyan-700 bg-opacity-20">
-                    2022 - 2023
+                    2022 - 2024
                 </span>
                 <h5 className="mt-4 font-medium text-cyan-700 mb-2">
                     AutoMotive
                 </h5>
                 <li className="text-gray-700 text-sm sm:text-base md:text-base lg:textbase font-medium">
                     To assess the total number of targeted outlets that sell
-                    motor oil & spare parts 14 key locations.
+                    motor oil & spare parts <b>14 key locations.</b>
                 </li>
                 <h5 className="mt-4 font-medium text-cyan-700 mb-2">
                     Alcoholic Beverages
                 </h5>
                 <li className="text-gray-700 font-medium text-sm sm:text-base md:text-base lg:textbase">
                     To understand overall execution quality & adherence of
-                    fridge deployment program for outlets 5 key locations.
+                    fridge deployment program for outlets <b>5 key locations</b>
                 </li>
                 <h5 className="mt-4 font-medium text-cyan-700 mb-2">
                     Alcoholic Beverages
                 </h5>
                 <li className="text-gray-700 font-medium text-sm sm:text-base md:text-base lg:textbase">
                     To understand overall execution quality & adherence of TOFT
-                    to icebox deployment program for outlets 14 key locations.
+                    to icebox deployment program for outlets <b>14 key locations</b>
                 </li>
                 <h5 className="mt-4 font-medium text-cyan-700 mb-2">
                     Alcoholic Beverages
                 </h5>
                 <li className="text-gray-700 font-medium text-sm sm:text-base md:text-base lg:textbase">
-                    To check outlet status & sales volume of key premium brands
-                    9 key locations.
+                    To check outlet status & sales volume of key premium brands <b>9 key locations</b>
                 </li>
                 <h5 className="mt-4 font-medium text-cyan-700 mb-2">
                     Alcoholic Beverages
                 </h5>
                 <li className="text-gray-700 font-medium text-sm sm:text-base md:text-base lg:textbase">
-                    To check outlet status & sales volume of key stout brands 5
-                    key locations.
+                    To check outlet status & sales volume of key stout brands <b>5 key locations</b>
                 </li>
             </div>
 

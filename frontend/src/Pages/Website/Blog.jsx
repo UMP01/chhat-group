@@ -24,7 +24,7 @@ const News = () => {
             } else {
                 const activeArticles = response.data.filter(
                     (article) => article.category === "Chhat Group"
-                );
+                ).sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
                 setArticles(activeArticles);
                 if (activeArticles.length === 0) {
                     setError("No blog available at this time");

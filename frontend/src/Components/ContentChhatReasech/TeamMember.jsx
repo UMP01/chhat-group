@@ -9,6 +9,8 @@ import profile06 from "../../assets/Images/ChhatResearch/Pic06.jpg";
 import profile07 from "../../assets/Images/ChhatResearch/Pic07.jpg";
 import profile08 from "../../assets/Images/ChhatResearch/Pic08.jpg";
 import profile09 from "../../assets/Images/ChhatResearch/Pic09.jpg";
+import SakSethSou from "../../assets/Images/ChhatResearch/SakSethSou.png";
+import SopanhaMak from "../../assets/Images/ChhatResearch/SopanhaMak.png";
 import profile10 from "../../assets/Images/ChhatResearch/Pic10.jpg";
 import profile11 from "../../assets/Images/ChhatResearch/Pic11.jpg";
 import profile12 from "../../assets/Images/ChhatResearch/Pic12.jpg";
@@ -105,12 +107,12 @@ const teamMembers = [
         image: profile07,
     },
     {
-        name: "Rin Ratanakvisal",
+        name: "SakSeth Sou",
         location: "Cambodia",
-        role: "Association Research Executive",
-        email: "ratanakvisal.rin@chhatgroup.com",
-        mailLink: "mailto:ratanakvisal.rin@chhatgroup.com",
-        image: profile09,
+        role: "Senior Research Executive",
+        email: "sakseth.sou@chhatgroup.com",
+        mailLink: "mailto:sakseth.sou@chhatgroup.com",
+        image: SakSethSou,
     },
     {
         name: "Lay Kimly",
@@ -121,12 +123,12 @@ const teamMembers = [
         image: profile12,
     },
     {
-        name: "Meach Socheata",
+        name: "Sopanha Mak",
         location: "Cambodia",
         role: "Research Executive",
-        email: "socheata.meach@chhatgroup.com",
-        mailLink: "mailto:socheata.meach@chhatgroup.com",
-        image: profile08,
+        email: "sopanha.mak@chhatgroup.com",
+        mailLink: "mailto:sopanha.mak@chhatgroup.com",
+        image: SopanhaMak,
     },
 ];
 
