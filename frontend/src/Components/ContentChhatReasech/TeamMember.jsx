@@ -125,7 +125,7 @@ const teamMembers = [
     {
         name: "Sopanha Mak",
         location: "Cambodia",
-        role: "Research Executive",
+        role: "Senior Research Executive",
         email: "sopanha.mak@chhatgroup.com",
         mailLink: "mailto:sopanha.mak@chhatgroup.com",
         image: SopanhaMak,
