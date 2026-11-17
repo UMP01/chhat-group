@@ -1,7 +1,6 @@
 import React from "react";
 import TeamMember from "./TeamMember";
 import profile01 from "../../assets/Images/AboutUs/profile-01.png"; 
-import profile02 from "../../assets/Images/AboutUs/profile-02.png"; 
 import profile03 from "../../assets/Images/AboutUs/profile03.jpg"; 
 import profile04 from "../../assets/Images/AboutUs/profile-04.jpg";
 import sovichea from "../../assets/Images/AboutUs/sovichea.png";
@@ -26,15 +25,6 @@ const teamMembers = [
         email: "lengchanchhaya.chhat@chhatgroup.com",
         mailLink: "mailto:lengchanchhaya.chhat@chhatgroup.com",
         image: profile03,
-    },
-    {
-        name: "Chhat Lengchanbunchay",
-        role: "Digital Marketing Manager",
-        location: "Cambodia",
-        phone: "(+855) 12-938-400",
-        email: "lengbunchhay.chhat@chhatgroup.com",
-        mailLink: "mailto:lengbunchhay.chhat@chhatgroup.com",
-        image: profile02,
     },
     {
         name: "Mengleng Touch",

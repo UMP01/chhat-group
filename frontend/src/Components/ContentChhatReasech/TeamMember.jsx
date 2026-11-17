@@ -6,7 +6,6 @@ import profile03 from "../../assets/Images/ChhatResearch/Pic02.jpg";
 import profile04 from "../../assets/Images/ChhatResearch/Pic03.jpg";
 import profile05 from "../../assets/Images/ChhatResearch/Pic04.jpg";
 import profile06 from "../../assets/Images/ChhatResearch/Pic06.jpg";
-import profile07 from "../../assets/Images/ChhatResearch/Pic07.jpg";
 import profile08 from "../../assets/Images/ChhatResearch/Pic08.jpg";
 import profile09 from "../../assets/Images/ChhatResearch/Pic09.jpg";
 import SakSethSou from "../../assets/Images/ChhatResearch/SakSethSou.png";
@@ -14,8 +13,6 @@ import SopanhaMak from "../../assets/Images/ChhatResearch/SopanhaMak.png";
 import profile10 from "../../assets/Images/ChhatResearch/Pic10.jpg";
 import profile11 from "../../assets/Images/ChhatResearch/Pic11.jpg";
 import profile12 from "../../assets/Images/ChhatResearch/Pic12.jpg";
-import profile13 from "../../assets/Images/ChhatResearch/Pic13.jpg";
-import profile14 from "../../assets/Images/ChhatResearch/Pic14.jpg";
 
 const teamMembers = [
     {
@@ -75,36 +72,12 @@ const teamMembers = [
         image: profile11,
     },
     {
-        name: "Chea Sreymom",
-        location: "Cambodia",
-        role: "Sr.Moderator",
-        email: "sreymom.chea@chhatgroup.com",
-        mailLink: "mailto:sreymom.chea@chhatgroup.com",
-        image: profile13,
-    },
-    {
-        name: "Chhor Chanthyda",
-        location: "Cambodia",
-        role: "Sr.Moderator",
-        email: "chanthyda.chhor@chhatgroup.com",
-        mailLink: "mailto:chanthyda.chhor@chhatgroup.com",
-        image: profile14,
-    },
-    {
         name: "Tim Theavy",
         location: "Cambodia",
         role: "Association Research Manager",
         email: "theavy.tim@chhatgroup.com",
         mailLink: "mailto:theavy.tim@chhatgroup.com",
         image: profile06,
-    },
-    {
-        name: "Lorn Sipheng",
-        location: "Cambodia",
-        role: "Association Research Manager",
-        email: "sipheng.lorn@chhatgroup.com",
-        mailLink: "mailto:sipheng.lorn@chhatgroup.com",
-        image: profile07,
     },
     {
         name: "SakSeth Sou",
